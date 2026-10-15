@@ -133,6 +133,35 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			}
 		}
 
+		if (ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming) {
+			mixins.add("modernmovement.MixinEntityPlayer");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("modernmovement.client.MixinEntityRenderer");
+				mixins.add("modernmovement.client.MixinRenderManager");
+				mixins.add("modernmovement.client.MixinEntityPlayerSP");
+				mixins.add("modernmovement.client.MixinMovementInputFromOptions");
+				mixins.add("modernmovement.client.MixinRenderPlayer");
+				mixins.add("modernmovement.client.MixinModelBiped");
+			}
+		}
+
+		if (ConfigMixins.enableModernSneaking) {
+			mixins.add("modernmovement.MixinEntitySneakEdge");
+		}
+
+		if (ConfigMixins.enableModernBreathing) {
+			mixins.add("modernbreathing.MixinEntityLivingBase");
+		}
+
+		if (ConfigMixins.enableModernSwimming) {
+			mixins.add("modernmovement.MixinEntity");
+			mixins.add("modernmovement.MixinEntityLivingBase");
+			mixins.add("modernmovement.AccessorBlockLiquid");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("modernmovement.client.MixinEntityRendererWaterFog");
+			}
+		}
+
 		if (ConfigMixins.enableDoWeatherCycle) {
 			mixins.add("doweathercycle.MixinCommandHandler");
 			mixins.add("doweathercycle.MixinWorldInfo");

@@ -9,9 +9,11 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static boolean enableFrostWalker;
 	public static boolean enableMending;
 	public static boolean enableSwiftSneak;
+	public static boolean enableDepthStrider;
 	public static int mendingID;
 	public static int frostWalkerID;
 	public static int swiftSneakID;
+	public static int depthStriderID;
 	public static int levitationID;
 
 	static final String catEnchants = "enchantments";
@@ -36,6 +38,8 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		mendingID = getInt("mendingID", catEnchants, 201, 0, Short.MAX_VALUE, "");
 		enableSwiftSneak = getBoolean("swiftSneak", catEnchants, true, "");
 		swiftSneakID = getInt("swiftSneakID", catEnchants, 202, 0, Short.MAX_VALUE, "");
+		enableDepthStrider = getBoolean("depthStrider", catEnchants, true, "Faster movement in water. Needs enableModernSwimming in mixins.cfg, since the effect is part of the modern water movement.");
+		depthStriderID = getInt("depthStriderID", catEnchants, 203, 0, Short.MAX_VALUE, "");
 
 		//potions
 		levitationID = getInt("levitationID", catPotions, 27, 0, Short.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");

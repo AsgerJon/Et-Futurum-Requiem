@@ -3,7 +3,9 @@ package ganymedes01.etfuturum;
 import baubles.common.lib.PlayerHandler;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
+import ganymedes01.etfuturum.enchantment.DepthStrider;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.enchantment.SwiftSneak;
@@ -30,6 +32,7 @@ public class ModEnchantments {
 	public static Enchantment frostWalker;
 	public static Enchantment mending;
 	public static Enchantment swiftSneak;
+	public static Enchantment depthStrider;
 
 	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap<>();
 
@@ -40,6 +43,8 @@ public class ModEnchantments {
 			mending = new Mending();
 		if (ConfigEnchantsPotions.enableSwiftSneak)
 			swiftSneak = new SwiftSneak();
+		if (ConfigEnchantsPotions.enableDepthStrider && ConfigMixins.enableModernSwimming)
+			depthStrider = new DepthStrider();
 	}
 
 	// Frost Walker logic

@@ -27,6 +27,9 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean enableSpectatorMode;
 	public static boolean enableElytra;
 	public static boolean enableNewElytraTakeoffLogic;
+	public static boolean enableModernSneaking;
+	public static boolean enableModernSwimming;
+	public static boolean enableModernBreathing;
 	public static boolean enableDoWeatherCycle;
 	public static boolean enableRandomTickSpeed;
 	public static float creativeFlightSpeedModifier;
@@ -91,6 +94,9 @@ public class ConfigMixins extends ConfigBase {
 		blockHopperInteraction = getBoolean("blockHopperInteraction", catBackport, true, "Allows some blocks without tile entities (e.g. composters) to interact with hoppers. May still not interact with modded pipes.\nModified Classes: net.minecraft.tileentity.TileEntityHopper");
 
 		enableNewElytraTakeoffLogic = getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
+		enableModernSneaking = getBoolean("enableModernSneaking", catBackport, true, "Modern (1.14+) sneaking: a 1.5 block tall hitbox and lower eyes while crouching, so you fit under slabs, a smooth camera when the eye height changes, and automatic crouching where you can't stand up. Sneaking stops you at drops deeper than 0.6 blocks instead of a full block.\nModified Classes: net.minecraft.entity.Entity net.minecraft.entity.player.EntityPlayer\nModified Client Classes: net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.renderer.EntityRenderer net.minecraft.client.renderer.entity.RenderManager net.minecraft.util.MovementInputFromOptions net.minecraft.client.renderer.entity.RenderPlayer net.minecraft.client.model.ModelBiped");
+		enableModernSwimming = getBoolean("enableModernSwimming", catBackport, true, "Modern (1.13+) swimming and crawling: sprint in water to swim with a 0.6 block tall hitbox, and crawl through 1 block tall gaps. Includes the 1.13+ water physics for players: water detection that works with the small hitbox, slower sinking, the modern sprint rules, and modern underwater vision (your eyes adjust to the water over 30 seconds; Respiration no longer brightens the fog).\nModified Classes: net.minecraft.entity.Entity net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer\nModified Client Classes: net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.renderer.EntityRenderer net.minecraft.client.renderer.entity.RenderManager net.minecraft.util.MovementInputFromOptions net.minecraft.client.renderer.entity.RenderPlayer net.minecraft.client.model.ModelBiped");
+		enableModernBreathing = getBoolean("enableModernBreathing", catBackport, true, "Modern air bubbles: they burst one by one with a pop that gets louder as you run out, empty outlines show the air you've used, and air comes back gradually (4 per tick) instead of all at once when you surface.\nModified Classes: net.minecraft.entity.EntityLivingBase");
 		enableDoWeatherCycle = getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		enableRandomTickSpeed = getBoolean("enableRandomTickSpeed", catBackport, true, "Add the randomTickSpeed game rule from 1.8+");
 		creativeFlightSpeedModifier = getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 5, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");

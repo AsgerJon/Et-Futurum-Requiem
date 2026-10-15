@@ -9,6 +9,7 @@ enchantment.waterWalker=Wasserläufer
 enchantment.binding_curse=§cFluch der Bindung
 enchantment.vanishing_curse=§cFluch des Verschwindens
 enchantment.swift_sneak=Huschen
+enchantment.depth_strider=Wasserläufer
 
 # Effekte
 potion.levitation=Schwebekraft

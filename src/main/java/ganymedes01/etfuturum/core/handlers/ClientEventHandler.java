@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
+import ganymedes01.etfuturum.client.gui.ModernAirBubbles;
 import ganymedes01.etfuturum.client.EndFlashState;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.SpawnChunkProgress;
@@ -927,6 +928,14 @@ public class ClientEventHandler {
 	public void onPreRenderOverlay(RenderGameOverlayEvent.Pre event) {
 		if (ConfigMixins.worldSaveThumbnails && event.type == RenderGameOverlayEvent.ElementType.ALL) {
 			WorldIconManager.onPreRenderOverlay();
+		}
+	}
+
+	@SubscribeEvent
+	public void onRenderAirBubbles(RenderGameOverlayEvent.Pre event) {
+		if (ConfigMixins.enableModernBreathing && event.type == RenderGameOverlayEvent.ElementType.AIR) {
+			event.setCanceled(true);
+			ModernAirBubbles.render(mc, event.resolution.getScaledWidth(), event.resolution.getScaledHeight());
 		}
 	}
 

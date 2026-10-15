@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.enchantment;
 
+import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -32,5 +33,10 @@ public class FrostWalker extends Enchantment {
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
 		return stack != null && stack.getItem() == Items.book;
+	}
+
+	@Override
+	public boolean canApplyTogether(Enchantment other) {
+		return super.canApplyTogether(other) && (ModEnchantments.depthStrider == null || other != ModEnchantments.depthStrider);
 	}
 }
