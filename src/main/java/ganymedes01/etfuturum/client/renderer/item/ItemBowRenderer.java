@@ -11,6 +11,7 @@ import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import net.minecraftforge.client.IItemRenderer;
 
 public class ItemBowRenderer implements IItemRenderer {
@@ -52,6 +53,7 @@ public class ItemBowRenderer implements IItemRenderer {
 		if (icon == null)
 			icon = ((TextureMap) textureManager.getTexture(resource)).getAtlasSprite("missingno");
 
+		boolean alphaTest = GL11.glIsEnabled(GL11.GL_ALPHA_TEST);
 		OpenGLHelper.pushMatrix();
 		textureManager.bindTexture(resource);
 
@@ -65,7 +67,9 @@ public class ItemBowRenderer implements IItemRenderer {
 		renderItem.renderIcon(0, 0, icon, 16, 16);
 
 		OpenGLHelper.enableLighting();
-		OpenGLHelper.disableAlpha();
+		if (!alphaTest) {
+			OpenGLHelper.disableAlpha();
+		}
 		OpenGLHelper.disableBlend();
 
 		if (stack.hasEffect(0))

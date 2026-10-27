@@ -38,10 +38,10 @@ import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
-import ganymedes01.etfuturum.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.FallFlying;
 
 import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
+import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityFox;
@@ -62,6 +62,8 @@ import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
+import ganymedes01.etfuturum.network.OfflineSkinMessage;
+import ganymedes01.etfuturum.skins.OfflineSkins;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
@@ -90,7 +92,6 @@ import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityTrackerEntry;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
@@ -139,6 +140,7 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 
@@ -238,6 +240,17 @@ public class ServerEventHandler {
 		droppedEntityItems.invalidateAll();
 	}
 
+	/** The skin data an offline server looked up for a player goes to that player's own client (OfflineSkins). */
+	@SubscribeEvent
+	public void onPlayerLoggedIn(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
+		if (ConfigMixins.offlineSkins && event.player instanceof EntityPlayerMP player && OfflineSkins.wasResolved(player.getGameProfile())) {
+			com.mojang.authlib.properties.Property textures = OfflineSkins.textures(player.getGameProfile());
+			if (textures != null && textures.getSignature() != null) {
+				EtFuturum.networkWrapper.sendTo(new OfflineSkinMessage(player.getCommandSenderName(), textures.getValue(), textures.getSignature()), player);
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onWorldUnload(WorldEvent.Unload event) {
 		if (!event.world.isRemote) {
@@ -289,10 +302,6 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.stepHeightFix && entity.stepHeight == .5F) {
 			entity.stepHeight = .6F;
-		}
-
-		if (ConfigMixins.enableElytra && entity instanceof IElytraPlayer) {
-			((IElytraPlayer) entity).tickElytra();
 		}
 
 		if (EntitySquid.class.equals(entity.getClass())) {
@@ -526,7 +535,7 @@ public class ServerEventHandler {
 		if (event.result == null)
 			return;
 		IInventory invt = event.entityPlayer.inventory;
-		for (int i = 0; i < invt.getSizeInventory(); i++) {
+		for (int i : Offhand.slotsOffhandFirst(invt)) {
 			ItemStack stack = invt.getStackInSlot(i);
 			if (stack == null || stack.stackSize <= 0)
 				continue;
@@ -546,7 +555,7 @@ public class ServerEventHandler {
 			return;
 
 		IInventory invt = event.entityPlayer.inventory;
-		for (int i = 0; i < invt.getSizeInventory(); i++) {
+		for (int i : Offhand.slotsOffhandFirst(invt)) {
 			ItemStack arrow = invt.getStackInSlot(i);
 			if (arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.TIPPED_ARROW.get()) {
 				float charge = event.charge / 20.0F;
@@ -786,7 +795,7 @@ public class ServerEventHandler {
 			ItemStack heldStack = player.getHeldItem();
 			World world = event.world;
 			//Firework boosting
-			if (ConfigMixins.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && ((IElytraPlayer) player).etfu$isElytraFlying()) {
+			if (ConfigMixins.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && FallFlying.isFallFlying(player)) {
 				player.swingItem();
 				if (!world.isRemote) {
 					EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
@@ -795,6 +804,7 @@ public class ServerEventHandler {
 					if (!player.capabilities.isCreativeMode) {
 						--heldStack.stackSize;
 					}
+					player.addStat(StatList.objectUseStats[Item.getIdFromItem(Items.fireworks)], 1);
 					event.useItem = Result.ALLOW;
 				}
 			}
@@ -1898,8 +1908,15 @@ public class ServerEventHandler {
 		if (entity.getHealth() > Math.round(event.ammount)) {
 			return;
 		}
-		if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
-			return;
+		// Either hand, the main hand first (SPEC-modern-movement.md §36.2).
+		ItemStack totem = entity.getHeldItem();
+		boolean inOffhand = false;
+		if (totem == null || totem.getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
+			totem = entity instanceof EntityPlayer ? Offhand.getOffhand((EntityPlayer) entity) : null;
+			if (totem == null || totem.getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
+				return;
+			}
+			inOffhand = true;
 		}
 
 		if (entity instanceof EntityLiving || entity instanceof EntityPlayer) {
@@ -1921,7 +1938,13 @@ public class ServerEventHandler {
 			}
 			if (entity instanceof EntityPlayer) {
 				((EntityPlayer) entity).addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
-				((EntityPlayer) entity).destroyCurrentEquippedItem();
+				if (inOffhand) {
+					if (--totem.stackSize <= 0) {
+						Offhand.setOffhand((EntityPlayer) entity, null);
+					}
+				} else if (--totem.stackSize <= 0) {
+					((EntityPlayer) entity).destroyCurrentEquippedItem();
+				}
 			}
 		}
 	}
@@ -1989,29 +2012,6 @@ public class ServerEventHandler {
 					lastAttackedAtYaw.get(e.player).setValue(e.player.attackedAtYaw);
 				}
 			}
-			if (ConfigMixins.enableElytra) {
-				boolean isElytraFlying = ((IElytraPlayer) e.player).etfu$isElytraFlying();
-				if (e.player instanceof EntityPlayerMP && isElytraFlying) {
-					((EntityPlayerMP) e.player).playerNetServerHandler.floatingTickCount = 0;
-				}
-				if (isElytraFlying != ((IElytraPlayer) e.player).etfu$lastElytraFlying()) {
-					float f = 0.6f;
-					float f1 = isElytraFlying ? 0.6f : 1.8f;
-
-					if (f != e.player.width || f1 != e.player.height) {
-						// Always reset hitbox. For future reference, Backlytra used world.func_147461_a to check that there was nothing in the bounding box.
-						float f2 = e.player.width;
-						e.player.width = f;
-						e.player.height = f1;
-						e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
-
-						if (e.player.width > f2 && !e.player.worldObj.isRemote) {
-							e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
-						}
-					}
-					((IElytraPlayer) e.player).etfu$setLastElytraFlying(isElytraFlying);
-				}
-			}
 		}
 	}
 
@@ -2061,24 +2061,7 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
-	@SuppressWarnings("unchecked")
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
-		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer ws) {
-			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>) ws.getEntityTracker().trackedEntities) {
-				if (ete != null && ete.myEntity instanceof IElytraPlayer elb) {
-					boolean flying = elb.etfu$isElytraFlying();
-					if (!flying && ((IElytraEntityTrackerEntry) ete).etfu$getWasSendingVelUpdates()) {
-						ete.sendVelocityUpdates = false;
-					} else if (flying) {
-						if (!ete.sendVelocityUpdates) {
-							((IElytraEntityTrackerEntry) ete).etfu$setWasSendingVelUpdates(true);
-						}
-						ete.sendVelocityUpdates = true;
-					}
-				}
-			}
-		}
-
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
 			DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
 		}
@@ -2179,7 +2162,8 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load e) {
-		if (ConfigMixins.enableElytra)
+		// Only add the rule when the world doesn't have it yet, so a saved value isn't reset on every load.
+		if (ConfigMixins.enableElytra && !e.world.getGameRules().hasRule("disableElytraMovementCheck"))
 			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 

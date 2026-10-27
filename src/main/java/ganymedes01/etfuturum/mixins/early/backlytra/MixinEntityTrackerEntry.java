@@ -1,22 +1,25 @@
 package ganymedes01.etfuturum.mixins.early.backlytra;
 
-import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import ganymedes01.etfuturum.elytra.FallFlying;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTrackerEntry;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(EntityTrackerEntry.class)
-public class MixinEntityTrackerEntry implements IElytraEntityTrackerEntry {
-	@Unique
-	private boolean etfu$wasSendingVelUpdates;
+public class MixinEntityTrackerEntry {
 
-	@Override
-	public boolean etfu$getWasSendingVelUpdates() {
-		return etfu$wasSendingVelUpdates;
-	}
+	@Shadow
+	public Entity myEntity;
 
-	@Override
-	public void etfu$setWasSendingVelUpdates(boolean b) {
-		etfu$wasSendingVelUpdates = b;
+	/**
+	 * Gliding players' velocity is sent to everyone tracking them, like modern does for anything fall flying (§18.4).
+	 * Other clients use it for the wings, the body roll and the limb slow-down.
+	 */
+	@ModifyExpressionValue(method = "sendLocationToAllClients", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/EntityTrackerEntry;sendVelocityUpdates:Z", ordinal = 0))
+	private boolean etfu$sendGlidingVelocity(boolean sendVelocityUpdates) {
+		return sendVelocityUpdates || FallFlying.isFallFlying(myEntity);
 	}
 }

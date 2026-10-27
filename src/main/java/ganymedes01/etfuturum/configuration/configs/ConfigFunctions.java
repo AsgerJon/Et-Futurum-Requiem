@@ -154,6 +154,10 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean dropVehiclesTogether;
 	public static boolean enableNewF3Behavior;
+	public static boolean mainHandLeft;
+	public static float fovEffectScale;
+	public static boolean skinCape, skinJacket, skinLeftSleeve, skinRightSleeve, skinLeftPantsLeg, skinRightPantsLeg, skinHat;
+	public static int skinPartsDataWatcherId;
 	public static boolean enableNewTextures;
 	public static boolean enableLangReplacements;
 	public static boolean enableFillCommand;
@@ -162,6 +166,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableSubtitles;
 	public static byte elytraDataWatcherFlag;
 	public static int poseDataWatcherId;
+	public static int offhandDataWatcherId;
 	public static boolean useStoneHardnessForDeepslate;
 	public static boolean enableDoorRecipeBuffs;
 	public static boolean inventoryBedModels;
@@ -197,7 +202,7 @@ public class ConfigFunctions extends ConfigBase {
 
 		//changes
 		enableExtraBurnableBlocks = getBoolean("enableExtraBurnableBlocks", catChanges, true, "Fences, gates and dead bushes burn");
-		enableUpdatedHarvestLevels = getBoolean("enableUpdatedHarvestLevels", catChanges, true, "Packed Ice, ladders and melons have preferred tools");
+		enableUpdatedHarvestLevels = getBoolean("enableUpdatedHarvestLevels", catChanges, true, "Packed Ice, ladders and melons have preferred tools. Pistons, sticky pistons and piston heads are mined fastest with a pickaxe (Efficiency counts) and are 1.5 hard, as since 1.17.");
 		enableSilkTouchingMushrooms = getBoolean("enableSilkMushroom", catChanges, true, "Mushroom blocks can be silk-touched");
 		enableSticksFromDeadBushes = getBoolean("enableBushSticks", catChanges, true, "Dead Bushes drop sticks");
 		enableSkullDrop = getBoolean("enableSkullDrop", catChanges, true, "Skulls drop from charged creeper kills");
@@ -225,19 +230,30 @@ public class ConfigFunctions extends ConfigBase {
 		registerRawItemAsOre = getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
 		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[]{"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
 		elytraDataWatcherFlag = (byte) getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
-		poseDataWatcherId = getInt("poseDataWatcherId", catSettings, 26, 2, 31, "The DataWatcher id used to sync a player's pose (standing, crouching, swimming, gliding) when enableModernSneaking or enableModernSwimming is on. Vanilla players use 0, 1, 6-9 and 16-18. Must be the same on the server and all clients.\nIf you're getting a crash about a duplicate DataWatcher id, another mod uses this id too: change it to a free one.");
+		poseDataWatcherId = getInt("poseDataWatcherId", catSettings, 26, 2, 31, "The DataWatcher id used to sync a player's pose (standing, crouching, swimming, gliding) when enableModernSneaking, enableModernSwimming or enableElytra is on, and the off-hand's using hand and main arm when enableOffhand is on. Vanilla players use 0, 1, 6-9 and 16-18. Must be the same on the server and all clients.\nIf you're getting a crash about a duplicate DataWatcher id, another mod uses this id too: change it to a free one.");
+		skinPartsDataWatcherId = getInt("skinPartsDataWatcherId", catSettings, 28, 2, 31, "The DataWatcher id used to sync which parts of a player's skin are shown (Skin Customization) when skinCustomization is on in mixins.cfg. Vanilla players use 0, 1, 6-9 and 16-18; change this only if another mod uses 28 on players.");
+		offhandDataWatcherId = getInt("offhandDataWatcherId", catSettings, 27, 2, 31, "The DataWatcher id used to sync a player's off-hand item to other players when enableOffhand is on in mixins.cfg. Vanilla players use 0, 1, 6-9 and 16-18; the pose byte uses poseDataWatcherId. Must be the same on the server and all clients.\nIf you're getting a crash about a duplicate DataWatcher id, another mod uses this id too: change it to a free one.");
 		useStoneHardnessForDeepslate = getBoolean("useStoneHardnessForDeepslate", catSettings, false, "Whether deepslate blocks should have the same hardness as their stone counterparts. This allows the asthetics of deepslate without the added hardness.");
 
 		//client
 		enableTransparentAmour = getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
 		enableBowRendering = getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
 		enableFancySkulls = getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
-		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, false, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
+		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
 		enableExtraF3HTooltips = getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
 		shulkerBoxTooltipLines = getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
+		skinCape = getBoolean("skinCape", catClient, true, "Skin Customization: show your cape. All of these are set from Options -> Skin Customization... in the game and reach every player.");
+		skinJacket = getBoolean("skinJacket", catClient, true, "Skin Customization: show the jacket, the second layer over the body (needs enablePlayerSkinOverlay).");
+		skinLeftSleeve = getBoolean("skinLeftSleeve", catClient, true, "Skin Customization: show the left sleeve (needs enablePlayerSkinOverlay).");
+		skinRightSleeve = getBoolean("skinRightSleeve", catClient, true, "Skin Customization: show the right sleeve (needs enablePlayerSkinOverlay).");
+		skinLeftPantsLeg = getBoolean("skinLeftPantsLeg", catClient, true, "Skin Customization: show the left pants leg (needs enablePlayerSkinOverlay).");
+		skinRightPantsLeg = getBoolean("skinRightPantsLeg", catClient, true, "Skin Customization: show the right pants leg (needs enablePlayerSkinOverlay).");
+		skinHat = getBoolean("skinHat", catClient, true, "Skin Customization: show the hat, the second layer over the head.");
+		fovEffectScale = getFloat("fovEffectScale", catClient, 1.0F, 0.0F, 1.0F, "How much the field of view follows speed, flying, a drawn bow and water: modern's FOV Effects setting (Video Settings has the slider; 1 = vanilla, 0 = the FOV never changes). Needs fovEffects in mixins.cfg.");
+		mainHandLeft = getBoolean("mainHandLeft", catClient, false, "Your main hand is your left hand (modern's Main Hand option, 1.9+): your main-hand item is in your left arm and the off-hand item in your right, in first person and for everyone else, swings go with the main arm, and the hotbar's off-hand slot sits to the right. It changes nothing about what the hands do. Sent to the server when you join a world and when this config is reloaded. Needs the off-hand (enableOffhand in mixins.cfg).");
 		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
-		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass, sponge, potion, glass bottle and tipped arrow textures with their modern versions");
 		enableLangReplacements = getBoolean("enableLangReplacements", catClient, true, "Replaces some lang keys with a more modern version, such as calling some old wood items \"oak\", calling beds \"Red Bed\", and so on. Full list of replaced keys can be seen in the mod jar at resources/resourcepacks/vanilla_overrides/assets/minecraft/lang");
 		inventoryBedModels = getBoolean("inventoryBedModels", catClient, true, "Render beds with a 3D inventory model instead of a 2D sprite.");
 
@@ -276,5 +292,35 @@ public class ConfigFunctions extends ConfigBase {
 				Logger.warn("Et Futurum Requiem's skin backport has been disabled to prevent conflicts.");
 			}
 		}
+	}
+
+	/** The shown skin parts in SkinPart order. */
+	public static boolean[] skinPartsShown() {
+		return new boolean[] {skinCape, skinJacket, skinLeftSleeve, skinRightSleeve, skinLeftPantsLeg, skinRightPantsLeg, skinHat};
+	}
+
+	/** The FOV Effects slider's value, kept in this config file as modern keeps it in its options. */
+	public static void saveFovEffectScale(float value) {
+		fovEffectScale = value;
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, "fovEffectScale", 1.0D).set(value);
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.save();
+	}
+
+	/** The Skin Customization screen's choices, kept in this config file as modern keeps them in its options. */
+	public static void saveSkinOptions(boolean[] shown, boolean leftHanded) {
+		skinCape = shown[0];
+		skinJacket = shown[1];
+		skinLeftSleeve = shown[2];
+		skinRightSleeve = shown[3];
+		skinLeftPantsLeg = shown[4];
+		skinRightPantsLeg = shown[5];
+		skinHat = shown[6];
+		mainHandLeft = leftHanded;
+		String[] keys = {"skinCape", "skinJacket", "skinLeftSleeve", "skinRightSleeve", "skinLeftPantsLeg", "skinRightPantsLeg", "skinHat"};
+		for (int i = 0; i < keys.length; i++) {
+			ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, keys[i], true).set(shown[i]);
+		}
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, "mainHandLeft", false).set(leftHanded);
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.save();
 	}
 }

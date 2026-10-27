@@ -118,6 +118,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 
 		if (ConfigMixins.enableElytra) {
 			mixins.add("backlytra.MixinEntityPlayer");
+			mixins.add("backlytra.MixinItemFirework");
 			mixins.add("backlytra.MixinEntityLivingBase");
 			mixins.add("backlytra.MixinNetHandlerPlayServer");
 			mixins.add("backlytra.MixinEntityTrackerEntry");
@@ -125,23 +126,24 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 				mixins.add("backlytra.thaumcraft.MixinEventHandlerEntity");
 			}
 			if (side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("backlytra.client.MixinAbstractClientPlayer");
 				mixins.add("backlytra.client.MixinEntityPlayerSP");
 				mixins.add("backlytra.client.MixinRenderPlayer");
 				mixins.add("backlytra.client.MixinModelBiped");
-				mixins.add("backlytra.client.MixinEntityRenderer");
 			}
 		}
 
-		if (ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming) {
+		// The pose system; the elytra's hitbox and eye height come from it too (ModernMovement.isPoseSystemEnabled).
+		if (ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming || ConfigMixins.enableElytra) {
 			mixins.add("modernmovement.MixinEntityPlayer");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("modernmovement.client.MixinEntityRenderer");
+				mixins.add("modernmovement.client.MixinRenderGlobalHorizon");
 				mixins.add("modernmovement.client.MixinRenderManager");
 				mixins.add("modernmovement.client.MixinEntityPlayerSP");
 				mixins.add("modernmovement.client.MixinMovementInputFromOptions");
 				mixins.add("modernmovement.client.MixinRenderPlayer");
 				mixins.add("modernmovement.client.MixinModelBiped");
+				mixins.add("modernmovement.client.MixinItemRenderer");
 			}
 		}
 
@@ -153,12 +155,177 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("modernbreathing.MixinEntityLivingBase");
 		}
 
+		if (ConfigBlocksItems.enableBubbleColumns) {
+			mixins.add("bubblecolumn.MixinEntityLivingBase");
+			mixins.add("bubblecolumn.MixinEntityItem");
+			mixins.add("bubblecolumn.MixinEntityXPOrb");
+		}
+
+		if (ConfigMixins.enableFloatingItems) {
+			mixins.add("floatingitems.MixinEntityItem");
+			mixins.add("floatingitems.MixinEntityXPOrb");
+		}
+
+		if (ConfigMixins.rightClickArmorSwap) {
+			mixins.add("armorswap.MixinItemArmor");
+		}
+
+		if (ConfigMixins.pickBlockFromInventory && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("pickblock.client.MixinForgeHooks");
+		}
+
+		if (ConfigMixins.effectPanelAlphaFix && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("effectpanel.client.MixinInventoryEffectRenderer");
+		}
+
+		if (ConfigMixins.placementFacingByLook) {
+			mixins.add("placementfacing.MixinBlockPistonBase");
+		}
+
+		// betterPistons overwrites onBlockEventReceived (backinslime.MixinBlockPistonBase) and applies this rule itself
+		if (ConfigMixins.modernPistonEvents && !ConfigMixins.betterPistons) {
+			mixins.add("pistonevents.MixinBlockPistonBase");
+		}
+
+		if (ConfigMixins.modernBlockUsePackets) {
+			// The server's placement check must count the placing player once the client no longer filters clicks.
+			mixins.add("blockusepacket.MixinWorld");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("blockusepacket.client.MixinPlayerControllerMP");
+			}
+		}
+
+		if (ConfigMixins.shiftClickIntoCraftingGrid) {
+			mixins.add("craftinggrid.MixinContainerWorkbench");
+		}
+
+		if (ConfigMixins.itemsBackOnClose) {
+			mixins.add("containerclose.MixinContainerClose");
+		}
+
+		if (ConfigMixins.setblockAtLookedBlock) {
+			mixins.add("setblocklook.MixinCommandSetBlock");
+		}
+
+		if ((ConfigMixins.chatHistoryBetweenWorlds || ConfigMixins.chatLogBetweenWorlds || ConfigMixins.chatHistoryAcrossRestarts) && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("chat.client.MixinGuiNewChat");
+		}
+
+		if (ConfigMixins.modernCreativeInventoryTab && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("creativetab.client.MixinGuiContainerCreative");
+		}
+
+		if (ConfigMixins.commandBlockCreativeOnly) {
+			mixins.add("commandblock.MixinBlockCommandBlock");
+		}
+		if (ConfigMixins.portalShatters) {
+			mixins.add("portalbreak.MixinBlockPortal");
+		}
+		if (ConfigMixins.shiftClickEquipsElytra) {
+			mixins.add("elytraequip.MixinContainerPlayer");
+		}
+		if (ConfigMixins.giveAbove64) {
+			mixins.add("givecount.MixinCommandGive");
+		}
+
+		if (ConfigMixins.fovEffects && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("fov.client.MixinEntityPlayerSP");
+			mixins.add("fov.client.MixinEntityRenderer");
+			mixins.add("fov.client.AccessorGuiOptionsRowList");
+			mixins.add("fov.client.MixinGuiVideoSettings");
+		}
+
+		if (ConfigMixins.guiScaleWheel && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("guiscale.client.MixinGuiVideoSettings");
+			mixins.add("guiscale.client.MixinGuiSlot");
+		}
+
+		if (ConfigMixins.offlineSkins) {
+			mixins.add("offlineskins.MixinNetHandlerLoginServer");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("offlineskins.client.MixinSession");
+			}
+		}
+
+		if (ConfigMixins.skinCustomization) {
+			mixins.add("skins.MixinEntityPlayer");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("skins.client.MixinGuiOptions");
+				mixins.add("skins.client.MixinRenderPlayer");
+			}
+		}
+
+		if (ConfigMixins.beaconBeamThroughTransparentBlocks) {
+			mixins.add("beacon.MixinTileEntityBeacon");
+		}
+
+		if (ConfigMixins.modernHunger) {
+			mixins.add("hunger.MixinFoodStats");
+			mixins.add("hunger.MixinEntityPlayer");
+			mixins.add("hunger.MixinDamageSource");
+			mixins.add("hunger.MixinPotion");
+			mixins.add("hunger.MixinBlock");
+		}
+
+		if (ConfigMixins.modernPlacementShape) {
+			mixins.add("placementshape.MixinItemBlock");
+			mixins.add("placementshape.MixinBlockTrapDoor");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("placementshape.client.MixinItemBlock");
+			}
+		}
+
+		if (ConfigMixins.arrowsInheritMotion) {
+			mixins.add("arrowmomentum.MixinEntityPlayer");
+			mixins.add("arrowmomentum.MixinNetHandlerPlayServer");
+			mixins.add("arrowmomentum.MixinEntityArrow");
+		}
+
+		if (ConfigMixins.modernExplosionOrder) {
+			mixins.add("explosionorder.MixinExplosion");
+		}
+
+		if (ConfigMixins.modernKeyRepeat && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("keyrepeat.client.MixinMinecraft");
+		}
+
+		if (ConfigMixins.noPotionGlint && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("potionglint.client.MixinItemPotion");
+		}
+
+		if (ConfigMixins.enableOffhand) {
+			// Backhand and Battlegear 2 are checked at runtime (Offhand.isEnabled); the mixins stay inert then.
+			mixins.add("offhand.MixinInventoryPlayer");
+			mixins.add("offhand.MixinContainerPlayer");
+			mixins.add("offhand.MixinEntityLivingBase");
+			mixins.add("offhand.MixinEntityPlayer");
+			mixins.add("offhand.MixinNetHandlerPlayServer");
+			mixins.add("offhand.MixinItemInWorldManager");
+			mixins.add("offhand.MixinItemBow");
+			mixins.add("offhand.MixinContainer");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("offhand.client.MixinGuiContainer");
+				mixins.add("offhand.client.MixinGuiInventory");
+				mixins.add("offhand.client.MixinGuiContainerCreative");
+				mixins.add("offhand.client.MixinMinecraft");
+				mixins.add("offhand.client.MixinPlayerControllerMP");
+				mixins.add("offhand.client.MixinEntityClientPlayerMP");
+				mixins.add("offhand.client.MixinNetHandlerPlayClient");
+				mixins.add("offhand.client.MixinEntityOtherPlayerMP");
+				mixins.add("offhand.client.MixinItemRenderer");
+				mixins.add("offhand.client.MixinRenderPlayer");
+				mixins.add("offhand.client.MixinModelBiped");
+				mixins.add("offhand.client.MixinEntityPlayerIcon");
+			}
+		}
+
 		if (ConfigMixins.enableModernSwimming) {
 			mixins.add("modernmovement.MixinEntity");
 			mixins.add("modernmovement.MixinEntityLivingBase");
 			mixins.add("modernmovement.AccessorBlockLiquid");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("modernmovement.client.MixinEntityRendererWaterFog");
+				mixins.add("modernmovement.client.MixinActiveRenderInfo");
 			}
 		}
 
@@ -251,6 +418,11 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("blockinventories.MixinTileEntityHopper");
 		}
 
+		if (ConfigMixins.connectionAcceptFix) {
+			mixins.add("networktick.MixinNetworkSystem");
+			mixins.add("networktick.AccessorNetworkManager");
+		}
+
 		if (ConfigMixins.collidedThrowableFix) {
 			mixins.add("projectilecollidefix.MixinEntityThrowable");
 		}
@@ -306,7 +478,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("horsewater.MixinEntityHorse");
 		}
 
-		if (false) { //Does not work for some reason, investigate in 2.6.1
+		if (ConfigMixins.modernMobSpawnLight) {
 			mixins.add("darkspawns.MixinEntityMob");
 		}
 

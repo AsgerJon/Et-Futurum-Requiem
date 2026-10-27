@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.world.end.dimension;
 
+import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
@@ -411,7 +413,7 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 				}
 			}
 
-			if (this.getIslandHeightValue(x, z, 1, 1) > 40.0F) {
+			if (this.getIslandHeightValue(x, z, 1, 1) > 40.0F && !(ConfigWorld.chorusOnlyOnOuterIslands && EtFuturumWorldGenerator.isMainEndIsland(x, z))) {
 				int j = this.rand.nextInt(5);
 
 				for (int k = 0; k < j; ++k) {

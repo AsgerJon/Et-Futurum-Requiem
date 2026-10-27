@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum;
 
 import baubles.common.lib.PlayerHandler;
+import ganymedes01.etfuturum.compat.CompatBackhand;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -9,6 +10,7 @@ import ganymedes01.etfuturum.enchantment.DepthStrider;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.enchantment.SwiftSneak;
+import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -24,6 +26,7 @@ import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -85,7 +88,8 @@ public class ModEnchantments {
 		}
 	}
 
-	// Mending logic
+	// Mending logic, as modern (SPEC-modern-movement.md §38). The pickup isn't cancelled: the orb keeps what the
+	// repairs leave, and vanilla's pickup that follows (delay, animation, sound) gives that to the player.
 	public static void onPlayerPickupXP(PlayerPickupXpEvent event) {
 		EntityPlayer player = event.entityPlayer;
 		EntityXPOrb orb = event.orb;
@@ -94,8 +98,27 @@ public class ModEnchantments {
 		if (!ConfigEnchantsPotions.enableMending)
 			return;
 
-		ArrayList<ItemStack> stacks = new ArrayList<>();
+		orb.xpValue = repairWithExperience(player, orb.xpValue);
+	}
+
+	// Repairs a random damaged Mending item at 2 durability per point, picking again while experience is left
+	private static int repairWithExperience(EntityPlayer player, int xp) {
+		while (xp > 0) {
+			List<ItemStack> damaged = getDamagedMendingItems(player);
+			if (damaged.isEmpty())
+				return xp;
+			ItemStack stack = damaged.get(player.getRNG().nextInt(damaged.size()));
+			int repair = (int) Math.min(stack.getItemDamage(), 2L * xp);
+			stack.setItemDamage(stack.getItemDamage() - repair);
+			xp -= repair / 2;
+		}
+		return 0;
+	}
+
+	private static List<ItemStack> getDamagedMendingItems(EntityPlayer player) {
+		List<ItemStack> stacks = new ArrayList<>();
 		stacks.add(player.getCurrentEquippedItem()); // held
+		stacks.add(ModsList.BACKHAND.isLoaded() ? CompatBackhand.getOffhandItem(player) : Offhand.getOffhand(player));
 		stacks.add(player.getEquipmentInSlot(1)); // boots
 		stacks.add(player.getEquipmentInSlot(2)); // leggings
 		stacks.add(player.getEquipmentInSlot(3)); // chestplate
@@ -106,21 +129,14 @@ public class ModEnchantments {
 				Collections.addAll(stacks, baubles);
 			}
 		}
+		stacks.removeIf(stack -> !isDamagedMendingItem(stack));
+		return stacks;
+	}
 
-		for (ItemStack stack : stacks)
-			if (stack != null && stack.getItemDamage() > 0 && EnchantmentHelper.getEnchantmentLevel(mending.effectId, stack) > 0) {
-				Item item = stack.getItem();
-				if (item == null || !item.isRepairable()) continue;
-				int xp = orb.xpValue;
-				while (xp > 0 && stack.getItemDamage() > 0) {
-					stack.setItemDamage(stack.getItemDamage() - 2);
-					xp--;
-				}
-				if (xp <= 0) {
-					orb.setDead();
-					event.setCanceled(true);
-					return;
-				}
-			}
+	private static boolean isDamagedMendingItem(ItemStack stack) {
+		Item item = stack == null ? null : stack.getItem();
+		// isRepairable means durability and no subtypes, so mod items using their damage value as a subtype stay out
+		return item != null && item.isRepairable() && stack.getItemDamage() > 0
+			&& EnchantmentHelper.getEnchantmentLevel(mending.effectId, stack) > 0;
 	}
 }

@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.mixins.early.backinslime;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 
 import net.minecraft.block.Block;
@@ -118,6 +119,15 @@ public class MixinBlockPistonBase extends Block {
 	@Override
 	@Overwrite
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int extend, int side) {
+		// Modern piston events (SPEC-modern-movement.md §35): the event acts on the piston standing here when it runs,
+		// and only the base restored after a retraction keeps the facing the event was queued with.
+		int queuedFacing = side;
+		if (ConfigMixins.modernPistonEvents) {
+			int currentFacing = BlockPistonBase.getPistonOrientation(world.getBlockMetadata(x, y, z));
+			if (currentFacing != 7) {
+				side = currentFacing;
+			}
+		}
 		if (!world.isRemote) {
 			boolean hasPower = this.isIndirectlyPowered(world, x, y, z, side);
 			if (hasPower && (extend == 1 || extend == -1)) {
@@ -146,7 +156,7 @@ public class MixinBlockPistonBase extends Block {
 				((TileEntityPiston) tileentity).clearPistonTileEntity();
 			}
 			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
-			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
+			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, queuedFacing, side, false, true));
 
 			if (this.isSticky && extend == 1) {
 				Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
@@ -158,7 +168,13 @@ public class MixinBlockPistonBase extends Block {
 					} else {
 						etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, false, pushedBlockList, pushedBlockPosList);
 					}
+				} else if (ConfigMixins.modernPistonEvents) {
+					world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 				}
+			} else if (ConfigMixins.modernPistonEvents) {
+				// Vanilla and modern clear the block in front of a retracting piston without checking that it is the
+				// head. The head removes itself anyway, so this only shows in the exploding-piston bedrock method.
+				world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 			}
 			world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
 		} else if (extend == 0) {

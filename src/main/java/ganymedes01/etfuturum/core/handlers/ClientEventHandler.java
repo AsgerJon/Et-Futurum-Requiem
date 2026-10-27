@@ -1,5 +1,9 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import ganymedes01.etfuturum.offhand.Offhand;
+import ganymedes01.etfuturum.network.PlayerSettingsMessage;
+import ganymedes01.etfuturum.skins.SkinParts;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -28,22 +32,22 @@ import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import ganymedes01.etfuturum.client.sound.AmbienceLoop;
 import ganymedes01.etfuturum.client.sound.BeeFlySound;
 import ganymedes01.etfuturum.client.sound.EndFlashSound;
-import ganymedes01.etfuturum.client.sound.ElytraSound;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.client.skins.OfflineSkinsClient;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.items.ItemHoneyBottle;
+import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -62,7 +66,6 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
@@ -440,12 +443,26 @@ public class ClientEventHandler {
 		}
 	}
 
+	/**
+	 * The cape isn't drawn while an elytra is worn; the wings use the cape texture instead (§21.2).
+	 */
+	@SubscribeEvent
+	public void renderPlayerSpecialsPre(RenderPlayerEvent.Specials.Pre event) {
+		if (ConfigMixins.enableElytra && ItemArmorElytra.getElytra(event.entityPlayer) != null) {
+			event.renderCape = false;
+		}
+	}
+
+	@SubscribeEvent
+	public void renderPlayerSpecialsPost(RenderPlayerEvent.Specials.Post event) {
+		if (ConfigMixins.enableElytra && !isSpectator(event.entityPlayer)) {
+			EntityPlayer player = event.entityPlayer;
+			LayerBetterElytra.doRenderLayer(player, player.limbSwing, player.limbSwingAmount, event.partialRenderTick, player.ticksExisted + event.partialRenderTick, 0.0625F);
+		}
+	}
+
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
-		if (event.entityPlayer instanceof IElytraPlayer) {
-			LayerBetterElytra.doRenderLayer(event.entityLiving, event.entityPlayer.limbSwing, event.entityPlayer.limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, event.entityPlayer.getAge(), 0.0625F);
-		}
-
 		if (isSpectator(event.entityPlayer)) {
 			event.result = 0;
 		} else if (ConfigFunctions.enableTransparentAmour) {
@@ -807,8 +824,6 @@ public class ClientEventHandler {
 		}
 	}
 
-	private float prevYOffset;
-
 	@SubscribeEvent
 	public void onRenderTick(TickEvent.RenderTickEvent event) {
 		if (ConfigMixins.worldSaveThumbnails && event.phase == Phase.END) {
@@ -823,21 +838,6 @@ public class ClientEventHandler {
 			SpawnChunkProgress.reset();
 			LoadingScreenHooks.reset();
 		}
-		if (!ConfigMixins.enableElytra)
-			return;
-		EntityPlayerSP player = mc.thePlayer;
-		if (!(player instanceof IElytraPlayer))
-			return;
-		if (((IElytraPlayer) player).etfu$isElytraFlying()) {
-			if (event.phase == Phase.START) {
-				prevYOffset = player.yOffset;
-				/* TODO find the right number here */
-				if (mc.gameSettings.thirdPersonView == 0)
-					player.yOffset = 3.02f;
-			} else {
-				player.yOffset = prevYOffset;
-			}
-		}
 	}
 
 	@SubscribeEvent
@@ -845,13 +845,6 @@ public class ClientEventHandler {
 		Entity entity = event.entityLiving;
 		World world = entity.worldObj;
 
-		if (ConfigMixins.enableElytra && entity instanceof EntityPlayerSP) {
-			IElytraPlayer e = (IElytraPlayer) entity;
-			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
-				mc.getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
-			}
-			/* lastElytraFlying is set by the shared handler in ServerEventHandler */
-		}
 		/*
 		 * The purpose of the function is to manifest sprint particles
 		 * and adjust slipperiness when entity is moving on block, so check
@@ -921,6 +914,34 @@ public class ClientEventHandler {
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityBee) {
 			soundList.add(new BeeFlySound((EntityBee) event.entity));
+		}
+		// The local player (a new entity on every world, respawn and dimension change) tells the server its settings:
+		// the shown skin parts and the main hand (§37).
+		if (event.entity instanceof EntityClientPlayerMP) {
+			sendPlayerSettings();
+		}
+	}
+
+	/** A config reload re-sends the settings; the post event runs after the values have been re-read. */
+	@SubscribeEvent
+	public void onConfigReloaded(ConfigChangedEvent.PostConfigChangedEvent event) {
+		if (Reference.MOD_ID.equals(event.modID) && Minecraft.getMinecraft().thePlayer != null) {
+			sendPlayerSettings();
+		}
+	}
+
+	/** The skin data an offline server sent is that server's: the next one answers for itself. */
+	@SubscribeEvent
+	public void onDisconnected(cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+		if (ConfigMixins.offlineSkins) {
+			OfflineSkinsClient.forget();
+		}
+	}
+
+	/** The local player's skin parts and main hand, for the server to show to everyone. Nothing is sent outside a world. */
+	public static void sendPlayerSettings() {
+		if ((ConfigMixins.skinCustomization || Offhand.isEnabled()) && Minecraft.getMinecraft().getNetHandler() != null) {
+			EtFuturum.networkWrapper.sendToServer(new PlayerSettingsMessage(SkinParts.localMask(), ConfigFunctions.mainHandLeft));
 		}
 	}
 

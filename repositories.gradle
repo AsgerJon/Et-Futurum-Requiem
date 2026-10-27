@@ -9,10 +9,9 @@ repositories {
         name = "GTNH Maven"
         url = "https://nexus.gtnewhorizons.com/repository/public/"
     }
-    maven {
-        name = "GTMEGA/FalsePattern Maven"
-        url = "https://mvn.falsepattern.com/releases/"
-    }
+    // com.github.makamys:MCLib resolves from jitpack. Its primary host, mvn.falsepattern.com, has
+    // been unreachable since 2026-10-25, and Gradle treats a repository timeout as an error
+    // rather than trying the next repository, so that Maven is no longer listed here.
 	maven { url 'https://jitpack.io' }
 }
 

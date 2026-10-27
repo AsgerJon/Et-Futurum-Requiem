@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.liquidphysics;
 
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.Entity;
@@ -25,6 +26,11 @@ public abstract class MixinEntityItem extends Entity {
 
     @Inject(method = "onUpdate", at = @At("HEAD"))
     private void floatItem(CallbackInfo ci) {
+        // Modern floating (enableFloatingItems, SPEC-modern-movement.md §30) takes over: this snaps the upward speed to 0.05,
+        // which would cancel the pushes of bubble columns.
+        if (ConfigMixins.enableFloatingItems) {
+            return;
+        }
         // This is a rough check if the item is in liquid, if we wanted something based on the actual hitbox, see World.handleMaterialAcceleration()
         if (isLiquidSource(this.posX, this.posY, this.posZ, this.worldObj, false)) {
             // Make sure to preserve strong previous downwards & sidewards (to kite gliding) motion

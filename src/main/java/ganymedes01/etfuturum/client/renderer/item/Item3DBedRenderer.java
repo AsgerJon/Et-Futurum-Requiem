@@ -36,11 +36,14 @@ public class Item3DBedRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+		// The GUI relies on the alpha test staying as it was (on, after vanilla item rendering): turning it off here
+		// left the inventory's potion effect panel drawing the hidden pixels of its sprites.
+		boolean alphaTest = GL11.glIsEnabled(GL11.GL_ALPHA_TEST);
 		if (type == ItemRenderType.INVENTORY) {
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
 		renderBed(type);
-		if (type == ItemRenderType.INVENTORY) {
+		if (type == ItemRenderType.INVENTORY && !alphaTest) {
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 		}
 	}

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.backlytra.client;
 
+import ganymedes01.etfuturum.elytra.FallFlying;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -13,23 +14,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderPlayer.class)
 public class MixinRenderPlayer {
-	@Inject(method = "rotateCorpse(Lnet/minecraft/client/entity/AbstractClientPlayer;FFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;rotateCorpse(Lnet/minecraft/entity/EntityLivingBase;FFF)V", shift = At.Shift.AFTER))
-	private void rotateForElytra(AbstractClientPlayer player, float p_77043_2_, float p_77043_3_, float partialTicks, CallbackInfo ci) {
-		if (player instanceof IElytraPlayer) {
-			if (((IElytraPlayer) player).etfu$isElytraFlying()) {
-				float f = ((IElytraPlayer) player).etfu$getTicksElytraFlying() + partialTicks;
-				float f1 = MathHelper.clamp_float(f * f / 100.0F, 0.0F, 1.0F);
-				GL11.glRotatef(f1 * (-90.0F - player.rotationPitch), 1.0F, 0.0F, 0.0F);
-				Vec3 vec3d = player.getLook(partialTicks);
-				double d0 = player.motionX * player.motionX + player.motionZ * player.motionZ;
-				double d1 = vec3d.xCoord * vec3d.xCoord + vec3d.zCoord * vec3d.zCoord;
 
-				if (d0 > 0.0D && d1 > 0.0D) {
-					double d2 = (player.motionX * vec3d.xCoord + player.motionZ * vec3d.zCoord) / (Math.sqrt(d0) * Math.sqrt(d1));
-					double d3 = player.motionX * vec3d.zCoord - player.motionZ * vec3d.xCoord;
-					GL11.glRotatef((float) (Math.signum(d3) * Math.acos(Math.min(d2, 1))) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
-				}
-			}
+	/**
+	 * The gliding body (§21.1), after the normal body yaw rotation: pitched towards lying along the look direction over
+	 * the first 10 ticks, then turned about its own axis into the direction it's actually travelling.
+	 */
+	@Inject(method = "rotateCorpse(Lnet/minecraft/client/entity/AbstractClientPlayer;FFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;rotateCorpse(Lnet/minecraft/entity/EntityLivingBase;FFF)V", shift = At.Shift.AFTER))
+	private void etfu$rotateForGliding(AbstractClientPlayer player, float ageInTicks, float bodyYaw, float partialTicks, CallbackInfo ci) {
+		if (!FallFlying.isFallFlying(player)) {
+			return;
+		}
+		IElytraPlayer elytraPlayer = (IElytraPlayer) player;
+		float time = elytraPlayer.etfu$getFallFlyingTicks() + partialTicks;
+		float scale = MathHelper.clamp_float(time * time / 100.0F, 0.0F, 1.0F);
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+		GL11.glRotatef(scale * (-90.0F - pitch), 1.0F, 0.0F, 0.0F);
+
+		Vec3 look = player.getLook(partialTicks);
+		double[] motion = elytraPlayer.etfu$getElytraAnimation().getMotion(player, partialTicks);
+		double motionH = motion[0] * motion[0] + motion[2] * motion[2];
+		double lookH = look.xCoord * look.xCoord + look.zCoord * look.zCoord;
+		if (motionH > 1.0E-5F && lookH > 1.0E-5F) {
+			double dot = (motion[0] * look.xCoord + motion[2] * look.zCoord) / Math.sqrt(motionH * lookH);
+			double side = motion[0] * look.zCoord - motion[2] * look.xCoord;
+			double angle = Math.signum(side) * Math.acos(Math.min(1.0D, Math.abs(dot)));
+			GL11.glRotatef((float) Math.toDegrees(angle), 0.0F, 1.0F, 0.0F);
 		}
 	}
 }

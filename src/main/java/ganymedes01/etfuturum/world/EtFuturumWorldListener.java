@@ -91,7 +91,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	@Override
 	public void markBlockForUpdate(int x, int y, int z) {
 
-		if (replacements.isEmpty() || !world.blockExists(x, y, z) /*|| !world.getChunkFromBlockCoords(x, z).isChunkLoaded*/)
+		if (!world.blockExists(x, y, z) /*|| !world.getChunkFromBlockCoords(x, z).isChunkLoaded*/)
 			return;
 
 		handleBasaltFromLava(x, y, z);
@@ -102,7 +102,8 @@ public class EtFuturumWorldListener implements IWorldAccess {
 		Block replacement;
 		TileEntity tile;
 
-		if ((replacement = replacements.get(world.getBlock(x, y, z))) == null)
+		// The empty-list check guards only the swap: basalt and bubble columns above run with tileReplacementMode -1 too
+		if (replacements.isEmpty() || (replacement = replacements.get(world.getBlock(x, y, z))) == null)
 			return;
 
 		tile = world.getTileEntity(x, y, z);

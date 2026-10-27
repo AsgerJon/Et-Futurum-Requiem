@@ -15,6 +15,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static int swiftSneakID;
 	public static int depthStriderID;
 	public static int levitationID;
+	public static boolean modernPotionColors;
 
 	static final String catEnchants = "enchantments";
 	static final String catPotions = "potions";
@@ -43,6 +44,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 
 		//potions
 		levitationID = getInt("levitationID", catPotions, 27, 0, Short.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
+		modernPotionColors = getBoolean("modernPotionColors", catPotions, true, "Potion liquid colours as in modern versions (changed in 1.19.4): speed is cyan, strength gold, fire resistance orange, night vision lime, and so on. Colours the potion items, thrown potions, effect particles, lingering clouds and tipped arrows. The water bottle is the same blue in both.");
 	}
 
 }

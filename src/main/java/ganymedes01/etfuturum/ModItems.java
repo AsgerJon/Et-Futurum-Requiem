@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 
 import ganymedes01.etfuturum.items.BaseFood;
+import ganymedes01.etfuturum.items.ItemDriedKelp;
 import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.items.DebugTestItem;
@@ -29,6 +30,7 @@ import ganymedes01.etfuturum.items.ItemGlowBerries;
 import ganymedes01.etfuturum.items.ItemHoneyBottle;
 import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import ganymedes01.etfuturum.items.ItemNetheriteIngot;
+import ganymedes01.etfuturum.items.ItemNetheriteUpgradeTemplate;
 import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemRabbitStew;
 import ganymedes01.etfuturum.items.ItemShulkerBoxUpgrade;
@@ -64,6 +66,7 @@ public enum ModItems {
 	BEETROOT(ConfigBlocksItems.enableBeetroot, new BaseFood(1, 0.6F, false).setNames("beetroot")),
 	BEETROOT_SEEDS(ConfigBlocksItems.enableBeetroot, new ItemBeetrootSeeds()),
 	BEETROOT_SOUP(ConfigBlocksItems.enableBeetroot, new ItemBeetrootSoup()),
+	DRIED_KELP(ConfigBlocksItems.enableKelp, new ItemDriedKelp()),
 	CHORUS_FRUIT(ConfigBlocksItems.enableChorusFruit, new ItemChorusFruit()),
 	CHORUS_FRUIT_POPPED(ConfigBlocksItems.enableChorusFruit, new BaseItem("popped_chorus_fruit")),
 	TIPPED_ARROW(ConfigBlocksItems.enableTippedArrows, new ItemArrowTipped()),
@@ -85,6 +88,7 @@ public enum ModItems {
 	NETHERITE_AXE(ConfigBlocksItems.enableNetherite, new ItemEFRAxe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteAxeDurability)),
 	NETHERITE_HOE(ConfigBlocksItems.enableNetherite, new ItemEFRHoe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteHoeDurability)),
 	NETHERITE_SWORD(ConfigBlocksItems.enableNetherite, new ItemEFRSword(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteSwordDurability)),
+	NETHERITE_UPGRADE_SMITHING_TEMPLATE(ConfigBlocksItems.enableNetherite && ConfigBlocksItems.enableSmithingTable && ConfigBlocksItems.netheriteUpgradeTemplate, new ItemNetheriteUpgradeTemplate()),
 	TOTEM_OF_UNDYING(ConfigBlocksItems.enableTotemUndying, new BaseItem("totem_of_undying").setMaxStackSize(1)),
 	DYE(ConfigBlocksItems.enableNewDyes, new BaseSubtypesItem("white_dye", "blue_dye", "brown_dye", "black_dye").setNames("dye")),
 	COPPER_INGOT(ConfigBlocksItems.enableCopper && !ConfigModCompat.disableCopperOreAndIngotOnly, new BaseItem("copper_ingot")),

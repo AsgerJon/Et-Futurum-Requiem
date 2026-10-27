@@ -54,6 +54,23 @@ item.record.lava_chicken.desc=Hyper Potions - Lava Chicken
 item.record.5.desc=Samuel Åberg - 5
 
 gui.smithing.upgrade=Upgrade Gear
+gui.smithing.missing_template=Add Smithing Template
+gui.smithing.error=Item can't be upgraded this way
+options.etfuturum.skinCustomisation=Skin Customization...
+options.etfuturum.skinCustomisation.title=Skin Customization
+options.etfuturum.skinPart.cape=Cape
+options.etfuturum.skinPart.jacket=Jacket
+options.etfuturum.skinPart.leftSleeve=Left Sleeve
+options.etfuturum.skinPart.rightSleeve=Right Sleeve
+options.etfuturum.skinPart.leftPantsLeg=Left Pants Leg
+options.etfuturum.skinPart.rightPantsLeg=Right Pants Leg
+options.etfuturum.skinPart.hat=Hat
+options.etfuturum.mainHand=Main Hand
+options.etfuturum.mainHand.left=Left
+options.etfuturum.mainHand.right=Right
+options.etfuturum.fovEffects=FOV Effects
+commands.etfuturum.give.tooMany=Can't give more than %s of %s
+commands.etfuturum.setblock.nothingInReach=No block within reach to set
 gui.warn.continue=Continue...
 gui.warn.dismiss=Don't show me this again.
 gui.warn.notice=NOTICE:
@@ -364,6 +381,7 @@ item.etfuturum.rabbit_stew.name=Rabbit Stew
 item.etfuturum.rabbit_foot.name=Rabbit's Foot
 item.etfuturum.rabbit_hide.name=Rabbit Hide
 item.etfuturum.beetroot.name=Beetroot
+item.etfuturum.dried_kelp.name=Dried Kelp
 item.etfuturum.beetroot_seeds.name=Beetroot Seeds
 item.etfuturum.beetroot_soup.name=Beetroot Soup
 item.etfuturum.chorus_fruit.name=Chorus Fruit
@@ -383,6 +401,14 @@ item.etfuturum.netherite_axe.name=Netherite Axe
 item.etfuturum.netherite_spade.name=Netherite Shovel
 item.etfuturum.netherite_sword.name=Netherite Sword
 item.etfuturum.netherite_hoe.name=Netherite Hoe
+item.etfuturum.netherite_upgrade_smithing_template.name=Netherite Upgrade
+item.etfuturum.smithing_template.name=Smithing Template
+item.etfuturum.smithing_template.applies_to=Applies to:
+item.etfuturum.smithing_template.ingredients=Ingredients:
+item.etfuturum.smithing_template.netherite_upgrade.applies_to=Diamond Equipment
+item.etfuturum.smithing_template.netherite_upgrade.ingredients=Netherite Ingot
+item.etfuturum.smithing_template.netherite_upgrade.base_slot_description=Add diamond armor, weapon, or tool
+item.etfuturum.smithing_template.netherite_upgrade.additions_slot_description=Add Netherite Ingot
 potion.prefix.lingering=Lingering
 item.etfuturum.totem_of_undying.name=Totem of Undying
 item.etfuturum.white_dye.name=White Dye
@@ -668,6 +694,8 @@ tile.etfuturum.sculk.name=Sculk
 tile.etfuturum.sculk_catalyst.name=Sculk Catalyst
 
 tile.etfuturum.magma.name=Magma Block
+tile.etfuturum.kelp.name=Kelp
+tile.etfuturum.dried_kelp_block.name=Dried Kelp Block
 tile.etfuturum.bone.name=Bone Block
 
 tile.etfuturum.cave_vines.name=Cave Vines
@@ -2257,3 +2285,5 @@ item.etfuturum.tipped_arrow.potion.confusion.name=Arrow of Nausea
 item.etfuturum.tipped_arrow.potion.wither.name=Arrow of Withering
 
 # PATRIOTS IN CONTROL  😎 🇺🇸 🦅 #
+
+key.etfuturum.swapOffhand=Swap Item With Offhand

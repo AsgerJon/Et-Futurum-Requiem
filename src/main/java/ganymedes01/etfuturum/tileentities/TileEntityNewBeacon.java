@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
+import ganymedes01.etfuturum.core.utils.BeaconBeam;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -63,7 +64,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 			}
 
 			if (colors == null) {
-				if (iblockstate.getLightOpacity() >= 15) {
+				if (!BeaconBeam.passes(worldObj, x, i, z)) {
 					segments.clear();
 					break;
 				}

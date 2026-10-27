@@ -1,8 +1,10 @@
 package ganymedes01.etfuturum.mixins.early.modernmovement.client;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.movement.FirstPersonArm;
 import ganymedes01.etfuturum.movement.IPosePlayer;
 import ganymedes01.etfuturum.movement.ModernMovement;
+import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
@@ -68,7 +70,7 @@ public abstract class MixinModelBiped extends ModelBase {
 	 */
 	@Inject(method = "setRotationAngles", at = @At("RETURN"))
 	private void etfu$playerPoseAnimation(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, Entity entity, CallbackInfo ci) {
-		if (!(entity instanceof IPosePlayer)) {
+		if (!(entity instanceof IPosePlayer) || FirstPersonArm.rendering) {
 			return;
 		}
 		if (ConfigMixins.enableModernSneaking) {
@@ -86,9 +88,10 @@ public abstract class MixinModelBiped extends ModelBase {
 		}
 
 		if (!player.isUsingItem()) {
-			// An arm that is mid-swing keeps its swing; in 1.7.10 only the right arm swings.
-			float leftAmount = swimAmount;
-			float rightAmount = this.onGround > 0.0F ? 0.0F : swimAmount;
+			// An arm that is mid-swing keeps its swing: the right arm, or the left one with an off-hand swing (§36.4).
+			boolean leftSwings = Offhand.isLeftArmSwinging(player);
+			float leftAmount = this.onGround > 0.0F && leftSwings ? 0.0F : swimAmount;
+			float rightAmount = this.onGround > 0.0F && !leftSwings ? 0.0F : swimAmount;
 			float stroke = limbSwing % 26.0F;
 			float pitch;
 			float leftRoll;

@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.movement;
 
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.elytra.FallFlying;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,24 +19,35 @@ public final class ModernMovement {
 	private ModernMovement() {
 	}
 
+	/**
+	 * The elytra's hitbox and eyes come from the pose system too (§16).
+	 */
 	public static boolean isPoseSystemEnabled() {
-		return ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming;
+		return ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming || ConfigMixins.enableElytra;
 	}
 
 	/**
 	 * Whether the pose system may control this player's hitbox right now. It stands aside while vanilla or other code
-	 * owns the size: sleeping and dying shrink the player to 0.2, the old elytra code resizes on its own, and a width
-	 * other than 0.6 means another mod (morphs, transformations) has resized the player.
+	 * owns the size: sleeping and dying shrink the player to 0.2, and a width other than 0.6 means another mod (morphs,
+	 * transformations) has resized the player.
 	 */
 	public static boolean canUsePoses(EntityPlayer player) {
 		return !player.isPlayerSleeping()
 				&& player.getHealth() > 0.0F
-				&& !isElytraFlying(player)
 				&& player.width == PLAYER_WIDTH;
 	}
 
 	public static boolean isElytraFlying(EntityPlayer player) {
-		return player instanceof IElytraPlayer && ((IElytraPlayer) player).etfu$isElytraFlying();
+		return FallFlying.isFallFlying(player);
+	}
+
+	/**
+	 * Drawn in the swimming position (§14, §17): the swimming pose, or the gliding pose for the one tick after gliding
+	 * stops, until the pose catches up.
+	 */
+	public static boolean isVisuallySwimming(EntityPlayer player) {
+		PlayerPose pose = ((IPosePlayer) player).etfu$getPose();
+		return pose == PlayerPose.SWIMMING || pose == PlayerPose.FALL_FLYING && !isElytraFlying(player);
 	}
 
 	/**
@@ -63,6 +74,9 @@ public final class ModernMovement {
 	private static PlayerPose getDesiredPose(EntityPlayer player) {
 		if (ConfigMixins.enableModernSwimming && ((IPosePlayer) player).etfu$isSwimming()) {
 			return PlayerPose.SWIMMING;
+		}
+		if (ConfigMixins.enableElytra && isElytraFlying(player)) {
+			return PlayerPose.FALL_FLYING;
 		}
 		if (ConfigMixins.enableModernSneaking && player.isSneaking() && !player.capabilities.isFlying) {
 			return PlayerPose.CROUCHING;

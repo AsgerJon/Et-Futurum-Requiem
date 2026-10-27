@@ -1,13 +1,16 @@
 package ganymedes01.etfuturum.entities;
 
-import ganymedes01.etfuturum.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.FallFlying;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+/**
+ * A firework rocket attached to a gliding player (§20). It boosts them while they glide and stays with them until it
+ * explodes.
+ */
 public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 	private static final int BOOSTED_ENTITY_ID = 9;
 	private EntityLivingBase boostedEntity;
@@ -24,7 +27,7 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 
 	public EntityBoostingFireworkRocket(World world, ItemStack stack, EntityLivingBase entityToBoost) {
 		super(world, entityToBoost.posX, entityToBoost.posY, entityToBoost.posZ, stack);
-		this.dataWatcher.updateObject(9, entityToBoost.getEntityId());
+		this.dataWatcher.updateObject(BOOSTED_ENTITY_ID, entityToBoost.getEntityId());
 		this.boostedEntity = entityToBoost;
 	}
 
@@ -46,13 +49,8 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 			}
 
 			if (this.boostedEntity != null) {
-				if (this.boostedEntity instanceof IElytraPlayer && ((IElytraPlayer) this.boostedEntity).etfu$isElytraFlying()) {
-					Vec3 vec3d = this.boostedEntity.getLookVec();
-					this.boostedEntity.motionX += vec3d.xCoord * 0.1D + (vec3d.xCoord * 1.5D - this.boostedEntity.motionX) * 0.5D;
-					this.boostedEntity.motionY += vec3d.yCoord * 0.1D + (vec3d.yCoord * 1.5D - this.boostedEntity.motionY) * 0.5D;
-					this.boostedEntity.motionZ += vec3d.zCoord * 0.1D + (vec3d.zCoord * 1.5D - this.boostedEntity.motionZ) * 0.5D;
-				} else {
-					this.setDead();
+				if (FallFlying.isFallFlying(this.boostedEntity)) {
+					FallFlying.applyRocketBoost(this.boostedEntity);
 				}
 
 				this.setPosition(this.boostedEntity.posX, this.boostedEntity.posY, this.boostedEntity.posZ);

@@ -26,6 +26,7 @@ public class ConfigWorld extends ConfigBase {
 
 	public static boolean enableDmgIndicator;
 	public static boolean endFlashes;
+	public static boolean chorusOnlyOnOuterIslands;
 	public static boolean modernEndAmbientColor;
 	public static boolean modernLightmapGamma;
 	public static boolean modernBlockLightTint;
@@ -105,6 +106,7 @@ public class ConfigWorld extends ConfigBase {
 		modernBlockLightTint = getBoolean("modernBlockLightTint", catClient, true, "Adjust block light color and gradient to match modern Minecraft.");
 		modernNightVision = getBoolean("modernNightVision", catClient, true, "Adjust night vision to match modern Minecraft.");
 		enableAirDebris = getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
+		chorusOnlyOnOuterIslands = getBoolean("chorusOnlyOnOuterIslands", catGeneration, true, "Chorus plants generate only on the outer End islands, beyond 1024 blocks from the centre (modern's main-island biome boundary, 1.9+). The vanilla End has no land out there, so with this on chorus only generates in the outer islands of the End dimension provider (experiments.cfg, endDimensionProvider).");
 		maxStonesPerCluster = getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
 		smallDebrisMax = getInt("smallDebrisMax", catGeneration, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
 		debrisMax = getInt("debrisMax", catGeneration, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");

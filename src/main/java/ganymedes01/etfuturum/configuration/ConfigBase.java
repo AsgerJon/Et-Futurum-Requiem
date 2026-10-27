@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.configuration;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -30,6 +31,17 @@ import java.util.Set;
 public abstract class ConfigBase extends Configuration {
 	protected final List<ConfigCategory> configCats = new ArrayList<>();
 	private static final Set<ConfigBase> CONFIGS = new HashSet<>();
+
+	/** Every config, for the config screen. */
+	static Set<ConfigBase> all() {
+		return CONFIGS;
+	}
+
+	/** The file's name without its extension: "functions", "mixins" and so on. */
+	public String getName() {
+		String file = getConfigFile().getName();
+		return file.endsWith(".cfg") ? file.substring(0, file.length() - 4) : file;
+	}
 
 	public static final String configDir = "config" + File.separator + Reference.MOD_ID + File.separator;
 
@@ -94,6 +106,10 @@ public abstract class ConfigBase extends Configuration {
 	public static void postInit() {
 		for (ConfigBase config : CONFIGS) {
 			config.initValues();
+			// So that closing the config screen with a change reaches onConfigChanged; the screen and its event are client-side.
+			if (FMLCommonHandler.instance().getSide().isClient()) {
+				FMLCommonHandler.instance().bus().register(config);
+			}
 		}
 	}
 

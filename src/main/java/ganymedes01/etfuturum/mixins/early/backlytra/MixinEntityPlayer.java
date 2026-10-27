@@ -1,79 +1,56 @@
 package ganymedes01.etfuturum.mixins.early.backlytra;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.elytra.ElytraAnimationState;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
-import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * The fall flying flag (a shared entity flag, synced and saved as "FallFlying"), the gliding tick counter and the
+ * client-side wing animation (§17, §21). The hitbox and eye height come from the pose system.
+ */
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IElytraPlayer {
-	@Override
-	@Shadow
-	public abstract boolean isPlayerSleeping();
 
-	@Shadow
-	public PlayerCapabilities capabilities;
+	@Unique
+	private int etfu$fallFlyingTicks;
 
-	@Shadow
-	protected abstract void setHideCape(int par1, boolean par2);
+	@Unique
+	private final ElytraAnimationState etfu$elytraAnimation = new ElytraAnimationState();
 
-	@Shadow
-	public InventoryPlayer inventory;
-
-	public MixinEntityPlayer(World p_i1594_1_) {
-		super(p_i1594_1_);
+	public MixinEntityPlayer(World world) {
+		super(world);
 	}
 
-	public void tickElytra() {
-		boolean flag = etfu$isElytraFlying();
+	@Inject(method = "onUpdate", at = @At("HEAD"))
+	private void etfu$rememberMotion(CallbackInfo ci) {
+		if (this.worldObj.isRemote) {
+			etfu$elytraAnimation.startTick((EntityPlayer) (Object) this);
+		}
+	}
 
-		ItemStack itemstack = ItemArmorElytra.getElytra(this);
-		this.setHideCape(1, itemstack != null);
-		if (itemstack != null && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
-			if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
-				if (!this.worldObj.isRemote && (this.etfu$ticksElytraFlying + 1) % 20 == 0) {
-					itemstack.damageItem(1, this);
-				}
-			} else {
-				flag = false;
-			}
+	/**
+	 * Right after the living-entity tick (movement included), like modern: count the gliding ticks and ease the wings.
+	 */
+	@Inject(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityLivingBase;onUpdate()V", shift = At.Shift.AFTER))
+	private void etfu$tickFallFlying(CallbackInfo ci) {
+		if (etfu$isElytraFlying()) {
+			etfu$fallFlyingTicks++;
 		} else {
-			flag = false;
+			etfu$fallFlyingTicks = 0;
 		}
-
-
-		if (!this.worldObj.isRemote) {
-			this.etfu$setElytraFlying(flag);
-		}
-
-		if (this.etfu$isElytraFlying()) {
-			this.etfu$ticksElytraFlying += 1;
-		} else {
-			this.etfu$ticksElytraFlying = 0;
+		if (this.worldObj.isRemote) {
+			etfu$elytraAnimation.tick((EntityPlayer) (Object) this);
 		}
 	}
-
-	@Inject(method = "getEyeHeight", at = @At("HEAD"), cancellable = true)
-	private void getElytraEyeHeight(CallbackInfoReturnable<Float> cir) {
-		if (this.etfu$isElytraFlying() && !this.isPlayerSleeping()) {
-			cir.setReturnValue(0.4f);
-		}
-	}
-
-	private float etfu$ticksElytraFlying = 0;
-	private boolean etfu$lastElytraFlying = false;
 
 	@Override
 	public boolean etfu$isElytraFlying() {
@@ -86,28 +63,22 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 	}
 
 	@Override
-	public float etfu$getTicksElytraFlying() {
-		return etfu$ticksElytraFlying;
+	public int etfu$getFallFlyingTicks() {
+		return etfu$fallFlyingTicks;
 	}
 
 	@Override
-	public boolean etfu$lastElytraFlying() {
-		return etfu$lastElytraFlying;
-	}
-
-	@Override
-	public void etfu$setLastElytraFlying(boolean flag) {
-		etfu$lastElytraFlying = flag;
+	public ElytraAnimationState etfu$getElytraAnimation() {
+		return etfu$elytraAnimation;
 	}
 
 	@Inject(method = "writeEntityToNBT", at = @At("TAIL"))
-	private void writeElytra(NBTTagCompound tagCompound, CallbackInfo ci) {
+	private void etfu$writeFallFlying(NBTTagCompound tagCompound, CallbackInfo ci) {
 		tagCompound.setBoolean("FallFlying", etfu$isElytraFlying());
 	}
 
 	@Inject(method = "readEntityFromNBT", at = @At("TAIL"))
-	private void readElytra(NBTTagCompound tagCompound, CallbackInfo ci) {
-		if (tagCompound.getBoolean("FallFlying"))
-			etfu$setElytraFlying(true);
+	private void etfu$readFallFlying(NBTTagCompound tagCompound, CallbackInfo ci) {
+		etfu$setElytraFlying(tagCompound.getBoolean("FallFlying"));
 	}
 }

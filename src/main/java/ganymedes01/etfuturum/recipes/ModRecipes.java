@@ -739,6 +739,10 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.BEETROOT_SOUP.newItemStack(), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot"));
 
+		addSmelting(ModBlocks.KELP.get(), ModItems.DRIED_KELP.newItemStack(), 0.1F);
+		addShapedRecipe(ModBlocks.DRIED_KELP_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.DRIED_KELP.newItemStack());
+		addShapelessRecipe(ModItems.DRIED_KELP.newItemStack(9), ModBlocks.DRIED_KELP_BLOCK.newItemStack());
+
 		if (!ModsList.GTNH.isLoaded()) {
 			addShapedRecipe(ModBlocks.END_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.END_BRICKS.get());
 		}
@@ -863,6 +867,10 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.NETHERITE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
 		}
 		addShapedRecipe(ModItems.NETHERITE_INGOT.newItemStack(9), "x", 'x', ModBlocks.NETHERITE_BLOCK.get());
+		if (ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
+			// Modern's copy recipe: seven diamonds, netherrack and a template make two templates.
+			addShapedRecipe(ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.newItemStack(2), "dtd", "dnd", "ddd", 'd', "gemDiamond", 't', ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 'n', Blocks.netherrack);
+		}
 
 		addSmelting(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new ItemStack(Items.gold_ingot), .1F);
 

@@ -134,25 +134,66 @@ public final class ModernWater {
 	}
 
 	/**
-	 * The height of the water surface inside this block (§9.1): full if the same liquid continues above, otherwise
-	 * 8/9 for a source and less for flowing water. For the camera check, a source under a block with a solid bottom
-	 * counts as full.
+	 * How deep a hitbox sits in this liquid (§30, modern's fluid height): the highest liquid surface among the blocks
+	 * the box (shrunk by 0.001) overlaps, measured from the box's bottom; 0 when it overlaps none.
 	 */
-	private static double getSurfaceHeight(World world, int x, int y, int z, Block block, boolean forCamera) {
-		if (block instanceof BlockLiquid) {
-			if (world.getBlock(x, y + 1, z).getMaterial() == Material.water) {
-				return 1.0D;
-			}
-			int meta = world.getBlockMetadata(x, y, z);
-			if (forCamera && meta == 0 && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
-				return 1.0D;
-			}
-			int amount = meta == 0 || meta >= 8 ? 8 : 8 - meta;
-			return amount / 9.0D;
+	public static double getFluidHeight(World world, AxisAlignedBB box, Material material) {
+		AxisAlignedBB shrunk = box.contract(FLUID_BOX_MARGIN, FLUID_BOX_MARGIN, FLUID_BOX_MARGIN);
+		int minX = MathHelper.floor_double(shrunk.minX);
+		int minY = MathHelper.floor_double(shrunk.minY);
+		int minZ = MathHelper.floor_double(shrunk.minZ);
+		int maxX = MathHelper.ceiling_double_int(shrunk.maxX) - 1;
+		int maxY = MathHelper.ceiling_double_int(shrunk.maxY) - 1;
+		int maxZ = MathHelper.ceiling_double_int(shrunk.maxZ) - 1;
+		if (!world.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+			return 0.0D;
 		}
-		if (block instanceof IFluidBlock) {
+		double height = 0.0D;
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
+				for (int z = minZ; z <= maxZ; z++) {
+					Block block = world.getBlock(x, y, z);
+					if (block.getMaterial() == material) {
+						height = Math.max(height, y + getSurfaceHeight(world, x, y, z, block, false) - shrunk.minY);
+					}
+				}
+			}
+		}
+		return height;
+	}
+
+	/**
+	 * Whether a point is under the surface of this liquid: the block there has the material and the point is below
+	 * its surface height (§30, modern's fluid-on-eyes test).
+	 */
+	public static boolean isPointInMaterial(World world, double x, double y, double z, Material material) {
+		int blockX = MathHelper.floor_double(x);
+		int blockY = MathHelper.floor_double(y);
+		int blockZ = MathHelper.floor_double(z);
+		Block block = world.getBlock(blockX, blockY, blockZ);
+		return block.getMaterial() == material && y < blockY + getSurfaceHeight(world, blockX, blockY, blockZ, block, false);
+	}
+
+	/**
+	 * The height of the water surface inside this block (§9.1): full if the same liquid continues above, otherwise
+	 * 8/9 for a source and less for flowing water. For the eye and camera checks (§27, modern's
+	 * {@code getHeightForCamera}), a source under a block with a solid bottom counts as full. Blocks that stand in for
+	 * a source with the liquid's material (EFR's bubble column cells, §28, and kelp, §29) keep their meta at 0 or 8+,
+	 * which reads as a source here as it does in vanilla's own water code.
+	 */
+	public static double getSurfaceHeight(World world, int x, int y, int z, Block block, boolean forCamera) {
+		if (block instanceof IFluidBlock && !(block instanceof BlockLiquid)) {
 			return Math.abs(((IFluidBlock) block).getFilledPercentage(world, x, y, z));
 		}
-		return 1.0D;
+		if (world.getBlock(x, y + 1, z).getMaterial() == block.getMaterial()) {
+			return 1.0D;
+		}
+		int meta = world.getBlockMetadata(x, y, z);
+		boolean source = meta == 0 || meta >= 8 && !(block instanceof BlockLiquid);
+		if (forCamera && source && world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN)) {
+			return 1.0D;
+		}
+		int amount = meta == 0 || meta >= 8 ? 8 : 8 - meta;
+		return amount / 9.0D;
 	}
 }

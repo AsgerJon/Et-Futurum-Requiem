@@ -82,6 +82,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableNewNetherBricks;
 	public static boolean enableNetherwartBlock;
 	public static boolean enableMagmaBlock;
+	public static boolean enableKelp;
 	public static boolean enableNetherite;
 	public static boolean enableBoneBlock;
 	public static boolean enableConcrete;
@@ -113,6 +114,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableAnvil;
 	public static boolean enableComposter;
 	public static boolean enableSmithingTable;
+	public static boolean netheriteUpgradeTemplate;
 	public static boolean enableStonecutter;
 	public static boolean enableFletchingTable;
 	public static boolean enableCartographyTable;
@@ -194,6 +196,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableNetherwartBlock = getBoolean("enableNetherwartBlock", catBlockNatural, true, "");
 		enableNetherite = getBoolean("enableNetherite", catBlockNatural, true, "");
 		enableMagmaBlock = getBoolean("enableMagmaBlock", catBlockNatural, true, "");
+		enableKelp = getBoolean("enableKelp", catBlockNatural, true, "Kelp, dried kelp and the dried kelp block. Kelp grows up through water, flowing or not, and every block it grew through is a water source once the kelp is removed: the modern way to fill a column with sources for a bubble column elevator.");
 		enableBoneBlock = getBoolean("enableBoneBlock", catBlockNatural, true, "");
 		enableBlueIce = getBoolean("enableBlueIce", catBlockNatural, true, "");
 		enableLilyOfTheValley = getBoolean("enableLilyOfTheValley", catBlockNatural, true, "");
@@ -272,6 +275,7 @@ public class ConfigBlocksItems extends ConfigBase {
 				"\nExamples:" +
 				"\nmods.etfuturum.smithingTable.addRecipe(<IC2:itemToolBronzeSword>, <minecraft:iron_sword>.anyDamage(), <ore:ingotBronze>); //(Use \"ingotBronze\" on iron sword to convert it to a bronze sword)" +
 				"\nmods.etfuturum.smithingTable.addRecipeNoNBT(<etfuturum:sponge:1>, <minecraft:sponge>, <minecraft:water_bucket>); //Take a vanilla sponge and a water bucket, you will get an Et Futurum Requiem wet sponge.");
+		netheriteUpgradeTemplate = getBoolean("netheriteUpgradeTemplate", catBlockFunc, true, "Netherite gear takes the Netherite Upgrade smithing template besides the diamond gear and the netherite ingot, as since 1.20: the smithing table gets modern's three input slots. The template is found in Nether fortress chests (this version has no bastions) and copied with seven diamonds, a block of netherrack and a template. Off: the two-slot table of 1.16 and no template item. Needs enableNetherite and enableSmithingTable.");
 		enableFletchingTable = getBoolean("enableFletchingTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableComposter = getBoolean("enableComposter", catBlockFunc, true, "Allows certain items to be composted, which has a chance of adding a layer to the compost bin. Once full, bone meal may be harvested. It is compatible with CraftTweaker." +
 				"\nA value greater than 100 can add more than one layer to the composter. (The composter has 6 layers so max value is 600) EG 150 = 1 layer guaranteed and a 50% chance to fill another layer. And 600 = instantly fill the whole composter, or any remaining layers." +

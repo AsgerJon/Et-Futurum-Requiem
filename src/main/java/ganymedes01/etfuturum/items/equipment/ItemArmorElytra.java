@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.ModsList;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -21,7 +22,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
@@ -39,8 +43,12 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 		BlockDispenser.dispenseBehaviorRegistry.putObject(this, BlockDispenser.dispenseBehaviorRegistry.getObject(Items.iron_chestplate));
 	}
 
+	/**
+	 * An elytra one hit from breaking can't be used for gliding and shows as broken, like modern's. It never wears down
+	 * further from gliding, so it doesn't break.
+	 */
 	public static boolean isBroken(ItemStack stack) {
-		return stack.getItemDamage() >= stack.getMaxDamage();
+		return stack.getItemDamage() >= stack.getMaxDamage() - 1;
 	}
 
 	/**
@@ -51,15 +59,25 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 		return repair.getItem() == Items.leather;
 	}
 
+	/**
+	 * Right-click puts the elytra on. With rightClickArmorSwap (SPEC-modern-movement.md §31) it also swaps with the
+	 * chestplate or the other elytra worn in the chest slot, as modern does; an elytra worn in the wings bauble slot is
+	 * never swapped, since only one elytra may be worn.
+	 */
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-		if (getElytra(playerIn) != null) {
+		boolean chestSlotAllowed = !ModsList.BAUBLES_EXPANDED.isLoaded() || ConfigModCompat.elytraBaublesExpandedCompat != 2;
+		ItemStack worn = getElytra(playerIn);
+		if (worn != null) {
+			if (ConfigMixins.rightClickArmorSwap && chestSlotAllowed && worn == playerIn.getEquipmentInSlot(3) && !ItemStack.areItemStacksEqual(itemStackIn, worn)) {
+				return swapWithChestSlot(itemStackIn, worldIn, playerIn, worn);
+			}
 			return itemStackIn;
 		}
 		if (ModsList.BAUBLES_EXPANDED.isLoaded() && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
 			itemStackIn = BaubleItemHelper.onBaubleRightClick(itemStackIn, worldIn, playerIn);
 		}
-		if ((!ModsList.BAUBLES_EXPANDED.isLoaded() || ConfigModCompat.elytraBaublesExpandedCompat != 2) && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
+		if (chestSlotAllowed && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
 			ItemStack itemStack = playerIn.getEquipmentInSlot(3);
 			if (itemStack == null) {
 				playerIn.setCurrentItemOrArmor(3, itemStackIn.copy());
@@ -68,8 +86,25 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 				}
 				return itemStackIn;
 			}
+			if (ConfigMixins.rightClickArmorSwap) {
+				return swapWithChestSlot(itemStackIn, worldIn, playerIn, itemStack);
+			}
 		}
 		return itemStackIn;
+	}
+
+	/**
+	 * The held elytra goes on and the worn piece comes into the hand (§31).
+	 */
+	private ItemStack swapWithChestSlot(ItemStack held, World world, EntityPlayer player, ItemStack worn) {
+		if (!world.isRemote) {
+			StatBase stat = StatList.objectUseStats[Item.getIdFromItem(this)];
+			if (stat != null) {
+				player.addStat(stat, 1);
+			}
+		}
+		player.setCurrentItemOrArmor(3, held.copy());
+		return worn;
 	}
 
 	@Override
@@ -79,7 +114,7 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	@Override
 	public IIcon getIconFromDamage(int meta) {
-		return meta >= getMaxDamage() ? broken : super.getIconFromDamage(meta);
+		return meta >= getMaxDamage() - 1 ? broken : super.getIconFromDamage(meta);
 	}
 
 	@Override

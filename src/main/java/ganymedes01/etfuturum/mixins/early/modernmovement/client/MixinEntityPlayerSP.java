@@ -14,6 +14,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.MovementInput;
 import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,6 +22,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * Every injection into onLivingUpdate also names localOnLivingUpdate. Player API's class transformer (GTNH ships
+ * it) moves the body of onLivingUpdate there and leaves a dispatcher under the original name, which has none of the
+ * injection points. Whichever of the two holds the body receives the injection; the other name is either missing or
+ * matches nothing, and neither counts as a failure.
+ */
 @Mixin(EntityPlayerSP.class)
 public class MixinEntityPlayerSP implements IClientPosePlayer {
 
@@ -49,7 +56,8 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	 * Right before the keys are read: remember last tick's shift and forward input for the sprint rules, and update
 	 * the crouching flag from them (§6.1).
 	 */
-	@Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/MovementInput;updatePlayerMoveState()V"))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@Inject(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/MovementInput;updatePlayerMoveState()V"))
 	private void etfu$beforeInput(CallbackInfo ci) {
 		EntityPlayerSP player = (EntityPlayerSP) (Object) this;
 		etfu$wasShiftDown = this.movementInput.sneak;
@@ -66,7 +74,8 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	 * 1.7.10 dips the view about 0.08 blocks while sneaking by bumping ySize to 0.2. The crouching pose lowers the eyes
 	 * by 0.35 instead (§13.3), so skip the bump. ySize's other job, smoothing step-ups, is untouched.
 	 */
-	@ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/util/MovementInput;sneak:Z", opcode = Opcodes.GETFIELD, ordinal = 0))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@ModifyExpressionValue(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "FIELD", target = "Lnet/minecraft/util/MovementInput;sneak:Z", opcode = Opcodes.GETFIELD, ordinal = 0))
 	private boolean etfu$skipSneakCameraDip(boolean sneak) {
 		return sneak && !ConfigMixins.enableModernSneaking;
 	}
@@ -75,22 +84,26 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	 * With modern swimming, the sprint rules below replace 1.7.10's: its double-tap block (the first onGround read),
 	 * its sprint-key start, its stop rule and its 600-tick sprint timeout are switched off.
 	 */
-	@ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityPlayerSP;onGround:Z", opcode = Opcodes.GETFIELD, ordinal = 0))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@ModifyExpressionValue(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityPlayerSP;onGround:Z", opcode = Opcodes.GETFIELD, ordinal = 0))
 	private boolean etfu$skipVanillaDoubleTap(boolean onGround) {
 		return onGround && !ConfigMixins.enableModernSwimming;
 	}
 
-	@WrapWithCondition(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 0))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@WrapWithCondition(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 0))
 	private boolean etfu$skipVanillaSprintTimeout(EntityPlayerSP player, boolean sprinting) {
 		return !ConfigMixins.enableModernSwimming;
 	}
 
-	@WrapWithCondition(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 2))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@WrapWithCondition(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 2))
 	private boolean etfu$skipVanillaSprintKey(EntityPlayerSP player, boolean sprinting) {
 		return !ConfigMixins.enableModernSwimming;
 	}
 
-	@WrapWithCondition(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 3))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@WrapWithCondition(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setSprinting(Z)V", ordinal = 3))
 	private boolean etfu$skipVanillaSprintStop(EntityPlayerSP player, boolean sprinting) {
 		return !ConfigMixins.enableModernSwimming;
 	}
@@ -99,7 +112,8 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	 * Modern sprint rules (§6.3), at the same point in the tick as modern: after pushing out of blocks, before the
 	 * creative flight toggle.
 	 */
-	@Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;func_145771_j(DDD)Z", ordinal = 3, shift = At.Shift.AFTER))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@Inject(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;func_145771_j(DDD)Z", ordinal = 3, shift = At.Shift.AFTER))
 	private void etfu$modernSprinting(CallbackInfo ci) {
 		if (!ConfigMixins.enableModernSwimming) {
 			return;
@@ -170,7 +184,8 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	/**
 	 * Holding shift while in water pulls you down (§6.4), right before the movement step.
 	 */
-	@Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;onLivingUpdate()V"))
+	@Dynamic("Player API moves the body of onLivingUpdate to localOnLivingUpdate")
+	@Inject(method = {"onLivingUpdate", "localOnLivingUpdate"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;onLivingUpdate()V"))
 	private void etfu$sinkWithShift(CallbackInfo ci) {
 		EntityPlayerSP player = (EntityPlayerSP) (Object) this;
 		if (ConfigMixins.enableModernSwimming && player.isInWater() && this.movementInput.sneak) {
@@ -215,7 +230,7 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	@Override
 	public boolean etfu$isMovingSlowly() {
 		EntityPlayerSP player = (EntityPlayerSP) (Object) this;
-		boolean visuallyCrawling = ((IPosePlayer) player).etfu$getPose() == PlayerPose.SWIMMING && !player.isInWater();
+		boolean visuallyCrawling = ModernMovement.isVisuallySwimming(player) && !player.isInWater();
 		boolean crouching = ConfigMixins.enableModernSneaking ? etfu$crouching : this.movementInput.sneak;
 		return crouching || visuallyCrawling;
 	}

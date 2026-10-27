@@ -3,9 +3,9 @@ package ganymedes01.etfuturum.mixins.early.modernmovement.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.movement.FirstPersonArm;
 import ganymedes01.etfuturum.movement.IPosePlayer;
 import ganymedes01.etfuturum.movement.ModernMovement;
-import ganymedes01.etfuturum.movement.PlayerPose;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.lwjgl.opengl.GL11;
@@ -17,6 +17,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RenderPlayer.class)
 public class MixinRenderPlayer {
+
+	/** The first-person arm keeps its neutral pose: no crouch offset, no swimming stroke (FirstPersonArm). */
+	@Inject(method = "renderFirstPersonArm", at = @At("HEAD"))
+	private void etfu$firstPersonArmBegins(CallbackInfo ci) {
+		FirstPersonArm.rendering = true;
+	}
+
+	@Inject(method = "renderFirstPersonArm", at = @At("RETURN"))
+	private void etfu$firstPersonArmEnds(CallbackInfo ci) {
+		FirstPersonArm.rendering = false;
+	}
 
 	/**
 	 * Tilts the body into the swimming/crawling position (§14.1), after the normal body yaw rotation. In water the body
@@ -36,7 +47,7 @@ public class MixinRenderPlayer {
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
 		float targetPitch = player.isInWater() ? -90.0F - pitch : -90.0F;
 		GL11.glRotatef(swimAmount * targetPitch, 1.0F, 0.0F, 0.0F);
-		if (posePlayer.etfu$getPose() == PlayerPose.SWIMMING) {
+		if (ModernMovement.isVisuallySwimming(player)) {
 			GL11.glTranslatef(0.0F, -1.0F, 0.3F);
 		}
 	}

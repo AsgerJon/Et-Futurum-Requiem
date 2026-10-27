@@ -4,21 +4,22 @@ import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.movement.BubbleColumns;
+import ganymedes01.etfuturum.movement.IBubbleColumnEntity;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import java.util.Map;
 import java.util.Random;
@@ -75,67 +76,40 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 		}
 	}
 
+	/**
+	 * A cell acts on every entity whose hitbox overlaps it, once per tick (SPEC-modern-movement.md §28): the open top
+	 * cell throws it out, any other cell carries it, and living entities take the push after their movement step. The
+	 * server sends the surface splash; the client plays the inside sound for its own player when a cell first overlaps
+	 * the middle of the hitbox.
+	 */
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, int x, int y, int z, Entity entityIn) {
 		// dont have particles trigger this; gets a little too crazy
 		if (worldIn.isRemote && entityIn instanceof EntityFX) return;
+		if (!BubbleColumns.isAffected(entityIn)) return;
 
-		int meta = worldIn.getBlockMetadata(x, y, z);
-		boolean isUp = isUp(meta);
-
-		Block blockAbove = worldIn.getBlock(x, y + 1, z);
-		if (blockAbove == Blocks.air) {
-			if (isUp) {
-				entityIn.motionY = Math.min(1.8D, entityIn.motionY + 0.1D);
-				entityIn.fallDistance = 0;
-			} else {
-				entityIn.motionY = Math.max(-0.9D, entityIn.motionY - 0.03D);
-			}
-
-			// handle splash effects
-			if (worldIn.isRemote) {
-				for (int i = 0; i < 2; i++) {
-					worldIn.spawnParticle("splash",
-							x + worldIn.rand.nextDouble(),
-						y + 1,
-							z + worldIn.rand.nextDouble(),
-						0,
-						0,
-						0
-					);
-					worldIn.spawnParticle("bubble",
-							x + worldIn.rand.nextDouble(),
-							y + 1,
-							z + worldIn.rand.nextDouble(),
-							0,
-							0,
-							0
-					);
-				}
-			}
+		boolean drag = !isUp(worldIn.getBlockMetadata(x, y, z));
+		boolean above = BubbleColumns.isOpenAbove(worldIn, x, y, z);
+		if (entityIn instanceof IBubbleColumnEntity) {
+			((IBubbleColumnEntity) entityIn).etfu$queueBubbleColumn(drag, above);
+		} else if (above) {
+			BubbleColumns.pushAbove(entityIn, drag);
 		} else {
-			boolean playerFlying = (entityIn instanceof EntityPlayer player)
-				&& player.capabilities.isFlying;
-			if (!playerFlying) {
-				if (isUp) {
-					entityIn.motionY = Math.min(0.7D, entityIn.motionY + 0.6D);
-				} else {
-					entityIn.motionY = Math.max(-0.3D, entityIn.motionY - 0.3D);
-				}
-			}
-			entityIn.fallDistance = 0;
-
-			if (worldIn.isRemote && entityIn instanceof EntityPlayerSP player) {
-				if (lastColumnSoundTick == -1 || entityIn.ticksExisted - lastColumnSoundTick > 1) {
-					player.playSound(Reference.MCAssetVer + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_inside",
-							1, 1);
-				}
-				lastColumnSoundTick = entityIn.ticksExisted;
-			}
+			BubbleColumns.pushInside(entityIn, drag);
 		}
 
-		if (entityIn instanceof EntityLivingBase) {
-			entityIn.setAir(300);
+		if (above && worldIn instanceof WorldServer) {
+			BubbleColumns.sendSurfaceParticles((WorldServer) worldIn, x, y, z);
+		}
+
+		// The local player only (isClientWorld is true for it alone on a client); named by its common type, since a
+		// client-only type here would make the server's verifier load it when the block registry touches this class.
+		if (worldIn.isRemote && entityIn instanceof EntityPlayer player && player.isClientWorld() && BubbleColumns.overlapsCore(player, y)) {
+			int tick = player.ticksExisted;
+			if (tick > 1 && lastColumnSoundTick != tick && lastColumnSoundTick != tick - 1) {
+				player.playSound(Reference.MCAssetVer + ":" + "block.bubble_column." + (drag ? "whirlpool" : "upwards") + "_inside", 1, 1);
+			}
+			lastColumnSoundTick = tick;
 		}
 	}
 

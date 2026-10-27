@@ -345,7 +345,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && world.provider instanceof WorldProviderEnd) {
+		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && world.provider instanceof WorldProviderEnd
+				&& !(ConfigWorld.chorusOnlyOnOuterIslands && isMainEndIsland(chunkX, chunkZ))) {
 			int x = (chunkX << 4) + rand.nextInt(16) + 8;
 			int y = world.getActualHeight();
 			int z = (chunkZ << 4) + rand.nextInt(16) + 8;
@@ -358,6 +359,14 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Modern's main End island: the chunks within 64 chunks of the centre (TheEndBiomeSource's 4096 rule, 1.9+), which
+	 * get the plain End biome and so no chorus; the outer islands beyond it are where chorus grows.
+	 */
+	public static boolean isMainEndIsland(int chunkX, int chunkZ) {
+		return (long) chunkX * chunkX + (long) chunkZ * chunkZ <= 4096L;
 	}
 
 	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {

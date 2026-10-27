@@ -303,7 +303,7 @@ public class ContainerEnchantment extends Container {
 		if (!world.isRemote)
 			for (int i = 0; i < tableInventory.getSizeInventory(); i++) {
 				ItemStack stack = tableInventory.getStackInSlotOnClosing(i);
-				if (stack != null)
+				if (stack != null && !ContainerClose.giveBack(player, stack))
 					player.dropPlayerItemWithRandomChoice(stack, false);
 			}
 	}

@@ -10,7 +10,10 @@
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.ElytraAnimationState;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
+import ganymedes01.etfuturum.movement.ModernMovement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,49 +26,43 @@ public class LayerBetterElytra {
 	private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
 	private static final ModelElytra modelElytra = new ModelElytra();
 	protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");
-	public static float netHeadYaw = 0.0F;
-	public static float headPitch = 0.0F;
 
+	/**
+	 * Draws the wings of a player wearing an elytra, once per frame, in the player model's space (§21.3). Uses the
+	 * player's cape texture if they have one and show it, else the elytra texture.
+	 * <p>
+	 * Angelica hooks this method by its signature (before the first glPushMatrix, after the first glPopAttrib) to give
+	 * shader packs a material id for the elytra, so keep the signature and those two calls. Only partialTicks and scale
+	 * are used.
+	 */
 	public static void doRenderLayer(EntityLivingBase entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float scale) {
 		ItemStack itemstack = ItemArmorElytra.getElytra(entityIn);
-		if (entityIn instanceof AbstractClientPlayer player && itemstack != null) {
-			GL11.glPushAttrib(-1);
-			/*
-			int colorIndex =
-					itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("backlytra:elytraDye", NBT.TAG_ANY_NUMERIC)
-					? itemstack.getTagCompound().getInteger("backlytra:elytraDye")
-					: -1;
-
-
-			if (colorIndex < 0 || colorIndex == 15)
-				GL11.glColor3f(1, 1, 1);
-			else {
-				Color color = new Color(ItemDye.dyeColors[colorIndex]);
-				float r = color.getRed() / 255F;
-				float g = color.getGreen() / 255F;
-				float b = color.getBlue() / 255F;
-				GL11.glColor3f(r, g, b);
-			}
-			 */
-//          GL11.glColor3f(1, 1, 1);
-
-			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n()/*hasCape*/ ? player.getLocationCape() : TEXTURE_ELYTRA);
-
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0.0F, 0.0F, 0.125F);
-			modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-			modelElytra.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-			if (itemstack.isItemEnchanted())
-				renderGlint(entityIn, modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
-
-			GL11.glPopMatrix();
-			GL11.glPopAttrib();
+		if (itemstack == null || !(entityIn instanceof AbstractClientPlayer) || !(entityIn instanceof IElytraPlayer)) {
+			return;
 		}
+		AbstractClientPlayer player = (AbstractClientPlayer) entityIn;
+		ElytraAnimationState animation = ((IElytraPlayer) player).etfu$getElytraAnimation();
+		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		boolean showCape = player.func_152122_n()/*hasCape*/ && !player.getHideCape();
+		Minecraft.getMinecraft().renderEngine.bindTexture(showCape ? player.getLocationCape() : TEXTURE_ELYTRA);
+
+		GL11.glPushMatrix();
+		GL11.glTranslatef(0.0F, 0.0F, 0.125F);
+		modelElytra.setWingAngles(animation.getRotX(partialTicks), animation.getRotY(partialTicks), animation.getRotZ(partialTicks),
+				ModernMovement.isVisuallyCrouching(player));
+		modelElytra.renderWings(scale);
+
+		if (itemstack.isItemEnchanted()) {
+			renderGlint(player, partialTicks, scale);
+		}
+
+		GL11.glPopMatrix();
+		GL11.glPopAttrib();
 	}
 
-	private static void renderGlint(EntityLivingBase entitylivingbaseIn, ModelElytra modelbaseIn, float p_177183_3_, float p_177183_4_, float partialTicks, float p_177183_6_, float p_177183_7_, float p_177183_8_, float scale) {
-		float f = entitylivingbaseIn.ticksExisted + partialTicks;
+	private static void renderGlint(AbstractClientPlayer player, float partialTicks, float scale) {
+		float f = player.ticksExisted + partialTicks;
 		Minecraft.getMinecraft().renderEngine.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDepthFunc(GL11.GL_EQUAL);
@@ -85,7 +82,7 @@ public class LayerBetterElytra {
 			GL11.glRotatef(30.0F - i * 60.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(0.0F, f * (0.001F + i * 0.003F) * 20.0F, 0.0F);
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
-			modelbaseIn.render(entitylivingbaseIn, p_177183_3_, p_177183_4_, p_177183_6_, p_177183_7_, p_177183_8_, scale);
+			modelElytra.renderWings(scale);
 		}
 
 		GL11.glMatrixMode(GL11.GL_TEXTURE);

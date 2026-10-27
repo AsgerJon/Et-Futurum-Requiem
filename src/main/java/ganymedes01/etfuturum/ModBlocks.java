@@ -37,6 +37,8 @@ import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockBone;
 import ganymedes01.etfuturum.blocks.BlockBountifulStone;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
+import ganymedes01.etfuturum.blocks.BlockDriedKelp;
+import ganymedes01.etfuturum.blocks.BlockKelp;
 import ganymedes01.etfuturum.blocks.BlockBuddingAmethyst;
 import ganymedes01.etfuturum.blocks.BlockCartographyTable;
 import ganymedes01.etfuturum.blocks.BlockCaveVines;
@@ -510,6 +512,8 @@ public enum ModBlocks {
 	LAVA_CAULDRON(ConfigBlocksItems.enableLavaCauldrons, new BlockLavaCauldron(), null),
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
 	BUBBLE_COLUMN(ConfigBlocksItems.enableBubbleColumns, new BlockBubbleColumn(new Block[]{Blocks.soul_sand}, new Block[]{MAGMA.get()}), null),
+	KELP(ConfigBlocksItems.enableKelp, new BlockKelp()),
+	DRIED_KELP_BLOCK(ConfigBlocksItems.enableKelp, new BlockDriedKelp()),
 
 	// barrels + iron barrels
 	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA), ItemBlockBarrel.class),

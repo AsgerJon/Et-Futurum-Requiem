@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.modernmovement;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.movement.IPosePlayer;
@@ -9,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,6 +44,17 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IPos
 
 	public MixinEntityPlayer(World world) {
 		super(world);
+	}
+
+	/**
+	 * No walking bob while swimming (§13.2): the bob amount is 0 unless on the ground, alive and the swimming flag is
+	 * off, as modern's player tick has it. 1.7.10 computes it in onLivingUpdate, whose first onGround read is that
+	 * condition; the second, the camera pitch from falling, is left alone. Crawling bobs with its slow speed, swimming
+	 * along the bottom does not.
+	 */
+	@ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/EntityPlayer;onGround:Z", opcode = Opcodes.GETFIELD, ordinal = 0))
+	private boolean etfu$noBobWhileSwimming(boolean onGround) {
+		return onGround && !etfu$isSwimming();
 	}
 
 	@Inject(method = "entityInit", at = @At("TAIL"))
@@ -85,13 +98,13 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IPos
 	}
 
 	/**
-	 * Ramps the swim amount 0.09 per tick towards 1 while in the swimming pose and towards 0 otherwise. Runs before
-	 * this tick's pose choice, so it follows the pose chosen at the end of the previous tick, as in modern.
+	 * Ramps the swim amount 0.09 per tick towards 1 while drawn swimming and towards 0 otherwise. Runs before this
+	 * tick's pose choice, so it follows the pose chosen at the end of the previous tick, as in modern.
 	 */
 	@Unique
 	private void etfu$updateSwimAmount() {
 		etfu$swimAmountOld = etfu$swimAmount;
-		if (etfu$getPose() == PlayerPose.SWIMMING) {
+		if (ModernMovement.isVisuallySwimming((EntityPlayer) (Object) this)) {
 			etfu$swimAmount = Math.min(1.0F, etfu$swimAmount + 0.09F);
 		} else {
 			etfu$swimAmount = Math.max(0.0F, etfu$swimAmount - 0.09F);
@@ -104,12 +117,14 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IPos
 	}
 
 	/**
-	 * Pose and swimming flag share one synced byte: the pose in bits 0-2, swimming in bit 3.
+	 * Pose and swimming flag share one synced byte: the pose in bits 0-2, swimming in bit 3. Bits 4-7 belong to the
+	 * off-hand (main arm, using hand; §36.3) and are kept as they are.
 	 */
 	@Unique
 	private void etfu$setSynced(PlayerPose pose, boolean swimming) {
-		byte value = (byte) (pose.ordinal() | (swimming ? 8 : 0));
-		if (value != this.dataWatcher.getWatchableObjectByte(ConfigFunctions.poseDataWatcherId)) {
+		byte current = this.dataWatcher.getWatchableObjectByte(ConfigFunctions.poseDataWatcherId);
+		byte value = (byte) ((current & 0xF0) | pose.ordinal() | (swimming ? 8 : 0));
+		if (value != current) {
 			this.dataWatcher.updateObject(ConfigFunctions.poseDataWatcherId, value);
 		}
 	}

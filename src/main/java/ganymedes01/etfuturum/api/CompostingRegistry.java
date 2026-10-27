@@ -36,6 +36,8 @@ public class CompostingRegistry {
 				"treeLeaves",
 				ModItems.BEETROOT_SEEDS.newItemStack(),
 				ModItems.SWEET_BERRIES.newItemStack(),
+				ModBlocks.KELP.newItemStack(),
+				ModItems.DRIED_KELP.newItemStack(),
 				ModBlocks.MOSS_CARPET.newItemStack(),
 				ModBlocks.PINK_PETALS.newItemStack(),
 				ModBlocks.MANGROVE_ROOTS.newItemStack(),
@@ -55,6 +57,7 @@ public class CompostingRegistry {
 				ModBlocks.NETHER_SPROUTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
 				ModBlocks.TWISTING_VINES.newItemStack(),
 				ModBlocks.WEEPING_VINES.newItemStack(),
+				ModBlocks.DRIED_KELP_BLOCK.newItemStack(),
 				ModBlocks.AZALEA_LEAVES.newItemStack(1, 1)
 		), 50);
 

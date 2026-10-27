@@ -28,9 +28,10 @@ public class ThreadCheckAlex extends Thread {
 			System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
 			JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URI("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).toURL().openStream())),
 					JsonObject.class);
-			JsonArray jsonArray = json.getAsJsonArray("properties");
+			// No body (204): a UUID Mojang does not know, such as an offline server's name-based one. Not a failure.
+			JsonArray jsonArray = json == null || !json.has("properties") ? null : json.getAsJsonArray("properties");
 
-			if (!jsonArray.get(0).getAsJsonObject().has("value")) {
+			if (jsonArray == null || jsonArray.size() == 0 || !jsonArray.get(0).getAsJsonObject().has("value")) {
 				isAlex = false;
 			} else {
 				JsonObject props = new Gson().fromJson(new String(Base64.getDecoder().decode(jsonArray.get(0).getAsJsonObject().get("value").getAsString()), StandardCharsets.UTF_8),

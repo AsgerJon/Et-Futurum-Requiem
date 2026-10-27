@@ -1,5 +1,9 @@
 package ganymedes01.etfuturum;
 
+import ganymedes01.etfuturum.network.PlayerSettingsMessage;
+import ganymedes01.etfuturum.network.PlayerSettingsHandler;
+import ganymedes01.etfuturum.network.OfflineSkinHandler;
+import ganymedes01.etfuturum.network.OfflineSkinMessage;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -79,7 +83,14 @@ import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.offhand.Offhand;
+import ganymedes01.etfuturum.network.UseOffhandHandler;
+import ganymedes01.etfuturum.network.UseOffhandMessage;
+import ganymedes01.etfuturum.network.SwapHandsHandler;
+import ganymedes01.etfuturum.network.SwapHandsMessage;
 import ganymedes01.etfuturum.potion.ModPotions;
+import ganymedes01.etfuturum.potion.ModernPotionColors;
+import ganymedes01.etfuturum.recipes.ModFuels;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
@@ -139,8 +150,8 @@ import static ganymedes01.etfuturum.lib.Reference.MOD_NAME;
 		modid = MOD_ID,
 		name = MOD_NAME,
 		version = Tags.VERSION,
-		dependencies = Reference.DEPENDENCIES
-
+		dependencies = Reference.DEPENDENCIES,
+		guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
 )
 
 public class EtFuturum {
@@ -268,6 +279,7 @@ public class EtFuturum {
 		ModItems.init();
 		ModEnchantments.init();
 		ModPotions.init();
+		Offhand.init();
 		SpectatorMode.init();
 
 		if (event.getSide() == Side.CLIENT) {
@@ -299,6 +311,10 @@ public class EtFuturum {
 		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
 		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
+		networkWrapper.registerMessage(SwapHandsHandler.class, SwapHandsMessage.class, 8, Side.SERVER);
+		networkWrapper.registerMessage(UseOffhandHandler.class, UseOffhandMessage.class, 9, Side.SERVER);
+		networkWrapper.registerMessage(PlayerSettingsHandler.class, PlayerSettingsMessage.class, 10, Side.SERVER);
+		networkWrapper.registerMessage(OfflineSkinHandler.class, OfflineSkinMessage.class, 11, Side.CLIENT);
 
 		if (!Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
 			MCLibModules.updateCheckAPI.submitModTask(MOD_ID, Reference.VERSION_NUMBER, Reference.VERSION_URL);
@@ -365,6 +381,11 @@ public class EtFuturum {
 			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
+			// Pistons: mined fastest with a pickaxe and 1.5 hard, as since 1.17 (SPEC-modern-movement.md §34). The
+			// piston material needs no tool, so they still drop when broken by hand.
+			Blocks.piston.setHardness(1.5F).setHarvestLevel("pickaxe", 0);
+			Blocks.sticky_piston.setHardness(1.5F).setHarvestLevel("pickaxe", 0);
+			Blocks.piston_head.setHardness(1.5F).setHarvestLevel("pickaxe", 0);
 		}
 
 		if (ConfigFunctions.enableFloatingTrapDoors) {
@@ -403,7 +424,12 @@ public class EtFuturum {
 
 		if (ConfigBlocksItems.enablePigstep) {
 			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
-
+		}
+		if (ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
+			// Bastion chests hold the template in modern; this version has no bastions, so fortress chests do.
+			ChestGenHooks.addItem(NETHER_FORTRESS, new EtFuturumLootTables.OncePerChest(ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 0, 1, 1, 5));
+		}
+		if (ConfigBlocksItems.enablePigstep || ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
 			if (fortressWeightedField != null) {
 				try {
 					Field contents = ChestGenHooks.class.getDeclaredField("contents");
@@ -447,6 +473,8 @@ public class EtFuturum {
 		RawOreRegistry.init();
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
+		ModFuels.init();
+		ModernPotionColors.apply();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
 

@@ -14,6 +14,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockAzaleaRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBambooRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBubbleColumnRenderer;
+import ganymedes01.etfuturum.client.renderer.block.BlockKelpRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChainRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRenderer;
@@ -72,6 +73,8 @@ import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
+import ganymedes01.etfuturum.offhand.Offhand;
+import ganymedes01.etfuturum.offhand.OffhandClient;
 
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBee;
@@ -135,6 +138,12 @@ public class ClientProxy extends CommonProxy {
 		
 		MinecraftForge.EVENT_BUS.register(new GlowLichenHighlightEvent());
 		MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
+
+		if (Offhand.isEnabled()) {
+			OffhandClient.registerKey();
+			FMLCommonHandler.instance().bus().register(OffhandClient.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(OffhandClient.INSTANCE);
+		}
 	}
 
 	@Override
@@ -194,6 +203,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new BlockPinkPetalsRenderer(RenderIDs.PINK_PETALS));
 		RenderingRegistry.registerBlockHandler(new BlockBambooRenderer(RenderIDs.BAMBOO));
 		RenderingRegistry.registerBlockHandler(new BlockBubbleColumnRenderer(RenderIDs.BUBBLE_COLUMN));
+		RenderingRegistry.registerBlockHandler(new BlockKelpRenderer(RenderIDs.KELP));
 		RenderingRegistry.registerBlockHandler(new BlockGlowLichenRenderer(RenderIDs.GLOW_LICHEN));
 		RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER));
 	}
