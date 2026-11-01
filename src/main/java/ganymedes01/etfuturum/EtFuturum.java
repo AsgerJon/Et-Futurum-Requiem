@@ -1,7 +1,19 @@
 package ganymedes01.etfuturum;
 
+import ganymedes01.etfuturum.network.ItemCooldownHandler;
+import ganymedes01.etfuturum.network.ItemCooldownMessage;
+import ganymedes01.etfuturum.network.OverlayMessage;
+import ganymedes01.etfuturum.network.OverlayMessageHandler;
+import ganymedes01.etfuturum.network.PunchHandler;
+import ganymedes01.etfuturum.network.PunchMessage;
 import ganymedes01.etfuturum.network.PlayerSettingsMessage;
 import ganymedes01.etfuturum.network.PlayerSettingsHandler;
+import ganymedes01.etfuturum.network.CommandSuggestionRequestHandler;
+import ganymedes01.etfuturum.network.CommandSuggestionRequestMessage;
+import ganymedes01.etfuturum.network.CommandSuggestionsHandler;
+import ganymedes01.etfuturum.network.CommandSuggestionsMessage;
+import ganymedes01.etfuturum.network.CommandTreeHandler;
+import ganymedes01.etfuturum.network.CommandTreeMessage;
 import ganymedes01.etfuturum.network.OfflineSkinHandler;
 import ganymedes01.etfuturum.network.OfflineSkinMessage;
 import cpw.mods.fml.common.Mod;
@@ -42,7 +54,10 @@ import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.combat.DamageRules;
 import ganymedes01.etfuturum.command.CommandFill;
+import ganymedes01.etfuturum.command.modern.ModernCommands;
+import ganymedes01.etfuturum.command.modern.ModernExceptions;
 
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.CompatMisc;
@@ -57,6 +72,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
@@ -81,6 +97,8 @@ import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
+import ganymedes01.etfuturum.network.SweepParticleHandler;
+import ganymedes01.etfuturum.network.SweepParticleMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.offhand.Offhand;
@@ -315,6 +333,19 @@ public class EtFuturum {
 		networkWrapper.registerMessage(UseOffhandHandler.class, UseOffhandMessage.class, 9, Side.SERVER);
 		networkWrapper.registerMessage(PlayerSettingsHandler.class, PlayerSettingsMessage.class, 10, Side.SERVER);
 		networkWrapper.registerMessage(OfflineSkinHandler.class, OfflineSkinMessage.class, 11, Side.CLIENT);
+		networkWrapper.registerMessage(CommandTreeHandler.class, CommandTreeMessage.class, 12, Side.CLIENT);
+		networkWrapper.registerMessage(CommandSuggestionRequestHandler.class, CommandSuggestionRequestMessage.class, 13, Side.SERVER);
+		networkWrapper.registerMessage(CommandSuggestionsHandler.class, CommandSuggestionsMessage.class, 14, Side.CLIENT);
+		networkWrapper.registerMessage(PunchHandler.class, PunchMessage.class, 15, Side.SERVER);
+		networkWrapper.registerMessage(ItemCooldownHandler.class, ItemCooldownMessage.class, 16, Side.CLIENT);
+		networkWrapper.registerMessage(SweepParticleHandler.class, SweepParticleMessage.class, 17, Side.CLIENT);
+		networkWrapper.registerMessage(OverlayMessageHandler.class, OverlayMessage.class, 18, Side.CLIENT);
+		if (ConfigMixins.modernCombat) {
+			DamageRules.install();
+		}
+		if (ConfigMixins.modernChat) {
+			ModernExceptions.install();
+		}
 
 		if (!Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
 			MCLibModules.updateCheckAPI.submitModTask(MOD_ID, Reference.VERSION_NUMBER, Reference.VERSION_URL);
@@ -714,6 +745,7 @@ public class EtFuturum {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
+		ModernCommands.reset();
 		if (ConfigFunctions.enableFillCommand) {
 			event.registerServerCommand(new CommandFill());
 		}
@@ -981,6 +1013,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.attack.strong", "player");
 		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
 		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
+		config.addSoundEvent(ver, "item.shield.block", "player");
+		config.addSoundEvent(ver, "item.shield.break", "player");
 		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
 
 		config.addSoundEvent(ver, "item.axe.scrape", "player");

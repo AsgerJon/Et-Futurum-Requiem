@@ -38,6 +38,7 @@ import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.ItemSweetBerries;
 import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
+import ganymedes01.etfuturum.items.equipment.ItemShield;
 import ganymedes01.etfuturum.items.equipment.ItemEFRArmour;
 import ganymedes01.etfuturum.items.equipment.ItemEFRAxe;
 import ganymedes01.etfuturum.items.equipment.ItemEFRHoe;
@@ -90,6 +91,7 @@ public enum ModItems {
 	NETHERITE_SWORD(ConfigBlocksItems.enableNetherite, new ItemEFRSword(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteSwordDurability)),
 	NETHERITE_UPGRADE_SMITHING_TEMPLATE(ConfigBlocksItems.enableNetherite && ConfigBlocksItems.enableSmithingTable && ConfigBlocksItems.netheriteUpgradeTemplate, new ItemNetheriteUpgradeTemplate()),
 	TOTEM_OF_UNDYING(ConfigBlocksItems.enableTotemUndying, new BaseItem("totem_of_undying").setMaxStackSize(1)),
+	SHIELD(ConfigBlocksItems.enableShield && ConfigMixins.modernCombat, new ItemShield()),
 	DYE(ConfigBlocksItems.enableNewDyes, new BaseSubtypesItem("white_dye", "blue_dye", "brown_dye", "black_dye").setNames("dye")),
 	COPPER_INGOT(ConfigBlocksItems.enableCopper && !ConfigModCompat.disableCopperOreAndIngotOnly, new BaseItem("copper_ingot")),
 	SUSPICIOUS_STEW(ConfigBlocksItems.enableSuspiciousStew, new ItemSuspiciousStew()),

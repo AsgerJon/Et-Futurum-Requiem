@@ -1,6 +1,9 @@
 package ganymedes01.etfuturum.mixins.early.fov.client;
 
+import ganymedes01.etfuturum.client.gui.GuiAttackIndicatorButton;
 import ganymedes01.etfuturum.client.gui.GuiFovEffectsSlider;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiOptionsRowList;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,7 +23,9 @@ public abstract class MixinGuiVideoSettings extends GuiScreen {
 	@Inject(method = "initGui", at = @At("TAIL"))
 	private void etfu$fovEffectsRow(CallbackInfo ci) {
 		if (optionsRowList instanceof GuiOptionsRowList list) {
-			((AccessorGuiOptionsRowList) list).etfu$rows().add(new GuiOptionsRowList.Row(new GuiFovEffectsSlider(1000, this.width / 2 - 155, 0), null));
+			// the combat update's Attack Indicator beside it (combat.client.MixinGuiVideoSettings gives it its own row otherwise)
+			GuiButton attackIndicator = ConfigMixins.modernCombat ? new GuiAttackIndicatorButton(1001, this.width / 2 + 5, 0) : null;
+			((AccessorGuiOptionsRowList) list).etfu$rows().add(new GuiOptionsRowList.Row(new GuiFovEffectsSlider(1000, this.width / 2 - 155, 0), attackIndicator));
 		}
 	}
 }

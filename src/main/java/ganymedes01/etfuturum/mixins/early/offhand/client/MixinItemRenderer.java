@@ -181,6 +181,11 @@ public abstract class MixinItemRenderer implements IOffhandItemRenderer {
 		etfu$offhandEquippedProgress = 0.0F;
 	}
 
+	@Override
+	public float etfu$equippedProgress(Hand hand) {
+		return hand == Hand.OFF ? etfu$offhandEquippedProgress : equippedProgress;
+	}
+
 	@Unique
 	private boolean etfu$bowDrawnFrom(Hand hand) {
 		EntityClientPlayerMP player = mc.thePlayer;

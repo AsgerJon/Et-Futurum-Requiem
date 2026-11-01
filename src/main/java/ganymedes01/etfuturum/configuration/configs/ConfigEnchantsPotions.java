@@ -10,10 +10,12 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static boolean enableMending;
 	public static boolean enableSwiftSneak;
 	public static boolean enableDepthStrider;
+	public static boolean enableSweepingEdge;
 	public static int mendingID;
 	public static int frostWalkerID;
 	public static int swiftSneakID;
 	public static int depthStriderID;
+	public static int sweepingEdgeID;
 	public static int levitationID;
 	public static boolean modernPotionColors;
 
@@ -41,6 +43,8 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		swiftSneakID = getInt("swiftSneakID", catEnchants, 202, 0, Short.MAX_VALUE, "");
 		enableDepthStrider = getBoolean("depthStrider", catEnchants, true, "Faster movement in water. Needs enableModernSwimming in mixins.cfg, since the effect is part of the modern water movement.");
 		depthStriderID = getInt("depthStriderID", catEnchants, 203, 0, Short.MAX_VALUE, "");
+		enableSweepingEdge = getBoolean("sweepingEdge", catEnchants, true, "Stronger sweeps for swords (1.11+): a sweep deals 1 plus half (I), two thirds (II) or three quarters (III) of the attack's damage instead of 1. Needs modernCombat in mixins.cfg, since sweeps are part of the combat update.");
+		sweepingEdgeID = getInt("sweepingEdgeID", catEnchants, 204, 0, Short.MAX_VALUE, "");
 
 		//potions
 		levitationID = getInt("levitationID", catPotions, 27, 0, Short.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");

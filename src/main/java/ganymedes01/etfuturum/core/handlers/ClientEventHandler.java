@@ -18,6 +18,8 @@ import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.gui.ModernAirBubbles;
+import ganymedes01.etfuturum.client.gui.OverlayMessageHud;
+import ganymedes01.etfuturum.client.TotemActivation;
 import ganymedes01.etfuturum.client.EndFlashState;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.SpawnChunkProgress;
@@ -187,6 +189,8 @@ public class ClientEventHandler {
 		if (world == null || event.phase == Phase.START || mc.isGamePaused()) {
 			return;
 		}
+		OverlayMessageHud.tick();
+		TotemActivation.tick();
 
 		if (player.ticksExisted == 40) {
 			if (!Reference.DEV_ENVIRONMENT && !ConfigExperiments.getEnabledElements().isEmpty() && !showedDebugWarning) {
@@ -930,9 +934,10 @@ public class ClientEventHandler {
 		}
 	}
 
-	/** The skin data an offline server sent is that server's: the next one answers for itself. */
+	/** What a server sent (the command tree, an offline server's skin data) is that server's: the next one sends its own. */
 	@SubscribeEvent
 	public void onDisconnected(cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+		ganymedes01.etfuturum.client.chat.ClientCommands.forget();
 		if (ConfigMixins.offlineSkins) {
 			OfflineSkinsClient.forget();
 		}
@@ -949,6 +954,14 @@ public class ClientEventHandler {
 	public void onPreRenderOverlay(RenderGameOverlayEvent.Pre event) {
 		if (ConfigMixins.worldSaveThumbnails && event.type == RenderGameOverlayEvent.ElementType.ALL) {
 			WorldIconManager.onPreRenderOverlay();
+		}
+	}
+
+	/** Modern's overlay message above the hotbar (spec §53.3), drawn where modern draws it: just before the chat. */
+	@SubscribeEvent
+	public void onRenderOverlayMessage(RenderGameOverlayEvent.Pre event) {
+		if (event.type == RenderGameOverlayEvent.ElementType.CHAT) {
+			OverlayMessageHud.render(mc, event.resolution.getScaledWidth(), event.resolution.getScaledHeight(), event.partialTicks);
 		}
 	}
 

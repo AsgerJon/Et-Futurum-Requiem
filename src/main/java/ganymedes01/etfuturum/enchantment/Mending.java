@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 public class Mending extends Enchantment {
 
 	public Mending() {
-		super(ConfigEnchantsPotions.mendingID, 1, EnumEnchantmentType.breakable);
+		super(ConfigEnchantsPotions.mendingID, 2, EnumEnchantmentType.breakable); // rare, as 26.3: anvil cost 4 (SPEC-modern-movement.md §55.1)
 		Enchantment.addToBookList(this);
 		setName("mending");
 	}

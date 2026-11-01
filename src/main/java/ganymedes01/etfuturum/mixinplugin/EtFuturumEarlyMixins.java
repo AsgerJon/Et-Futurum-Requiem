@@ -155,6 +155,21 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("modernbreathing.MixinEntityLivingBase");
 		}
 
+		// a tipped arrow's effects after its hit, a totem it used included, as modern's
+		if (ConfigBlocksItems.enableTippedArrows) {
+			mixins.add("tippedarrows.MixinEntityArrow");
+		}
+
+		// the totem of undying where a hit's death is seen, after armour (it used to judge the hit before armour)
+		if (ConfigBlocksItems.enableTotemUndying) {
+			mixins.add("totem.MixinEntityLivingBase");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				// the sound, particles and screen animation of a used totem (spec §55.2)
+				mixins.add("totem.client.MixinNetHandlerPlayClient");
+				mixins.add("totem.client.MixinEntityRenderer");
+			}
+		}
+
 		if (ConfigBlocksItems.enableBubbleColumns) {
 			mixins.add("bubblecolumn.MixinEntityLivingBase");
 			mixins.add("bubblecolumn.MixinEntityItem");
@@ -203,8 +218,71 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("containerclose.MixinContainerClose");
 		}
 
-		if (ConfigMixins.setblockAtLookedBlock) {
-			mixins.add("setblocklook.MixinCommandSetBlock");
+		if (ConfigMixins.endCreditsOnce) {
+			mixins.add("endcredits.MixinEntityPlayerMP");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("endcredits.client.MixinNetHandlerPlayClient");
+			}
+		}
+
+		if (ConfigMixins.modernAnvilCosts) {
+			mixins.add("anvil.MixinContainerRepair");
+		}
+
+		if (ConfigMixins.modernBedUse) {
+			mixins.add("bedspawn.MixinEntityPlayer");
+			mixins.add("bedspawn.MixinBlockBed");
+		}
+
+		if (ConfigMixins.buttonsOnFullFaces) {
+			mixins.add("fullfaces.MixinBlockButton");
+			mixins.add("fullfaces.MixinBlockLever");
+		}
+
+		if (ConfigMixins.firstPersonCameraAtEyes && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("firstpersoncamera.client.MixinEntityRenderer");
+		}
+
+		if (ConfigMixins.coordinateSuggestions) {
+			mixins.add("coordinatesuggestions.MixinCommandSetBlock");
+		}
+
+		if (ConfigMixins.modernChat) {
+			mixins.add("modernchat.MixinC01PacketChatMessage");
+			mixins.add("modernchat.MixinCommandHandler");
+			mixins.add("modernchat.MixinServerConfigurationManager");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("modernchat.client.MixinC01PacketChatMessage");
+				mixins.add("modernchat.client.MixinGuiChat");
+				mixins.add("modernchat.client.MixinGuiTextField");
+				mixins.add("modernchat.client.MixinScreenChatOptions");
+			}
+		}
+
+		if (ConfigMixins.modernCombat) {
+			mixins.add("combat.AccessorItemSword");
+			mixins.add("combat.MixinItemSword");
+			mixins.add("combat.MixinItemStack");
+			mixins.add("combat.MixinEntityPlayer");
+			mixins.add("combat.MixinEntityLivingBase");
+			mixins.add("combat.AccessorEntity");
+			mixins.add("combat.MixinEntityArrow");
+			mixins.add("combat.MixinEntityMob");
+			mixins.add("combat.MixinEnchantmentProtection");
+			mixins.add("combat.MixinEnchantmentHelper");
+			mixins.add("combat.MixinEnchantmentDamage");
+			mixins.add("combat.MixinPotionAttackDamage");
+			mixins.add("combat.MixinExplosion");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("combat.client.MixinItemStackTooltip");
+				mixins.add("combat.client.MixinMinecraft");
+				mixins.add("combat.client.MixinPlayerControllerMP");
+				mixins.add("combat.client.MixinItemRenderer");
+				mixins.add("combat.client.MixinRenderItem");
+				mixins.add("combat.client.MixinModelBiped");
+				mixins.add("combat.client.MixinRenderItemFrame");
+				mixins.add("combat.client.MixinGuiVideoSettings");
+			}
 		}
 
 		if ((ConfigMixins.chatHistoryBetweenWorlds || ConfigMixins.chatLogBetweenWorlds || ConfigMixins.chatHistoryAcrossRestarts) && side == MixinEnvironment.Side.CLIENT) {
@@ -228,10 +306,14 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("givecount.MixinCommandGive");
 		}
 
+		// the video settings list's rows: FOV Effects' slider, the combat update's Attack Indicator
+		if ((ConfigMixins.fovEffects || ConfigMixins.modernCombat) && side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("fov.client.AccessorGuiOptionsRowList");
+		}
+
 		if (ConfigMixins.fovEffects && side == MixinEnvironment.Side.CLIENT) {
 			mixins.add("fov.client.MixinEntityPlayerSP");
 			mixins.add("fov.client.MixinEntityRenderer");
-			mixins.add("fov.client.AccessorGuiOptionsRowList");
 			mixins.add("fov.client.MixinGuiVideoSettings");
 		}
 
@@ -544,6 +626,13 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
         if (ConfigEntities.enableModernWither) {
             mixins.add("wither.MixinBlockSkull_OnPlacingWitherSkull");
         }
+
+		// unitTAS, the in-game test runner: they do nothing unless a run was asked for (UNITTAS.md)
+		if (side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("unittas.client.MixinMinecraft");
+			mixins.add("unittas.client.MixinMouseHelper");
+			mixins.add("unittas.client.MixinSoundHandler");
+		}
 
 		return mixins;
 	}

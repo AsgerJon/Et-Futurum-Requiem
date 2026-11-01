@@ -437,6 +437,10 @@ public class ModRecipes {
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
 		}
 
+		if (ModItems.SHIELD.isEnabled()) {
+			addShapedRecipe(ModItems.SHIELD.newItemStack(), "WoW", "WWW", " W ", 'W', "plankWood", 'o', "ingotIron");
+		}
+
 		if (ConfigFunctions.enableRecipeForTotem) {
 			addShapedRecipe(ModItems.TOTEM_OF_UNDYING.newItemStack(), "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold");
 		}

@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.enchantment.DepthStrider;
+import ganymedes01.etfuturum.enchantment.SweepingEdge;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.enchantment.SwiftSneak;
@@ -36,6 +37,7 @@ public class ModEnchantments {
 	public static Enchantment mending;
 	public static Enchantment swiftSneak;
 	public static Enchantment depthStrider;
+	public static Enchantment sweepingEdge;
 
 	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap<>();
 
@@ -48,6 +50,8 @@ public class ModEnchantments {
 			swiftSneak = new SwiftSneak();
 		if (ConfigEnchantsPotions.enableDepthStrider && ConfigMixins.enableModernSwimming)
 			depthStrider = new DepthStrider();
+		if (ConfigEnchantsPotions.enableSweepingEdge && ConfigMixins.modernCombat)
+			sweepingEdge = new SweepingEdge();
 	}
 
 	// Frost Walker logic

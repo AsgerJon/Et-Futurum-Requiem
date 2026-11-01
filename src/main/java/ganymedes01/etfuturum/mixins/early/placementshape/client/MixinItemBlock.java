@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.List;
+
 /**
  * The client's own "can it go there" (func_150936_a) asks the same question as the common placement without the
  * click position; it is taken from what the player is looking at, which is what the click will carry.
@@ -30,10 +32,12 @@ public class MixinItemBlock {
 			hitY = (float) (hit.hitVec.yCoord - hit.blockY);
 			hitZ = (float) (hit.hitVec.zCoord - hit.blockZ);
 		}
-		AxisAlignedBB box = skipCollision ? null : PlacedShape.boxAsPlaced(block, world, x, y, z, side, hitX, hitY, hitZ, ((ItemBlock) (Object) this).getMetadata(stack.getItemDamage()));
-		if (box == null) {
+		// the click names no placer here (so the player counts); the player's yaw still faces a stair
+		List<AxisAlignedBB> boxes = skipCollision ? null : PlacedShape.boxesAsPlaced(block, world, x, y, z, side, hitX, hitY, hitZ,
+				((ItemBlock) (Object) this).getMetadata(stack.getItemDamage()), Minecraft.getMinecraft().thePlayer);
+		if (boxes == null) {
 			return original.call(world, block, x, y, z, skipCollision, side, placer, stack);
 		}
-		return world.checkNoEntityCollision(box, placer) && original.call(world, block, x, y, z, true, side, placer, stack);
+		return PlacedShape.free(world, boxes, placer) && original.call(world, block, x, y, z, true, side, placer, stack);
 	}
 }

@@ -7,4 +7,7 @@ public interface IOffhandItemRenderer {
 
 	/** The hand being drawn in first person: the off-hand during its pass, the main hand otherwise. */
 	Hand etfu$drawnHand();
+
+	/** The hand's raise height, 1 when fully up (for tests). */
+	float etfu$equippedProgress(Hand hand);
 }

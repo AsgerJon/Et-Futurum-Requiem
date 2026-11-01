@@ -87,6 +87,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableBoneBlock;
 	public static boolean enableConcrete;
 	public static boolean enableTotemUndying;
+	public static boolean enableShield;
 	public static boolean enableRawOres;
 	public static boolean enableNewDyes;
 	public static boolean enableVanillaWoodRedstone;
@@ -341,6 +342,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableRawOres = getBoolean("enableRawOres", catItemMisc, true, "If true, vanilla and Et Futurum copper ores will drop raw ore items.");
 
 		enableTotemUndying = getBoolean("enableTotemUndying", catItemMisc, true, "");
+		enableShield = getBoolean("enableShield", catItemMisc, true, "The shield (1.9+): raised with right click in either hand, it blocks hits from the front once up for a quarter of a second; an axe disables it for 5 seconds. Needs modernCombat in mixins.cfg, since blocking is part of the combat update.");
 		enableSuspiciousStew = getBoolean("enableSuspiciousStew", catItemMisc, true, "");
 		enableNewDyes = getBoolean("enableNewDyes", catItemMisc, true, "");
 

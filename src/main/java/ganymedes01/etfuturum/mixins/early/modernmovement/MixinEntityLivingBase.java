@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Modern water movement for players (§11). Other living entities keep 1.7.10's, except that Depth Strider works for
- * anything wearing the boots, as in modern.
+ * Modern water movement for players (§11), and modern lava movement for them (§42). Other living entities keep
+ * 1.7.10's, except that Depth Strider works for anything wearing the boots, as in modern.
  */
 @Mixin(EntityLivingBase.class)
 public abstract class MixinEntityLivingBase extends Entity {
@@ -96,6 +96,30 @@ public abstract class MixinEntityLivingBase extends Entity {
 		return sinking;
 	}
 
+	/** Players are in lava by modern's test (§42): below the surface of a lava block, not 1.7.10's shrunk box. */
+	@ModifyExpressionValue(method = "moveEntityWithHeading", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityLivingBase;handleLavaMovement()Z"))
+	private boolean etfu$modernInLava(boolean inLava) {
+		return (Object) this instanceof EntityPlayer ? ModernWater.getLavaHeight(this) > 0.0D : inLava;
+	}
+
+	/**
+	 * Vertical lava drag, after the move: 0.8 when no more than 0.4 deep, so holding jump carries a player out of the
+	 * surface (§42); 0.5 deeper. Ordinals 0, 1, 2 are x, y, z in the lava branch.
+	 */
+	@ModifyConstant(method = "moveEntityWithHeading", constant = @Constant(doubleValue = 0.5D, ordinal = 1))
+	private double etfu$shallowLavaDrag(double drag) {
+		return (Object) this instanceof EntityPlayer && ModernWater.getLavaHeight(this) <= ModernWater.JUMP_THRESHOLD ? 0.8D : drag;
+	}
+
+	/** Sinking in shallow lava: gravity / 16 = 0.005 more, none of it while sprinting (§42). Ordinal 1 is the lava branch. */
+	@ModifyConstant(method = "moveEntityWithHeading", constant = @Constant(doubleValue = 0.02D, ordinal = 1))
+	private double etfu$shallowLavaSinking(double sinking) {
+		if ((Object) this instanceof EntityPlayer && !this.isSprinting() && ModernWater.getLavaHeight(this) <= ModernWater.JUMP_THRESHOLD) {
+			return sinking + 0.005D;
+		}
+		return sinking;
+	}
+
 	/**
 	 * Climbing a ladder or vine while in water, against a wall: move up at 0.2, before the drag is applied.
 	 */
@@ -117,6 +141,16 @@ public abstract class MixinEntityLivingBase extends Entity {
 			return inWater && waterHeight > 0.0D && !(this.onGround && waterHeight <= ModernWater.JUMP_THRESHOLD);
 		}
 		return inWater;
+	}
+
+	/** Jumping in lava (§42): standing on the ground in lava no deeper than 0.4 is a normal jump; otherwise jump swims up. */
+	@ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityLivingBase;handleLavaMovement()Z", ordinal = 0))
+	private boolean etfu$swimUpInLavaUnlessShallow(boolean inLava) {
+		if ((Object) this instanceof EntityPlayer) {
+			double lavaHeight = ModernWater.getLavaHeight(this);
+			return lavaHeight > 0.0D && !(this.onGround && lavaHeight <= ModernWater.JUMP_THRESHOLD);
+		}
+		return inLava;
 	}
 
 	/**

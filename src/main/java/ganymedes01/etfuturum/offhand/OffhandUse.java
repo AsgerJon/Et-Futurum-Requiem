@@ -120,8 +120,10 @@ public final class OffhandUse {
 			Offhand.setOffhand(player, null);
 		}
 		// As vanilla: no resend while a use is going on, since it would hand the client new stack objects and end
-		// the use it is predicting (a bow draw, eating); the use's own end syncs the slots.
-		if (!player.isUsingItem()) {
+		// the use it is predicting (a bow draw, eating); the use's own end syncs the slots. None after an entity
+		// either, as vanilla's entity handler: the item's own use often follows in the next message, and a resend
+		// arriving after the client started predicting it would end that use.
+		if (message.kind != UseOffhandMessage.ENTITY && !player.isUsingItem()) {
 			player.sendContainerToPlayer(player.inventoryContainer);
 		}
 	}

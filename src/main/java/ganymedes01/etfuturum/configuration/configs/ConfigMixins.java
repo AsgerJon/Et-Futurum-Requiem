@@ -65,11 +65,18 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean skinCustomization;
 	public static boolean shiftClickIntoCraftingGrid;
 	public static boolean itemsBackOnClose;
-	public static boolean setblockAtLookedBlock;
+	public static boolean coordinateSuggestions;
+	public static boolean modernChat;
+	public static boolean modernCombat;
 	public static boolean chatHistoryBetweenWorlds;
 	public static boolean chatLogBetweenWorlds;
 	public static boolean chatHistoryAcrossRestarts;
 	public static boolean modernKeyRepeat;
+	public static boolean endCreditsOnce;
+	public static boolean modernBedUse;
+	public static boolean modernAnvilCosts;
+	public static boolean buttonsOnFullFaces;
+	public static boolean firstPersonCameraAtEyes;
 	public static boolean enableOffhand;
 	public static boolean noPotionGlint;
 	public static boolean betterPistons;
@@ -173,7 +180,7 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Classes: net.minecraft.inventory.ContainerWorkbench");
 		itemsBackOnClose = getBoolean("itemsBackOnClose", catBackport, true, "Closing a crafting table, the inventory's crafting grid, an anvil, an enchanting table or a smithing table puts what was in it, and the stack on the cursor, back into the inventory, as modern does; only what doesn't fit drops, and everything drops if the player is dead or disconnected. The client no longer spawns a copy of each dropped item of its own either." +
 				"\nModified Classes: net.minecraft.inventory.Container net.minecraft.inventory.ContainerWorkbench net.minecraft.inventory.ContainerPlayer net.minecraft.inventory.ContainerRepair net.minecraft.inventory.ContainerEnchantment");
-		setblockAtLookedBlock = getBoolean("setblockAtLookedBlock", catBackport, true, "/setblock with no coordinates, from a player, sets the block they look at within reach: /setblock stone. A convenience of this mod, not a modern feature." +
+		coordinateSuggestions = getBoolean("coordinateSuggestions", catBackport, true, "Tab on /setblock's x, y and z fills in the coordinates of the block you look at, one more coordinate per press (~ when you look at no block), as modern suggests them." +
 				"\nModified Classes: net.minecraft.command.server.CommandSetBlock");
 		chatHistoryBetweenWorlds = getBoolean("chatHistoryBetweenWorlds", catBackport, true, "The messages you typed stay in the chat's history (the up arrow) when you leave a world, as in modern; 1.7.10 forgot them." +
 				"\nModified Client Classes: net.minecraft.client.gui.GuiNewChat");
@@ -186,6 +193,12 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Classes: net.minecraft.tileentity.TileEntityBeacon");
 		modernHunger = getBoolean("modernHunger", catBackport, true, "Hunger and healing as in modern (1.9 to 1.11): with saturation left and a full food bar, health comes back every half second from saturation; the slow healing below that costs 6 exhaustion instead of 3. Exhaustion costs are modern's, 1.7.10's in brackets: sprinting 0.1 per metre (same), walking and sneaking nothing (0.01), swimming 0.01 (0.015), a jump 0.05 and a sprint jump 0.2 (0.2 and 0.8), a hit landed 0.1 (0.3), damage taken 0.1 (0.3) and none from starving, breaking a block 0.005 (0.025), the Hunger effect 0.005 per level per tick (0.025)." +
 				"\nModified Classes: net.minecraft.util.FoodStats net.minecraft.entity.player.EntityPlayer net.minecraft.util.DamageSource net.minecraft.potion.Potion net.minecraft.block.Block");
+		modernChat = getBoolean("modernChat", catBackport, true, "The chat works as modern's (1.13+): typing a command shows a list of suggestions as you type (Tab takes one, Up and Down choose), a grey preview of the selected one, the command's usage or what is wrong with it above the input, and the command coloured by its parts; chat messages can be 256 characters long. Every command of 1.7.10 and other mods is offered with its own tab completion; /effect is modern's (give, clear, effect ids, @-selectors), and its 1.7.10 form still works. Needs EFR on the server too; on a server without it the chat stays as it was. The list can be set to open only on Tab with Command Suggestions in Chat Settings." +
+				"\nModified Classes: net.minecraft.command.CommandHandler net.minecraft.network.play.client.C01PacketChatMessage net.minecraft.server.management.ServerConfigurationManager" +
+				"\nModified Client Classes: net.minecraft.client.gui.GuiChat net.minecraft.client.gui.GuiTextField net.minecraft.client.gui.ScreenChatOptions");
+		modernCombat = getBoolean("modernCombat", catBackport, true, "The combat update (1.9+): an attack does its full damage only once the weapon has charged, shown by the attack indicator under the crosshair (or beside the hotbar, or off, set by attackIndicator in functions.cfg), and each weapon has modern's damage and speed (a diamond sword 7 damage at 1.6 attacks a second, a diamond axe 9 at 1); a sword at full charge on the ground sweeps the mobs around the target; critical hits and sprint knockback need full charge, and critical hits no sprinting; the attack sounds follow the charge; the held item dips after a swing and rises as it charges; tooltips show a weapon's damage and speed; swords no longer block, so right click goes to the off-hand item. Needs EFR on the server too." +
+				"\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.item.ItemStack net.minecraft.item.ItemSword" +
+				"\nModified Client Classes: net.minecraft.client.Minecraft net.minecraft.client.multiplayer.PlayerControllerMP net.minecraft.client.renderer.ItemRenderer");
 		chatHistoryAcrossRestarts = getBoolean("chatHistoryAcrossRestarts", catBackport, true, "The messages you typed also survive restarting the game: the last hundred are kept in etfuturum_chat_history.txt next to options.txt. Neither 1.7.10 nor modern does this." +
 				"\nModified Client Classes: net.minecraft.client.gui.GuiNewChat");
 		modernCreativeInventoryTab = getBoolean("modernCreativeInventoryTab", catBackport, true, "The creative screen's survival inventory tab laid out as modern's (1.9+): the armour slots in two columns with the player drawn between them, following the mouse, the off-hand slot at their left and modern's background for the tab." +
@@ -197,6 +210,17 @@ public class ConfigMixins extends ConfigBase {
 				"\nModified Classes: net.minecraft.world.Explosion");
 		modernKeyRepeat = getBoolean("modernKeyRepeat", catBackport, true, "A held keyboard key bound to Use fires at the keyboard's repeat rate, as since 1.13; a held mouse button keeps firing every four ticks, as in both. 1.7.10 counted one press per key-down. Screens keep vanilla's key repeat state, and repeats of other keys are dropped. Needed for the exploding-piston bedrock method, where the placing click has to land in one tick." +
 				"\nModified Client Classes: net.minecraft.client.Minecraft");
+		endCreditsOnce = getBoolean("endCreditsOnce", catBackport, true, "The End's exit portal shows the credits only the first time a player goes through it, as since 1.9; after that it takes the player straight to their spawn point. 1.7.10 showed them every time. Whether a player has seen them is saved with the player." +
+				"\nModified Classes: net.minecraft.entity.player.EntityPlayerMP" +
+				"\nModified Client Classes: net.minecraft.client.network.NetHandlerPlayClient");
+		modernBedUse = getBoolean("modernBedUse", catBackport, true, "Right-clicking a bed works as in modern: a bed out of reach (either half's middle more than 3 blocks across or 2 up or down) says \"You may not rest now; the bed is too far away\"; a bed in reach sets your spawn point even when you can't sleep yet (by day, or with monsters near), with \"Respawn point set\" when the spot changed. 1.7.10 said nothing from afar, measured from the head's corner, and set the spawn point only once you had slept or got into bed at night." +
+				"\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.block.BlockBed");
+		modernAnvilCosts = getBoolean("modernAnvilCosts", catBackport, true, "The anvil prices as in modern (1.8+): an enchantment costs its rarity's price (halved from a book) times the level it ends up at, renaming costs 1 level, mending with material 1 a unit, and an item's prior-work cost doubles with each use instead of growing by 2. 1.7.10 charged again for every enchantment the item already had, so a Mending book on a fresh pickaxe cost 6 instead of 2." +
+				"\nModified Classes: net.minecraft.inventory.ContainerRepair");
+		buttonsOnFullFaces = getBoolean("buttonsOnFullFaces", catBackport, true, "Buttons and levers can be placed on any full block face, as in modern: glass, stained glass, ice, glowstone, TNT, beacons, spawners and the like, not just on solid opaque blocks. Leaves still can't hold them, as in modern." +
+				"\nModified Classes: net.minecraft.block.BlockButton net.minecraft.block.BlockLever");
+		firstPersonCameraAtEyes = getBoolean("firstPersonCameraAtEyes", catBackport, true, "The first-person camera sits at the player's eyes, as modern's does. 1.7.10 put it 0.1 blocks behind them, which made everything in view look a little smaller and farther than in modern." +
+				"\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer");
 		enableOffhand = getBoolean("enableOffhand", catBackport, true, "The off-hand (1.9+): a second hand slot, swapped with the main hand by a key (F by default), used when the main hand has nothing to do, shown beside the hotbar. Turns itself off when Backhand or Battlegear 2 is loaded, since a player can only have one off-hand." +
 				"\nModified Classes: net.minecraft.entity.player.InventoryPlayer net.minecraft.entity.player.EntityPlayer net.minecraft.inventory.ContainerPlayer net.minecraft.network.NetHandlerPlayServer net.minecraft.server.management.ItemInWorldManager net.minecraft.item.ItemBow net.minecraft.entity.EntityLivingBase net.minecraft.inventory.Container" +
 				"\nModified Client Classes: net.minecraft.client.gui.inventory.GuiContainer net.minecraft.client.gui.inventory.GuiInventory net.minecraft.client.gui.inventory.GuiContainerCreative net.minecraft.client.Minecraft net.minecraft.client.multiplayer.PlayerControllerMP net.minecraft.client.entity.EntityClientPlayerMP net.minecraft.client.network.NetHandlerPlayClient net.minecraft.client.entity.EntityOtherPlayerMP net.minecraft.client.renderer.ItemRenderer net.minecraft.client.renderer.entity.RenderPlayer net.minecraft.client.model.ModelBiped");

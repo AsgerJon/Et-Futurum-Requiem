@@ -6,8 +6,11 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.event.GlowLichenHighlightEvent;
 import ganymedes01.etfuturum.client.model.ModelShulker;
+import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.core.utils.UnitTasMode;
 
 import ganymedes01.etfuturum.client.renderer.block.BlockAmethystClusterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockAzaleaRenderer;
@@ -59,6 +62,7 @@ import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.Item3DBedRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
+import ganymedes01.etfuturum.client.renderer.item.ItemShieldRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemSkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
@@ -75,6 +79,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.offhand.OffhandClient;
+import ganymedes01.etfuturum.combat.CombatClient;
 
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBee;
@@ -139,10 +144,25 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new GlowLichenHighlightEvent());
 		MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 
+		if (ConfigMixins.modernCombat) {
+			MinecraftForge.EVENT_BUS.register(CombatClient.INSTANCE);
+		}
+
 		if (Offhand.isEnabled()) {
 			OffhandClient.registerKey();
 			FMLCommonHandler.instance().bus().register(OffhandClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(OffhandClient.INSTANCE);
+		}
+
+		// unitTAS, the in-game test runner: asleep unless ./unittas.sh left a request (found by name, so a jar without
+		// the unittas package still runs)
+		File unitTasRequest = UnitTasMode.request(FMLClientHandler.instance().getClient().mcDataDir);
+		if (unitTasRequest.isFile()) {
+			try {
+				Class.forName("ganymedes01.etfuturum.unittas.UnitTas").getMethod("start", File.class).invoke(null, unitTasRequest);
+			} catch (ReflectiveOperationException e) {
+				Logger.error("unitTAS couldn't start: " + e);
+			}
 		}
 	}
 
@@ -157,6 +177,9 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.BANNER.get()), new ItemBannerRenderer());
 		MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
 		MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
+		if (ModItems.SHIELD.isEnabled()) {
+			MinecraftForgeClient.registerItemRenderer(ModItems.SHIELD.get(), new ItemShieldRenderer());
+		}
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.SHULKER_BOX.get()), new ItemShulkerBoxRenderer());
 		if (ConfigFunctions.inventoryBedModels) {
 			MinecraftForgeClient.registerItemRenderer(Items.bed, new Item3DBedRenderer((BlockBed) Blocks.bed));

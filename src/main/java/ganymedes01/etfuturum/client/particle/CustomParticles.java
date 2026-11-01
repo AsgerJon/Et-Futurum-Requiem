@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.client.particle;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -36,6 +37,16 @@ public class CustomParticles {
 	public static EntityFX spawnBlackHeartParticle(World world, double x, double y, double z) {
 		EntityFX particle = new BlackHeartFX(world, x, y, z);
 		return spawnParticle(world, particle);
+	}
+
+	/** A sword's sweep (spec §46.11), shown whatever the particle setting, as modern's sweep is. */
+	public static EntityFX spawnSweepAttack(World world, double x, double y, double z) {
+		return spawnParticle(world, new SweepAttackFX(world, x, y, z));
+	}
+
+	/** A used totem's particles around the entity, for 30 ticks (spec §55.2). */
+	public static EntityFX spawnTotemParticles(World world, Entity entity) {
+		return spawnParticle(world, new TotemEmitterFX(world, entity));
 	}
 
 	public static EntityFX spawnEndRodParticle(World world, double x, double y, double z) {

@@ -35,6 +35,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.EntityEvents;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -58,7 +59,6 @@ import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
 import ganymedes01.etfuturum.gamerule.PlayersSleepingPercentage;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
@@ -145,16 +145,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -243,11 +240,27 @@ public class ServerEventHandler {
 	/** The skin data an offline server looked up for a player goes to that player's own client (OfflineSkins). */
 	@SubscribeEvent
 	public void onPlayerLoggedIn(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
+		if (ConfigMixins.modernChat && event.player instanceof EntityPlayerMP player) {
+			ganymedes01.etfuturum.command.modern.ModernCommands.sendCommands(player);
+		}
 		if (ConfigMixins.offlineSkins && event.player instanceof EntityPlayerMP player && OfflineSkins.wasResolved(player.getGameProfile())) {
 			com.mojang.authlib.properties.Property textures = OfflineSkins.textures(player.getGameProfile());
 			if (textures != null && textures.getSignature() != null) {
 				EtFuturum.networkWrapper.sendTo(new OfflineSkinMessage(player.getCommandSenderName(), textures.getValue(), textures.getSignature()), player);
 			}
+		}
+	}
+
+	/**
+	 * A dimension change keeps the server's player entity but gives the client a new one, whose synced data (the main
+	 * hand, the shown skin parts, the poses) starts at its defaults; the server only ever sends changes, so a value that
+	 * didn't change was lost on the client until it did. Modern's respawn packet tells the client to keep that data
+	 * (§53.1); here the server sends all of it to the player again.
+	 */
+	@SubscribeEvent
+	public void onPlayerChangedDimension(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event) {
+		if (event.player instanceof EntityPlayerMP player) {
+			player.playerNetServerHandler.sendPacket(new net.minecraft.network.play.server.S1CPacketEntityMetadata(player.getEntityId(), player.getDataWatcher(), true));
 		}
 	}
 
@@ -505,28 +518,6 @@ public class ServerEventHandler {
 	public void livingAttack(LivingAttackEvent event) {
 		if (event.source == DamageSource.wither && event.entityLiving instanceof EntitySkeleton && ((EntitySkeleton) event.entityLiving).getSkeletonType() == 1) {
 			event.setCanceled(true);
-			return;
-		}
-
-		if (event.source instanceof EntityDamageSourceIndirect dmgSrc) {
-			if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow tippedArrow) {
-				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
-
-					List<PotionEffect> list = ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(tippedArrow.getArrow());
-					Iterator<PotionEffect> iterator1 = list.iterator();
-
-					while (iterator1.hasNext()) {
-						PotionEffect potioneffect = iterator1.next();
-						int i = potioneffect.getPotionID();
-
-						if (Potion.potionTypes[i].isInstant()) {
-							Potion.potionTypes[i].affectEntity((EntityLivingBase) dmgSrc.getEntity(), event.entityLiving, potioneffect.getAmplifier(), 1D);
-						} else {
-							event.entityLiving.addPotionEffect(new PotionEffect(i, potioneffect.getDuration(), potioneffect.getAmplifier()));
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -1768,7 +1759,8 @@ public class ServerEventHandler {
 		}
 
 		// --- Attack a living entity --- //
-		if (ConfigSounds.combatSounds && event.source.damageType.equals("player")) {
+		// with the combat update the attack plays modern's sounds by its charge itself (spec §46.3)
+		if (ConfigSounds.combatSounds && !ConfigMixins.modernCombat && event.source.damageType.equals("player")) {
 			EntityPlayer playerSource = (EntityPlayer) event.source.getEntity();
 			World world = playerSource.worldObj;
 			double x = targetEntity.posX;
@@ -1828,10 +1820,6 @@ public class ServerEventHandler {
 					}
 				}
 			}
-		}
-
-		if (ConfigBlocksItems.enableTotemUndying) {
-			handleTotemCheck(targetEntity, event);
 		}
 
 		if (EntitySquid.class.equals(targetEntity.getClass())) {
@@ -1904,9 +1892,15 @@ public class ServerEventHandler {
 		}
 	}
 
-	public void handleTotemCheck(final EntityLivingBase entity, final LivingHurtEvent event) {
-		if (entity.getHealth() > Math.round(event.ammount)) {
-			return;
+	/**
+	 * A totem in either hand saves its holder from a hit that has just brought their health to 0 (called by
+	 * totem.MixinEntityLivingBase where 1.7.10 sees the death, after armour, protection and absorption, as modern's
+	 * checkTotemDeathProtection), but not from the void or /kill. It used to judge the hit before armour, so a big hit
+	 * that the armour would have made harmless used it up. True if it did.
+	 */
+	public static boolean useTotem(final EntityLivingBase entity, final DamageSource source) {
+		if (source.canHarmInCreative()) {
+			return false;
 		}
 		// Either hand, the main hand first (SPEC-modern-movement.md §36.2).
 		ItemStack totem = entity.getHeldItem();
@@ -1914,20 +1908,20 @@ public class ServerEventHandler {
 		if (totem == null || totem.getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
 			totem = entity instanceof EntityPlayer ? Offhand.getOffhand((EntityPlayer) entity) : null;
 			if (totem == null || totem.getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
-				return;
+				return false;
 			}
 			inOffhand = true;
 		}
 
 		if (entity instanceof EntityLiving || entity instanceof EntityPlayer) {
-			//this.spawnTotemParticles(player);
-			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MCAssetVer + ":item.totem.use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+			// modern's entity event 35, to everyone tracking the entity and the entity itself: each client plays the sound,
+			// the particles and, for its own player, the totem flying at the screen (SPEC-modern-movement.md §55.2)
+			entity.worldObj.setEntityState(entity, EntityEvents.TOTEM_USED);
 
 			entity.clearActivePotions();
 			float healpercent = (float) ConfigFunctions.totemHealPercent / 100;
 			float sethp = entity.getMaxHealth() * healpercent;
 			entity.setHealth(Math.max(sethp, .5F));
-			event.ammount = 0;
 			entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
 			entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
 			entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1)); // absorption
@@ -1936,8 +1930,8 @@ public class ServerEventHandler {
 			if (entity instanceof EntityLiving) {
 				entity.setCurrentItemOrArmor(0, null);
 			}
+			// no chat line ("Your Totem of Undying shatters..."): modern says nothing (spec §55.2)
 			if (entity instanceof EntityPlayer) {
-				((EntityPlayer) entity).addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
 				if (inOffhand) {
 					if (--totem.stackSize <= 0) {
 						Offhand.setOffhand((EntityPlayer) entity, null);
@@ -1946,7 +1940,9 @@ public class ServerEventHandler {
 					((EntityPlayer) entity).destroyCurrentEquippedItem();
 				}
 			}
+			return true;
 		}
+		return false;
 	}
 
 	@SubscribeEvent
@@ -1994,8 +1990,12 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.ServerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END)
+		if (event.phase == TickEvent.Phase.END) {
 			playersClosedContainers.clear();
+			if (ConfigMixins.modernChat) {
+				ganymedes01.etfuturum.command.modern.ModernCommands.answerRequests();
+			}
+		}
 	}
 
 	private final Map<EntityPlayer, MutableFloat> lastAttackedAtYaw = new WeakHashMap<>();

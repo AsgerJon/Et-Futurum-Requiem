@@ -4,6 +4,7 @@ import ganymedes01.etfuturum.mixins.early.modernmovement.AccessorBlockLiquid;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -160,6 +161,11 @@ public final class ModernWater {
 			}
 		}
 		return height;
+	}
+
+	/** How deep an entity is in lava by modern's test (§42): above 0 means in lava. */
+	public static double getLavaHeight(Entity entity) {
+		return getFluidHeight(entity.worldObj, entity.boundingBox, Material.lava);
 	}
 
 	/**

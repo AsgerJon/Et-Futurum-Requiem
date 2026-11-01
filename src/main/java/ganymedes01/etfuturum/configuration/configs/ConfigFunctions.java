@@ -149,13 +149,16 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableHayBaleFalls;
 	public static int hayBaleReducePercent;
 	public static int totemHealPercent;
+	public static boolean arrowHarmingAfterTotemFix;
 	public static boolean enableNetheriteFlammable;
 	public static boolean enableExtraBurnableBlocks;
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean dropVehiclesTogether;
 	public static boolean enableNewF3Behavior;
 	public static boolean mainHandLeft;
+	public static String attackIndicator;
 	public static float fovEffectScale;
+	public static boolean commandSuggestions;
 	public static boolean skinCape, skinJacket, skinLeftSleeve, skinRightSleeve, skinLeftPantsLeg, skinRightPantsLeg, skinHat;
 	public static int skinPartsDataWatcherId;
 	public static boolean enableNewTextures;
@@ -227,6 +230,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableRecipeForTotem = getBoolean("enableRecipeForTotem", catSettings, false, "Recipe for totems since there's no other way to get them currently.");
 		shulkerBansString = getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
 		totemHealPercent = getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
+		arrowHarmingAfterTotemFix = getBoolean("arrowHarmingAfterTotemFix", catSettings, true, "Fixes MC-206307: a tipped arrow of Harming whose own hit has just used up a totem of undying doesn't then deal its Harming, which comes after the hit and could kill right after the totem saved you. Its other effects still apply. The same remedy as Carpet Fixes' arrowEffectsBypassTotemsFix; false keeps the bug, as in 26.3.");
 		registerRawItemAsOre = getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
 		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[]{"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
 		elytraDataWatcherFlag = (byte) getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
@@ -251,7 +255,9 @@ public class ConfigFunctions extends ConfigBase {
 		skinRightPantsLeg = getBoolean("skinRightPantsLeg", catClient, true, "Skin Customization: show the right pants leg (needs enablePlayerSkinOverlay).");
 		skinHat = getBoolean("skinHat", catClient, true, "Skin Customization: show the hat, the second layer over the head.");
 		fovEffectScale = getFloat("fovEffectScale", catClient, 1.0F, 0.0F, 1.0F, "How much the field of view follows speed, flying, a drawn bow and water: modern's FOV Effects setting (Video Settings has the slider; 1 = vanilla, 0 = the FOV never changes). Needs fovEffects in mixins.cfg.");
+		commandSuggestions = getBoolean("commandSuggestions", catClient, true, "The chat's suggestion list opens by itself as you type a command; off, Tab opens it (modern's Command Suggestions, in Chat Settings). Needs modernChat in mixins.cfg.");
 		mainHandLeft = getBoolean("mainHandLeft", catClient, false, "Your main hand is your left hand (modern's Main Hand option, 1.9+): your main-hand item is in your left arm and the off-hand item in your right, in first person and for everyone else, swings go with the main arm, and the hotbar's off-hand slot sits to the right. It changes nothing about what the hands do. Sent to the server when you join a world and when this config is reloaded. Needs the off-hand (enableOffhand in mixins.cfg).");
+		attackIndicator = getString("attackIndicator", catClient, "crosshair", "Where the attack indicator shows how far your weapon has charged (modern's Attack Indicator option, 1.9+; Video Settings has the button): crosshair, under the crosshair; hotbar, beside the hotbar; off. Needs modernCombat in mixins.cfg.", new String[]{"crosshair", "hotbar", "off"});
 		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass, sponge, potion, glass bottle and tipped arrow textures with their modern versions");
 		enableLangReplacements = getBoolean("enableLangReplacements", catClient, true, "Replaces some lang keys with a more modern version, such as calling some old wood items \"oak\", calling beds \"Red Bed\", and so on. Full list of replaced keys can be seen in the mod jar at resources/resourcepacks/vanilla_overrides/assets/minecraft/lang");
@@ -303,6 +309,20 @@ public class ConfigFunctions extends ConfigBase {
 	public static void saveFovEffectScale(float value) {
 		fovEffectScale = value;
 		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, "fovEffectScale", 1.0D).set(value);
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.save();
+	}
+
+	/** The Attack Indicator button in Video Settings (crosshair, hotbar, off), kept in this config file as modern keeps it in its options. */
+	public static void saveAttackIndicator(String value) {
+		attackIndicator = value;
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, "attackIndicator", "crosshair").set(value);
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.save();
+	}
+
+	/** The Command Suggestions button in Chat Settings, kept in this config file as modern keeps it in its options. */
+	public static void saveCommandSuggestions(boolean value) {
+		commandSuggestions = value;
+		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.get(catClient, "commandSuggestions", true).set(value);
 		ganymedes01.etfuturum.configuration.ConfigBase.FUNCTIONS.save();
 	}
 

@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.mixins.early.floorceilbutton;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import ganymedes01.etfuturum.core.utils.BlockSupport;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.material.Material;
@@ -41,7 +42,7 @@ public class MixinBlockButton extends Block {
 	@Inject(method = "canPlaceBlockOnSide", at = @At(value = "HEAD"), cancellable = true)
 	public void canPlaceBlockUpOrDown(World world, int x, int y, int z, int side, CallbackInfoReturnable<Boolean> cir) {
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
-		if ((dir == UP && world.isSideSolid(x, y - 1, z, UP)) || (dir == DOWN && world.isSideSolid(x, y + 1, z, DOWN))) {
+		if ((dir == UP && BlockSupport.canAttachTo(world, x, y - 1, z, UP)) || (dir == DOWN && BlockSupport.canAttachTo(world, x, y + 1, z, DOWN))) {
 			cir.setReturnValue(true);
 
 		}
@@ -53,7 +54,7 @@ public class MixinBlockButton extends Block {
 	 */
 	@Inject(method = "canPlaceBlockAt", at = @At(value = "HEAD"), cancellable = true)
 	public void canPlaceBlockAtTopOrBottom(World world, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-		if ((world.isSideSolid(x, y - 1, z, UP)) || (world.isSideSolid(x, y + 1, z, DOWN))) {
+		if ((BlockSupport.canAttachTo(world, x, y - 1, z, UP)) || (BlockSupport.canAttachTo(world, x, y + 1, z, DOWN))) {
 			cir.setReturnValue(true);
 		}
 	}
@@ -70,20 +71,20 @@ public class MixinBlockButton extends Block {
 									float hitX, float hitY, float hitZ, int var,
 									CallbackInfoReturnable<Integer> cir,
 									int j1, int k1, ForgeDirection dir) {
-		if (dir == UP && world.isSideSolid(x, y - 1, z, UP)) {
+		if (dir == UP && BlockSupport.canAttachTo(world, x, y - 1, z, UP)) {
 			cir.setReturnValue(5 + k1);
 		}
-		if (dir == DOWN && world.isSideSolid(x, y + 1, z, DOWN)) {
+		if (dir == DOWN && BlockSupport.canAttachTo(world, x, y + 1, z, DOWN)) {
 			cir.setReturnValue(k1);
 		}
 	}
 
 	@Inject(method = "func_150045_e", at = @At(value = "HEAD"), cancellable = true)
 	private void findSolidSide_up_down(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
-		if (worldIn.isSideSolid(x, y - 1, z, UP)) {
+		if (BlockSupport.canAttachTo(worldIn, x, y - 1, z, UP)) {
 			cir.setReturnValue(5);
 		}
-		if (worldIn.isSideSolid(x, y + 1, z, DOWN)) {
+		if (BlockSupport.canAttachTo(worldIn, x, y + 1, z, DOWN)) {
 			cir.setReturnValue(0);
 		}
 	}
@@ -92,8 +93,8 @@ public class MixinBlockButton extends Block {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", remap = false, shift = At.Shift.BEFORE, ordinal = 0))
 	public boolean modifyFlag(boolean flag, @Local(argsOnly = true) World world,
 	    @Local(ordinal = 0, argsOnly = true) int x, @Local(ordinal = 1, argsOnly = true) int y, @Local(ordinal = 2, argsOnly = true) int z, @Local(ordinal = 3) int meta) {
-		return flag || (meta == 5 && !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) ||
-				(meta == 0 && !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN));
+		return flag || (meta == 5 && !BlockSupport.canAttachTo(world, x, y - 1, z, ForgeDirection.UP)) ||
+				(meta == 0 && !BlockSupport.canAttachTo(world, x, y + 1, z, ForgeDirection.DOWN));
 	}
 
 	@Inject(method = "func_150043_b", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)

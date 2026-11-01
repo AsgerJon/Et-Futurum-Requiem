@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.mixins.early.backlytra;
 
 import ganymedes01.etfuturum.elytra.FallFlying;
+import ganymedes01.etfuturum.movement.ModernWater;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +45,7 @@ public abstract class MixinEntityLivingBase extends Entity {
 		}
 		EntityPlayer player = (EntityPlayer) (Object) this;
 		FallFlying.beforeTravel(player);
-		if (!FallFlying.isFallFlying(player) || this.isInWater() || this.handleLavaMovement()) {
+		if (!FallFlying.isFallFlying(player) || this.isInWater() || ModernWater.getLavaHeight(player) > 0.0D) {
 			return;
 		}
 		if (FallFlying.travel(player)) {

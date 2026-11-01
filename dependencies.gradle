@@ -67,6 +67,8 @@ dependencies {
     shadowImplementation('com.github.makamys:MCLib:0.4') {
         exclude group: "codechicken"
     }
+    // Mojang's command library (MIT licence), the version 26.3 ships: modern chat and commands
+    shadowImplementation('com.mojang:brigadier:1.3.11')
 
     compileOnly('com.github.GTNewHorizons:Backhand:1.8.11:dev') {transitive = false}
 }
@@ -75,4 +77,9 @@ configurations.configureEach {
     exclude group: 'com.github.GTNewHorizons', module: 'CodeChickenLib'
     exclude group: 'com.github.GTNewHorizons', module: 'Hodgepodge'
     exclude group: 'com.github.GTNewHorizons', module: 'Baubles'
+}
+
+// Brigadier is moved into EFR's package in the jar, so another mod's copy of it can't clash
+tasks.matching { it.name == 'shadowJar' }.configureEach {
+    relocate('com.mojang.brigadier', 'ganymedes01.etfuturum.shadow.com.mojang.brigadier')
 }

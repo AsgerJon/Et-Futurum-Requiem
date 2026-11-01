@@ -69,6 +69,7 @@ MinecraftForge*
 README.txt
 *.psd
 *.pdn
+*.mp4
 
 /src/main/resources/assets/thaumcraft
 

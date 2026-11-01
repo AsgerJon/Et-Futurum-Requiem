@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.entities;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.items.ItemArrowTipped;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,9 +11,10 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
 
 import java.awt.Color;
 import java.io.IOException;
@@ -42,6 +45,34 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 
 	public ItemStack getArrow() {
 		return arrow;
+	}
+
+	/**
+	 * Its effects on a living thing it has just hurt (spec §46.10), as modern's doPostHurtEffects: after the hit is
+	 * done, a totem the hit used included, so an instant one (Harming) is a hit of its own, inside the hurt cooldown the
+	 * arrow started: it only adds what it does above the arrow's damage. From no one if the arrow had no shooter.
+	 * Called by tippedarrows.MixinEntityArrow; not for a hit that didn't land (a shield, the hurt cooldown).
+	 * With arrowHarmingAfterTotemFix (MC-206307, as Carpet Fixes' arrowEffectsBypassTotemsFix) no Harming follows a
+	 * hit that has just used up a totem: it stays a magic hit of its own otherwise (a witch's cut against magic
+	 * counts, Projectile Protection doesn't), it just doesn't come after the totem the arrow itself used.
+	 */
+	public void applyEffectsTo(EntityLivingBase target) {
+		if (arrow == null) {
+			return;
+		}
+		boolean totemJustUsed = ConfigFunctions.arrowHarmingAfterTotemFix && target instanceof ITotemUser user && user.etfu$usedTotemThisTick();
+		EntityLivingBase thrower = shootingEntity instanceof EntityLivingBase living ? living : null;
+		for (PotionEffect effect : ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(arrow)) {
+			Potion potion = Potion.potionTypes[effect.getPotionID()];
+			if (totemJustUsed && potion == Potion.harm) {
+				continue;
+			}
+			if (potion.isInstant()) {
+				potion.affectEntity(thrower, target, effect.getAmplifier(), 1.0D);
+			} else {
+				target.addPotionEffect(new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier()));
+			}
+		}
 	}
 
 	private boolean isEffectValid() {

@@ -27,8 +27,9 @@ public final class OffhandUseClient {
 	/**
 	 * The off-hand try after a main-hand click that did nothing. Returns whether the off-hand used the click on a
 	 * block, which is when the vanilla client swings for the main hand. Each step sends its message whether or not
-	 * the prediction used the click, as the vanilla client does for the main hand; the server decides. A use that
-	 * changed the off-hand stack drops its raise height, as vanilla's does for the main hand (§36.5).
+	 * the prediction used the click, as the vanilla client does for the main hand; the server decides. A use that did
+	 * something and changed the off-hand stack (or any such use in creative) drops its raise height, as modern's
+	 * itemUsed (§36.5, §53.6).
 	 */
 	public static boolean tryOnClient(Minecraft mc, MovingObjectPosition hit) {
 		EntityClientPlayerMP player = mc.thePlayer;
@@ -40,7 +41,11 @@ public final class OffhandUseClient {
 		if (hit.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 			Entity entity = hit.entityHit;
 			EtFuturum.networkWrapper.sendToServer(UseOffhandMessage.entity(entity.getEntityId()));
-			return OffhandUse.withOffhandInMainHand(player, () -> player.interactWith(entity));
+			if (OffhandUse.withOffhandInMainHand(player, () -> player.interactWith(entity))) {
+				return true;
+			}
+			// an entity that doesn't take the click leaves it to the item's own use below, as modern's startUseItem
+			// (a shield raised at the mob just hit)
 		}
 		if (hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			int x = hit.blockX, y = hit.blockY, z = hit.blockZ, side = hit.sideHit;
@@ -58,10 +63,12 @@ public final class OffhandUseClient {
 				if (used == null) {
 					return false;
 				}
-				if (offhand.stackSize != sizeBefore || mc.playerController.isInCreativeMode()) {
-					resetOffhandEquippedProgress(mc);
-				}
+				// only a use that did something lowers the hand (modern's itemUsed, §53.6), in creative even with
+				// nothing used up; 1.7.10 lowered the main hand in creative after any click on a block
 				if (used) {
+					if (offhand.stackSize != sizeBefore || mc.playerController.isInCreativeMode()) {
+						resetOffhandEquippedProgress(mc);
+					}
 					return true;
 				}
 			}

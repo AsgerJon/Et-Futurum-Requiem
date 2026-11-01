@@ -13,6 +13,12 @@ repositories {
     // been unreachable since 2026-10-25, and Gradle treats a repository timeout as an error
     // rather than trying the next repository, so that Maven is no longer listed here.
 	maven { url 'https://jitpack.io' }
+    // Brigadier, from Mojang's library server
+    maven {
+        name = "Mojang"
+        url = "https://libraries.minecraft.net/"
+        content { includeModule("com.mojang", "brigadier") }
+    }
 }
 
 

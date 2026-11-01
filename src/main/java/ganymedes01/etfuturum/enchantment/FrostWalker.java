@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 public class FrostWalker extends Enchantment {
 
 	public FrostWalker() {
-		super(ConfigEnchantsPotions.frostWalkerID, 1, EnumEnchantmentType.armor_feet);
+		super(ConfigEnchantsPotions.frostWalkerID, 2, EnumEnchantmentType.armor_feet); // rare, as 26.3: anvil cost 4 (SPEC-modern-movement.md §55.1)
 		Enchantment.addToBookList(this);
 		setName("frost_walker");
 	}

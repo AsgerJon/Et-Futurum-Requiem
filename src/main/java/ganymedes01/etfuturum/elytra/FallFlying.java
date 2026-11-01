@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.elytra;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
+import ganymedes01.etfuturum.movement.ModernWater;
 import ganymedes01.etfuturum.potion.ModPotions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,11 +43,11 @@ public final class FallFlying {
 	}
 
 	/**
-	 * Try to start (§18.2): not already gliding, can glide, and not touching water or lava. Turns the flag on and
+	 * Try to start (§18.2): not already gliding, can glide, and not touching water or lava (modern's lava test, §42). Turns the flag on and
 	 * returns true if it worked. With the old takeoff logic option, the player also has to be falling.
 	 */
 	public static boolean tryToStart(EntityPlayer player) {
-		if (!isFallFlying(player) && canGlide(player) && !player.isInWater() && !player.handleLavaMovement()
+		if (!isFallFlying(player) && canGlide(player) && !player.isInWater() && ModernWater.getLavaHeight(player) <= 0.0D
 				&& (ConfigMixins.enableNewElytraTakeoffLogic || player.motionY < 0.0D)) {
 			((IElytraPlayer) player).etfu$setElytraFlying(true);
 			return true;
