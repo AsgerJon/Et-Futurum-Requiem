@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -60,7 +61,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 		if (arrow == null) {
 			return;
 		}
-		boolean totemJustUsed = ConfigFunctions.arrowHarmingAfterTotemFix && target instanceof ITotemUser user && user.etfu$usedTotemThisTick();
+		boolean totemJustUsed = McFlyConfig.arrowHarmingAfterTotemFix && target instanceof ITotemUser user && user.etfu$usedTotemThisTick();
 		EntityLivingBase thrower = shootingEntity instanceof EntityLivingBase living ? living : null;
 		for (PotionEffect effect : ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(arrow)) {
 			Potion potion = Potion.potionTypes[effect.getPotionID()];

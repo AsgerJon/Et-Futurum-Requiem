@@ -43,6 +43,25 @@ public class ItemShield extends BaseItem {
 		return stack;
 	}
 
+	/** Named for its banner's colour ("Red Shield"), as 26.3's ShieldItem.getName (spec §66.9). */
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		int base = ganymedes01.etfuturum.blocks.ModernBanners.shieldBase(stack);
+		if (base < 0) {
+			return super.getItemStackDisplayName(stack);
+		}
+		return net.minecraft.util.StatCollector.translateToLocal("item.etfuturum.shield." + ganymedes01.etfuturum.recipes.ModRecipes.dye_names[base] + ".name");
+	}
+
+	/** Its banner's layers, as the banner lists them. */
+	@Override
+	@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public void addInformation(ItemStack stack, EntityPlayer player, java.util.List tooltip, boolean advanced) {
+		super.addInformation(stack, player, tooltip, advanced);
+		ganymedes01.etfuturum.blocks.ModernBanners.addLayerLines(stack, tooltip);
+	}
+
 	@Override
 	public boolean getIsRepairable(ItemStack shield, ItemStack material) {
 		for (int id : OreDictionary.getOreIDs(material)) {

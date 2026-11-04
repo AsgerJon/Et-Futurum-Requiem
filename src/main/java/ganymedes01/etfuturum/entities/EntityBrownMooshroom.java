@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,14 +45,10 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		if (effectID > 0 && itemstack != null && itemstack.getItem() == Items.bowl && this.getGrowingAge() >= 0) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack(1, 0);
 			stew.stackTagCompound = new NBTTagCompound();
-			NBTTagList effectsList = new NBTTagList();
-			stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
-			NBTTagCompound potionEffect = new NBTTagCompound();
-			potionEffect.setByte(ItemSuspiciousStew.stewEffect, effectID);
 			if (effectDuration <= 0)
 				effectDuration = 160;
-			potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effectDuration);
-			effectsList.appendTag(potionEffect);
+			// by name (spec §70)
+			ItemSuspiciousStew.addEffect(stew, Potion.potionTypes[effectID], effectDuration);
 
 			if (itemstack.stackSize == 1) {
 				clearEffects();
@@ -97,14 +94,27 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound tagCompound) {
-		getEntityData().setByte("EffectId", this.effectID);
+		// the stored flower's effect by name (spec §70); an old save's number still read
+		Potion stored = this.effectID > 0 && this.effectID < Potion.potionTypes.length ? Potion.potionTypes[this.effectID] : null;
+		String storedName = ganymedes01.etfuturum.potion.EffectRegistry.key(stored);
+		getEntityData().removeTag("EffectId");
+		if (storedName != null) {
+			getEntityData().setString("stew_effect", storedName);
+		} else {
+			getEntityData().removeTag("stew_effect");
+		}
 		getEntityData().setInteger("EffectDuration", this.effectDuration);
 		super.writeEntityToNBT(tagCompound);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound tagCompund) {
-		this.effectID = getEntityData().getByte("EffectId");
+		if (getEntityData().hasKey("stew_effect", 8)) {
+			Potion stored = ganymedes01.etfuturum.potion.EffectRegistry.get(getEntityData().getString("stew_effect"));
+			this.effectID = stored == null ? 0 : (byte) stored.id;
+		} else {
+			this.effectID = getEntityData().getByte("EffectId");
+		}
 		this.effectDuration = getEntityData().getInteger("EffectDuration");
 		super.readEntityFromNBT(tagCompund);
 	}

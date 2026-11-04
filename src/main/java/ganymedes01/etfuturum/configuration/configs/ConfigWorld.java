@@ -26,7 +26,6 @@ public class ConfigWorld extends ConfigBase {
 
 	public static boolean enableDmgIndicator;
 	public static boolean endFlashes;
-	public static boolean chorusOnlyOnOuterIslands;
 	public static boolean modernEndAmbientColor;
 	public static boolean modernLightmapGamma;
 	public static boolean modernBlockLightTint;
@@ -106,7 +105,6 @@ public class ConfigWorld extends ConfigBase {
 		modernBlockLightTint = getBoolean("modernBlockLightTint", catClient, true, "Adjust block light color and gradient to match modern Minecraft.");
 		modernNightVision = getBoolean("modernNightVision", catClient, true, "Adjust night vision to match modern Minecraft.");
 		enableAirDebris = getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
-		chorusOnlyOnOuterIslands = getBoolean("chorusOnlyOnOuterIslands", catGeneration, true, "Chorus plants generate only on the outer End islands, beyond 1024 blocks from the centre (modern's main-island biome boundary, 1.9+). The vanilla End has no land out there, so with this on chorus only generates in the outer islands of the End dimension provider (experiments.cfg, endDimensionProvider).");
 		maxStonesPerCluster = getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
 		smallDebrisMax = getInt("smallDebrisMax", catGeneration, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
 		debrisMax = getInt("debrisMax", catGeneration, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
@@ -193,7 +191,6 @@ public class ConfigWorld extends ConfigBase {
 		soulSandValleyID = getInt("soulSandValleyID", catBiomes, 202, -1, 65536, "Set to -1 to disable the generation of Soul Sand Valleys. To use an ID above 255, EndlessIDs is required.");
 		basaltDeltasID = getInt("basaltDeltasID", catBiomes, 203, -1, 65536, "Set to -1 to disable the generation of Basalt Deltas. To use an ID above 255, EndlessIDs is required.");
 
-
 		netherWastesWeight = getInt("netherWastesWeight", catBiomes, 30, 1, Byte.MAX_VALUE, "How likely the Nether Wastes biome should generate compared to other Nether biomes.");
 		crimsonForestWeight = getInt("crimsonForestWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Crimson Forest biome should generate compared to other Nether biomes.");
 		warpedForestWeight = getInt("warpedForestWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Warped Forest biome should generate compared to other Nether biomes.");
@@ -202,7 +199,7 @@ public class ConfigWorld extends ConfigBase {
 
 		tileReplacementMode = getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 		oldHuskSpawning = getBoolean("oldHuskSpawning", catMisc, false, "Enables the old husk spawning logic. Instead of replacing 80% of zombies exposed to the sky in the right biomes, they'll reduce the spawn rate of normal zombies and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");
-		oldStraySpawning = getBoolean("oldStraySpawning", catMisc, false, "Enables the old stray spawning logic. Instead of replacing 80% of skeletons exposed to the sky in the right biomes, they'll reduce the spawn rate of normal skeletons and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");
+		oldStraySpawning = getBoolean("oldStraySpawning", catMisc, false, "Enables the old stray spawning logic. Instead of spawning as modern Minecraft does (in snowy plains and ice spikes, where they see the sky), they'll reduce the spawn rate of normal skeletons and spawn anywhere in every snowy biome.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");
 	}
 
 	@Override

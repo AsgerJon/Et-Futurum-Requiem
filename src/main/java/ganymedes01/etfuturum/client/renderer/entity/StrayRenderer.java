@@ -19,6 +19,12 @@ public class StrayRenderer extends RenderSkeleton {
 	@Override
 	protected int shouldRenderPass(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_) {
 		if (p_77032_2_ == 1) {
+			// the body's held item and pose (1.7.10 copies only the swing, riding and age to a pass model); with
+			// modern arms the skeleton's arms show them (spec §64.1)
+			clothesModel.heldItemRight = modelBipedMain.heldItemRight;
+			clothesModel.heldItemLeft = modelBipedMain.heldItemLeft;
+			clothesModel.isSneak = modelBipedMain.isSneak;
+			clothesModel.aimedBow = modelBipedMain.aimedBow;
 			setRenderPassModel(clothesModel);
 			bindTexture(overlay_texture);
 			return 1;

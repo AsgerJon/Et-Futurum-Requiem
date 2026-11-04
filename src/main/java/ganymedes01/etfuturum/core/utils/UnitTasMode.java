@@ -32,7 +32,7 @@ public final class UnitTasMode {
 	private UnitTasMode() {
 	}
 
-	/** The request ./unittas.sh leaves in the game's folder. */
+	/** The request ./unittas_mcfly.sh leaves in the game's folder. */
 	public static File request(File gameDir) {
 		return new File(gameDir, "unittas/request.properties");
 	}

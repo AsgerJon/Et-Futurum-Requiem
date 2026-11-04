@@ -79,9 +79,9 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 
 			if (i == sign.lineBeingEdited) {
 				s = "> " + s + "§r <";
-				fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0);
+				SignTextDrawing.draw(fontrenderer, s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0, sign);
 			} else {
-				fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0);
+				SignTextDrawing.draw(fontrenderer, s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0, sign);
 			}
 		}
 

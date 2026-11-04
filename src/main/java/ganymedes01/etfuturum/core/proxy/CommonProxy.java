@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -48,11 +49,11 @@ import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
 import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.EntityShulkerBullet;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ModEntityList;
+import io.github.asgerjon.mcfly.registry.McFlyEntities;
 import ganymedes01.etfuturum.inventory.ContainerAnvil;
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
@@ -101,6 +102,10 @@ public class CommonProxy implements IGuiHandler {
 
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
+
+		if (ganymedes01.etfuturum.core.handlers.PowderSnowEvents.isEnabled()) {
+			MinecraftForge.EVENT_BUS.register(ganymedes01.etfuturum.core.handlers.PowderSnowEvents.INSTANCE);
+		}
 
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
 		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
@@ -228,6 +233,19 @@ public class CommonProxy implements IGuiHandler {
 
 				EntityRegistry.addSpawn(EntitySkeleton.class, 20, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SNOWY));
 				EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			} else {
+				// 26.3's lists (spec §63.2): strays 80 and skeletons 20 in snowy plains and ice spikes only; where they
+				// may spawn is EntityStray.getCanSpawnHere's sky rule
+				List<BiomeGenBase> snowyPlains = new ArrayList<>();
+				for (BiomeGenBase biome : new BiomeGenBase[]{BiomeGenBase.icePlains, BiomeGenBase.getBiome(BiomeGenBase.icePlains.biomeID + 128)}) {
+					if (biome != null) {
+						snowyPlains.add(biome);
+					}
+				}
+				BiomeGenBase[] strayBiomes = snowyPlains.toArray(new BiomeGenBase[0]);
+				EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, strayBiomes);
+				EntityRegistry.addSpawn(EntitySkeleton.class, 20, 4, 4, EnumCreatureType.monster, strayBiomes);
+				EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, strayBiomes);
 			}
 		}
 
@@ -260,8 +278,9 @@ public class CommonProxy implements IGuiHandler {
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", 15, EtFuturum.instance, 64, 1, true);
 
 		if (ConfigEntities.enableShulker) {
-			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 80, 1, false, 0x946794, 0x4D3852);
-			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
+			// ours (McFly's list, spec §79 B6), at their old place among EFR's so the spawn eggs keep their ids
+			McFlyEntities.SHULKER.register(EtFuturum.instance);
+			McFlyEntities.SHULKER_BULLET.register(EtFuturum.instance);
 
 			if (ConfigTweaks.shulkersSpawnAnywhere) {
 				EntityRegistry.addSpawn(EntityShulker.class, 1, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
@@ -291,6 +310,9 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityFox.class, 8, 2, 4, EnumCreatureType.creature, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
 		}
 
+		// the rest of ours (McFly's list, spec §79 B6), after EFR's own, and where they spawn
+		McFlyEntities.registerAll(EtFuturum.instance);
+
 		//make magmas slightly more common, hopefully.
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, BiomeGenBase.hell);
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
@@ -312,6 +334,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.SHULKER_BOX ->
 					new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
 			case GUIIDs.SMITHING_TABLE -> new ContainerSmithingTable(player.inventory, world);
+			case GUIIDs.LOOM -> new ganymedes01.etfuturum.inventory.ContainerLoom(player.inventory, world, x, y, z);
 			default -> null;
 		};
 	}
@@ -330,6 +353,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.SHULKER_BOX ->
 					new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
 			case GUIIDs.SMITHING_TABLE -> new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
+			case GUIIDs.LOOM -> new ganymedes01.etfuturum.client.gui.inventory.GuiLoom(new ganymedes01.etfuturum.inventory.ContainerLoom(player.inventory, world, x, y, z));
 			default -> null;
 		};
 	}

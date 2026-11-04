@@ -58,6 +58,13 @@ public class BlockEndGateway extends BlockContainer {
 		return !(entity instanceof EntityDragon) && !(entity instanceof EntityWither);
 	}
 
+	/** 26.3's: picking it gives nothing. */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		return null;
+	}
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityGateway();
@@ -110,12 +117,13 @@ public class BlockEndGateway extends BlockContainer {
 			int i = ((TileEntityGateway) tileentity).getParticleAmount();
 
 			for (int j = 0; j < i; ++j) {
-				double d0 = (float) x + rand.nextFloat();
-				double d1 = (float) y + rand.nextFloat();
-				double d2 = (float) z + rand.nextFloat();
-				double d3 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
-				double d4 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
-				double d5 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
+				// 26.3's EndGatewayBlock.animateTick
+				double d0 = x + rand.nextDouble();
+				double d1 = y + rand.nextDouble();
+				double d2 = z + rand.nextDouble();
+				double d3 = (rand.nextDouble() - 0.5D) * 0.5D;
+				double d4 = (rand.nextDouble() - 0.5D) * 0.5D;
+				double d5 = (rand.nextDouble() - 0.5D) * 0.5D;
 				int k = rand.nextInt(2) * 2 - 1;
 
 				if (rand.nextBoolean()) {

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.enchantment;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -11,7 +12,7 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 public class SweepingEdge extends Enchantment {
 
 	public SweepingEdge() {
-		super(ConfigEnchantsPotions.sweepingEdgeID, 2, EnumEnchantmentType.weapon);
+		super(McFlyConfig.sweepingEdgeID, 2, EnumEnchantmentType.weapon);
 		Enchantment.addToBookList(this);
 		setName("sweeping_edge");
 	}

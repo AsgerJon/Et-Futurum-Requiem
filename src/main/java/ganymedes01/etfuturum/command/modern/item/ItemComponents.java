@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.command.modern.arguments.EnchantmentIds;
 import ganymedes01.etfuturum.command.modern.arguments.ResourceIds;
 import ganymedes01.etfuturum.command.modern.nbt.Snbt;
 import ganymedes01.etfuturum.command.modern.nbt.SnbtReader;
+import ganymedes01.etfuturum.items.LodestoneCompass;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -124,6 +125,7 @@ public final class ItemComponents {
 			int rgb = rgb(value);
 			return stack -> display(stack).setInteger("color", rgb);
 		}));
+		PORTED.put("minecraft:lodestone_tracker", new Ported(3, ItemComponents::lodestoneTracker));
 		PORTED.put("minecraft:custom_name", new Ported(4, value -> {
 			TextComponent name = TextComponent.decode(value);
 			return stack -> display(stack).setString("Name", name.toLegacy(rarityCode(stack), true));
@@ -249,6 +251,104 @@ public final class ItemComponents {
 		} catch (CommandSyntaxException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * `{target: {dimension, pos}, tracked}` (spec §57.2): the target may be left out, tracked is true unless said. As
+	 * NBT on the stack (LodestoneCompass), the dimension as 1.7.10's number.
+	 */
+	private static Applier lodestoneTracker(Object value) throws DecodeException {
+		if (!(value instanceof Map<?, ?> map)) {
+			throw new DecodeException("Not a map: " + Snbt.toText(value));
+		}
+		boolean tracked = true;
+		Object trackedValue = map.get("tracked");
+		if (trackedValue != null) {
+			if (!(trackedValue instanceof Number number)) {
+				throw new DecodeException("Not a boolean: " + Snbt.toText(trackedValue));
+			}
+			tracked = number.byteValue() != 0;
+		}
+		int[] target = null;
+		int dimension = 0;
+		Object targetValue = map.get("target");
+		if (targetValue != null) {
+			if (!(targetValue instanceof Map<?, ?> globalPos)) {
+				throw new DecodeException("Not a map: " + Snbt.toText(targetValue));
+			}
+			Object dimensionValue = globalPos.get("dimension");
+			if (dimensionValue == null) {
+				throw new DecodeException("No key dimension in MapLike[" + Snbt.toText(targetValue) + "]");
+			}
+			dimension = dimension(dimensionValue);
+			Object posValue = globalPos.get("pos");
+			if (posValue == null) {
+				throw new DecodeException("No key pos in MapLike[" + Snbt.toText(targetValue) + "]");
+			}
+			target = blockPos(posValue);
+		}
+		boolean isTracked = tracked;
+		int[] pos = target;
+		int dimensionNumber = dimension;
+		return stack -> LodestoneCompass.setTracker(stack, isTracked, pos, dimensionNumber);
+	}
+
+	/** Modern's names for 1.7.10's dimensions, and minecraft:dimN for a mod's (as /spawnpoint names them). */
+	private static int dimension(Object value) throws DecodeException {
+		if (!(value instanceof String text)) {
+			throw new DecodeException("Not a string: " + Snbt.toText(value));
+		}
+		StringReader reader = new StringReader(text);
+		String id;
+		try {
+			id = ResourceIds.read(reader);
+		} catch (CommandSyntaxException e) {
+			throw new DecodeException("Not a valid resource location: " + text);
+		}
+		if (reader.canRead()) {
+			throw new DecodeException("Not a valid resource location: " + text);
+		}
+		switch (id) {
+			case "minecraft:overworld":
+				return 0;
+			case "minecraft:the_nether":
+				return -1;
+			case "minecraft:the_end":
+				return 1;
+			default:
+				if (id.startsWith("minecraft:dim")) {
+					try {
+						return Integer.parseInt(id.substring("minecraft:dim".length()));
+					} catch (NumberFormatException e) {
+						// not one of 1.7.10's numbered dimensions
+					}
+				}
+				throw new DecodeException("No such dimension: " + id);
+		}
+	}
+
+	/** `[I; x, y, z]`, or a list of three numbers. */
+	private static int[] blockPos(Object value) throws DecodeException {
+		if (value instanceof int[] ints) {
+			if (ints.length != 3) {
+				throw new DecodeException("Input is not a list of 3 ints");
+			}
+			return ints.clone();
+		}
+		if (value instanceof List<?> list) {
+			if (list.size() != 3) {
+				throw new DecodeException("Input is not a list of 3 ints");
+			}
+			int[] pos = new int[3];
+			for (int i = 0; i < 3; i++) {
+				if (!(list.get(i) instanceof Number number)) {
+					throw new DecodeException("Not a number: " + Snbt.toText(list.get(i)));
+				}
+				pos[i] = number.intValue();
+			}
+			return pos;
+		}
+		throw new DecodeException("Not a list: " + Snbt.toText(value));
 	}
 
 	/** An int, or three floats from 0 to 1. */

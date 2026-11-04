@@ -1,9 +1,11 @@
 package ganymedes01.etfuturum.combat;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.ItemCooldownMessage;
+import io.github.asgerjon.mcfly.network.ItemCooldownMessage;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.entity.Entity;
@@ -115,7 +117,7 @@ public final class ShieldBlocking {
 		float pitch = 0.8F + player.getRNG().nextFloat() * 0.4F;
 		player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Reference.MCAssetVer + ":item.shield.break", 0.8F, pitch);
 		if (player instanceof EntityPlayerMP playerMP) {
-			EtFuturum.networkWrapper.sendTo(new ItemCooldownMessage(shield.getItem(), DISABLE_TICKS), playerMP);
+			McFlyNetwork.CHANNEL.sendTo(new ItemCooldownMessage(shield.getItem(), DISABLE_TICKS), playerMP);
 		}
 	}
 }

@@ -30,7 +30,7 @@ public class BlockColoredWaterCauldronRenderer extends BlockCauldronBaseRenderer
 		float b = (float) (color & 255) / 255.0F;
 		tessellator.setColorOpaque_F(r, g, b);
 		IIcon iicon = ((BlockPotionCauldron) ModBlocks.POTION_CAULDRON.get()).grayscaleWaterIcon();
-		renderer.renderFaceYPos(block, x, (double) y - 1.0F + BlockCauldron.getRenderLiquidLevel(renderer.blockAccess.getBlockMetadata(x, y, z) + 1), z, iicon);
+		CauldronModel.content(renderer, block, x, y, z, BlockCauldron.getRenderLiquidLevel(renderer.blockAccess.getBlockMetadata(x, y, z) + 1), iicon);
 
 		return true;
 	}

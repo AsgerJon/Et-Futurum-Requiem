@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.entities;
 
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -68,6 +69,15 @@ public class EntityStray extends EntitySkeleton {
 		}
 
 		return p_110161_1_;
+	}
+
+	/** 26.3 {@code checkStraySpawnRules} (spec §63.2): the monster rules, and the sky seen unless a spawner spawns it. */
+	@Override
+	public boolean getCanSpawnHere() {
+		if (!ConfigWorld.oldStraySpawning && !StraySpawning.isFromSpawner() && !StraySpawning.seesSky(this)) {
+			return false;
+		}
+		return super.getCanSpawnHere();
 	}
 
 	@Override

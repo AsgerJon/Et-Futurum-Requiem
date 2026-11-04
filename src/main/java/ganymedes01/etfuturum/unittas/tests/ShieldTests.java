@@ -1,18 +1,18 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
+import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.Entity;
+import ganymedes01.etfuturum.entities.EntityThrownTrident;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.combat.ShieldBlocking;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
-import ganymedes01.etfuturum.unittas.TasTestCase;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -34,11 +34,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -47,7 +42,7 @@ import java.util.function.Function;
  * The shield (spec §46.9): its rules, played on the server's real damage path, and its placement in each view as
  * screenshots to hold against 26.3's. The player stands at 0.5 4 0.5 looking south (+z): the front is +z.
  */
-public class ShieldTests extends TasTestCase {
+public class ShieldTests extends ComparisonTestCase {
 
 	private static final String BLOCK_SOUND = Reference.MCAssetVer + ":item.shield.block";
 	private static final String BREAK_SOUND = Reference.MCAssetVer + ":item.shield.break";
@@ -55,11 +50,11 @@ public class ShieldTests extends TasTestCase {
 	/** In survival: a creative player takes no damage to block. */
 	@Override
 	protected void setUp() {
-		if (!ModItems.SHIELD.isEnabled()) {
+		if (!McFlyItems.SHIELD.isEnabled()) {
 			skipTest("the shield is turned off (enableShield, modernCombat)");
 		}
 		onServer(() -> player().setGameType(WorldSettings.GameType.SURVIVAL));
-		setHeld(new ItemStack(ModItems.SHIELD.get()));
+		setHeld(new ItemStack(McFlyItems.SHIELD.get()));
 		ticks(2);
 	}
 
@@ -255,6 +250,112 @@ public class ShieldTests extends TasTestCase {
 		waitUntil("the burning arrow from behind to set the player alight", () -> player().isBurning(), 40);
 	}
 
+	// ---------------------------------------------------------------- particular sources (the user, 2026-11-04)
+
+	/** A thrown projectile at chest height from z, flying along z (direction +1 or -1) at the speed. */
+	private void throwAt(Entity projectile, double z, double direction, double speed) {
+		onServer(() -> {
+			projectile.setPosition(0.5, 5.0, z);
+			projectile.motionX = 0.0;
+			projectile.motionY = 0.0;
+			projectile.motionZ = direction * speed;
+			world().spawnEntityInWorld(projectile);
+		});
+	}
+
+	private static ItemStack tridentItem() {
+		return new ItemStack(McFlyItems.TRIDENT.get());
+	}
+
+	/**
+	 * A thrown trident at the raised shield from the front (26.3's `ThrownTrident.onHitEntity`, `applyItemBlocking`):
+	 * all its 8 blocked, the block sound, the shield worn 1 + 8 = 9, the trident's hit sound and it bounces back, the
+	 * player not pushed (a hit fully blocked gives no knockback).
+	 */
+	public void testThrownTridentBlocked() {
+		if (!McFlyItems.TRIDENT.isEnabled()) {
+			skipTest("the trident is turned off");
+		}
+		raise();
+		clearSounds();
+		float before = onServer(() -> player().getHealth());
+		onServer(() -> {
+			player().hurtResistantTime = 0;
+		});
+		EntityThrownTrident trident = onServer(() -> {
+			EntityThrownTrident thrown = new EntityThrownTrident(world());
+			thrown.setItem(tridentItem());
+			return thrown;
+		});
+		throwAt(trident, 4.5, -1.0, 1.5);
+		waitForSound(BLOCK_SOUND, 40);
+		serverTicks(2);
+		assertEqual(before, onServer(() -> player().getHealth()), "the trident got through the shield");
+		assertEqual(9, shieldDamage(), "the shield's wear (1 + 8)");
+		waitForSound(Reference.MCAssetVer + ":item.trident.hit", 20);
+		assertTrue(onServer(() -> trident.motionZ >= 0.0 || trident.posZ > 1.5), "the trident didn't bounce back (motion z " + onServer(() -> trident.motionZ) + ")");
+		serverTicks(5);
+		assertAlmostEqual(0.5, onServer(() -> player().posZ), 0.05);
+		onServer(() -> trident.setDead());
+	}
+
+	/** From behind, the raised shield doesn't stop a thrown trident: 8 damage. */
+	public void testThrownTridentFromBehindHits() {
+		if (!McFlyItems.TRIDENT.isEnabled()) {
+			skipTest("the trident is turned off");
+		}
+		raise();
+		float before = onServer(() -> player().getHealth());
+		onServer(() -> {
+			player().hurtResistantTime = 0;
+		});
+		EntityThrownTrident trident = onServer(() -> {
+			EntityThrownTrident thrown = new EntityThrownTrident(world());
+			thrown.setItem(tridentItem());
+			return thrown;
+		});
+		throwAt(trident, -3.5, 1.0, 1.5);
+		waitUntil("the trident from behind to hit", () -> player().getHealth() < before, 40);
+		assertAlmostEqual(8.0, before - onServer(() -> player().getHealth()), 0.01);
+		onServer(() -> trident.setDead());
+		backToStart();
+	}
+
+	/**
+	 * A snowball or an egg at the raised shield: nothing at all, as in 26.3. They deal 0 to anything but a blaze
+	 * (snowballs) and 26.3's `Player.hurtServer` ends a 0-damage hit before blocking, so: no block sound, no wear, no
+	 * harm, no knockback; the snowball or egg breaks on the player.
+	 */
+	public void testSnowballAndEggDoNothing() {
+		raise();
+		for (boolean egg : new boolean[] {false, true}) {
+			clearSounds();
+			float before = onServer(() -> player().getHealth());
+			Entity thrown = onServer(() -> egg ? new EntityEgg(world()) : new EntitySnowball(world()));
+			throwAt(thrown, 4.5, -1.0, 1.5);
+			String what = egg ? "the egg" : "the snowball";
+			waitUntil(what + " to break on the player", () -> thrown.isDead, 40);
+			serverTicks(5);
+			assertFalse(soundsHeard().contains(BLOCK_SOUND), what + " played the block sound");
+			assertEqual(0, shieldDamage(), what + " wore the shield");
+			assertEqual(before, onServer(() -> player().getHealth()), what + " hurt the player");
+			assertAlmostEqual(0.5, onServer(() -> player().posZ), 0.05);
+		}
+		// an egg may hatch a chick
+		onServer(() -> {
+			for (Object entity : new ArrayList<Object>(world().loadedEntityList)) {
+				if (entity instanceof net.minecraft.entity.passive.EntityChicken chicken) {
+					chicken.setDead();
+				}
+			}
+		});
+	}
+
+	/** Llama spit (26.3: 1 damage, a projectile, so a raised shield stops it from the front): llamas aren't in EFR yet. */
+	public void testLlamaSpitBlocked() {
+		skipTest("deferred: EFR has no llamas yet (handoff upcoming 46: this test when they come)");
+	}
+
 	/**
 	 * Inside the hurt cooldown a blocked hit still wears the shield, but makes no sound: modern's blocking comes before
 	 * the cooldown check, the block sound only on the way past it.
@@ -322,7 +423,7 @@ public class ShieldTests extends TasTestCase {
 		onServer(() -> zombie.setCurrentItemOrArmor(0, new ItemStack(Items.iron_axe)));
 		hit(DamageSource.causeMobDamage(zombie), 4.0F);
 		assertFalse(onServer(() -> player().isUsingItem()), "the axe didn't lower the shield");
-		assertTrue(onServer(() -> ((ICombatPlayer) player()).etfu$getCooldowns().isCoolingDown(ModItems.SHIELD.get())), "no cooldown");
+		assertTrue(onServer(() -> ((ICombatPlayer) player()).etfu$getCooldowns().isCoolingDown(McFlyItems.SHIELD.get())), "no cooldown");
 		onServer(() -> {
 			player().getHeldItem().getItem().onItemRightClick(player().getHeldItem(), world(), player());
 		});
@@ -348,7 +449,7 @@ public class ShieldTests extends TasTestCase {
 			EnumDifficulty difficulty = (EnumDifficulty) row[0];
 			backToStart();
 			difficulty(difficulty);
-			setHeld(new ItemStack(ModItems.SHIELD.get()));
+			setHeld(new ItemStack(McFlyItems.SHIELD.get()));
 			raise();
 			assertEqual(0.0F, hit(DamageSource.causeMobDamage(zombieAt(2.5)), 4.0F), "a hit from the front got through on " + difficulty);
 			assertEqual(row[1], shieldDamage(), "the shield's wear from a 4 on " + difficulty);
@@ -378,7 +479,7 @@ public class ShieldTests extends TasTestCase {
 		}
 		setHeld(null);
 		onServer(() -> {
-			Offhand.setOffhand(player(), new ItemStack(ModItems.SHIELD.get()));
+			Offhand.setOffhand(player(), new ItemStack(McFlyItems.SHIELD.get()));
 			player().inventoryContainer.detectAndSendChanges();
 		});
 		// the click must find the main hand empty and the shield in the off-hand on the client too, or it raises the
@@ -407,12 +508,17 @@ public class ShieldTests extends TasTestCase {
 		}
 		setHeld(new ItemStack(Items.iron_sword));
 		onServer(() -> {
-			Offhand.setOffhand(player(), new ItemStack(ModItems.SHIELD.get()));
+			Offhand.setOffhand(player(), new ItemStack(McFlyItems.SHIELD.get()));
 			player().inventoryContainer.detectAndSendChanges();
 		});
 		waitUntilOnClient("the client to have the sword and the off-hand shield", () -> mc().thePlayer.getHeldItem() != null
 			&& mc().thePlayer.getHeldItem().getItem() == Items.iron_sword && Offhand.getOffhand(mc().thePlayer) != null, 40);
-		zombieAt(2.0);
+		EntityZombie zombie = zombieAt(2.0);
+		// no AI: walking about after the hit took it out of the crosshair now and then (2026-11-03, once in ~10 runs)
+		onServer(() -> {
+			zombie.tasks.taskEntries.clear();
+			zombie.targetTasks.taskEntries.clear();
+		});
 		look(0.0F, 0.0F);
 		ticks(3);
 		tap(mc().gameSettings.keyBindAttack);
@@ -446,7 +552,7 @@ public class ShieldTests extends TasTestCase {
 			return CraftingManager.getInstance().findMatchingRecipe(grid, world());
 		});
 		assertIsNotNone(made, "no recipe matched");
-		assertEqual(ModItems.SHIELD.get(), made.getItem());
+		assertEqual(McFlyItems.SHIELD.get(), made.getItem());
 	}
 
 	// ---------------------------------------------------------------- the placement, for 26.3's to compare
@@ -456,69 +562,40 @@ public class ShieldTests extends TasTestCase {
 		return 180;
 	}
 
-	/**
-	 * The views unittas-compare.sh holds against 26.3's (unittas-reference, the same views, names and settings): a
-	 * pack paints the shield magenta so its outline can be measured; field of view 70, no view bobbing, no clouds, GUI
-	 * scale 2, the main hand the right (the config's mainHandLeft only for the run, not saved). The settings and packs
-	 * are put back afterwards.
-	 */
+	/** The shield's views for unittas_mcfly-compare.sh (see ComparisonTestCase), after the comparison's calibration. */
 	public void testScreenshots() throws Exception {
-		Object[] before = onClient(() -> new Object[]{mc().gameSettings.fovSetting, mc().gameSettings.viewBobbing, mc().gameSettings.clouds,
-			mc().gameSettings.guiScale, new ArrayList<>(mc().getResourcePackRepository().getRepositoryEntries()), ConfigFunctions.mainHandLeft});
-		try {
-			magentaPack();
-			onClient(() -> {
-				mc().gameSettings.fovSetting = 70.0F;
-				mc().gameSettings.viewBobbing = false;
-				mc().gameSettings.clouds = false;
-				mc().gameSettings.guiScale = 2;
-				ConfigFunctions.mainHandLeft = false;
-				ClientEventHandler.sendPlayerSettings();
-			});
+		comparisonViews(() -> {
 			calibration();
 			look(0.0F, 0.0F);
 			ticks(10);
-			screenshot("shield.first_person_lowered");
+			comparisonShot("shield.first_person_lowered");
 			keyDown(mc().gameSettings.keyBindUseItem);
 			ticks(8);
-			screenshot("shield.first_person_raised");
+			comparisonShot("shield.first_person_raised");
 			cameraView(1);
-			screenshot("shield.third_person_back_raised");
+			comparisonShot("shield.third_person_back_raised");
 			cameraView(2);
-			screenshot("shield.third_person_front_raised");
+			comparisonShot("shield.third_person_front_raised");
 			keyUp(mc().gameSettings.keyBindUseItem);
 			ticks(4);
-			screenshot("shield.third_person_front_lowered");
+			comparisonShot("shield.third_person_front_lowered");
 			cameraView(1);
-			screenshot("shield.third_person_back_lowered");
+			comparisonShot("shield.third_person_back_lowered");
 			cameraView(0);
-			onClient(() -> {
-				mc().displayGuiScreen(new GuiInventory(mc().thePlayer) {
-					@Override
-					public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-						// the cursor where the model looks straight ahead (26.3's run does the same)
-						super.drawScreen(guiLeft + 51, guiTop + 25, partialTicks);
-					}
-				});
-			});
-			ticks(3);
-			screenshot("shield.inventory");
-			onClient(() -> {
-				mc().displayGuiScreen(null);
-			});
+			inventoryShot("shield.inventory");
 			setHeld(null);
 			if (Offhand.isEnabled()) {
 				onServer(() -> {
-					Offhand.setOffhand(player(), new ItemStack(ModItems.SHIELD.get()));
+					Offhand.setOffhand(player(), new ItemStack(McFlyItems.SHIELD.get()));
 					player().inventoryContainer.detectAndSendChanges();
 				});
 				ticks(10);
-				screenshot("shield.offhand_first_person_lowered");
+				comparisonShot("shield.offhand_first_person_lowered");
 				keyDown(mc().gameSettings.keyBindUseItem);
 				ticks(8);
-				screenshot("shield.offhand_first_person_raised");
+				comparisonShot("shield.offhand_first_person_raised");
 				cameraView(1);
-				screenshot("shield.offhand_third_person_back_raised");
+				comparisonShot("shield.offhand_third_person_back_raised");
 				keyUp(mc().gameSettings.keyBindUseItem);
 				cameraView(0);
 				onServer(() -> Offhand.setOffhand(player(), null));
@@ -527,12 +604,12 @@ public class ShieldTests extends TasTestCase {
 			onServer(() -> {
 				world().setBlock(0, 5, 3, Blocks.stone);
 				EntityItemFrame frame = new EntityItemFrame(world(), 0, 5, 3, 2);
-				frame.setDisplayedItem(new ItemStack(ModItems.SHIELD.get()));
+				frame.setDisplayedItem(new ItemStack(McFlyItems.SHIELD.get()));
 				world().spawnEntityInWorld(frame);
 			});
 			look(0.0F, 0.0F);
 			ticks(10);
-			screenshot("shield.item_frame");
+			comparisonShot("shield.item_frame");
 			onServer(() -> {
 				for (Object entity : new ArrayList<Object>(world().loadedEntityList)) {
 					if (entity instanceof EntityItemFrame frame) {
@@ -544,37 +621,23 @@ public class ShieldTests extends TasTestCase {
 			// on a stone block, seen level: its spin then hardly changes its height on screen
 			onServer(() -> {
 				world().setBlock(0, 4, 2, Blocks.stone);
-				EntityItem dropped = new EntityItem(world(), 0.5, 5.2, 2.5, new ItemStack(ModItems.SHIELD.get()));
+				EntityItem dropped = new EntityItem(world(), 0.5, 5.2, 2.5, new ItemStack(McFlyItems.SHIELD.get()));
 				dropped.motionX = dropped.motionY = dropped.motionZ = 0.0D;
 				dropped.delayBeforeCanPickup = 32767;
 				world().spawnEntityInWorld(dropped);
 			});
 			look(0.0F, 0.0F);
 			ticks(10);
-			screenshot("shield.dropped");
+			comparisonShot("shield.dropped");
 			onServer(() -> {
 				world().setBlockToAir(0, 4, 2);
 			});
-		} finally {
-			keyUp(mc().gameSettings.keyBindUseItem);
-			onClient(() -> {
-				mc().gameSettings.fovSetting = (Float) before[0];
-				mc().gameSettings.viewBobbing = (Boolean) before[1];
-				mc().gameSettings.clouds = (Boolean) before[2];
-				mc().gameSettings.guiScale = (Integer) before[3];
-				@SuppressWarnings("unchecked")
-				List<ResourcePackRepository.Entry> packs = (List<ResourcePackRepository.Entry>) before[4];
-				mc().getResourcePackRepository().func_148527_a(packs);
-				mc().refreshResources();
-				ConfigFunctions.mainHandLeft = (Boolean) before[5];
-				ClientEventHandler.sendPlayerSettings();
-			});
-		}
+		});
 	}
 
 	/**
 	 * The comparison's check of itself: two magenta wool blocks, which every version draws alike, seen from the start
-	 * point in first person and from behind. 26.3's run (unittas-reference) places them at the same spots; if these
+	 * point in first person and from behind. 26.3's run (unittas_mcfly-reference) places them at the same spots; if these
 	 * shots don't line up, the camera or window differs and the shield's numbers mean nothing.
 	 */
 	private void calibration() throws Exception {
@@ -590,53 +653,15 @@ public class ShieldTests extends TasTestCase {
 		});
 		look(0.0F, 0.0F);
 		ticks(10);
-		screenshot("calibration.first_person");
+		comparisonShot("calibration.first_person");
 		cameraView(1);
-		screenshot("calibration.third_person_back");
+		comparisonShot("calibration.third_person_back");
 		cameraView(0);
 		onServer(() -> {
 			for (int[] at : blocks) {
 				world().setBlockToAir(feet[0] + at[0], feet[1] + at[1], feet[2] + at[2]);
 			}
 		});
-		setHeld(new ItemStack(ModItems.SHIELD.get()));
-	}
-
-	/**
-	 * A pack in the game's resourcepacks painting EFR's shield texture and magenta wool magenta, put on top of the
-	 * selected ones.
-	 */
-	private void magentaPack() throws Exception {
-		File pack = onClient(() -> new File(mc().getResourcePackRepository().getDirResourcepacks(), "unittas_magenta"));
-		File textures = new File(pack, "assets/etfuturum/textures/entity/shield");
-		File blocks = new File(pack, "assets/minecraft/textures/blocks");
-		if (!textures.isDirectory() && !textures.mkdirs() || !blocks.isDirectory() && !blocks.mkdirs()) {
-			fail("can't make " + textures + " and " + blocks);
-		}
-		Files.write(new File(pack, "pack.mcmeta").toPath(),
-			"{\"pack\":{\"pack_format\":1,\"description\":\"unitTAS: the shield and magenta wool in magenta\"}}\n".getBytes(StandardCharsets.UTF_8));
-		BufferedImage magenta = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < 64; x++) {
-			for (int y = 0; y < 64; y++) {
-				magenta.setRGB(x, y, 0xFFFF00FF);
-			}
-		}
-		ImageIO.write(magenta, "png", new File(textures, "base_nopattern.png"));
-		ImageIO.write(magenta, "png", new File(textures, "base.png"));
-		ImageIO.write(magenta.getSubimage(0, 0, 16, 16), "png", new File(blocks, "wool_colored_magenta.png"));
-		onClient(() -> {
-			ResourcePackRepository repository = mc().getResourcePackRepository();
-			repository.updateRepositoryEntriesAll();
-			List<ResourcePackRepository.Entry> selected = new ArrayList<>(repository.getRepositoryEntries());
-			for (ResourcePackRepository.Entry entry : repository.getRepositoryEntriesAll()) {
-				if (entry.getResourcePackName().equals("unittas_magenta")) {
-					// last is on top (1.7.10 reads the packs from the end), above modern-textures and the like
-					selected.add(entry);
-				}
-			}
-			repository.func_148527_a(selected);
-			mc().refreshResources();
-		});
-		ticks(10);
+		setHeld(new ItemStack(McFlyItems.SHIELD.get()));
 	}
 }

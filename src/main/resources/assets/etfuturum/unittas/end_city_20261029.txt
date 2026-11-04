@@ -1,0 +1,2386 @@
+# 26.3's first end city, seed 20261029: index; start cx cz; p template rotation x y z box overwrite; chunk cx cz kind; c x z runs; b x y z state; e entity x y z [more]
+index 20
+start 66 3
+p base_floor CLOCKWISE_180 1063 63 55 1054 63 46 1063 66 55 true
+p second_floor_1 CLOCKWISE_180 1064 63 56 1053 63 45 1064 70 56 false
+p third_floor_1 CLOCKWISE_180 1065 67 57 1052 67 44 1065 74 57 false
+p third_roof CLOCKWISE_180 1066 75 58 1051 75 43 1066 76 58 true
+p tower_base CLOCKWISE_180 1063 72 54 1057 72 48 1063 78 54 true
+p tower_piece CLOCKWISE_180 1063 79 54 1057 79 48 1063 82 54 true
+p tower_piece CLOCKWISE_180 1063 83 54 1057 83 48 1063 86 54 true
+p tower_piece CLOCKWISE_180 1063 87 54 1057 87 48 1063 90 54 true
+p fat_tower_base CLOCKWISE_180 1066 91 57 1054 91 45 1066 94 57 true
+p fat_tower_middle CLOCKWISE_180 1066 95 57 1054 95 45 1066 102 57 true
+p fat_tower_middle CLOCKWISE_180 1066 103 57 1054 103 45 1066 110 57 true
+p bridge_end CLOCKWISE_180 1062 102 57 1058 102 56 1062 107 57 true
+p bridge_piece CLOCKWISE_180 1062 102 61 1058 102 58 1062 107 61 true
+p bridge_steep_stairs CLOCKWISE_180 1062 102 65 1058 102 62 1062 108 65 true
+p bridge_piece CLOCKWISE_180 1062 106 69 1058 106 66 1062 111 69 true
+p bridge_piece CLOCKWISE_180 1062 106 73 1058 106 70 1062 111 73 true
+p base_floor CLOCKWISE_180 1065 107 84 1056 107 75 1065 110 84 true
+p second_floor_2 CLOCKWISE_180 1066 107 85 1055 107 74 1066 114 85 false
+p third_floor_2 CLOCKWISE_180 1067 111 86 1054 111 73 1067 118 86 false
+p third_roof CLOCKWISE_180 1068 119 87 1053 119 72 1068 120 87 true
+p tower_base CLOCKWISE_180 1065 116 83 1059 116 77 1065 122 83 true
+p tower_piece CLOCKWISE_180 1065 123 83 1059 123 77 1065 126 83 true
+p tower_piece CLOCKWISE_180 1065 127 83 1059 127 77 1065 130 83 true
+p tower_piece CLOCKWISE_180 1065 131 83 1059 131 77 1065 134 83 true
+p bridge_end CLOCKWISE_180 1064 126 83 1060 126 82 1064 131 83 true
+p bridge_piece CLOCKWISE_180 1064 126 87 1060 126 84 1064 131 87 true
+p bridge_gentle_stairs CLOCKWISE_180 1064 126 95 1060 126 88 1064 132 95 true
+p bridge_piece CLOCKWISE_180 1064 130 99 1060 130 96 1064 135 99 true
+p base_floor CLOCKWISE_180 1067 131 110 1058 131 101 1067 134 110 true
+p second_floor_2 CLOCKWISE_180 1068 131 111 1057 131 100 1068 138 111 false
+p second_roof CLOCKWISE_180 1069 139 112 1056 139 99 1069 140 112 false
+p tower_base CLOCKWISE_180 1065 136 108 1059 136 102 1065 142 108 true
+p tower_piece CLOCKWISE_180 1065 143 108 1059 143 102 1065 146 108 true
+p tower_piece CLOCKWISE_180 1065 147 108 1059 147 102 1065 150 108 true
+p tower_piece CLOCKWISE_180 1065 151 108 1059 151 102 1065 154 108 true
+p bridge_end CLOCKWISE_180 1064 146 108 1060 146 107 1064 151 108 true
+p bridge_end COUNTERCLOCKWISE_90 1059 146 107 1059 146 103 1060 151 107 true
+p bridge_end NONE 1060 146 102 1060 146 102 1064 151 103 true
+p tower_top CLOCKWISE_180 1066 155 109 1058 155 101 1066 159 109 true
+p bridge_end NONE 1060 130 99 1060 130 99 1064 135 100 true
+p bridge_end COUNTERCLOCKWISE_90 1059 126 82 1059 126 78 1060 131 82 true
+p bridge_piece COUNTERCLOCKWISE_90 1055 126 82 1055 126 78 1058 131 82 true
+p bridge_piece COUNTERCLOCKWISE_90 1051 126 82 1051 126 78 1054 131 82 true
+p bridge_piece COUNTERCLOCKWISE_90 1047 126 82 1047 126 78 1050 131 82 true
+p bridge_piece COUNTERCLOCKWISE_90 1043 126 82 1043 126 78 1046 131 82 true
+p base_floor COUNTERCLOCKWISE_90 1032 127 85 1032 127 76 1041 130 85 true
+p second_floor_2 COUNTERCLOCKWISE_90 1031 127 86 1031 127 75 1042 134 86 false
+p third_floor_2 COUNTERCLOCKWISE_90 1030 131 87 1030 131 74 1043 138 87 false
+p third_roof COUNTERCLOCKWISE_90 1029 139 88 1029 139 73 1044 140 88 true
+p tower_base COUNTERCLOCKWISE_90 1032 136 85 1032 136 79 1038 142 85 true
+p tower_piece COUNTERCLOCKWISE_90 1032 143 85 1032 143 79 1038 146 85 true
+p tower_piece COUNTERCLOCKWISE_90 1032 147 85 1032 147 79 1038 150 85 true
+p tower_piece COUNTERCLOCKWISE_90 1032 151 85 1032 151 79 1038 154 85 true
+p bridge_end COUNTERCLOCKWISE_90 1032 142 84 1032 142 80 1033 147 84 true
+p bridge_end CLOCKWISE_90 1038 142 80 1037 142 80 1038 147 84 true
+p tower_top COUNTERCLOCKWISE_90 1031 155 86 1031 155 78 1039 159 86 true
+p bridge_end CLOCKWISE_90 1043 126 78 1042 126 78 1043 131 82 true
+p bridge_end CLOCKWISE_90 1065 126 78 1064 126 78 1065 131 82 true
+p bridge_piece CLOCKWISE_90 1069 126 78 1066 126 78 1069 131 82 true
+p bridge_gentle_stairs CLOCKWISE_90 1077 126 78 1070 126 78 1077 132 82 true
+p bridge_piece CLOCKWISE_90 1081 130 78 1078 130 78 1081 135 82 true
+p base_floor CLOCKWISE_90 1092 131 75 1083 131 75 1092 134 84 true
+p base_roof CLOCKWISE_90 1093 135 74 1082 135 74 1093 136 85 true
+p bridge_end COUNTERCLOCKWISE_90 1081 130 82 1081 130 78 1082 135 82 true
+p bridge_end NONE 1060 126 77 1060 126 77 1064 131 78 true
+p bridge_piece NONE 1060 126 73 1060 126 73 1064 131 76 true
+p bridge_steep_stairs NONE 1060 126 69 1060 126 69 1064 132 72 true
+p bridge_gentle_stairs NONE 1060 130 61 1060 130 61 1064 136 68 true
+p bridge_piece NONE 1060 134 57 1060 134 57 1064 139 60 true
+p bridge_gentle_stairs NONE 1060 134 49 1060 134 49 1064 140 56 true
+p base_floor NONE 1057 139 38 1057 139 38 1066 142 47 true
+p second_floor_2 NONE 1056 139 37 1056 139 37 1067 146 48 false
+p second_roof NONE 1055 147 36 1055 147 36 1068 148 49 false
+p tower_base NONE 1059 144 40 1059 144 40 1065 150 46 true
+p tower_piece NONE 1059 151 40 1059 151 40 1065 154 46 true
+p tower_piece NONE 1059 155 40 1059 155 40 1065 158 46 true
+p tower_piece NONE 1059 159 40 1059 159 40 1065 162 46 true
+p tower_piece NONE 1059 163 40 1059 163 40 1065 166 46 true
+p bridge_end NONE 1060 158 40 1060 158 40 1064 163 41 true
+p tower_top NONE 1058 167 39 1058 167 39 1066 171 47 true
+p bridge_end CLOCKWISE_180 1064 138 49 1060 138 48 1064 143 49 true
+p tower_top CLOCKWISE_180 1066 135 84 1058 135 76 1066 139 84 true
+p bridge_end NONE 1058 106 73 1058 106 73 1062 111 74 true
+p bridge_end COUNTERCLOCKWISE_90 1054 102 53 1054 102 49 1055 107 53 true
+p bridge_piece COUNTERCLOCKWISE_90 1050 102 53 1050 102 49 1053 107 53 true
+p bridge_piece COUNTERCLOCKWISE_90 1046 102 53 1046 102 49 1049 107 53 true
+p bridge_piece COUNTERCLOCKWISE_90 1042 102 53 1042 102 49 1045 107 53 true
+p base_floor COUNTERCLOCKWISE_90 1031 103 56 1031 103 47 1040 106 56 true
+p second_floor_2 COUNTERCLOCKWISE_90 1030 103 57 1030 103 46 1041 110 57 false
+p second_roof COUNTERCLOCKWISE_90 1029 111 58 1029 111 45 1042 112 58 false
+p tower_base COUNTERCLOCKWISE_90 1033 108 55 1033 108 49 1039 114 55 true
+p tower_piece COUNTERCLOCKWISE_90 1033 115 55 1033 115 49 1039 118 55 true
+p tower_piece COUNTERCLOCKWISE_90 1033 119 55 1033 119 49 1039 122 55 true
+p tower_piece COUNTERCLOCKWISE_90 1033 123 55 1033 123 49 1039 126 55 true
+p tower_piece COUNTERCLOCKWISE_90 1033 127 55 1033 127 49 1039 130 55 true
+p fat_tower_base COUNTERCLOCKWISE_90 1030 131 58 1030 131 46 1042 134 58 true
+p fat_tower_middle COUNTERCLOCKWISE_90 1030 135 58 1030 135 46 1042 142 58 true
+p fat_tower_top COUNTERCLOCKWISE_90 1028 143 60 1028 143 44 1044 148 60 true
+p bridge_end CLOCKWISE_90 1042 102 49 1041 102 49 1042 107 53 true
+p bridge_end CLOCKWISE_90 1066 102 49 1065 102 49 1066 107 53 true
+p bridge_piece CLOCKWISE_90 1070 102 49 1067 102 49 1070 107 53 true
+p bridge_steep_stairs CLOCKWISE_90 1074 102 49 1071 102 49 1074 108 53 true
+p base_floor CLOCKWISE_90 1085 107 46 1076 107 46 1085 110 55 true
+p second_floor_2 CLOCKWISE_90 1086 107 45 1075 107 45 1086 114 56 false
+p second_roof CLOCKWISE_90 1087 115 44 1074 115 44 1087 116 57 false
+p tower_base CLOCKWISE_90 1084 112 48 1078 112 48 1084 118 54 true
+p tower_piece CLOCKWISE_90 1084 119 48 1078 119 48 1084 122 54 true
+p tower_piece CLOCKWISE_90 1084 123 48 1078 123 48 1084 126 54 true
+p fat_tower_base CLOCKWISE_90 1087 127 45 1075 127 45 1087 130 57 true
+p fat_tower_middle CLOCKWISE_90 1087 131 45 1075 131 45 1087 138 57 true
+p fat_tower_top CLOCKWISE_90 1089 139 43 1073 139 43 1089 144 59 true
+p bridge_end COUNTERCLOCKWISE_90 1074 106 53 1074 106 49 1075 111 53 true
+p bridge_end NONE 1058 102 45 1058 102 45 1062 107 46 true
+p bridge_piece NONE 1058 102 41 1058 102 41 1062 107 44 true
+p bridge_steep_stairs NONE 1058 102 37 1058 102 37 1062 108 40 true
+p base_floor NONE 1055 107 26 1055 107 26 1064 110 35 true
+p base_roof NONE 1054 111 25 1054 111 25 1065 112 36 true
+p bridge_end CLOCKWISE_180 1062 106 37 1058 106 36 1062 111 37 true
+p fat_tower_middle CLOCKWISE_180 1066 111 57 1054 111 45 1066 118 57 true
+p bridge_end COUNTERCLOCKWISE_90 1054 110 53 1054 110 49 1055 115 53 true
+p bridge_end NONE 1058 110 45 1058 110 45 1062 115 46 true
+p fat_tower_top CLOCKWISE_180 1068 119 59 1052 119 43 1068 124 59 true
+chunk 66 3 start
+b 1056 63 48 minecraft:purpur_block
+b 1056 67 48 minecraft:purpur_block
+b 1056 71 48 minecraft:purpur_block
+b 1056 75 48 minecraft:purpur_block
+b 1056 91 48 minecraft:purpur_block
+b 1056 92 48 minecraft:purpur_pillar[axis=y]
+b 1056 93 48 minecraft:purpur_pillar[axis=y]
+b 1056 94 48 minecraft:purpur_pillar[axis=y]
+b 1056 95 48 minecraft:purpur_block
+b 1056 96 48 minecraft:purpur_pillar[axis=y]
+b 1056 97 48 minecraft:purpur_pillar[axis=y]
+b 1056 98 48 minecraft:purpur_pillar[axis=y]
+b 1056 99 48 minecraft:purpur_block
+b 1056 100 48 minecraft:purpur_pillar[axis=y]
+b 1056 101 48 minecraft:purpur_pillar[axis=y]
+b 1056 102 48 minecraft:purpur_pillar[axis=y]
+b 1056 103 48 minecraft:purpur_block
+b 1056 104 48 minecraft:purpur_pillar[axis=y]
+b 1056 105 48 minecraft:purpur_pillar[axis=y]
+b 1056 106 48 minecraft:purpur_pillar[axis=y]
+b 1056 107 48 minecraft:purpur_block
+b 1056 108 48 minecraft:purpur_pillar[axis=y]
+b 1056 109 48 minecraft:purpur_pillar[axis=y]
+b 1056 110 48 minecraft:purpur_pillar[axis=y]
+b 1056 111 48 minecraft:purpur_block
+b 1056 112 48 minecraft:purpur_pillar[axis=y]
+b 1056 113 48 minecraft:purpur_pillar[axis=y]
+b 1056 114 48 minecraft:purpur_pillar[axis=y]
+b 1056 115 48 minecraft:purpur_block
+b 1056 116 48 minecraft:purpur_pillar[axis=y]
+b 1056 117 48 minecraft:purpur_pillar[axis=y]
+b 1056 118 48 minecraft:purpur_pillar[axis=y]
+b 1056 119 48 minecraft:purpur_block
+b 1056 123 48 minecraft:purpur_block
+b 1056 143 48 minecraft:purpur_stairs[facing=north,half=top,shape=outer_right,waterlogged=false]
+b 1056 144 48 minecraft:end_rod[facing=up]
+b 1056 147 48 minecraft:purpur_block
+b 1056 148 48 minecraft:end_rod[facing=up]
+c 1056 48 12-62
+b 1056 63 49 minecraft:purpur_block
+b 1056 67 49 minecraft:purpur_block
+b 1056 71 49 minecraft:purpur_block
+b 1056 75 49 minecraft:purpur_block
+b 1056 91 49 minecraft:purpur_block
+b 1056 92 49 minecraft:purpur_pillar[axis=y]
+b 1056 93 49 minecraft:purpur_pillar[axis=y]
+b 1056 94 49 minecraft:purpur_pillar[axis=y]
+b 1056 95 49 minecraft:purpur_block
+b 1056 96 49 minecraft:purpur_pillar[axis=y]
+b 1056 97 49 minecraft:purpur_pillar[axis=y]
+b 1056 98 49 minecraft:purpur_pillar[axis=y]
+b 1056 99 49 minecraft:purpur_block
+b 1056 100 49 minecraft:purpur_pillar[axis=y]
+b 1056 101 49 minecraft:purpur_pillar[axis=y]
+b 1056 102 49 minecraft:purpur_pillar[axis=y]
+b 1056 103 49 minecraft:purpur_block
+b 1056 104 49 minecraft:purpur_pillar[axis=y]
+b 1056 105 49 minecraft:purpur_pillar[axis=y]
+b 1056 106 49 minecraft:purpur_pillar[axis=y]
+b 1056 107 49 minecraft:purpur_block
+b 1056 108 49 minecraft:purpur_pillar[axis=y]
+b 1056 109 49 minecraft:purpur_pillar[axis=y]
+b 1056 110 49 minecraft:purpur_pillar[axis=y]
+b 1056 111 49 minecraft:purpur_block
+b 1056 112 49 minecraft:purpur_pillar[axis=y]
+b 1056 113 49 minecraft:purpur_pillar[axis=y]
+b 1056 114 49 minecraft:purpur_pillar[axis=y]
+b 1056 115 49 minecraft:purpur_block
+b 1056 116 49 minecraft:purpur_pillar[axis=y]
+b 1056 117 49 minecraft:purpur_pillar[axis=y]
+b 1056 118 49 minecraft:purpur_pillar[axis=y]
+b 1056 119 49 minecraft:purpur_block
+b 1056 123 49 minecraft:purpur_block
+b 1056 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1056 49 12-62
+b 1056 63 50 minecraft:purpur_block
+b 1056 71 50 minecraft:purpur_block
+b 1056 75 50 minecraft:purpur_block
+b 1056 91 50 minecraft:purpur_block
+b 1056 92 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 100 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 108 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 116 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 123 50 minecraft:purpur_block
+c 1056 50 12-62
+b 1056 63 51 minecraft:purpur_block
+b 1056 64 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 71 51 minecraft:purpur_block
+b 1056 75 51 minecraft:purpur_block
+b 1056 91 51 minecraft:purpur_block
+b 1056 123 51 minecraft:purpur_block
+c 1056 51 12-62
+b 1056 63 52 minecraft:purpur_block
+b 1056 64 52 minecraft:purpur_block
+b 1056 71 52 minecraft:purpur_block
+b 1056 75 52 minecraft:purpur_block
+b 1056 91 52 minecraft:purpur_block
+b 1056 99 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 107 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 115 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 119 52 minecraft:purpur_block
+b 1056 123 52 minecraft:purpur_block
+c 1056 52 12-62
+b 1056 63 53 minecraft:purpur_block
+b 1056 64 53 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1056 65 53 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1056 71 53 minecraft:purpur_block
+b 1056 75 53 minecraft:purpur_block
+b 1056 91 53 minecraft:purpur_block
+b 1056 92 53 minecraft:purpur_pillar[axis=y]
+b 1056 93 53 minecraft:purpur_pillar[axis=y]
+b 1056 94 53 minecraft:purpur_pillar[axis=y]
+b 1056 95 53 minecraft:purpur_block
+b 1056 96 53 minecraft:purpur_pillar[axis=y]
+b 1056 97 53 minecraft:purpur_pillar[axis=y]
+b 1056 98 53 minecraft:purpur_pillar[axis=y]
+b 1056 99 53 minecraft:purpur_block
+b 1056 100 53 minecraft:purpur_pillar[axis=y]
+b 1056 101 53 minecraft:purpur_pillar[axis=y]
+b 1056 102 53 minecraft:purpur_pillar[axis=y]
+b 1056 103 53 minecraft:purpur_block
+b 1056 104 53 minecraft:purpur_pillar[axis=y]
+b 1056 105 53 minecraft:purpur_pillar[axis=y]
+b 1056 106 53 minecraft:purpur_pillar[axis=y]
+b 1056 107 53 minecraft:purpur_block
+b 1056 108 53 minecraft:purpur_pillar[axis=y]
+b 1056 109 53 minecraft:purpur_pillar[axis=y]
+b 1056 110 53 minecraft:purpur_pillar[axis=y]
+b 1056 111 53 minecraft:purpur_block
+b 1056 112 53 minecraft:purpur_pillar[axis=y]
+b 1056 113 53 minecraft:purpur_pillar[axis=y]
+b 1056 114 53 minecraft:purpur_pillar[axis=y]
+b 1056 115 53 minecraft:purpur_block
+b 1056 116 53 minecraft:purpur_pillar[axis=y]
+b 1056 117 53 minecraft:purpur_pillar[axis=y]
+b 1056 118 53 minecraft:purpur_pillar[axis=y]
+b 1056 119 53 minecraft:purpur_block
+b 1056 123 53 minecraft:purpur_block
+c 1056 53 12-62
+b 1056 63 54 minecraft:purpur_block
+b 1056 64 54 minecraft:end_stone_bricks
+b 1056 65 54 minecraft:end_stone_bricks
+b 1056 66 54 minecraft:end_stone_bricks
+b 1056 67 54 minecraft:purpur_block
+b 1056 71 54 minecraft:purpur_block
+b 1056 75 54 minecraft:purpur_block
+b 1056 91 54 minecraft:purpur_block
+b 1056 92 54 minecraft:purpur_pillar[axis=y]
+b 1056 93 54 minecraft:purpur_pillar[axis=y]
+b 1056 94 54 minecraft:purpur_pillar[axis=y]
+b 1056 95 54 minecraft:purpur_block
+b 1056 96 54 minecraft:purpur_pillar[axis=y]
+b 1056 97 54 minecraft:purpur_pillar[axis=y]
+b 1056 98 54 minecraft:purpur_pillar[axis=y]
+b 1056 99 54 minecraft:purpur_block
+b 1056 100 54 minecraft:purpur_pillar[axis=y]
+b 1056 101 54 minecraft:purpur_pillar[axis=y]
+b 1056 102 54 minecraft:purpur_pillar[axis=y]
+b 1056 103 54 minecraft:purpur_block
+b 1056 104 54 minecraft:purpur_pillar[axis=y]
+b 1056 105 54 minecraft:purpur_pillar[axis=y]
+b 1056 106 54 minecraft:purpur_pillar[axis=y]
+b 1056 107 54 minecraft:purpur_block
+b 1056 108 54 minecraft:purpur_pillar[axis=y]
+b 1056 109 54 minecraft:purpur_pillar[axis=y]
+b 1056 110 54 minecraft:purpur_pillar[axis=y]
+b 1056 111 54 minecraft:purpur_block
+b 1056 112 54 minecraft:purpur_pillar[axis=y]
+b 1056 113 54 minecraft:purpur_pillar[axis=y]
+b 1056 114 54 minecraft:purpur_pillar[axis=y]
+b 1056 115 54 minecraft:purpur_block
+b 1056 116 54 minecraft:purpur_pillar[axis=y]
+b 1056 117 54 minecraft:purpur_pillar[axis=y]
+b 1056 118 54 minecraft:purpur_pillar[axis=y]
+b 1056 119 54 minecraft:purpur_block
+b 1056 123 54 minecraft:purpur_block
+c 1056 54 12-62
+b 1056 67 55 minecraft:purpur_block
+b 1056 68 55 minecraft:end_stone_bricks
+b 1056 69 55 minecraft:magenta_stained_glass
+b 1056 70 55 minecraft:magenta_stained_glass
+b 1056 71 55 minecraft:purpur_block
+b 1056 75 55 minecraft:purpur_block
+b 1056 119 55 minecraft:purpur_block
+b 1056 123 55 minecraft:purpur_block
+c 1056 55 12-62
+b 1056 67 56 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1056 71 56 minecraft:purpur_block
+b 1056 72 56 minecraft:end_stone_bricks
+b 1056 73 56 minecraft:end_stone_bricks
+b 1056 74 56 minecraft:end_stone_bricks
+b 1056 75 56 minecraft:purpur_block
+b 1056 119 56 minecraft:purpur_block
+b 1056 122 56 minecraft:purpur_block
+c 1056 56 12-64
+b 1056 71 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1056 75 57 minecraft:purpur_block
+b 1056 119 57 minecraft:purpur_block
+b 1056 120 57 minecraft:end_stone_bricks
+b 1056 121 57 minecraft:end_stone_bricks
+b 1056 122 57 minecraft:end_stone_bricks
+b 1056 123 57 minecraft:purpur_block
+c 1056 57 12-64
+b 1056 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1056 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1056 123 58 minecraft:purpur_block
+c 1056 58 12-64
+b 1056 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1056 59 12-63
+c 1056 60 12-63
+c 1056 61 12-63
+c 1056 62 12-63
+c 1056 63 12-63
+b 1057 63 48 minecraft:purpur_block
+b 1057 67 48 minecraft:purpur_block
+b 1057 71 48 minecraft:purpur_block
+b 1057 75 48 minecraft:purpur_block
+b 1057 91 48 minecraft:purpur_block
+b 1057 123 48 minecraft:purpur_block
+b 1057 143 48 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1057 147 48 minecraft:purpur_block
+c 1057 48 12-62
+b 1057 63 49 minecraft:purpur_block
+b 1057 67 49 minecraft:purpur_block
+b 1057 71 49 minecraft:purpur_block
+b 1057 75 49 minecraft:purpur_block
+b 1057 91 49 minecraft:purpur_block
+b 1057 93 49 minecraft:end_rod[facing=east]
+b 1057 101 49 minecraft:end_rod[facing=east]
+b 1057 109 49 minecraft:end_rod[facing=east]
+b 1057 117 49 minecraft:end_rod[facing=east]
+b 1057 123 49 minecraft:purpur_block
+b 1057 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1057 49 12-62
+b 1057 63 50 minecraft:purpur_block
+b 1057 67 50 minecraft:purpur_block
+b 1057 71 50 minecraft:purpur_block
+b 1057 75 50 minecraft:purpur_block
+b 1057 91 50 minecraft:purpur_block
+b 1057 123 50 minecraft:purpur_block
+c 1057 50 12-62
+b 1057 63 51 minecraft:purpur_block
+b 1057 67 51 minecraft:purpur_block
+b 1057 71 51 minecraft:purpur_block
+b 1057 75 51 minecraft:purpur_block
+b 1057 77 51 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1057 81 51 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1057 85 51 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1057 89 51 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1057 91 51 minecraft:purpur_block
+b 1057 123 51 minecraft:purpur_block
+c 1057 51 12-62
+b 1057 63 52 minecraft:purpur_block
+b 1057 67 52 minecraft:purpur_block
+b 1057 71 52 minecraft:purpur_block
+b 1057 75 52 minecraft:purpur_block
+b 1057 91 52 minecraft:purpur_block
+b 1057 119 52 minecraft:purpur_block
+b 1057 123 52 minecraft:purpur_block
+c 1057 52 12-62
+b 1057 63 53 minecraft:purpur_block
+b 1057 65 53 minecraft:purpur_block
+b 1057 71 53 minecraft:purpur_block
+b 1057 75 53 minecraft:purpur_block
+b 1057 91 53 minecraft:purpur_block
+b 1057 98 53 minecraft:end_rod[facing=east]
+b 1057 106 53 minecraft:end_rod[facing=east]
+b 1057 114 53 minecraft:end_rod[facing=east]
+b 1057 119 53 minecraft:purpur_block
+b 1057 123 53 minecraft:purpur_block
+c 1057 53 12-62
+b 1057 63 54 minecraft:purpur_block
+b 1057 64 54 minecraft:end_stone_bricks
+b 1057 65 54 minecraft:end_stone_bricks
+b 1057 66 54 minecraft:end_stone_bricks
+b 1057 67 54 minecraft:purpur_block
+b 1057 71 54 minecraft:purpur_block
+b 1057 75 54 minecraft:purpur_block
+b 1057 91 54 minecraft:purpur_block
+b 1057 119 54 minecraft:purpur_block
+b 1057 123 54 minecraft:purpur_block
+c 1057 54 12-62
+b 1057 67 55 minecraft:purpur_block
+b 1057 68 55 minecraft:end_stone_bricks
+b 1057 69 55 minecraft:end_stone_bricks
+b 1057 70 55 minecraft:end_stone_bricks
+b 1057 71 55 minecraft:purpur_block
+b 1057 75 55 minecraft:purpur_block
+b 1057 91 55 minecraft:purpur_block
+b 1057 92 55 minecraft:purpur_pillar[axis=y]
+b 1057 93 55 minecraft:purpur_pillar[axis=y]
+b 1057 94 55 minecraft:purpur_pillar[axis=y]
+b 1057 95 55 minecraft:purpur_block
+b 1057 96 55 minecraft:purpur_pillar[axis=y]
+b 1057 97 55 minecraft:purpur_pillar[axis=y]
+b 1057 98 55 minecraft:purpur_pillar[axis=y]
+b 1057 99 55 minecraft:purpur_block
+b 1057 100 55 minecraft:purpur_pillar[axis=y]
+b 1057 101 55 minecraft:purpur_pillar[axis=y]
+b 1057 102 55 minecraft:purpur_pillar[axis=y]
+b 1057 103 55 minecraft:purpur_block
+b 1057 104 55 minecraft:purpur_pillar[axis=y]
+b 1057 105 55 minecraft:purpur_pillar[axis=y]
+b 1057 106 55 minecraft:purpur_pillar[axis=y]
+b 1057 107 55 minecraft:purpur_block
+b 1057 108 55 minecraft:purpur_pillar[axis=y]
+b 1057 109 55 minecraft:purpur_pillar[axis=y]
+b 1057 110 55 minecraft:purpur_pillar[axis=y]
+b 1057 111 55 minecraft:purpur_block
+b 1057 112 55 minecraft:purpur_pillar[axis=y]
+b 1057 113 55 minecraft:purpur_pillar[axis=y]
+b 1057 114 55 minecraft:purpur_pillar[axis=y]
+b 1057 115 55 minecraft:purpur_block
+b 1057 116 55 minecraft:purpur_pillar[axis=y]
+b 1057 117 55 minecraft:purpur_pillar[axis=y]
+b 1057 118 55 minecraft:purpur_pillar[axis=y]
+b 1057 119 55 minecraft:purpur_block
+b 1057 123 55 minecraft:purpur_block
+b 1057 124 55 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1057 55 12-62
+b 1057 67 56 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1057 71 56 minecraft:purpur_block
+b 1057 72 56 minecraft:end_stone_bricks
+b 1057 73 56 minecraft:magenta_stained_glass
+b 1057 74 56 minecraft:magenta_stained_glass
+b 1057 75 56 minecraft:purpur_block
+b 1057 119 56 minecraft:purpur_block
+b 1057 121 56 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1057 122 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1057 56 12-64
+b 1057 71 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1057 75 57 minecraft:purpur_block
+b 1057 119 57 minecraft:purpur_block
+b 1057 120 57 minecraft:end_stone_bricks
+b 1057 121 57 minecraft:end_stone_bricks
+b 1057 122 57 minecraft:end_stone_bricks
+b 1057 123 57 minecraft:purpur_block
+b 1057 124 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1057 57 12-64
+b 1057 75 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1057 119 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1057 123 58 minecraft:purpur_block
+c 1057 58 12-64
+b 1057 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1057 59 12-63
+c 1057 60 12-63
+c 1057 61 12-63
+c 1057 62 12-63
+c 1057 63 12-63
+b 1058 63 48 minecraft:purpur_block
+b 1058 67 48 minecraft:purpur_block
+b 1058 71 48 minecraft:purpur_block
+b 1058 75 48 minecraft:purpur_block
+b 1058 91 48 minecraft:purpur_block
+b 1058 94 48 minecraft:end_rod[facing=south]
+b 1058 102 48 minecraft:end_rod[facing=south]
+b 1058 110 48 minecraft:end_rod[facing=south]
+b 1058 118 48 minecraft:end_rod[facing=south]
+b 1058 123 48 minecraft:purpur_block
+b 1058 143 48 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1058 147 48 minecraft:purpur_block
+c 1058 48 12-62
+b 1058 63 49 minecraft:purpur_block
+b 1058 67 49 minecraft:purpur_block
+b 1058 71 49 minecraft:purpur_block
+b 1058 72 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=outer_left,waterlogged=false]
+b 1058 75 49 minecraft:purpur_block
+b 1058 91 49 minecraft:purpur_block
+b 1058 123 49 minecraft:purpur_block
+b 1058 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1058 49 12-62
+b 1058 63 50 minecraft:purpur_block
+b 1058 67 50 minecraft:purpur_block
+b 1058 71 50 minecraft:purpur_block
+b 1058 72 50 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 50 minecraft:purpur_block
+b 1058 76 50 minecraft:purpur_pillar[axis=y]
+b 1058 77 50 minecraft:purpur_pillar[axis=y]
+b 1058 78 50 minecraft:purpur_pillar[axis=y]
+b 1058 79 50 minecraft:purpur_block
+b 1058 80 50 minecraft:purpur_pillar[axis=y]
+b 1058 81 50 minecraft:purpur_pillar[axis=y]
+b 1058 82 50 minecraft:purpur_pillar[axis=y]
+b 1058 83 50 minecraft:purpur_block
+b 1058 84 50 minecraft:purpur_pillar[axis=y]
+b 1058 85 50 minecraft:purpur_pillar[axis=y]
+b 1058 86 50 minecraft:purpur_pillar[axis=y]
+b 1058 87 50 minecraft:purpur_block
+b 1058 88 50 minecraft:purpur_pillar[axis=y]
+b 1058 89 50 minecraft:purpur_pillar[axis=y]
+b 1058 90 50 minecraft:purpur_pillar[axis=y]
+b 1058 91 50 minecraft:purpur_block
+b 1058 123 50 minecraft:purpur_block
+c 1058 50 12-62
+b 1058 63 51 minecraft:purpur_block
+b 1058 67 51 minecraft:purpur_block
+b 1058 71 51 minecraft:purpur_block
+b 1058 72 51 minecraft:purpur_pillar[axis=y]
+b 1058 73 51 minecraft:purpur_pillar[axis=y]
+b 1058 74 51 minecraft:purpur_pillar[axis=y]
+b 1058 75 51 minecraft:purpur_block
+b 1058 76 51 minecraft:purpur_pillar[axis=y]
+b 1058 77 51 minecraft:purpur_pillar[axis=x]
+b 1058 78 51 minecraft:purpur_pillar[axis=y]
+b 1058 79 51 minecraft:purpur_block
+b 1058 80 51 minecraft:purpur_pillar[axis=y]
+b 1058 81 51 minecraft:purpur_pillar[axis=x]
+b 1058 82 51 minecraft:purpur_pillar[axis=y]
+b 1058 83 51 minecraft:purpur_block
+b 1058 84 51 minecraft:purpur_pillar[axis=y]
+b 1058 85 51 minecraft:purpur_pillar[axis=x]
+b 1058 86 51 minecraft:purpur_pillar[axis=y]
+b 1058 87 51 minecraft:purpur_block
+b 1058 88 51 minecraft:purpur_pillar[axis=y]
+b 1058 89 51 minecraft:purpur_pillar[axis=x]
+b 1058 90 51 minecraft:purpur_pillar[axis=y]
+b 1058 91 51 minecraft:purpur_block
+b 1058 123 51 minecraft:purpur_block
+c 1058 51 12-62
+b 1058 63 52 minecraft:purpur_block
+b 1058 67 52 minecraft:purpur_block
+b 1058 71 52 minecraft:purpur_block
+b 1058 72 52 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 52 minecraft:purpur_block
+b 1058 76 52 minecraft:purpur_pillar[axis=y]
+b 1058 77 52 minecraft:purpur_pillar[axis=y]
+b 1058 78 52 minecraft:purpur_pillar[axis=y]
+b 1058 79 52 minecraft:purpur_block
+b 1058 80 52 minecraft:purpur_pillar[axis=y]
+b 1058 81 52 minecraft:purpur_pillar[axis=y]
+b 1058 82 52 minecraft:purpur_pillar[axis=y]
+b 1058 83 52 minecraft:purpur_block
+b 1058 84 52 minecraft:purpur_pillar[axis=y]
+b 1058 85 52 minecraft:purpur_pillar[axis=y]
+b 1058 86 52 minecraft:purpur_pillar[axis=y]
+b 1058 87 52 minecraft:purpur_block
+b 1058 88 52 minecraft:purpur_pillar[axis=y]
+b 1058 89 52 minecraft:purpur_pillar[axis=y]
+b 1058 90 52 minecraft:purpur_pillar[axis=y]
+b 1058 91 52 minecraft:purpur_block
+b 1058 119 52 minecraft:purpur_block
+b 1058 123 52 minecraft:purpur_block
+c 1058 52 12-62
+b 1058 63 53 minecraft:purpur_block
+b 1058 65 53 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1058 66 53 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1058 71 53 minecraft:purpur_block
+b 1058 72 53 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 53 minecraft:purpur_block
+b 1058 91 53 minecraft:purpur_block
+b 1058 119 53 minecraft:purpur_block
+b 1058 123 53 minecraft:purpur_block
+c 1058 53 12-62
+b 1058 63 54 minecraft:purpur_block
+b 1058 64 54 minecraft:end_stone_bricks
+b 1058 65 54 minecraft:end_stone_bricks
+b 1058 66 54 minecraft:end_stone_bricks
+b 1058 67 54 minecraft:purpur_block
+b 1058 71 54 minecraft:purpur_block
+b 1058 72 54 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 54 minecraft:purpur_block
+b 1058 91 54 minecraft:purpur_block
+b 1058 97 54 minecraft:end_rod[facing=north]
+b 1058 105 54 minecraft:end_rod[facing=north]
+b 1058 113 54 minecraft:end_rod[facing=north]
+b 1058 119 54 minecraft:purpur_block
+b 1058 123 54 minecraft:purpur_block
+c 1058 54 12-62
+b 1058 67 55 minecraft:purpur_block
+b 1058 68 55 minecraft:end_stone_bricks
+b 1058 69 55 minecraft:end_stone_bricks
+b 1058 70 55 minecraft:end_stone_bricks
+b 1058 71 55 minecraft:purpur_block
+b 1058 72 55 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 55 minecraft:purpur_block
+b 1058 91 55 minecraft:purpur_block
+b 1058 92 55 minecraft:purpur_pillar[axis=y]
+b 1058 93 55 minecraft:purpur_pillar[axis=y]
+b 1058 94 55 minecraft:purpur_pillar[axis=y]
+b 1058 95 55 minecraft:purpur_block
+b 1058 96 55 minecraft:purpur_pillar[axis=y]
+b 1058 97 55 minecraft:purpur_pillar[axis=y]
+b 1058 98 55 minecraft:purpur_pillar[axis=y]
+b 1058 99 55 minecraft:purpur_block
+b 1058 100 55 minecraft:purpur_pillar[axis=y]
+b 1058 101 55 minecraft:purpur_pillar[axis=y]
+b 1058 102 55 minecraft:purpur_pillar[axis=y]
+b 1058 103 55 minecraft:purpur_block
+b 1058 104 55 minecraft:purpur_pillar[axis=y]
+b 1058 105 55 minecraft:purpur_pillar[axis=y]
+b 1058 106 55 minecraft:purpur_pillar[axis=y]
+b 1058 107 55 minecraft:purpur_block
+b 1058 108 55 minecraft:purpur_pillar[axis=y]
+b 1058 109 55 minecraft:purpur_pillar[axis=y]
+b 1058 110 55 minecraft:purpur_pillar[axis=y]
+b 1058 111 55 minecraft:purpur_block
+b 1058 112 55 minecraft:purpur_pillar[axis=y]
+b 1058 113 55 minecraft:purpur_pillar[axis=y]
+b 1058 114 55 minecraft:purpur_pillar[axis=y]
+b 1058 115 55 minecraft:purpur_block
+b 1058 116 55 minecraft:purpur_pillar[axis=y]
+b 1058 117 55 minecraft:purpur_pillar[axis=y]
+b 1058 118 55 minecraft:purpur_pillar[axis=y]
+b 1058 119 55 minecraft:purpur_block
+b 1058 123 55 minecraft:purpur_block
+b 1058 124 55 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1058 55 12-62
+b 1058 67 56 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1058 71 56 minecraft:purpur_block
+b 1058 72 56 minecraft:end_stone_bricks
+b 1058 73 56 minecraft:end_stone_bricks
+b 1058 74 56 minecraft:end_stone_bricks
+b 1058 75 56 minecraft:purpur_block
+b 1058 103 56 minecraft:purpur_block
+b 1058 104 56 minecraft:purpur_block
+b 1058 105 56 minecraft:purpur_block
+b 1058 106 56 minecraft:purpur_block
+b 1058 107 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1058 119 56 minecraft:purpur_block
+b 1058 121 56 minecraft:purpur_block
+c 1058 56 12-64
+b 1058 71 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1058 75 57 minecraft:purpur_block
+b 1058 103 57 minecraft:purpur_block
+b 1058 104 57 minecraft:purpur_block
+b 1058 105 57 minecraft:end_rod[facing=up]
+b 1058 119 57 minecraft:purpur_block
+b 1058 120 57 minecraft:end_stone_bricks
+b 1058 121 57 minecraft:end_stone_bricks
+b 1058 122 57 minecraft:end_stone_bricks
+b 1058 123 57 minecraft:purpur_block
+b 1058 124 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1058 57 12-64
+b 1058 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1058 103 58 minecraft:purpur_block
+b 1058 104 58 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 119 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1058 123 58 minecraft:purpur_block
+c 1058 58 12-64
+b 1058 103 59 minecraft:purpur_block
+b 1058 104 59 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+b 1058 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1058 59 12-63
+b 1058 103 60 minecraft:purpur_block
+b 1058 104 60 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1058 60 12-63
+b 1058 103 61 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1058 104 61 minecraft:purpur_block
+c 1058 61 12-63
+b 1058 104 62 minecraft:purpur_block
+b 1058 105 62 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1058 62 12-63
+b 1058 105 63 minecraft:purpur_block
+b 1058 106 63 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1058 63 12-63
+b 1059 63 48 minecraft:purpur_block
+b 1059 67 48 minecraft:purpur_block
+b 1059 71 48 minecraft:purpur_block
+b 1059 75 48 minecraft:purpur_block
+b 1059 91 48 minecraft:purpur_block
+b 1059 123 48 minecraft:purpur_block
+b 1059 143 48 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1059 147 48 minecraft:purpur_block
+c 1059 48 12-62
+b 1059 63 49 minecraft:purpur_block
+b 1059 67 49 minecraft:purpur_block
+b 1059 71 49 minecraft:purpur_block
+b 1059 72 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=outer_right,waterlogged=false]
+b 1059 75 49 minecraft:purpur_block
+b 1059 76 49 minecraft:purpur_pillar[axis=y]
+b 1059 77 49 minecraft:purpur_pillar[axis=y]
+b 1059 78 49 minecraft:purpur_pillar[axis=y]
+b 1059 79 49 minecraft:purpur_block
+b 1059 80 49 minecraft:purpur_pillar[axis=y]
+b 1059 81 49 minecraft:purpur_pillar[axis=y]
+b 1059 82 49 minecraft:purpur_pillar[axis=y]
+b 1059 83 49 minecraft:purpur_block
+b 1059 84 49 minecraft:purpur_pillar[axis=y]
+b 1059 85 49 minecraft:purpur_pillar[axis=y]
+b 1059 86 49 minecraft:purpur_pillar[axis=y]
+b 1059 87 49 minecraft:purpur_block
+b 1059 88 49 minecraft:purpur_pillar[axis=y]
+b 1059 89 49 minecraft:purpur_pillar[axis=y]
+b 1059 90 49 minecraft:purpur_pillar[axis=y]
+b 1059 91 49 minecraft:purpur_block
+b 1059 123 49 minecraft:purpur_block
+b 1059 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1059 49 12-62
+b 1059 63 50 minecraft:purpur_block
+b 1059 67 50 minecraft:purpur_block
+b 1059 71 50 minecraft:purpur_block
+b 1059 72 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1059 123 50 minecraft:purpur_block
+c 1059 50 12-62
+b 1059 63 51 minecraft:purpur_block
+b 1059 67 51 minecraft:purpur_block
+b 1059 71 51 minecraft:purpur_block
+b 1059 72 51 minecraft:purpur_pillar[axis=y]
+b 1059 73 51 minecraft:purpur_pillar[axis=y]
+b 1059 74 51 minecraft:purpur_pillar[axis=y]
+b 1059 77 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 81 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 85 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 89 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 123 51 minecraft:purpur_block
+c 1059 51 12-62
+b 1059 63 52 minecraft:purpur_block
+b 1059 67 52 minecraft:purpur_block
+b 1059 71 52 minecraft:purpur_block
+b 1059 72 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1059 119 52 minecraft:purpur_block
+b 1059 120 52 minecraft:purpur_pillar[axis=y]
+b 1059 121 52 minecraft:purpur_pillar[axis=y]
+b 1059 122 52 minecraft:purpur_pillar[axis=y]
+b 1059 123 52 minecraft:purpur_block
+c 1059 52 12-62
+b 1059 63 53 minecraft:purpur_block
+b 1059 66 53 minecraft:purpur_block
+b 1059 71 53 minecraft:purpur_block
+b 1059 72 53 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1059 75 53 minecraft:purpur_block
+b 1059 76 53 minecraft:purpur_pillar[axis=y]
+b 1059 77 53 minecraft:purpur_pillar[axis=y]
+b 1059 78 53 minecraft:purpur_pillar[axis=y]
+b 1059 79 53 minecraft:purpur_block
+b 1059 80 53 minecraft:purpur_pillar[axis=y]
+b 1059 81 53 minecraft:purpur_pillar[axis=y]
+b 1059 82 53 minecraft:purpur_pillar[axis=y]
+b 1059 83 53 minecraft:purpur_block
+b 1059 84 53 minecraft:purpur_pillar[axis=y]
+b 1059 85 53 minecraft:purpur_pillar[axis=y]
+b 1059 86 53 minecraft:purpur_pillar[axis=y]
+b 1059 87 53 minecraft:purpur_block
+b 1059 88 53 minecraft:purpur_pillar[axis=y]
+b 1059 89 53 minecraft:purpur_pillar[axis=y]
+b 1059 90 53 minecraft:purpur_pillar[axis=y]
+b 1059 91 53 minecraft:purpur_block
+b 1059 119 53 minecraft:purpur_block
+b 1059 123 53 minecraft:purpur_block
+c 1059 53 12-62
+b 1059 63 54 minecraft:purpur_block
+b 1059 64 54 minecraft:end_stone_bricks
+b 1059 65 54 minecraft:end_stone_bricks
+b 1059 66 54 minecraft:end_stone_bricks
+b 1059 67 54 minecraft:purpur_block
+b 1059 71 54 minecraft:purpur_block
+b 1059 72 54 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1059 75 54 minecraft:purpur_block
+b 1059 91 54 minecraft:purpur_block
+b 1059 119 54 minecraft:purpur_block
+b 1059 123 54 minecraft:purpur_block
+c 1059 54 12-62
+b 1059 67 55 minecraft:purpur_block
+b 1059 68 55 minecraft:end_stone_bricks
+b 1059 69 55 minecraft:end_stone_bricks
+b 1059 70 55 minecraft:end_stone_bricks
+b 1059 71 55 minecraft:purpur_block
+b 1059 72 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1059 75 55 minecraft:purpur_block
+b 1059 91 55 minecraft:purpur_block
+b 1059 96 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 104 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 112 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1059 119 55 minecraft:purpur_block
+b 1059 123 55 minecraft:purpur_block
+b 1059 124 55 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1059 55 12-62
+b 1059 67 56 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1059 71 56 minecraft:purpur_block
+b 1059 72 56 minecraft:end_stone_bricks
+b 1059 73 56 minecraft:end_stone_bricks
+b 1059 74 56 minecraft:end_stone_bricks
+b 1059 75 56 minecraft:purpur_block
+b 1059 91 56 minecraft:purpur_block
+b 1059 92 56 minecraft:purpur_pillar[axis=y]
+b 1059 93 56 minecraft:purpur_pillar[axis=y]
+b 1059 94 56 minecraft:purpur_pillar[axis=y]
+b 1059 95 56 minecraft:purpur_block
+b 1059 96 56 minecraft:purpur_pillar[axis=y]
+b 1059 97 56 minecraft:purpur_pillar[axis=y]
+b 1059 98 56 minecraft:purpur_pillar[axis=y]
+b 1059 99 56 minecraft:purpur_block
+b 1059 100 56 minecraft:purpur_pillar[axis=y]
+b 1059 101 56 minecraft:purpur_pillar[axis=y]
+b 1059 102 56 minecraft:purpur_block
+b 1059 103 56 minecraft:purpur_block
+b 1059 106 56 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1059 107 56 minecraft:purpur_block
+b 1059 108 56 minecraft:purpur_pillar[axis=y]
+b 1059 109 56 minecraft:purpur_pillar[axis=y]
+b 1059 110 56 minecraft:purpur_block
+b 1059 111 56 minecraft:purpur_block
+b 1059 112 56 minecraft:purpur_pillar[axis=y]
+b 1059 113 56 minecraft:purpur_pillar[axis=y]
+b 1059 114 56 minecraft:purpur_pillar[axis=y]
+b 1059 115 56 minecraft:purpur_block
+b 1059 116 56 minecraft:purpur_pillar[axis=y]
+b 1059 117 56 minecraft:purpur_pillar[axis=y]
+b 1059 118 56 minecraft:purpur_block
+b 1059 119 56 minecraft:purpur_block
+b 1059 120 56 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1059 121 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1059 56 12-64
+b 1059 71 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1059 75 57 minecraft:purpur_block
+b 1059 103 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1059 119 57 minecraft:purpur_block
+b 1059 120 57 minecraft:end_stone_bricks
+b 1059 121 57 minecraft:end_stone_bricks
+b 1059 122 57 minecraft:end_stone_bricks
+b 1059 123 57 minecraft:purpur_block
+b 1059 124 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1059 57 12-64
+b 1059 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1059 103 58 minecraft:purpur_block
+b 1059 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1059 123 58 minecraft:purpur_block
+c 1059 58 12-63
+b 1059 103 59 minecraft:purpur_block
+b 1059 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1059 59 12-63
+b 1059 103 60 minecraft:purpur_block
+c 1059 60 12-63
+b 1059 102 61 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1059 103 61 minecraft:purpur_block
+c 1059 61 12-63
+b 1059 103 62 minecraft:purpur_block
+b 1059 104 62 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1059 62 12-63
+b 1059 104 63 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1059 105 63 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1059 63 12-63
+b 1060 63 48 minecraft:purpur_block
+b 1060 67 48 minecraft:purpur_block
+b 1060 71 48 minecraft:purpur_block
+b 1060 75 48 minecraft:purpur_block
+b 1060 77 48 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1060 81 48 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1060 85 48 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1060 89 48 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1060 91 48 minecraft:purpur_block
+b 1060 123 48 minecraft:purpur_block
+b 1060 139 48 minecraft:purpur_block
+b 1060 140 48 minecraft:purpur_block
+b 1060 141 48 minecraft:purpur_block
+b 1060 142 48 minecraft:purpur_block
+b 1060 143 48 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 147 48 minecraft:purpur_block
+c 1060 48 12-62
+b 1060 63 49 minecraft:purpur_block
+b 1060 67 49 minecraft:purpur_block
+b 1060 71 49 minecraft:purpur_block
+b 1060 72 49 minecraft:purpur_pillar[axis=y]
+b 1060 73 49 minecraft:purpur_pillar[axis=y]
+b 1060 74 49 minecraft:purpur_pillar[axis=y]
+b 1060 75 49 minecraft:purpur_block
+b 1060 76 49 minecraft:purpur_pillar[axis=y]
+b 1060 77 49 minecraft:purpur_pillar[axis=z]
+b 1060 78 49 minecraft:purpur_pillar[axis=y]
+b 1060 79 49 minecraft:purpur_block
+b 1060 80 49 minecraft:purpur_pillar[axis=y]
+b 1060 81 49 minecraft:purpur_pillar[axis=z]
+b 1060 82 49 minecraft:purpur_pillar[axis=y]
+b 1060 83 49 minecraft:purpur_block
+b 1060 84 49 minecraft:purpur_pillar[axis=y]
+b 1060 85 49 minecraft:purpur_pillar[axis=z]
+b 1060 86 49 minecraft:purpur_pillar[axis=y]
+b 1060 87 49 minecraft:purpur_block
+b 1060 88 49 minecraft:purpur_pillar[axis=y]
+b 1060 89 49 minecraft:purpur_pillar[axis=z]
+b 1060 90 49 minecraft:purpur_pillar[axis=y]
+b 1060 91 49 minecraft:purpur_block
+b 1060 123 49 minecraft:purpur_block
+b 1060 139 49 minecraft:purpur_block
+b 1060 140 49 minecraft:purpur_block
+b 1060 141 49 minecraft:end_rod[facing=up]
+b 1060 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1060 49 12-62
+b 1060 63 50 minecraft:purpur_block
+b 1060 67 50 minecraft:purpur_block
+b 1060 71 50 minecraft:purpur_block
+b 1060 72 50 minecraft:ladder[facing=south,waterlogged=false]
+b 1060 73 50 minecraft:ladder[facing=south,waterlogged=false]
+b 1060 74 50 minecraft:ladder[facing=south,waterlogged=false]
+b 1060 78 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 82 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 86 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 90 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 91 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 123 50 minecraft:purpur_block
+b 1060 138 50 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 139 50 minecraft:purpur_block
+b 1060 140 50 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 50 12-62
+b 1060 63 51 minecraft:purpur_block
+b 1060 67 51 minecraft:purpur_block
+b 1060 71 51 minecraft:purpur_block
+b 1060 123 51 minecraft:purpur_block
+b 1060 138 51 minecraft:purpur_block
+b 1060 139 51 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 51 12-62
+b 1060 63 52 minecraft:purpur_block
+b 1060 67 52 minecraft:purpur_block
+b 1060 71 52 minecraft:purpur_block
+b 1060 76 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 80 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 84 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 88 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 123 52 minecraft:purpur_block
+b 1060 137 52 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 138 52 minecraft:purpur_block
+b 1060 139 52 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 52 12-62
+b 1060 63 53 minecraft:purpur_block
+b 1060 66 53 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1060 67 53 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1060 71 53 minecraft:purpur_block
+b 1060 75 53 minecraft:purpur_block
+b 1060 76 53 minecraft:purpur_pillar[axis=y]
+b 1060 77 53 minecraft:purpur_pillar[axis=z]
+b 1060 78 53 minecraft:purpur_pillar[axis=y]
+b 1060 79 53 minecraft:purpur_block
+b 1060 80 53 minecraft:purpur_pillar[axis=y]
+b 1060 81 53 minecraft:purpur_pillar[axis=z]
+b 1060 82 53 minecraft:purpur_pillar[axis=y]
+b 1060 83 53 minecraft:purpur_block
+b 1060 84 53 minecraft:purpur_pillar[axis=y]
+b 1060 85 53 minecraft:purpur_pillar[axis=z]
+b 1060 86 53 minecraft:purpur_pillar[axis=y]
+b 1060 87 53 minecraft:purpur_block
+b 1060 88 53 minecraft:purpur_pillar[axis=y]
+b 1060 89 53 minecraft:purpur_pillar[axis=z]
+b 1060 90 53 minecraft:purpur_pillar[axis=y]
+b 1060 91 53 minecraft:purpur_block
+b 1060 123 53 minecraft:purpur_block
+b 1060 137 53 minecraft:purpur_block
+b 1060 138 53 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 53 12-62
+b 1060 63 54 minecraft:purpur_block
+b 1060 64 54 minecraft:end_stone_bricks
+b 1060 65 54 minecraft:end_stone_bricks
+b 1060 66 54 minecraft:end_stone_bricks
+b 1060 67 54 minecraft:purpur_block
+b 1060 71 54 minecraft:purpur_block
+b 1060 75 54 minecraft:purpur_block
+b 1060 77 54 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 81 54 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 85 54 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 89 54 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 91 54 minecraft:purpur_block
+b 1060 123 54 minecraft:purpur_block
+b 1060 136 54 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 137 54 minecraft:purpur_block
+b 1060 138 54 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 54 12-62
+b 1060 67 55 minecraft:purpur_block
+b 1060 68 55 minecraft:end_stone_bricks
+b 1060 69 55 minecraft:end_stone_bricks
+b 1060 70 55 minecraft:end_stone_bricks
+b 1060 71 55 minecraft:purpur_block
+b 1060 75 55 minecraft:purpur_block
+b 1060 91 55 minecraft:purpur_block
+b 1060 123 55 minecraft:purpur_block
+b 1060 124 55 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1060 136 55 minecraft:purpur_block
+b 1060 137 55 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 55 12-62
+b 1060 67 56 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 71 56 minecraft:purpur_block
+b 1060 72 56 minecraft:end_stone_bricks
+b 1060 73 56 minecraft:magenta_stained_glass
+b 1060 74 56 minecraft:magenta_stained_glass
+b 1060 75 56 minecraft:purpur_block
+b 1060 91 56 minecraft:purpur_block
+b 1060 92 56 minecraft:purpur_pillar[axis=y]
+b 1060 93 56 minecraft:purpur_pillar[axis=z]
+b 1060 94 56 minecraft:purpur_pillar[axis=y]
+b 1060 95 56 minecraft:purpur_block
+b 1060 96 56 minecraft:purpur_pillar[axis=y]
+b 1060 97 56 minecraft:purpur_pillar[axis=z]
+b 1060 98 56 minecraft:purpur_pillar[axis=y]
+b 1060 99 56 minecraft:purpur_block
+b 1060 100 56 minecraft:purpur_pillar[axis=y]
+b 1060 101 56 minecraft:purpur_pillar[axis=z]
+b 1060 102 56 minecraft:purpur_block
+b 1060 103 56 minecraft:purpur_block
+b 1060 107 56 minecraft:purpur_block
+b 1060 108 56 minecraft:purpur_pillar[axis=y]
+b 1060 109 56 minecraft:purpur_pillar[axis=z]
+b 1060 110 56 minecraft:purpur_block
+b 1060 111 56 minecraft:purpur_block
+b 1060 112 56 minecraft:purpur_pillar[axis=y]
+b 1060 113 56 minecraft:purpur_pillar[axis=z]
+b 1060 114 56 minecraft:purpur_pillar[axis=y]
+b 1060 115 56 minecraft:purpur_block
+b 1060 116 56 minecraft:purpur_pillar[axis=y]
+b 1060 117 56 minecraft:purpur_pillar[axis=z]
+b 1060 118 56 minecraft:purpur_block
+b 1060 119 56 minecraft:purpur_block
+b 1060 120 56 minecraft:purpur_block
+b 1060 135 56 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 136 56 minecraft:purpur_block
+b 1060 137 56 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 56 12-64
+b 1060 71 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 75 57 minecraft:purpur_block
+b 1060 93 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 97 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 101 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 102 57 minecraft:purpur_pillar[axis=z]
+b 1060 103 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1060 109 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 110 57 minecraft:purpur_pillar[axis=z]
+b 1060 113 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 117 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 118 57 minecraft:purpur_pillar[axis=z]
+b 1060 119 57 minecraft:purpur_block
+b 1060 120 57 minecraft:end_stone_bricks
+b 1060 121 57 minecraft:end_stone_bricks
+b 1060 122 57 minecraft:end_stone_bricks
+b 1060 123 57 minecraft:purpur_block
+b 1060 124 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1060 135 57 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 136 57 minecraft:purpur_block
+c 1060 57 12-64
+b 1060 75 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1060 102 58 minecraft:purpur_pillar[axis=z]
+b 1060 103 58 minecraft:purpur_block
+b 1060 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1060 123 58 minecraft:purpur_block
+b 1060 135 58 minecraft:purpur_block
+b 1060 136 58 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 58 12-63
+b 1060 102 59 minecraft:purpur_pillar[axis=z]
+b 1060 103 59 minecraft:purpur_block
+b 1060 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1060 135 59 minecraft:purpur_block
+b 1060 136 59 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 59 12-63
+b 1060 102 60 minecraft:purpur_pillar[axis=z]
+b 1060 103 60 minecraft:purpur_block
+b 1060 135 60 minecraft:purpur_block
+b 1060 136 60 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 60 12-63
+b 1060 102 61 minecraft:purpur_pillar[axis=z]
+b 1060 103 61 minecraft:purpur_block
+b 1060 135 61 minecraft:purpur_block
+b 1060 136 61 minecraft:purpur_block
+c 1060 61 12-63
+b 1060 102 62 minecraft:purpur_pillar[axis=z]
+b 1060 103 62 minecraft:purpur_block
+b 1060 104 62 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1060 134 62 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1060 135 62 minecraft:purpur_block
+b 1060 136 62 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 62 12-63
+b 1060 104 63 minecraft:purpur_block
+b 1060 105 63 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1060 134 63 minecraft:purpur_block
+b 1060 135 63 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1060 63 12-63
+b 1061 63 48 minecraft:purpur_block
+b 1061 67 48 minecraft:purpur_block
+b 1061 71 48 minecraft:purpur_block
+b 1061 75 48 minecraft:purpur_block
+b 1061 91 48 minecraft:purpur_block
+b 1061 119 48 minecraft:purpur_block
+b 1061 123 48 minecraft:purpur_block
+b 1061 138 48 minecraft:purpur_block
+b 1061 139 48 minecraft:purpur_block
+b 1061 142 48 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1061 143 48 minecraft:purpur_block
+b 1061 147 48 minecraft:purpur_block
+c 1061 48 12-62
+b 1061 63 49 minecraft:purpur_block
+b 1061 67 49 minecraft:purpur_block
+b 1061 71 49 minecraft:purpur_block
+b 1061 75 49 minecraft:purpur_block
+b 1061 76 49 minecraft:purpur_pillar[axis=y]
+b 1061 77 49 minecraft:purpur_pillar[axis=y]
+b 1061 78 49 minecraft:purpur_pillar[axis=y]
+b 1061 79 49 minecraft:purpur_block
+b 1061 80 49 minecraft:purpur_pillar[axis=y]
+b 1061 81 49 minecraft:purpur_pillar[axis=y]
+b 1061 82 49 minecraft:purpur_pillar[axis=y]
+b 1061 83 49 minecraft:purpur_block
+b 1061 84 49 minecraft:purpur_pillar[axis=y]
+b 1061 85 49 minecraft:purpur_pillar[axis=y]
+b 1061 86 49 minecraft:purpur_pillar[axis=y]
+b 1061 87 49 minecraft:purpur_block
+b 1061 88 49 minecraft:purpur_pillar[axis=y]
+b 1061 89 49 minecraft:purpur_pillar[axis=y]
+b 1061 90 49 minecraft:purpur_pillar[axis=y]
+b 1061 91 49 minecraft:purpur_block
+b 1061 119 49 minecraft:purpur_block
+b 1061 123 49 minecraft:purpur_block
+b 1061 139 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1061 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1061 49 12-62
+b 1061 63 50 minecraft:purpur_block
+b 1061 67 50 minecraft:purpur_block
+b 1061 71 50 minecraft:purpur_block
+b 1061 119 50 minecraft:purpur_block
+b 1061 120 50 minecraft:purpur_pillar[axis=y]
+b 1061 121 50 minecraft:purpur_pillar[axis=y]
+b 1061 122 50 minecraft:purpur_pillar[axis=y]
+b 1061 123 50 minecraft:purpur_block
+b 1061 138 50 minecraft:purpur_block
+b 1061 139 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1061 50 12-62
+b 1061 63 51 minecraft:purpur_block
+b 1061 67 51 minecraft:purpur_block
+b 1061 71 51 minecraft:purpur_block
+b 1061 75 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 79 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 83 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 87 51 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 123 51 minecraft:purpur_block
+b 1061 138 51 minecraft:purpur_block
+c 1061 51 12-62
+b 1061 63 52 minecraft:purpur_block
+b 1061 67 52 minecraft:purpur_block
+b 1061 71 52 minecraft:purpur_block
+b 1061 123 52 minecraft:purpur_block
+b 1061 137 52 minecraft:purpur_block
+b 1061 138 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1061 52 12-62
+b 1061 63 53 minecraft:purpur_block
+b 1061 67 53 minecraft:purpur_block
+b 1061 71 53 minecraft:purpur_block
+b 1061 75 53 minecraft:purpur_block
+b 1061 76 53 minecraft:purpur_pillar[axis=y]
+b 1061 77 53 minecraft:purpur_pillar[axis=y]
+b 1061 78 53 minecraft:purpur_pillar[axis=y]
+b 1061 79 53 minecraft:purpur_block
+b 1061 80 53 minecraft:purpur_pillar[axis=y]
+b 1061 81 53 minecraft:purpur_pillar[axis=y]
+b 1061 82 53 minecraft:purpur_pillar[axis=y]
+b 1061 83 53 minecraft:purpur_block
+b 1061 84 53 minecraft:purpur_pillar[axis=y]
+b 1061 85 53 minecraft:purpur_pillar[axis=y]
+b 1061 86 53 minecraft:purpur_pillar[axis=y]
+b 1061 87 53 minecraft:purpur_block
+b 1061 88 53 minecraft:purpur_pillar[axis=y]
+b 1061 89 53 minecraft:purpur_pillar[axis=y]
+b 1061 90 53 minecraft:purpur_pillar[axis=y]
+b 1061 91 53 minecraft:purpur_block
+b 1061 123 53 minecraft:purpur_block
+b 1061 137 53 minecraft:purpur_block
+c 1061 53 12-62
+b 1061 63 54 minecraft:purpur_block
+b 1061 64 54 minecraft:end_stone_bricks
+b 1061 65 54 minecraft:end_stone_bricks
+b 1061 66 54 minecraft:end_stone_bricks
+b 1061 67 54 minecraft:purpur_block
+b 1061 71 54 minecraft:purpur_block
+b 1061 75 54 minecraft:purpur_block
+b 1061 91 54 minecraft:purpur_block
+b 1061 123 54 minecraft:purpur_block
+b 1061 136 54 minecraft:purpur_block
+b 1061 137 54 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1061 54 12-62
+b 1061 67 55 minecraft:purpur_block
+b 1061 68 55 minecraft:end_stone_bricks
+b 1061 69 55 minecraft:magenta_stained_glass
+b 1061 70 55 minecraft:magenta_stained_glass
+b 1061 71 55 minecraft:purpur_block
+b 1061 75 55 minecraft:purpur_block
+b 1061 91 55 minecraft:purpur_block
+b 1061 95 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 103 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 111 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 119 55 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 123 55 minecraft:purpur_block
+b 1061 124 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=outer_left,waterlogged=false]
+b 1061 136 55 minecraft:purpur_block
+c 1061 55 12-62
+b 1061 67 56 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1061 71 56 minecraft:purpur_block
+b 1061 72 56 minecraft:end_stone_bricks
+b 1061 73 56 minecraft:end_stone_bricks
+b 1061 74 56 minecraft:end_stone_bricks
+b 1061 75 56 minecraft:purpur_block
+b 1061 91 56 minecraft:purpur_block
+b 1061 92 56 minecraft:purpur_pillar[axis=y]
+b 1061 93 56 minecraft:purpur_pillar[axis=y]
+b 1061 94 56 minecraft:purpur_pillar[axis=y]
+b 1061 95 56 minecraft:purpur_block
+b 1061 96 56 minecraft:purpur_pillar[axis=y]
+b 1061 97 56 minecraft:purpur_pillar[axis=y]
+b 1061 98 56 minecraft:purpur_pillar[axis=y]
+b 1061 99 56 minecraft:purpur_block
+b 1061 100 56 minecraft:purpur_pillar[axis=y]
+b 1061 101 56 minecraft:purpur_pillar[axis=y]
+b 1061 102 56 minecraft:purpur_block
+b 1061 103 56 minecraft:purpur_block
+b 1061 106 56 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1061 107 56 minecraft:purpur_block
+b 1061 108 56 minecraft:purpur_pillar[axis=y]
+b 1061 109 56 minecraft:purpur_pillar[axis=y]
+b 1061 110 56 minecraft:purpur_block
+b 1061 111 56 minecraft:purpur_block
+b 1061 112 56 minecraft:purpur_pillar[axis=y]
+b 1061 113 56 minecraft:purpur_pillar[axis=y]
+b 1061 114 56 minecraft:purpur_pillar[axis=y]
+b 1061 115 56 minecraft:purpur_block
+b 1061 116 56 minecraft:purpur_pillar[axis=y]
+b 1061 117 56 minecraft:purpur_pillar[axis=y]
+b 1061 118 56 minecraft:purpur_block
+b 1061 119 56 minecraft:purpur_block
+b 1061 120 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1061 123 56 minecraft:purpur_block
+b 1061 124 56 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1061 135 56 minecraft:purpur_block
+b 1061 136 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1061 56 12-64
+b 1061 71 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1061 75 57 minecraft:purpur_block
+b 1061 103 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1061 119 57 minecraft:purpur_block
+b 1061 120 57 minecraft:end_stone_bricks
+b 1061 121 57 minecraft:magenta_stained_glass
+b 1061 122 57 minecraft:magenta_stained_glass
+b 1061 123 57 minecraft:purpur_block
+b 1061 124 57 minecraft:purpur_stairs[facing=west,half=bottom,shape=outer_right,waterlogged=false]
+b 1061 134 57 minecraft:purpur_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+b 1061 135 57 minecraft:purpur_block
+c 1061 57 12-63
+b 1061 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1061 103 58 minecraft:purpur_block
+b 1061 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1061 123 58 minecraft:purpur_block
+b 1061 135 58 minecraft:purpur_block
+c 1061 58 12-63
+b 1061 103 59 minecraft:purpur_block
+b 1061 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1061 135 59 minecraft:purpur_block
+c 1061 59 12-63
+b 1061 103 60 minecraft:purpur_block
+b 1061 135 60 minecraft:purpur_block
+c 1061 60 12-63
+b 1061 102 61 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1061 103 61 minecraft:purpur_block
+b 1061 135 61 minecraft:purpur_block
+c 1061 61 12-63
+b 1061 103 62 minecraft:purpur_block
+b 1061 104 62 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1061 134 62 minecraft:purpur_block
+b 1061 135 62 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1061 62 12-63
+b 1061 104 63 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1061 105 63 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1061 134 63 minecraft:purpur_block
+c 1061 63 12-63
+b 1062 63 48 minecraft:purpur_block
+b 1062 64 48 minecraft:end_stone_bricks
+b 1062 65 48 minecraft:end_stone_bricks
+b 1062 66 48 minecraft:end_stone_bricks
+b 1062 67 48 minecraft:purpur_block
+b 1062 71 48 minecraft:purpur_block
+b 1062 75 48 minecraft:purpur_block
+b 1062 91 48 minecraft:purpur_block
+b 1062 97 48 minecraft:end_rod[facing=south]
+b 1062 105 48 minecraft:end_rod[facing=south]
+b 1062 113 48 minecraft:end_rod[facing=south]
+b 1062 119 48 minecraft:purpur_block
+b 1062 123 48 minecraft:purpur_block
+b 1062 138 48 minecraft:purpur_block
+b 1062 139 48 minecraft:purpur_block
+b 1062 143 48 minecraft:purpur_block
+b 1062 147 48 minecraft:purpur_block
+c 1062 48 12-62
+b 1062 63 49 minecraft:purpur_block
+b 1062 64 49 minecraft:end_stone_bricks
+b 1062 65 49 minecraft:magenta_stained_glass
+b 1062 66 49 minecraft:magenta_stained_glass
+b 1062 67 49 minecraft:purpur_block
+b 1062 71 49 minecraft:purpur_block
+b 1062 75 49 minecraft:purpur_block
+b 1062 91 49 minecraft:purpur_block
+b 1062 119 49 minecraft:purpur_block
+b 1062 123 49 minecraft:purpur_block
+b 1062 138 49 minecraft:purpur_pillar[axis=z]
+b 1062 139 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1062 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1062 49 12-62
+b 1062 63 50 minecraft:purpur_block
+b 1062 64 50 minecraft:end_stone_bricks
+b 1062 65 50 minecraft:end_stone_bricks
+b 1062 66 50 minecraft:end_stone_bricks
+b 1062 67 50 minecraft:purpur_block
+b 1062 71 50 minecraft:purpur_block
+b 1062 75 50 minecraft:purpur_block
+b 1062 76 50 minecraft:purpur_pillar[axis=y]
+b 1062 77 50 minecraft:purpur_pillar[axis=y]
+b 1062 78 50 minecraft:purpur_pillar[axis=y]
+b 1062 79 50 minecraft:purpur_block
+b 1062 80 50 minecraft:purpur_pillar[axis=y]
+b 1062 81 50 minecraft:purpur_pillar[axis=y]
+b 1062 82 50 minecraft:purpur_pillar[axis=y]
+b 1062 83 50 minecraft:purpur_block
+b 1062 84 50 minecraft:purpur_pillar[axis=y]
+b 1062 85 50 minecraft:purpur_pillar[axis=y]
+b 1062 86 50 minecraft:purpur_pillar[axis=y]
+b 1062 87 50 minecraft:purpur_block
+b 1062 88 50 minecraft:purpur_pillar[axis=y]
+b 1062 89 50 minecraft:purpur_pillar[axis=y]
+b 1062 90 50 minecraft:purpur_pillar[axis=y]
+b 1062 91 50 minecraft:purpur_block
+b 1062 119 50 minecraft:purpur_block
+b 1062 123 50 minecraft:purpur_block
+b 1062 138 50 minecraft:purpur_block
+b 1062 139 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1062 50 12-62
+b 1062 63 51 minecraft:purpur_block
+b 1062 64 51 minecraft:end_stone_bricks
+b 1062 65 51 minecraft:end_stone_bricks
+b 1062 66 51 minecraft:end_stone_bricks
+b 1062 67 51 minecraft:purpur_block
+b 1062 71 51 minecraft:purpur_block
+b 1062 75 51 minecraft:purpur_block
+b 1062 76 51 minecraft:purpur_pillar[axis=y]
+b 1062 77 51 minecraft:purpur_pillar[axis=x]
+b 1062 78 51 minecraft:purpur_pillar[axis=y]
+b 1062 79 51 minecraft:purpur_block
+b 1062 80 51 minecraft:purpur_pillar[axis=y]
+b 1062 81 51 minecraft:purpur_pillar[axis=x]
+b 1062 82 51 minecraft:purpur_pillar[axis=y]
+b 1062 83 51 minecraft:purpur_block
+b 1062 84 51 minecraft:purpur_pillar[axis=y]
+b 1062 85 51 minecraft:purpur_pillar[axis=x]
+b 1062 86 51 minecraft:purpur_pillar[axis=y]
+b 1062 87 51 minecraft:purpur_block
+b 1062 88 51 minecraft:purpur_pillar[axis=y]
+b 1062 89 51 minecraft:purpur_pillar[axis=x]
+b 1062 90 51 minecraft:purpur_pillar[axis=y]
+b 1062 91 51 minecraft:purpur_block
+b 1062 123 51 minecraft:purpur_block
+b 1062 138 51 minecraft:purpur_block
+c 1062 51 12-62
+b 1062 63 52 minecraft:purpur_block
+b 1062 64 52 minecraft:end_stone_bricks
+b 1062 65 52 minecraft:magenta_stained_glass
+b 1062 66 52 minecraft:magenta_stained_glass
+b 1062 67 52 minecraft:purpur_block
+b 1062 71 52 minecraft:purpur_block
+b 1062 75 52 minecraft:purpur_block
+b 1062 76 52 minecraft:purpur_pillar[axis=y]
+b 1062 77 52 minecraft:purpur_pillar[axis=y]
+b 1062 78 52 minecraft:purpur_pillar[axis=y]
+b 1062 79 52 minecraft:purpur_block
+b 1062 80 52 minecraft:purpur_pillar[axis=y]
+b 1062 81 52 minecraft:purpur_pillar[axis=y]
+b 1062 82 52 minecraft:purpur_pillar[axis=y]
+b 1062 83 52 minecraft:purpur_block
+b 1062 84 52 minecraft:purpur_pillar[axis=y]
+b 1062 85 52 minecraft:purpur_pillar[axis=y]
+b 1062 86 52 minecraft:purpur_pillar[axis=y]
+b 1062 87 52 minecraft:purpur_block
+b 1062 88 52 minecraft:purpur_pillar[axis=y]
+b 1062 89 52 minecraft:purpur_pillar[axis=y]
+b 1062 90 52 minecraft:purpur_pillar[axis=y]
+b 1062 91 52 minecraft:purpur_block
+b 1062 123 52 minecraft:purpur_block
+b 1062 137 52 minecraft:purpur_block
+b 1062 138 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1062 52 12-62
+b 1062 63 53 minecraft:purpur_block
+b 1062 64 53 minecraft:end_stone_bricks
+b 1062 65 53 minecraft:end_stone_bricks
+b 1062 66 53 minecraft:end_stone_bricks
+b 1062 67 53 minecraft:purpur_block
+b 1062 71 53 minecraft:purpur_block
+b 1062 75 53 minecraft:purpur_block
+b 1062 91 53 minecraft:purpur_block
+b 1062 123 53 minecraft:purpur_block
+b 1062 137 53 minecraft:purpur_block
+c 1062 53 12-62
+b 1062 63 54 minecraft:purpur_block
+b 1062 64 54 minecraft:purpur_pillar[axis=y]
+b 1062 65 54 minecraft:purpur_pillar[axis=y]
+b 1062 66 54 minecraft:purpur_pillar[axis=y]
+b 1062 67 54 minecraft:purpur_block
+b 1062 71 54 minecraft:purpur_block
+b 1062 75 54 minecraft:purpur_block
+b 1062 91 54 minecraft:purpur_block
+b 1062 94 54 minecraft:end_rod[facing=north]
+b 1062 102 54 minecraft:end_rod[facing=north]
+b 1062 110 54 minecraft:end_rod[facing=north]
+b 1062 118 54 minecraft:end_rod[facing=north]
+b 1062 123 54 minecraft:purpur_block
+b 1062 136 54 minecraft:purpur_block
+b 1062 137 54 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1062 54 12-62
+b 1062 67 55 minecraft:purpur_block
+b 1062 68 55 minecraft:end_stone_bricks
+b 1062 69 55 minecraft:end_stone_bricks
+b 1062 70 55 minecraft:end_stone_bricks
+b 1062 71 55 minecraft:purpur_block
+b 1062 75 55 minecraft:purpur_block
+b 1062 91 55 minecraft:purpur_block
+b 1062 92 55 minecraft:purpur_pillar[axis=y]
+b 1062 93 55 minecraft:purpur_pillar[axis=y]
+b 1062 94 55 minecraft:purpur_pillar[axis=y]
+b 1062 95 55 minecraft:purpur_block
+b 1062 96 55 minecraft:purpur_pillar[axis=y]
+b 1062 97 55 minecraft:purpur_pillar[axis=y]
+b 1062 98 55 minecraft:purpur_pillar[axis=y]
+b 1062 99 55 minecraft:purpur_block
+b 1062 100 55 minecraft:purpur_pillar[axis=y]
+b 1062 101 55 minecraft:purpur_pillar[axis=y]
+b 1062 102 55 minecraft:purpur_pillar[axis=y]
+b 1062 103 55 minecraft:purpur_block
+b 1062 104 55 minecraft:purpur_pillar[axis=y]
+b 1062 105 55 minecraft:purpur_pillar[axis=y]
+b 1062 106 55 minecraft:purpur_pillar[axis=y]
+b 1062 107 55 minecraft:purpur_block
+b 1062 108 55 minecraft:purpur_pillar[axis=y]
+b 1062 109 55 minecraft:purpur_pillar[axis=y]
+b 1062 110 55 minecraft:purpur_pillar[axis=y]
+b 1062 111 55 minecraft:purpur_block
+b 1062 112 55 minecraft:purpur_pillar[axis=y]
+b 1062 113 55 minecraft:purpur_pillar[axis=y]
+b 1062 114 55 minecraft:purpur_pillar[axis=y]
+b 1062 115 55 minecraft:purpur_block
+b 1062 116 55 minecraft:purpur_pillar[axis=y]
+b 1062 117 55 minecraft:purpur_pillar[axis=y]
+b 1062 118 55 minecraft:purpur_pillar[axis=y]
+b 1062 119 55 minecraft:purpur_block
+b 1062 123 55 minecraft:purpur_block
+b 1062 136 55 minecraft:purpur_block
+c 1062 55 12-62
+b 1062 67 56 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1062 71 56 minecraft:purpur_block
+b 1062 72 56 minecraft:end_stone_bricks
+b 1062 73 56 minecraft:magenta_stained_glass
+b 1062 74 56 minecraft:magenta_stained_glass
+b 1062 75 56 minecraft:purpur_block
+b 1062 103 56 minecraft:purpur_block
+b 1062 104 56 minecraft:purpur_block
+b 1062 105 56 minecraft:purpur_block
+b 1062 106 56 minecraft:purpur_block
+b 1062 107 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1062 119 56 minecraft:purpur_block
+b 1062 123 56 minecraft:purpur_block
+b 1062 134 56 minecraft:purpur_pillar[axis=z]
+b 1062 135 56 minecraft:purpur_block
+b 1062 136 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1062 56 12-63
+b 1062 71 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1062 75 57 minecraft:purpur_block
+b 1062 103 57 minecraft:purpur_block
+b 1062 104 57 minecraft:purpur_block
+b 1062 105 57 minecraft:end_rod[facing=up]
+b 1062 119 57 minecraft:purpur_block
+b 1062 120 57 minecraft:end_stone_bricks
+b 1062 121 57 minecraft:end_stone_bricks
+b 1062 122 57 minecraft:end_stone_bricks
+b 1062 123 57 minecraft:purpur_block
+b 1062 134 57 minecraft:purpur_pillar[axis=z]
+b 1062 135 57 minecraft:purpur_block
+c 1062 57 12-63
+b 1062 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1062 103 58 minecraft:purpur_block
+b 1062 104 58 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1062 119 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1062 123 58 minecraft:purpur_block
+b 1062 134 58 minecraft:purpur_pillar[axis=z]
+b 1062 135 58 minecraft:purpur_block
+c 1062 58 12-63
+b 1062 103 59 minecraft:purpur_block
+b 1062 104 59 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1062 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1062 134 59 minecraft:purpur_pillar[axis=z]
+b 1062 135 59 minecraft:purpur_block
+c 1062 59 12-63
+b 1062 103 60 minecraft:purpur_block
+b 1062 104 60 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1062 134 60 minecraft:purpur_pillar[axis=z]
+b 1062 135 60 minecraft:purpur_block
+c 1062 60 12-63
+b 1062 103 61 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1062 104 61 minecraft:purpur_block
+b 1062 134 61 minecraft:purpur_pillar[axis=z]
+b 1062 135 61 minecraft:purpur_block
+c 1062 61 12-63
+b 1062 104 62 minecraft:purpur_block
+b 1062 105 62 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1062 134 62 minecraft:purpur_block
+b 1062 135 62 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1062 62 12-63
+b 1062 105 63 minecraft:purpur_block
+b 1062 106 63 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1062 134 63 minecraft:purpur_block
+c 1062 63 12-63
+b 1063 67 48 minecraft:purpur_block
+b 1063 68 48 minecraft:end_stone_bricks
+b 1063 69 48 minecraft:magenta_stained_glass
+b 1063 70 48 minecraft:magenta_stained_glass
+b 1063 71 48 minecraft:purpur_block
+b 1063 75 48 minecraft:purpur_block
+b 1063 91 48 minecraft:purpur_block
+b 1063 119 48 minecraft:purpur_block
+b 1063 123 48 minecraft:purpur_block
+b 1063 138 48 minecraft:purpur_block
+b 1063 139 48 minecraft:purpur_block
+b 1063 142 48 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1063 143 48 minecraft:purpur_block
+b 1063 147 48 minecraft:purpur_block
+c 1063 48 12-62
+b 1063 67 49 minecraft:purpur_block
+b 1063 68 49 minecraft:end_stone_bricks
+b 1063 69 49 minecraft:end_stone_bricks
+b 1063 70 49 minecraft:end_stone_bricks
+b 1063 71 49 minecraft:purpur_block
+b 1063 75 49 minecraft:purpur_block
+b 1063 91 49 minecraft:purpur_block
+b 1063 98 49 minecraft:end_rod[facing=west]
+b 1063 106 49 minecraft:end_rod[facing=west]
+b 1063 114 49 minecraft:end_rod[facing=west]
+b 1063 119 49 minecraft:purpur_block
+b 1063 123 49 minecraft:purpur_block
+b 1063 139 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1063 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1063 49 12-62
+b 1063 67 50 minecraft:purpur_block
+b 1063 68 50 minecraft:end_stone_bricks
+b 1063 69 50 minecraft:end_stone_bricks
+b 1063 70 50 minecraft:end_stone_bricks
+b 1063 71 50 minecraft:purpur_block
+b 1063 75 50 minecraft:purpur_block
+b 1063 91 50 minecraft:purpur_block
+b 1063 119 50 minecraft:purpur_block
+b 1063 123 50 minecraft:purpur_block
+b 1063 138 50 minecraft:purpur_block
+b 1063 139 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1063 50 12-62
+b 1063 67 51 minecraft:purpur_block
+b 1063 68 51 minecraft:end_stone_bricks
+b 1063 69 51 minecraft:end_stone_bricks
+b 1063 70 51 minecraft:end_stone_bricks
+b 1063 71 51 minecraft:purpur_block
+b 1063 75 51 minecraft:purpur_block
+b 1063 77 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1063 81 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1063 85 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1063 89 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1063 91 51 minecraft:purpur_block
+b 1063 123 51 minecraft:purpur_block
+b 1063 138 51 minecraft:purpur_block
+c 1063 51 12-62
+b 1063 67 52 minecraft:purpur_block
+b 1063 68 52 minecraft:end_stone_bricks
+b 1063 69 52 minecraft:end_stone_bricks
+b 1063 70 52 minecraft:end_stone_bricks
+b 1063 71 52 minecraft:purpur_block
+b 1063 75 52 minecraft:purpur_block
+b 1063 91 52 minecraft:purpur_block
+b 1063 123 52 minecraft:purpur_block
+b 1063 137 52 minecraft:purpur_block
+b 1063 138 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1063 52 12-62
+b 1063 67 53 minecraft:purpur_block
+b 1063 68 53 minecraft:end_stone_bricks
+b 1063 69 53 minecraft:magenta_stained_glass
+b 1063 70 53 minecraft:magenta_stained_glass
+b 1063 71 53 minecraft:purpur_block
+b 1063 75 53 minecraft:purpur_block
+b 1063 91 53 minecraft:purpur_block
+b 1063 93 53 minecraft:end_rod[facing=west]
+b 1063 101 53 minecraft:end_rod[facing=west]
+b 1063 109 53 minecraft:end_rod[facing=west]
+b 1063 117 53 minecraft:end_rod[facing=west]
+b 1063 123 53 minecraft:purpur_block
+b 1063 137 53 minecraft:purpur_block
+c 1063 53 12-62
+b 1063 67 54 minecraft:purpur_block
+b 1063 68 54 minecraft:end_stone_bricks
+b 1063 69 54 minecraft:end_stone_bricks
+b 1063 70 54 minecraft:end_stone_bricks
+b 1063 71 54 minecraft:purpur_block
+b 1063 75 54 minecraft:purpur_block
+b 1063 91 54 minecraft:purpur_block
+b 1063 123 54 minecraft:purpur_block
+b 1063 136 54 minecraft:purpur_block
+b 1063 137 54 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1063 54 12-62
+b 1063 67 55 minecraft:purpur_block
+b 1063 68 55 minecraft:purpur_pillar[axis=y]
+b 1063 69 55 minecraft:purpur_pillar[axis=y]
+b 1063 70 55 minecraft:purpur_pillar[axis=y]
+b 1063 71 55 minecraft:purpur_block
+b 1063 75 55 minecraft:purpur_block
+b 1063 91 55 minecraft:purpur_block
+b 1063 92 55 minecraft:purpur_pillar[axis=y]
+b 1063 93 55 minecraft:purpur_pillar[axis=y]
+b 1063 94 55 minecraft:purpur_pillar[axis=y]
+b 1063 95 55 minecraft:purpur_block
+b 1063 96 55 minecraft:purpur_pillar[axis=y]
+b 1063 97 55 minecraft:purpur_pillar[axis=y]
+b 1063 98 55 minecraft:purpur_pillar[axis=y]
+b 1063 99 55 minecraft:purpur_block
+b 1063 100 55 minecraft:purpur_pillar[axis=y]
+b 1063 101 55 minecraft:purpur_pillar[axis=y]
+b 1063 102 55 minecraft:purpur_pillar[axis=y]
+b 1063 103 55 minecraft:purpur_block
+b 1063 104 55 minecraft:purpur_pillar[axis=y]
+b 1063 105 55 minecraft:purpur_pillar[axis=y]
+b 1063 106 55 minecraft:purpur_pillar[axis=y]
+b 1063 107 55 minecraft:purpur_block
+b 1063 108 55 minecraft:purpur_pillar[axis=y]
+b 1063 109 55 minecraft:purpur_pillar[axis=y]
+b 1063 110 55 minecraft:purpur_pillar[axis=y]
+b 1063 111 55 minecraft:purpur_block
+b 1063 112 55 minecraft:purpur_pillar[axis=y]
+b 1063 113 55 minecraft:purpur_pillar[axis=y]
+b 1063 114 55 minecraft:purpur_pillar[axis=y]
+b 1063 115 55 minecraft:purpur_block
+b 1063 116 55 minecraft:purpur_pillar[axis=y]
+b 1063 117 55 minecraft:purpur_pillar[axis=y]
+b 1063 118 55 minecraft:purpur_pillar[axis=y]
+b 1063 119 55 minecraft:purpur_block
+b 1063 123 55 minecraft:purpur_block
+b 1063 136 55 minecraft:purpur_block
+c 1063 55 12-62
+b 1063 67 56 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1063 71 56 minecraft:purpur_block
+b 1063 72 56 minecraft:end_stone_bricks
+b 1063 73 56 minecraft:end_stone_bricks
+b 1063 74 56 minecraft:end_stone_bricks
+b 1063 75 56 minecraft:purpur_block
+b 1063 119 56 minecraft:purpur_block
+b 1063 123 56 minecraft:purpur_block
+b 1063 135 56 minecraft:purpur_block
+b 1063 136 56 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1063 56 12-63
+b 1063 71 57 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1063 75 57 minecraft:purpur_block
+b 1063 119 57 minecraft:purpur_block
+b 1063 120 57 minecraft:end_stone_bricks
+b 1063 121 57 minecraft:end_stone_bricks
+b 1063 122 57 minecraft:end_stone_bricks
+b 1063 123 57 minecraft:purpur_block
+b 1063 134 57 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1063 135 57 minecraft:purpur_block
+c 1063 57 12-63
+b 1063 75 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1063 119 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1063 123 58 minecraft:purpur_block
+b 1063 135 58 minecraft:purpur_block
+c 1063 58 12-63
+b 1063 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1063 135 59 minecraft:purpur_block
+c 1063 59 12-63
+b 1063 135 60 minecraft:purpur_block
+c 1063 60 12-63
+b 1063 135 61 minecraft:purpur_block
+c 1063 61 12-63
+b 1063 134 62 minecraft:purpur_block
+b 1063 135 62 minecraft:purpur_slab[type=bottom,waterlogged=false]
+c 1063 62 12-63
+b 1063 134 63 minecraft:purpur_block
+c 1063 63 12-63
+b 1064 67 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 71 48 minecraft:purpur_block
+b 1064 72 48 minecraft:end_stone_bricks
+b 1064 73 48 minecraft:end_stone_bricks
+b 1064 74 48 minecraft:end_stone_bricks
+b 1064 75 48 minecraft:purpur_block
+b 1064 91 48 minecraft:purpur_block
+b 1064 92 48 minecraft:purpur_pillar[axis=y]
+b 1064 93 48 minecraft:purpur_pillar[axis=y]
+b 1064 94 48 minecraft:purpur_pillar[axis=y]
+b 1064 95 48 minecraft:purpur_block
+b 1064 96 48 minecraft:purpur_pillar[axis=y]
+b 1064 97 48 minecraft:purpur_pillar[axis=y]
+b 1064 98 48 minecraft:purpur_pillar[axis=y]
+b 1064 99 48 minecraft:purpur_block
+b 1064 100 48 minecraft:purpur_pillar[axis=y]
+b 1064 101 48 minecraft:purpur_pillar[axis=y]
+b 1064 102 48 minecraft:purpur_pillar[axis=y]
+b 1064 103 48 minecraft:purpur_block
+b 1064 104 48 minecraft:purpur_pillar[axis=y]
+b 1064 105 48 minecraft:purpur_pillar[axis=y]
+b 1064 106 48 minecraft:purpur_pillar[axis=y]
+b 1064 107 48 minecraft:purpur_block
+b 1064 108 48 minecraft:purpur_pillar[axis=y]
+b 1064 109 48 minecraft:purpur_pillar[axis=y]
+b 1064 110 48 minecraft:purpur_pillar[axis=y]
+b 1064 111 48 minecraft:purpur_block
+b 1064 112 48 minecraft:purpur_pillar[axis=y]
+b 1064 113 48 minecraft:purpur_pillar[axis=y]
+b 1064 114 48 minecraft:purpur_pillar[axis=y]
+b 1064 115 48 minecraft:purpur_block
+b 1064 116 48 minecraft:purpur_pillar[axis=y]
+b 1064 117 48 minecraft:purpur_pillar[axis=y]
+b 1064 118 48 minecraft:purpur_pillar[axis=y]
+b 1064 119 48 minecraft:purpur_block
+b 1064 123 48 minecraft:purpur_block
+b 1064 139 48 minecraft:purpur_block
+b 1064 140 48 minecraft:purpur_block
+b 1064 141 48 minecraft:purpur_block
+b 1064 142 48 minecraft:purpur_block
+b 1064 143 48 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 147 48 minecraft:purpur_block
+c 1064 48 12-63
+b 1064 67 49 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 71 49 minecraft:purpur_block
+b 1064 72 49 minecraft:end_stone_bricks
+b 1064 73 49 minecraft:magenta_stained_glass
+b 1064 74 49 minecraft:magenta_stained_glass
+b 1064 75 49 minecraft:purpur_block
+b 1064 91 49 minecraft:purpur_block
+b 1064 92 49 minecraft:purpur_pillar[axis=y]
+b 1064 93 49 minecraft:purpur_pillar[axis=y]
+b 1064 94 49 minecraft:purpur_pillar[axis=y]
+b 1064 95 49 minecraft:purpur_block
+b 1064 96 49 minecraft:purpur_pillar[axis=y]
+b 1064 97 49 minecraft:purpur_pillar[axis=y]
+b 1064 98 49 minecraft:purpur_pillar[axis=y]
+b 1064 99 49 minecraft:purpur_block
+b 1064 100 49 minecraft:purpur_pillar[axis=y]
+b 1064 101 49 minecraft:purpur_pillar[axis=y]
+b 1064 102 49 minecraft:purpur_pillar[axis=y]
+b 1064 103 49 minecraft:purpur_block
+b 1064 104 49 minecraft:purpur_pillar[axis=y]
+b 1064 105 49 minecraft:purpur_pillar[axis=y]
+b 1064 106 49 minecraft:purpur_pillar[axis=y]
+b 1064 107 49 minecraft:purpur_block
+b 1064 108 49 minecraft:purpur_pillar[axis=y]
+b 1064 109 49 minecraft:purpur_pillar[axis=y]
+b 1064 110 49 minecraft:purpur_pillar[axis=y]
+b 1064 111 49 minecraft:purpur_block
+b 1064 112 49 minecraft:purpur_pillar[axis=y]
+b 1064 113 49 minecraft:purpur_pillar[axis=y]
+b 1064 114 49 minecraft:purpur_pillar[axis=y]
+b 1064 115 49 minecraft:purpur_block
+b 1064 116 49 minecraft:purpur_pillar[axis=y]
+b 1064 117 49 minecraft:purpur_pillar[axis=y]
+b 1064 118 49 minecraft:purpur_pillar[axis=y]
+b 1064 119 49 minecraft:purpur_block
+b 1064 123 49 minecraft:purpur_block
+b 1064 139 49 minecraft:purpur_block
+b 1064 140 49 minecraft:purpur_block
+b 1064 141 49 minecraft:end_rod[facing=up]
+b 1064 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1064 49 12-63
+b 1064 67 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1064 71 50 minecraft:purpur_block
+b 1064 72 50 minecraft:end_stone_bricks
+b 1064 73 50 minecraft:end_stone_bricks
+b 1064 74 50 minecraft:end_stone_bricks
+b 1064 75 50 minecraft:purpur_block
+b 1064 91 50 minecraft:purpur_block
+b 1064 99 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 107 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 115 50 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 119 50 minecraft:purpur_block
+b 1064 123 50 minecraft:purpur_block
+b 1064 138 50 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 139 50 minecraft:purpur_block
+b 1064 140 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 50 12-63
+b 1064 67 51 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1064 71 51 minecraft:purpur_block
+b 1064 72 51 minecraft:end_stone_bricks
+b 1064 73 51 minecraft:end_stone_bricks
+b 1064 74 51 minecraft:end_stone_bricks
+b 1064 75 51 minecraft:purpur_block
+b 1064 91 51 minecraft:purpur_block
+b 1064 123 51 minecraft:purpur_block
+b 1064 138 51 minecraft:purpur_block
+b 1064 139 51 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 51 12-63
+b 1064 67 52 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 71 52 minecraft:purpur_block
+b 1064 72 52 minecraft:end_stone_bricks
+b 1064 73 52 minecraft:magenta_stained_glass
+b 1064 74 52 minecraft:magenta_stained_glass
+b 1064 75 52 minecraft:purpur_block
+b 1064 91 52 minecraft:purpur_block
+b 1064 92 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 100 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 108 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 116 52 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1064 123 52 minecraft:purpur_block
+b 1064 137 52 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 138 52 minecraft:purpur_block
+b 1064 139 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 52 12-63
+b 1064 67 53 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 71 53 minecraft:purpur_block
+b 1064 72 53 minecraft:end_stone_bricks
+b 1064 73 53 minecraft:end_stone_bricks
+b 1064 74 53 minecraft:end_stone_bricks
+b 1064 75 53 minecraft:purpur_block
+b 1064 91 53 minecraft:purpur_block
+b 1064 92 53 minecraft:purpur_pillar[axis=y]
+b 1064 93 53 minecraft:purpur_pillar[axis=y]
+b 1064 94 53 minecraft:purpur_pillar[axis=y]
+b 1064 95 53 minecraft:purpur_block
+b 1064 96 53 minecraft:purpur_pillar[axis=y]
+b 1064 97 53 minecraft:purpur_pillar[axis=y]
+b 1064 98 53 minecraft:purpur_pillar[axis=y]
+b 1064 99 53 minecraft:purpur_block
+b 1064 100 53 minecraft:purpur_pillar[axis=y]
+b 1064 101 53 minecraft:purpur_pillar[axis=y]
+b 1064 102 53 minecraft:purpur_pillar[axis=y]
+b 1064 103 53 minecraft:purpur_block
+b 1064 104 53 minecraft:purpur_pillar[axis=y]
+b 1064 105 53 minecraft:purpur_pillar[axis=y]
+b 1064 106 53 minecraft:purpur_pillar[axis=y]
+b 1064 107 53 minecraft:purpur_block
+b 1064 108 53 minecraft:purpur_pillar[axis=y]
+b 1064 109 53 minecraft:purpur_pillar[axis=y]
+b 1064 110 53 minecraft:purpur_pillar[axis=y]
+b 1064 111 53 minecraft:purpur_block
+b 1064 112 53 minecraft:purpur_pillar[axis=y]
+b 1064 113 53 minecraft:purpur_pillar[axis=y]
+b 1064 114 53 minecraft:purpur_pillar[axis=y]
+b 1064 115 53 minecraft:purpur_block
+b 1064 116 53 minecraft:purpur_pillar[axis=y]
+b 1064 117 53 minecraft:purpur_pillar[axis=y]
+b 1064 118 53 minecraft:purpur_pillar[axis=y]
+b 1064 119 53 minecraft:purpur_block
+b 1064 123 53 minecraft:purpur_block
+b 1064 137 53 minecraft:purpur_block
+b 1064 138 53 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 53 12-63
+b 1064 67 54 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1064 71 54 minecraft:purpur_block
+b 1064 72 54 minecraft:end_stone_bricks
+b 1064 73 54 minecraft:magenta_stained_glass
+b 1064 74 54 minecraft:magenta_stained_glass
+b 1064 75 54 minecraft:purpur_block
+b 1064 91 54 minecraft:purpur_block
+b 1064 92 54 minecraft:purpur_pillar[axis=y]
+b 1064 93 54 minecraft:purpur_pillar[axis=y]
+b 1064 94 54 minecraft:purpur_pillar[axis=y]
+b 1064 95 54 minecraft:purpur_block
+b 1064 96 54 minecraft:purpur_pillar[axis=y]
+b 1064 97 54 minecraft:purpur_pillar[axis=y]
+b 1064 98 54 minecraft:purpur_pillar[axis=y]
+b 1064 99 54 minecraft:purpur_block
+b 1064 100 54 minecraft:purpur_pillar[axis=y]
+b 1064 101 54 minecraft:purpur_pillar[axis=y]
+b 1064 102 54 minecraft:purpur_pillar[axis=y]
+b 1064 103 54 minecraft:purpur_block
+b 1064 104 54 minecraft:purpur_pillar[axis=y]
+b 1064 105 54 minecraft:purpur_pillar[axis=y]
+b 1064 106 54 minecraft:purpur_pillar[axis=y]
+b 1064 107 54 minecraft:purpur_block
+b 1064 108 54 minecraft:purpur_pillar[axis=y]
+b 1064 109 54 minecraft:purpur_pillar[axis=y]
+b 1064 110 54 minecraft:purpur_pillar[axis=y]
+b 1064 111 54 minecraft:purpur_block
+b 1064 112 54 minecraft:purpur_pillar[axis=y]
+b 1064 113 54 minecraft:purpur_pillar[axis=y]
+b 1064 114 54 minecraft:purpur_pillar[axis=y]
+b 1064 115 54 minecraft:purpur_block
+b 1064 116 54 minecraft:purpur_pillar[axis=y]
+b 1064 117 54 minecraft:purpur_pillar[axis=y]
+b 1064 118 54 minecraft:purpur_pillar[axis=y]
+b 1064 119 54 minecraft:purpur_block
+b 1064 123 54 minecraft:purpur_block
+b 1064 136 54 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 137 54 minecraft:purpur_block
+b 1064 138 54 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 54 12-63
+b 1064 67 55 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 71 55 minecraft:purpur_block
+b 1064 72 55 minecraft:end_stone_bricks
+b 1064 73 55 minecraft:end_stone_bricks
+b 1064 74 55 minecraft:end_stone_bricks
+b 1064 75 55 minecraft:purpur_block
+b 1064 119 55 minecraft:purpur_block
+b 1064 123 55 minecraft:purpur_block
+b 1064 136 55 minecraft:purpur_block
+b 1064 137 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 55 12-63
+b 1064 67 56 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+b 1064 68 56 minecraft:end_rod[facing=up]
+b 1064 71 56 minecraft:purpur_block
+b 1064 72 56 minecraft:purpur_pillar[axis=y]
+b 1064 73 56 minecraft:purpur_pillar[axis=y]
+b 1064 74 56 minecraft:purpur_pillar[axis=y]
+b 1064 75 56 minecraft:purpur_block
+b 1064 119 56 minecraft:purpur_block
+b 1064 123 56 minecraft:purpur_block
+b 1064 135 56 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 136 56 minecraft:purpur_block
+b 1064 137 56 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 56 12-63
+b 1064 71 57 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1064 75 57 minecraft:purpur_block
+b 1064 119 57 minecraft:purpur_block
+b 1064 120 57 minecraft:end_stone_bricks
+b 1064 121 57 minecraft:magenta_stained_glass
+b 1064 122 57 minecraft:magenta_stained_glass
+b 1064 123 57 minecraft:purpur_block
+b 1064 135 57 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 136 57 minecraft:purpur_block
+c 1064 57 12-63
+b 1064 75 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1064 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1064 123 58 minecraft:purpur_block
+b 1064 135 58 minecraft:purpur_block
+b 1064 136 58 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 58 12-63
+b 1064 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1064 135 59 minecraft:purpur_block
+b 1064 136 59 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 59 12-63
+b 1064 135 60 minecraft:purpur_block
+b 1064 136 60 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 60 12-63
+b 1064 135 61 minecraft:purpur_block
+b 1064 136 61 minecraft:purpur_block
+c 1064 61 12-63
+b 1064 134 62 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1064 135 62 minecraft:purpur_block
+b 1064 136 62 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 62 12-63
+b 1064 134 63 minecraft:purpur_block
+b 1064 135 63 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1064 63 12-63
+b 1065 71 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1065 75 48 minecraft:purpur_block
+b 1065 119 48 minecraft:purpur_block
+b 1065 120 48 minecraft:chest[facing=west,type=single,waterlogged=false]
+b 1065 123 48 minecraft:purpur_block
+b 1065 143 48 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1065 147 48 minecraft:purpur_block
+c 1065 48 13-63
+b 1065 71 49 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1065 75 49 minecraft:purpur_block
+b 1065 103 49 minecraft:purpur_block
+b 1065 104 49 minecraft:purpur_block
+b 1065 105 49 minecraft:purpur_block
+b 1065 106 49 minecraft:purpur_block
+b 1065 107 49 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1065 119 49 minecraft:purpur_block
+b 1065 123 49 minecraft:purpur_block
+b 1065 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1065 49 13-63
+b 1065 71 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1065 75 50 minecraft:purpur_block
+b 1065 91 50 minecraft:purpur_block
+b 1065 92 50 minecraft:purpur_pillar[axis=y]
+b 1065 93 50 minecraft:purpur_pillar[axis=y]
+b 1065 94 50 minecraft:purpur_pillar[axis=y]
+b 1065 95 50 minecraft:purpur_block
+b 1065 96 50 minecraft:purpur_pillar[axis=y]
+b 1065 97 50 minecraft:purpur_pillar[axis=y]
+b 1065 98 50 minecraft:purpur_pillar[axis=y]
+b 1065 99 50 minecraft:purpur_block
+b 1065 100 50 minecraft:purpur_pillar[axis=y]
+b 1065 101 50 minecraft:purpur_pillar[axis=y]
+b 1065 102 50 minecraft:purpur_block
+b 1065 103 50 minecraft:purpur_block
+b 1065 106 50 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1065 107 50 minecraft:purpur_block
+b 1065 108 50 minecraft:purpur_pillar[axis=y]
+b 1065 109 50 minecraft:purpur_pillar[axis=y]
+b 1065 110 50 minecraft:purpur_block
+b 1065 111 50 minecraft:purpur_block
+b 1065 112 50 minecraft:purpur_pillar[axis=y]
+b 1065 113 50 minecraft:purpur_pillar[axis=y]
+b 1065 114 50 minecraft:purpur_pillar[axis=y]
+b 1065 115 50 minecraft:purpur_block
+b 1065 116 50 minecraft:purpur_pillar[axis=y]
+b 1065 117 50 minecraft:purpur_pillar[axis=y]
+b 1065 118 50 minecraft:purpur_block
+b 1065 119 50 minecraft:purpur_block
+b 1065 123 50 minecraft:purpur_block
+c 1065 50 13-63
+b 1065 71 51 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1065 75 51 minecraft:purpur_block
+b 1065 91 51 minecraft:purpur_block
+b 1065 92 51 minecraft:purpur_pillar[axis=y]
+b 1065 93 51 minecraft:purpur_pillar[axis=x]
+b 1065 94 51 minecraft:purpur_pillar[axis=y]
+b 1065 95 51 minecraft:purpur_block
+b 1065 96 51 minecraft:purpur_pillar[axis=y]
+b 1065 97 51 minecraft:purpur_pillar[axis=x]
+b 1065 98 51 minecraft:purpur_pillar[axis=y]
+b 1065 99 51 minecraft:purpur_block
+b 1065 100 51 minecraft:purpur_pillar[axis=y]
+b 1065 101 51 minecraft:purpur_pillar[axis=x]
+b 1065 102 51 minecraft:purpur_block
+b 1065 103 51 minecraft:purpur_block
+b 1065 107 51 minecraft:purpur_block
+b 1065 108 51 minecraft:purpur_pillar[axis=y]
+b 1065 109 51 minecraft:purpur_pillar[axis=x]
+b 1065 110 51 minecraft:purpur_block
+b 1065 111 51 minecraft:purpur_block
+b 1065 112 51 minecraft:purpur_pillar[axis=y]
+b 1065 113 51 minecraft:purpur_pillar[axis=x]
+b 1065 114 51 minecraft:purpur_pillar[axis=y]
+b 1065 115 51 minecraft:purpur_block
+b 1065 116 51 minecraft:purpur_pillar[axis=y]
+b 1065 117 51 minecraft:purpur_pillar[axis=x]
+b 1065 118 51 minecraft:purpur_block
+b 1065 119 51 minecraft:purpur_block
+b 1065 123 51 minecraft:purpur_block
+c 1065 51 12-63
+b 1065 71 52 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1065 75 52 minecraft:purpur_block
+b 1065 91 52 minecraft:purpur_block
+b 1065 92 52 minecraft:purpur_pillar[axis=y]
+b 1065 93 52 minecraft:purpur_pillar[axis=y]
+b 1065 94 52 minecraft:purpur_pillar[axis=y]
+b 1065 95 52 minecraft:purpur_block
+b 1065 96 52 minecraft:purpur_pillar[axis=y]
+b 1065 97 52 minecraft:purpur_pillar[axis=y]
+b 1065 98 52 minecraft:purpur_pillar[axis=y]
+b 1065 99 52 minecraft:purpur_block
+b 1065 100 52 minecraft:purpur_pillar[axis=y]
+b 1065 101 52 minecraft:purpur_pillar[axis=y]
+b 1065 102 52 minecraft:purpur_block
+b 1065 103 52 minecraft:purpur_block
+b 1065 106 52 minecraft:purpur_slab[type=top,waterlogged=false]
+b 1065 107 52 minecraft:purpur_block
+b 1065 108 52 minecraft:purpur_pillar[axis=y]
+b 1065 109 52 minecraft:purpur_pillar[axis=y]
+b 1065 110 52 minecraft:purpur_block
+b 1065 111 52 minecraft:purpur_block
+b 1065 112 52 minecraft:purpur_pillar[axis=y]
+b 1065 113 52 minecraft:purpur_pillar[axis=y]
+b 1065 114 52 minecraft:purpur_pillar[axis=y]
+b 1065 115 52 minecraft:purpur_block
+b 1065 116 52 minecraft:purpur_pillar[axis=y]
+b 1065 117 52 minecraft:purpur_pillar[axis=y]
+b 1065 118 52 minecraft:purpur_block
+b 1065 119 52 minecraft:purpur_block
+b 1065 123 52 minecraft:purpur_block
+c 1065 52 12-63
+b 1065 71 53 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1065 75 53 minecraft:purpur_block
+b 1065 103 53 minecraft:purpur_block
+b 1065 104 53 minecraft:purpur_block
+b 1065 105 53 minecraft:purpur_block
+b 1065 106 53 minecraft:purpur_block
+b 1065 107 53 minecraft:purpur_slab[type=bottom,waterlogged=false]
+b 1065 119 53 minecraft:purpur_block
+b 1065 123 53 minecraft:purpur_block
+c 1065 53 12-63
+b 1065 71 54 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1065 75 54 minecraft:purpur_block
+b 1065 119 54 minecraft:purpur_block
+b 1065 123 54 minecraft:purpur_block
+c 1065 54 12-63
+b 1065 71 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1065 75 55 minecraft:purpur_block
+b 1065 119 55 minecraft:purpur_block
+b 1065 123 55 minecraft:purpur_block
+c 1065 55 12-63
+b 1065 71 56 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1065 75 56 minecraft:purpur_block
+b 1065 119 56 minecraft:purpur_block
+b 1065 123 56 minecraft:purpur_block
+c 1065 56 12-63
+b 1065 71 57 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+b 1065 72 57 minecraft:end_rod[facing=up]
+b 1065 75 57 minecraft:purpur_block
+b 1065 76 57 minecraft:end_rod[facing=up]
+b 1065 119 57 minecraft:purpur_block
+b 1065 120 57 minecraft:end_stone_bricks
+b 1065 121 57 minecraft:end_stone_bricks
+b 1065 122 57 minecraft:end_stone_bricks
+b 1065 123 57 minecraft:purpur_block
+c 1065 57 12-63
+b 1065 75 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1065 119 58 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1065 123 58 minecraft:purpur_block
+c 1065 58 12-63
+b 1065 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1065 59 12-63
+c 1065 60 12-63
+c 1065 61 12-63
+c 1065 62 12-63
+c 1065 63 12-63
+b 1066 75 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 119 48 minecraft:purpur_block
+b 1066 120 48 minecraft:end_stone_bricks
+b 1066 121 48 minecraft:end_stone_bricks
+b 1066 122 48 minecraft:end_stone_bricks
+b 1066 123 48 minecraft:purpur_block
+b 1066 143 48 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1066 147 48 minecraft:purpur_block
+c 1066 48 13-63
+b 1066 75 49 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 103 49 minecraft:purpur_block
+b 1066 104 49 minecraft:purpur_block
+b 1066 105 49 minecraft:end_rod[facing=up]
+b 1066 119 49 minecraft:purpur_block
+b 1066 120 49 minecraft:end_stone_bricks
+b 1066 121 49 minecraft:end_stone_bricks
+b 1066 122 49 minecraft:end_stone_bricks
+b 1066 123 49 minecraft:purpur_block
+b 1066 147 49 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1066 49 13-63
+b 1066 75 50 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 103 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 119 50 minecraft:purpur_block
+b 1066 120 50 minecraft:end_stone_bricks
+b 1066 121 50 minecraft:magenta_stained_glass
+b 1066 122 50 minecraft:magenta_stained_glass
+b 1066 123 50 minecraft:purpur_block
+c 1066 50 13-63
+b 1066 75 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 93 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 97 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 101 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 102 51 minecraft:purpur_pillar[axis=x]
+b 1066 103 51 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 109 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 110 51 minecraft:purpur_pillar[axis=x]
+b 1066 113 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 117 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 118 51 minecraft:purpur_pillar[axis=x]
+b 1066 119 51 minecraft:purpur_block
+b 1066 120 51 minecraft:end_stone_bricks
+b 1066 121 51 minecraft:end_stone_bricks
+b 1066 122 51 minecraft:end_stone_bricks
+b 1066 123 51 minecraft:purpur_block
+c 1066 51 13-63
+b 1066 75 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 103 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 119 52 minecraft:purpur_block
+b 1066 120 52 minecraft:end_stone_bricks
+b 1066 121 52 minecraft:magenta_stained_glass
+b 1066 122 52 minecraft:magenta_stained_glass
+b 1066 123 52 minecraft:purpur_block
+c 1066 52 13-63
+b 1066 75 53 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 103 53 minecraft:purpur_block
+b 1066 104 53 minecraft:purpur_block
+b 1066 105 53 minecraft:end_rod[facing=up]
+b 1066 119 53 minecraft:purpur_block
+b 1066 120 53 minecraft:end_stone_bricks
+b 1066 121 53 minecraft:end_stone_bricks
+b 1066 122 53 minecraft:end_stone_bricks
+b 1066 123 53 minecraft:purpur_block
+c 1066 53 13-63
+b 1066 75 54 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 119 54 minecraft:purpur_block
+b 1066 120 54 minecraft:end_stone_bricks
+b 1066 121 54 minecraft:end_stone_bricks
+b 1066 122 54 minecraft:end_stone_bricks
+b 1066 123 54 minecraft:purpur_block
+c 1066 54 13-63
+b 1066 75 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 119 55 minecraft:purpur_block
+b 1066 120 55 minecraft:end_stone_bricks
+b 1066 121 55 minecraft:magenta_stained_glass
+b 1066 122 55 minecraft:magenta_stained_glass
+b 1066 123 55 minecraft:purpur_block
+c 1066 55 12-63
+b 1066 75 56 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1066 119 56 minecraft:purpur_block
+b 1066 120 56 minecraft:end_stone_bricks
+b 1066 121 56 minecraft:end_stone_bricks
+b 1066 122 56 minecraft:end_stone_bricks
+b 1066 123 56 minecraft:purpur_block
+c 1066 56 12-63
+b 1066 75 57 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1066 119 57 minecraft:purpur_block
+b 1066 120 57 minecraft:purpur_pillar[axis=y]
+b 1066 121 57 minecraft:purpur_pillar[axis=y]
+b 1066 122 57 minecraft:purpur_pillar[axis=y]
+b 1066 123 57 minecraft:purpur_block
+c 1066 57 12-63
+b 1066 75 58 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+b 1066 119 58 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1066 123 58 minecraft:purpur_block
+c 1066 58 12-63
+b 1066 123 59 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1066 59 12-63
+c 1066 60 12-63
+c 1066 61 12-63
+c 1066 62 12-63
+c 1066 63 12-63
+b 1067 119 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1067 123 48 minecraft:purpur_block
+b 1067 143 48 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+b 1067 144 48 minecraft:end_rod[facing=up]
+b 1067 147 48 minecraft:purpur_block
+b 1067 148 48 minecraft:end_rod[facing=up]
+c 1067 48 14-63
+b 1067 103 49 minecraft:purpur_block
+b 1067 104 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1067 119 49 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1067 123 49 minecraft:purpur_block
+b 1067 147 49 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1067 49 14-63
+b 1067 103 50 minecraft:purpur_block
+b 1067 119 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1067 123 50 minecraft:purpur_block
+c 1067 50 13-63
+b 1067 102 51 minecraft:purpur_pillar[axis=x]
+b 1067 103 51 minecraft:purpur_block
+b 1067 119 51 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1067 123 51 minecraft:purpur_block
+c 1067 51 13-63
+b 1067 103 52 minecraft:purpur_block
+b 1067 119 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1067 123 52 minecraft:purpur_block
+c 1067 52 13-63
+b 1067 103 53 minecraft:purpur_block
+b 1067 104 53 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1067 119 53 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1067 123 53 minecraft:purpur_block
+c 1067 53 13-63
+b 1067 119 54 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1067 123 54 minecraft:purpur_block
+c 1067 54 13-63
+b 1067 119 55 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1067 123 55 minecraft:purpur_block
+c 1067 55 13-63
+b 1067 119 56 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1067 123 56 minecraft:purpur_block
+c 1067 56 13-63
+b 1067 119 57 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1067 123 57 minecraft:purpur_block
+c 1067 57 13-63
+b 1067 119 58 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+b 1067 120 58 minecraft:end_rod[facing=up]
+b 1067 123 58 minecraft:purpur_block
+c 1067 58 13-63
+b 1067 123 59 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+c 1067 59 12-63
+c 1067 60 12-63
+c 1067 61 12-63
+c 1067 62 12-63
+c 1067 63 12-63
+b 1068 123 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+b 1068 147 48 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+c 1068 48 14-63
+b 1068 103 49 minecraft:purpur_block
+b 1068 104 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+b 1068 123 49 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+b 1068 147 49 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+c 1068 49 14-63
+b 1068 103 50 minecraft:purpur_block
+b 1068 123 50 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1068 50 14-63
+b 1068 102 51 minecraft:purpur_pillar[axis=x]
+b 1068 103 51 minecraft:purpur_block
+b 1068 123 51 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+c 1068 51 14-63
+b 1068 103 52 minecraft:purpur_block
+b 1068 123 52 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1068 52 13-63
+b 1068 103 53 minecraft:purpur_block
+b 1068 104 53 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+b 1068 123 53 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1068 53 13-63
+b 1068 123 54 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+c 1068 54 13-63
+b 1068 123 55 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+c 1068 55 13-63
+b 1068 123 56 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1068 56 13-63
+b 1068 123 57 minecraft:purpur_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+c 1068 57 13-63
+b 1068 123 58 minecraft:purpur_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+c 1068 58 13-63
+b 1068 123 59 minecraft:purpur_stairs[facing=west,half=top,shape=outer_right,waterlogged=false]
+c 1068 59 13-63
+c 1068 60 13-63
+c 1068 61 13-63
+c 1068 62 13-63
+c 1068 63 13-63
+c 1069 48 15-63
+b 1069 103 49 minecraft:purpur_block
+b 1069 104 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1069 49 15-63
+b 1069 103 50 minecraft:purpur_block
+c 1069 50 14-63
+b 1069 102 51 minecraft:purpur_pillar[axis=x]
+b 1069 103 51 minecraft:purpur_block
+c 1069 51 14-63
+b 1069 103 52 minecraft:purpur_block
+c 1069 52 14-63
+b 1069 103 53 minecraft:purpur_block
+b 1069 104 53 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1069 53 14-63
+c 1069 54 14-63
+c 1069 55 13-63
+c 1069 56 13-63
+c 1069 57 13-63
+c 1069 58 13-63
+c 1069 59 13-63
+c 1069 60 13-63
+c 1069 61 13-63
+c 1069 62 13-63
+c 1069 63 13-63
+c 1070 48 16-63
+b 1070 103 49 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1070 104 49 minecraft:purpur_block
+c 1070 49 15-63
+b 1070 102 50 minecraft:purpur_stairs[facing=south,half=top,shape=straight,waterlogged=false]
+b 1070 103 50 minecraft:purpur_block
+c 1070 50 15-63
+b 1070 102 51 minecraft:purpur_pillar[axis=x]
+b 1070 103 51 minecraft:purpur_block
+c 1070 51 15-63
+b 1070 102 52 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1070 103 52 minecraft:purpur_block
+c 1070 52 14-63
+b 1070 103 53 minecraft:purpur_stairs[facing=north,half=top,shape=straight,waterlogged=false]
+b 1070 104 53 minecraft:purpur_block
+c 1070 53 14-63
+c 1070 54 14-63
+c 1070 55 14-63
+c 1070 56 13-63
+c 1070 57 13-63
+c 1070 58 13-63
+c 1070 59 13-63
+c 1070 60 13-63
+c 1070 61 13-63
+c 1070 62 13-63
+c 1070 63 13-63
+c 1071 48 16-63
+b 1071 104 49 minecraft:purpur_block
+b 1071 105 49 minecraft:purpur_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]
+c 1071 49 16-63
+b 1071 103 50 minecraft:purpur_block
+b 1071 104 50 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1071 50 16-63
+b 1071 102 51 minecraft:purpur_pillar[axis=x]
+b 1071 103 51 minecraft:purpur_block
+b 1071 104 51 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1071 51 15-63
+b 1071 103 52 minecraft:purpur_block
+b 1071 104 52 minecraft:purpur_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+c 1071 52 15-63
+b 1071 104 53 minecraft:purpur_block
+b 1071 105 53 minecraft:purpur_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+c 1071 53 15-63
+c 1071 54 14-63
+c 1071 55 14-63
+c 1071 56 14-63
+c 1071 57 14-63
+c 1071 58 14-63
+c 1071 59 13-63
+c 1071 60 13-63
+c 1071 61 13-63
+c 1071 62 13-63
+c 1071 63 13-63
+e shulker 1064.50 97.00 51.50
+e shulker 1056.50 97.00 51.50
+e shulker 1060.50 101.00 55.50
+e shulker 1064.50 105.00 51.50
+e shulker 1056.50 105.00 51.50
+e shulker 1060.50 109.00 55.50
+e shulker 1064.50 113.00 51.50
+e shulker 1056.50 113.00 51.50
+e shulker 1060.50 117.00 55.50

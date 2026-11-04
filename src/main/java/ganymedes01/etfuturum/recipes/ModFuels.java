@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.recipes;
 
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
@@ -16,7 +17,7 @@ public class ModFuels implements IFuelHandler {
 
 	@Override
 	public int getBurnTime(ItemStack fuel) {
-		if (ModBlocks.DRIED_KELP_BLOCK.isEnabled() && fuel.getItem() == ModBlocks.DRIED_KELP_BLOCK.getItem()) {
+		if (McFlyBlocks.DRIED_KELP_BLOCK.isEnabled() && fuel.getItem() == McFlyBlocks.DRIED_KELP_BLOCK.getItem()) {
 			return 4001;
 		}
 		return 0;

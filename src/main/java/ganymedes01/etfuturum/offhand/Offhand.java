@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.offhand;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.entity.EntityLivingBase;
@@ -45,8 +46,8 @@ public final class Offhand {
 	/** Called in preInit, once the configs and the mod list are known. */
 	public static void init() {
 		boolean otherOffhand = ModsList.BACKHAND.isLoaded() || ModsList.BATTLEGEAR_2.isLoaded();
-		enabled = ConfigMixins.enableOffhand && !otherOffhand;
-		if (ConfigMixins.enableOffhand && otherOffhand) {
+		enabled = McFlyConfig.enableOffhand && !otherOffhand;
+		if (McFlyConfig.enableOffhand && otherOffhand) {
 			Logger.info("Et Futurum Requiem's off-hand is off because Backhand or Battlegear 2 is loaded; a player can only have one.");
 		}
 	}
@@ -121,7 +122,7 @@ public final class Offhand {
 		if (!enabled || !(player instanceof IOffhandPlayer)) {
 			return false;
 		}
-		return (player.getDataWatcher().getWatchableObjectByte(ConfigFunctions.poseDataWatcherId) & bit) != 0;
+		return (player.getDataWatcher().getWatchableObjectByte(McFlyConfig.poseDataWatcherId) & bit) != 0;
 	}
 
 	/** Sets a bit of the synced pose byte, on the server; the pose system's own bits are left alone. */
@@ -129,10 +130,10 @@ public final class Offhand {
 		if (!enabled || !(player instanceof IOffhandPlayer) || player.worldObj.isRemote) {
 			return;
 		}
-		byte current = player.getDataWatcher().getWatchableObjectByte(ConfigFunctions.poseDataWatcherId);
+		byte current = player.getDataWatcher().getWatchableObjectByte(McFlyConfig.poseDataWatcherId);
 		byte value = (byte) (on ? current | bit : current & ~bit);
 		if (value != current) {
-			player.getDataWatcher().updateObject(ConfigFunctions.poseDataWatcherId, value);
+			player.getDataWatcher().updateObject(McFlyConfig.poseDataWatcherId, value);
 		}
 	}
 

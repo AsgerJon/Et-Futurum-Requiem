@@ -2,7 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.core.utils.FilledResult;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,16 +31,34 @@ public class BlockLavaCauldron extends BlockCauldron {
 		this.setBlockName(Utils.getUnlocalisedName("lava_cauldron"));
 	}
 
+	/**
+	 * 26.3's {@code CauldronInteractions.LAVA} (spec §63.1): an empty bucket takes the lava, a water bucket makes it a
+	 * full water cauldron. (1.7.10's own cauldron code set this block's metadata to 3 for water and left it lava.)
+	 */
 	@Override
 	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
-//      ItemStack item;
-//      if (player.getCurrentEquippedItem() != null) {
-//          item = player.getCurrentEquippedItem();
-//          if (item.getItem() instanceof ItemBucket) {
-//              // TODO Bucketing lava out of the cauldron
-//          }
-//      }
-//      return true;
+		ItemStack held = player.getCurrentEquippedItem();
+		if (held != null && io.github.asgerjon.mcfly.config.McFlyConfig.modernCauldrons) {
+			if (held.getItem() == Items.bucket) {
+				if (!worldIn.isRemote) {
+					worldIn.setBlock(x, y, z, Blocks.cauldron, 0, 3);
+					worldIn.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.fill_lava", 1.0F, 1.0F);
+					FilledResult.fill(player, held, new ItemStack(Items.lava_bucket));
+				}
+				return true;
+			}
+			if (held.getItem() == Items.water_bucket) {
+				if (!worldIn.isRemote) {
+					worldIn.setBlock(x, y, z, Blocks.cauldron, 3, 3);
+					worldIn.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.empty", 1.0F, 1.0F);
+					if (!player.capabilities.isCreativeMode) {
+						held.func_150996_a(Items.bucket);
+					}
+				}
+				return true;
+			}
+			return false;
+		}
 		return super.onBlockActivated(worldIn, x, y, z, player, side, subX, subY, subZ);
 	}
 

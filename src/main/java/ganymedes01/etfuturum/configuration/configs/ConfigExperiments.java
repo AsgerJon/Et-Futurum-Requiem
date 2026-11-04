@@ -17,7 +17,6 @@ public class ConfigExperiments extends ConfigBase {
 	public static boolean enableMangroveBlocks;
 	public static boolean enableMossAzalea;
 	public static boolean enableDripstone;
-	public static boolean enableLightningRod;
 
 	public static boolean netherDimensionProvider;
 	public static boolean endDimensionProvider;
@@ -46,7 +45,6 @@ public class ConfigExperiments extends ConfigBase {
 		enableSculk = getBoolean("enableSculk", catExperiments, false, "Enables sculk-related blocks.");
 		enableDripstone = getBoolean("enableDripstone", catExperiments, false, "Partially functional. Does not naturally generate.");
 		enableMossAzalea = getBoolean("enableMossAzalea", catExperiments, false, "Enables moss and azalea. Currently azalea saplings do not grow.");
-		enableLightningRod = getBoolean("enableLightningRod", catExperiments, false, "Completely nonfunctional.");
 
 		netherDimensionProvider = getBoolean("netherDimensionProvider", catExperiments, false, "Enables the Nether dimension provider override needed for supplying custom biomes. This is partially ignored if Netherlicious is installed. Netherlicious has compat to generate Et Futurum Requiem biomes with Netherlicious blocks.\nThis is so you can have vanilla-style biomes in Netherlicious while Requiem is installed. Turning this off or setting each individual biome ID to -1 will prevent my version of Nether biomes from generating. Don't forget to turn off my Nether blocks in blocksitems.cfg since my biomes will generate with Netherlicious blocks if available. [not implemented yet]");
 		endDimensionProvider = getBoolean("endDimensionProvider", catExperiments, false, "Enables outer end island generation from 1.9. Gateways are implemented but currently don't generate, but they work. The new dragon fight is currently not implemented and it does not spawn any gateways.");

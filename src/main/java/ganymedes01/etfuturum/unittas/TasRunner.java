@@ -82,24 +82,18 @@ final class TasRunner implements Runnable {
 	public void run() {
 		long start = System.currentTimeMillis();
 		try {
-			prepareWorld();
-			List<Method> tests = new ArrayList<>();
-			for (String suite : request.suites) {
-				List<Class<? extends TasTestCase>> classes = TasSuites.get(suite);
-				if (classes == null) {
-					request.progress("no suite called '" + suite + "' (there are: " + String.join(", ", TasSuites.names()) + ")");
-					continue;
+			if (!request.saves.isEmpty()) {
+				runSaves(allTests());
+			} else {
+				prepareWorld();
+				List<Method> tests = allTests();
+				int number = 0;
+				for (Method test : tests) {
+					number++;
+					Result result = runOne(test, "", true);
+					results.add(result);
+					request.progress(String.format(Locale.ROOT, "test %d/%d %s ... %s", number, tests.size(), result.name, result.outcome.word));
 				}
-				for (Class<? extends TasTestCase> testClass : classes) {
-					tests.addAll(testsOf(testClass));
-				}
-			}
-			int number = 0;
-			for (Method test : tests) {
-				number++;
-				Result result = runOne(test);
-				results.add(result);
-				request.progress(String.format(Locale.ROOT, "test %d/%d %s ... %s", number, tests.size(), result.name, result.outcome.word));
 			}
 		} catch (Throwable t) {
 			Result broken = new Result("unitTAS");
@@ -116,6 +110,153 @@ final class TasRunner implements Runnable {
 			});
 		} catch (RuntimeException e) {
 			UnitTas.LOG.error("Couldn't quit the game", e);
+		}
+	}
+
+	private List<Method> allTests() {
+		List<Method> tests = new ArrayList<>();
+		for (String suite : request.suites) {
+			List<Class<? extends TasTestCase>> classes = TasSuites.get(suite);
+			if (classes == null) {
+				request.progress("no suite called '" + suite + "' (there are: " + String.join(", ", TasSuites.names()) + ")");
+				continue;
+			}
+			for (Class<? extends TasTestCase> testClass : classes) {
+				tests.addAll(testsOf(testClass));
+			}
+		}
+		return tests;
+	}
+
+	/** Seconds a save has to load (a world in another dimension, made elsewhere, loads slower than the flat test world). */
+	private static final int SAVE_LOAD_SECONDS = 180;
+	private static final int SAVE_SETTLE_TICKS = 60;
+
+	/**
+	 * Save mode (spec §75.3): each save opened from the main menu in turn, twice (as found, then as EFR saved it), the
+	 * tests run in it as they find it: no resets, no game rule changes (they would change the save).
+	 */
+	private void runSaves(List<Method> tests) {
+		int total = tests.size() * request.saves.size() * 2;
+		int number = 0;
+		for (int pass = 1; pass <= 2; pass++) {
+			for (String folder : request.saves) {
+				TasLogErrors log = new TasLogErrors();
+				TasSave save = new TasSave(folder, pass, request.oldSaves, log);
+				try {
+					log.listen();
+				} catch (AssertionError e) {
+					save.listenerProblem = e.getMessage();
+				}
+				request.progress("opening " + folder + (pass == 1 ? " as it was found" : " again, as EFR saved it"));
+				long asked = System.currentTimeMillis();
+				String problem = openAndSettle(folder);
+				save.loadSeconds = (System.currentTimeMillis() - asked) / 1000.0;
+				save.loadErrors.addAll(log.errors);
+				save.loadWarnings.addAll(log.warnings);
+				TasSave.current = save;
+				String suffix = " [" + folder + ", load " + pass + "]";
+				if (problem != null) {
+					Result broken = new Result("TasRunner.openSave" + suffix);
+					broken.outcome = Outcome.ERROR;
+					broken.detail = problem;
+					results.add(broken);
+					request.progress(problem);
+				} else {
+					request.progress(String.format(Locale.ROOT, "%s loaded in %.0f s", folder, save.loadSeconds));
+					for (Method test : tests) {
+						number++;
+						Result result = runOne(test, suffix, false);
+						results.add(result);
+						request.progress(String.format(Locale.ROOT, "test %d/%d %s ... %s", number, total, result.name, result.outcome.word));
+					}
+				}
+				TasSave.current = null;
+				log.quiet();
+				String quit = quitAndWait();
+				if (quit != null) {
+					Result broken = new Result("TasRunner.quitSave" + suffix);
+					broken.outcome = Outcome.ERROR;
+					broken.detail = quit;
+					results.add(broken);
+					request.progress(quit);
+					return;
+				}
+			}
+		}
+	}
+
+	/** Opens the save and waits for the player in it and the chunks around; null, or what went wrong. */
+	private String openAndSettle(String folder) {
+		try {
+			game.client(() -> {
+				game.openSave(folder);
+				return null;
+			});
+		} catch (TasGame.Timeout e) {
+			// the client thread is still starting the server (it shows the loading screen meanwhile): wait on below
+		} catch (RuntimeException e) {
+			return "couldn't open " + folder + ": " + stackTrace(e);
+		}
+		long giveUp = System.currentTimeMillis() + SAVE_LOAD_SECONDS * 1000L;
+		while (true) {
+			boolean in;
+			try {
+				in = game.client(game::inWorld);
+			} catch (TasGame.Timeout e) {
+				in = false;
+			}
+			if (in) {
+				break;
+			}
+			if (System.currentTimeMillis() > giveUp) {
+				String picture;
+				try {
+					picture = game.client(() -> TasHang.picture(Minecraft.getMinecraft(), request.results, SAVE_LOAD_SECONDS));
+				} catch (RuntimeException e) {
+					picture = "none, the client is stuck";
+				}
+				return folder + " didn't load in " + SAVE_LOAD_SECONDS + " s (picture " + picture + ")";
+			}
+			sleep(250);
+		}
+		game.clientTicks(SAVE_SETTLE_TICKS);
+		return null;
+	}
+
+	/** Save and quit to the title screen, and wait for the integrated server to have stopped; null, or the problem. */
+	private String quitAndWait() {
+		try {
+			game.client(() -> {
+				game.quitToMenu();
+				return null;
+			});
+		} catch (TasGame.Timeout e) {
+			// still saving: wait on below
+		}
+		long giveUp = System.currentTimeMillis() + SAVE_LOAD_SECONDS * 1000L;
+		while (System.currentTimeMillis() < giveUp) {
+			MinecraftServer server = MinecraftServer.getServer();
+			boolean stopped = server == null || server.isServerStopped();
+			boolean menu;
+			try {
+				menu = game.client(() -> Minecraft.getMinecraft().currentScreen instanceof net.minecraft.client.gui.GuiMainMenu);
+			} catch (TasGame.Timeout e) {
+				menu = false;
+			}
+			if (stopped && menu) {
+				return null;
+			}
+			sleep(250);
+		}
+		return "the save didn't close in " + SAVE_LOAD_SECONDS + " s";
+	}
+
+	private static void sleep(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		}
 	}
 
@@ -152,15 +293,17 @@ final class TasRunner implements Runnable {
 		return test.getDeclaringClass().getSimpleName() + "." + test.getName();
 	}
 
-	private Result runOne(Method test) {
-		Result result = new Result(nameOf(test));
+	private Result runOne(Method test, String suffix, boolean resetFirst) {
+		Result result = new Result(nameOf(test) + suffix);
 		int chatMark = game.chatMark();
 		long start = System.currentTimeMillis();
 		TasTestCase instance = null;
 		try {
 			instance = (TasTestCase) test.getDeclaringClass().getConstructor().newInstance();
 			instance.attach(game);
-			reset();
+			if (resetFirst) {
+				reset();
+			}
 			chatMark = game.chatMark();
 			game.startClock(instance.timeoutSeconds());
 			instance.setUp();
@@ -271,6 +414,24 @@ final class TasRunner implements Runnable {
 					}
 				}
 				world.weatherEffects.clear();
+				// clear weather held: 1.7.10 has no weather-cycle rule, so its timers would turn rain on mid-run (a
+				// `/weather clear 10s` left 200 ticks on them, and a long run reaches the natural turn), and rain darkens
+				// the day, puts out fire and lets Riptide work; tests that want weather set it themselves
+				world.getWorldInfo().setRaining(false);
+				world.getWorldInfo().setThundering(false);
+				world.getWorldInfo().setRainTime(1000000);
+				world.getWorldInfo().setThunderTime(1000000);
+				world.rainingStrength = world.prevRainingStrength = 0.0F;
+				world.thunderingStrength = world.prevThunderingStrength = 0.0F;
+			}
+			return null;
+		});
+		// the client's own rain too (its use of a Riptide trident asks it)
+		game.client(() -> {
+			Minecraft mc = Minecraft.getMinecraft();
+			if (mc.theWorld != null) {
+				mc.theWorld.rainingStrength = mc.theWorld.prevRainingStrength = 0.0F;
+				mc.theWorld.thunderingStrength = mc.theWorld.prevThunderingStrength = 0.0F;
 			}
 			return null;
 		});

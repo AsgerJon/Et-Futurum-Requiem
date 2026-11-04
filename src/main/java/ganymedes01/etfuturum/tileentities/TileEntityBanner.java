@@ -211,7 +211,13 @@ public class TileEntityBanner extends TileEntity {
 		BRICKS("bricks", "bri", new ItemStack(Blocks.brick_block)),
 		SKULL("skull", "sku", new ItemStack(Items.skull, 1, 1)),
 		FLOWER("flower", "flo", new ItemStack(Blocks.red_flower, 1, 8)),
-		MOJANG("mojang", "moj", new ItemStack(Items.golden_apple, 1, 1));
+		MOJANG("mojang", "moj", new ItemStack(Items.golden_apple, 1, 1)),
+		// 26.3's four 1.8 hadn't (spec §66.11): from pattern items only, no crafting. glb and pig are Java's short ids
+		// until 1.20.5; flow and guster never had short ones, flw and gus are EFR's
+		GLOBE("globe", "glb"),
+		PIGLIN("piglin", "pig"),
+		FLOW("flow", "flw"),
+		GUSTER("guster", "gus");
 
 		public static final EnumBannerPattern[] VALUES = values();
 

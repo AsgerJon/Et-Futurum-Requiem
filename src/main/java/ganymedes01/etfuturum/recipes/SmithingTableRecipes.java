@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.recipes;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
@@ -28,12 +30,12 @@ public class SmithingTableRecipes {
 
 	/** Whether the table has the template slot of 1.20: the netherite upgrade template exists and is wanted. */
 	public static boolean useTemplates() {
-		return ConfigBlocksItems.netheriteUpgradeTemplate && ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled();
+		return McFlyConfig.netheriteUpgradeTemplate && McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled();
 	}
 
 	public static void init() {
 		if (ConfigBlocksItems.enableNetherite) {
-			Object template = useTemplates() ? ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.newItemStack() : null;
+			Object template = useTemplates() ? McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.newItemStack() : null;
 			addNetheriteUpgrade(ModItems.NETHERITE_PICKAXE, Items.diamond_pickaxe, template);
 			addNetheriteUpgrade(ModItems.NETHERITE_AXE, Items.diamond_axe, template);
 			addNetheriteUpgrade(ModItems.NETHERITE_SPADE, Items.diamond_shovel, template);

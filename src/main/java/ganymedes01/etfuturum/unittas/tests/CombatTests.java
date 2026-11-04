@@ -1,15 +1,17 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.client.gui.GuiAttackIndicatorButton;
+import ganymedes01.etfuturum.client.gui.options.IOptionsLayout;
 import ganymedes01.etfuturum.client.particle.SweepAttackFX;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.mixins.early.fov.client.AccessorGuiOptionsRowList;
+import io.github.asgerjon.mcfly.mixins.early.fov.client.AccessorGuiOptionsRowList;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.unittas.TasTestCase;
@@ -42,13 +44,17 @@ public class CombatTests extends TasTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigMixins.modernCombat) {
+		if (!McFlyConfig.modernCombat) {
 			skipTest("the combat update is turned off (modernCombat)");
 		}
 		onServer(() -> player().setGameType(WorldSettings.GameType.SURVIVAL));
 		setHeld(new ItemStack(Items.diamond_sword));
 		waitUntilOnClient("the client to have the sword", () -> mc().thePlayer.getHeldItem() != null
 			&& mc().thePlayer.getHeldItem().getItem() == Items.diamond_sword, 40);
+		// the server applies a held item's attributes in the player's own update, which comes with the client's next
+		// movement packet, not every server tick: wait for that too, or a test can still read the bare hand's 5 ticks
+		// (testChargeTimes failed so 4 times in 47 runs)
+		waitUntil("the server to have applied the sword", () -> AttackCooldown.delay(player()) > 6.0F, 40);
 	}
 
 	/** A villager standing at x z (feet on the ground); returns its entity id. */
@@ -155,7 +161,10 @@ public class CombatTests extends TasTestCase {
 		setHeld(new ItemStack(Items.diamond_axe));
 		waitUntilOnClient("the client to have the axe", () -> mc().thePlayer.getHeldItem() != null
 			&& mc().thePlayer.getHeldItem().getItem() == Items.diamond_axe, 40);
-		ticks(2);
+		// as in setUp: the server applies the axe in the player's own update (with the next movement packet), and the
+		// client has it from the server's attribute packet after that (a fixed 2 ticks failed once in a full run)
+		waitUntil("the server to have applied the axe", () -> AttackCooldown.delay(player()) > 15.0F, 40);
+		waitUntilOnClient("the client to have the axe's attributes", () -> AttackCooldown.delay(mc().thePlayer) > 15.0F, 40);
 		assertAlmostEqual(20.0, onServer(() -> (double) AttackCooldown.delay(player())), 1.0E-4);
 		assertAlmostEqual(20.0, onClient(() -> (double) AttackCooldown.delay(mc().thePlayer)), 1.0E-4);
 	}
@@ -312,9 +321,9 @@ public class CombatTests extends TasTestCase {
 	 * saved to attackIndicator.
 	 */
 	public void testAttackIndicatorOption() throws Exception {
-		String before = ConfigFunctions.attackIndicator;
+		String before = McFlyConfig.attackIndicator;
 		try {
-			ConfigFunctions.saveAttackIndicator("crosshair");
+			McFlyConfig.saveAttackIndicator("crosshair");
 			onClient(() -> {
 				mc().displayGuiScreen(new GuiVideoSettings(null, mc().gameSettings));
 			});
@@ -324,17 +333,74 @@ public class CombatTests extends TasTestCase {
 			assertEqual("Attack Indicator: Crosshair", onClient(() -> button.displayString));
 			for (String expected : new String[]{"hotbar", "off", "crosshair"}) {
 				onClient(() -> button.mousePressed(mc(), button.xPosition + 1, button.yPosition + 1));
-				assertEqual(expected, ConfigFunctions.attackIndicator);
+				assertEqual(expected, McFlyConfig.attackIndicator);
 			}
 			onClient(() -> button.mousePressed(mc(), button.xPosition + 1, button.yPosition + 1));
 			assertEqual("Attack Indicator: Hotbar", onClient(() -> button.displayString));
 		} finally {
-			ConfigFunctions.saveAttackIndicator(before);
+			McFlyConfig.saveAttackIndicator(before);
 		}
 	}
 
-	/** The Attack Indicator button in the open Video Settings' rows, or null. */
+	/**
+	 * The indicator under the crosshair leaves the rest of the HUD as it was (the user, 2026-11-04: the dragon's bar
+	 * turned black and white now and then while they hit it): Forge draws the boss bar right after the crosshair, from
+	 * the texture the crosshair left bound. The bar at half health with the indicator charging looks as it does alone.
+	 */
+	public void testIndicatorLeavesTheBossBarAlone() throws Exception {
+		String before = McFlyConfig.attackIndicator;
+		try {
+			McFlyConfig.saveAttackIndicator("crosshair");
+			cameraView(0);
+			look(0.0F, -60.0F);
+			onClient(() -> {
+				net.minecraft.entity.boss.BossStatus.bossName = "Ender Dragon";
+				net.minecraft.entity.boss.BossStatus.healthScale = 0.5F;
+				net.minecraft.entity.boss.BossStatus.statusBarTime = 1000;
+				net.minecraft.entity.boss.BossStatus.hasColorModifier = false;
+			});
+			waitUntilOnClient("a full charge on the client", () -> AttackCooldown.charge(mc().thePlayer, 0.0F) >= 1.0F, 60);
+			String alone = screenshot("combat.boss_bar_alone");
+			onClient(() -> ((ICombatPlayer) mc().thePlayer).etfu$resetAttackStrength());
+			String charging = screenshot("combat.boss_bar_indicator_charging");
+			assertTrue(onClient(() -> AttackCooldown.charge(mc().thePlayer, 0.0F) < 1.0F), "the indicator still charging when the picture was taken");
+			int[] bar = onClient(() -> {
+				net.minecraft.client.gui.ScaledResolution scaled = new net.minecraft.client.gui.ScaledResolution(mc(), mc().displayWidth, mc().displayHeight);
+				int scale = scaled.getScaleFactor();
+				int left = scaled.getScaledWidth() / 2 - 91;
+				return new int[] {left * scale, 12 * scale, 182 * scale, 5 * scale};
+			});
+			java.awt.image.BufferedImage first = javax.imageio.ImageIO.read(new java.io.File(resultsFolder(), alone));
+			java.awt.image.BufferedImage second = javax.imageio.ImageIO.read(new java.io.File(resultsFolder(), charging));
+			long sum = 0;
+			for (int y = bar[1]; y < bar[1] + bar[3]; y++) {
+				for (int x = bar[0]; x < bar[0] + bar[2]; x++) {
+					int a = first.getRGB(x, y);
+					int b = second.getRGB(x, y);
+					sum += Math.abs((a >> 16 & 255) - (b >> 16 & 255)) + Math.abs((a >> 8 & 255) - (b >> 8 & 255)) + Math.abs((a & 255) - (b & 255));
+				}
+			}
+			double change = sum / (3.0 * bar[2] * bar[3]);
+			assertTrue(change < 3.0, String.format(java.util.Locale.ROOT, "the boss bar with the indicator charging looks as alone: mean change %.1f (%s, %s)", change, alone, charging));
+		} finally {
+			McFlyConfig.saveAttackIndicator(before);
+			onClient(() -> {
+				net.minecraft.entity.boss.BossStatus.statusBarTime = 0;
+				net.minecraft.entity.boss.BossStatus.bossName = null;
+			});
+		}
+	}
+
+	/** The Attack Indicator button in the open Video Settings' rows (EFR's modern screen or 1.7.10's), or null. */
 	private GuiAttackIndicatorButton attackIndicatorButton() throws IllegalAccessException {
+		if (mc().currentScreen instanceof IOptionsLayout layout) {
+			for (Object entry : layout.etfu$entries()) {
+				if (entry instanceof GuiAttackIndicatorButton button) {
+					return button;
+				}
+			}
+			return null;
+		}
 		Field list = ReflectionHelper.findField(GuiVideoSettings.class, "optionsRowList");
 		Field left = ReflectionHelper.findField(GuiOptionsRowList.Row.class, "field_148323_b");
 		Field right = ReflectionHelper.findField(GuiOptionsRowList.Row.class, "field_148324_c");

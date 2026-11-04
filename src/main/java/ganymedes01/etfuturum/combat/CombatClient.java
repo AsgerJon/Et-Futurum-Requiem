@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.combat;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,10 +43,10 @@ public final class CombatClient {
 		if (mc.thePlayer == null) {
 			return;
 		}
-		if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS && "crosshair".equals(ConfigFunctions.attackIndicator)
+		if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS && "crosshair".equals(McFlyConfig.attackIndicator)
 				&& mc.gameSettings.thirdPersonView == 0) {
 			drawUnderCrosshair(mc, event.resolution.getScaledWidth(), event.resolution.getScaledHeight());
-		} else if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR && "hotbar".equals(ConfigFunctions.attackIndicator)) {
+		} else if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR && "hotbar".equals(McFlyConfig.attackIndicator)) {
 			drawBesideHotbar(mc, event.resolution.getScaledWidth(), event.resolution.getScaledHeight());
 		}
 	}
@@ -76,6 +77,8 @@ public final class CombatClient {
 		}
 		OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GL11.glDisable(GL11.GL_BLEND);
+		// the HUD's icons bound again, as the crosshair left them: Forge draws the boss bar next without binding them
+		mc.getTextureManager().bindTexture(Gui.icons);
 	}
 
 	/** An icon filling from the bottom while charging, on the side of the hotbar away from the off-hand slot. */
@@ -98,5 +101,7 @@ public final class CombatClient {
 		mc.getTextureManager().bindTexture(HOTBAR_PROGRESS);
 		Gui.func_146110_a(x, y + 18 - progress, 0.0F, 18 - progress, 18, progress, 18.0F, 18.0F);
 		GL11.glDisable(GL11.GL_BLEND);
+		// the HUD's icons bound again, as the hotbar left them, for what Forge draws after it
+		mc.getTextureManager().bindTexture(Gui.icons);
 	}
 }

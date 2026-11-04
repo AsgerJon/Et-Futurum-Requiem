@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
 import com.github.bsideup.jabel.Desugar;
+import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
@@ -33,7 +34,8 @@ import java.util.TreeMap;
 /**
  * Block ids for commands (spec §49.3): each modern block with its properties, and the 1.7.10 block and meta for each
  * state 1.7.10 can show. Vanilla's from the table's 1.12 rows; EFR's by the names they show, with vanilla's rows for
- * EFR's blocks of vanilla shapes (stairs, slabs, doors, ...); tags from 26.3's. Built on first use, when every mod has
+ * EFR's blocks of vanilla shapes (stairs, slabs, doors, ...), EFR's others' own metas where known (EfrBlockStates);
+ * tags from 26.3's. Built on first use, when every mod has
  * registered its blocks.
  */
 public final class BlockIds {
@@ -59,6 +61,8 @@ public final class BlockIds {
 		private final List<State> states = new ArrayList<>();
 		/** The properties its states differ in: the ones 1.7.10 keeps in the meta. */
 		private final Set<String> stored = new HashSet<>();
+		/** 26.3's own defaults where known (EFR's blocks, §64.3), before the inferred ones. */
+		private Map<String, String> ownDefaults = Collections.emptyMap();
 
 		private Type(String id, Map<String, List<String>> properties) {
 			this.id = id;
@@ -117,6 +121,9 @@ public final class BlockIds {
 
 		/** The default of one of its properties [inferred; 26.3's data has no defaults], spec §49.3. */
 		String defaultValue(String property) {
+			if (ownDefaults.containsKey(property)) {
+				return ownDefaults.get(property);
+			}
 			List<String> values = properties.containsKey(property) ? properties.get(property) : Collections.emptyList();
 			switch (property) {
 				case "facing":
@@ -313,14 +320,15 @@ public final class BlockIds {
 	/**
 	 * EFR's blocks under the ids its items have (`granite` is EFR's stone 1), then EFR's blocks without an item by
 	 * their own names; vanilla's ids come first. A block of a vanilla shape takes the vanilla block's states, its
-	 * property bits added to the variant's meta.
+	 * property bits added to the variant's meta. A double slab is its slab's `type=double`, not a block of its own.
 	 */
 	private static void addEfr(Map<String, Type> types, Map<Block, Found[]> reverse, Map<String, Map<String, List<String>>> properties) {
 		Set<String> modern = LegacyIdTable.words("modern_blocks");
 		for (String id : ItemIds.ids()) {
 			ItemIds.Entry entry = ItemIds.byId(id);
 			if (entry.tag() != null || !(entry.item() instanceof ItemBlock itemBlock)
-				|| !String.valueOf(Item.itemRegistry.getNameForObject(entry.item())).startsWith(EFR_PREFIX)) {
+				|| !String.valueOf(Item.itemRegistry.getNameForObject(entry.item())).startsWith(EFR_PREFIX)
+				|| itemBlock.field_150939_a instanceof BlockSlab && itemBlock.field_150939_a.isOpaqueCube()) {
 				continue;
 			}
 			String name = id.substring(id.indexOf(':') + 1);
@@ -358,14 +366,27 @@ public final class BlockIds {
 		Type type = new Type(id, values.isEmpty() && pattern != null ? pattern.properties : values);
 		types.put(id, type);
 		if (pattern == null) {
-			add(reverse, type, new State(block, meta, Collections.emptyMap()));
+			// its own metas' properties where known (§64.3), else its one state
+			EfrBlockStates.Spec spec = EfrBlockStates.of(block);
+			if (spec == null) {
+				add(reverse, type, new State(block, meta, Collections.emptyMap()));
+				return;
+			}
+			type.ownDefaults = spec.defaults();
+			for (EfrBlockStates.Meta state : spec.metas()) {
+				add(reverse, type, new State(block, meta + state.offset(), state.properties()));
+			}
 			return;
 		}
 		Block patternBlock = pattern.mostCommonBlock();
 		int base = pattern.mostCommonBlockLowestMeta(patternBlock);
+		// EFR's double slab is a block of its own, as 1.7.10's are, with the slab's variant as its meta
+		Block doubleSlab = block instanceof BaseSlab slab && slab.getDoubleSlab() != block ? slab.getDoubleSlab() : null;
 		for (State state : pattern.states) {
 			if (state.block == patternBlock) {
 				add(reverse, type, new State(block, meta | (state.meta - base), state.properties));
+			} else if (doubleSlab != null && "double".equals(state.properties.get("type"))) {
+				add(reverse, type, new State(doubleSlab, meta, state.properties));
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.utils;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
@@ -21,7 +22,7 @@ public final class BlockSupport {
 
 	/** Forge's answer, and with buttonsOnFullFaces any full face. */
 	public static boolean canAttachTo(World world, int x, int y, int z, ForgeDirection face) {
-		return world.isSideSolid(x, y, z, face) || ConfigMixins.buttonsOnFullFaces && isFaceFull(world, x, y, z, face);
+		return world.isSideSolid(x, y, z, face) || McFlyConfig.buttonsOnFullFaces && isFaceFull(world, x, y, z, face);
 	}
 
 	/** Whether the block's collision box covers the whole face; leaves never hold anything. */

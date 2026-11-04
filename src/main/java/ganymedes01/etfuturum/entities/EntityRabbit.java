@@ -60,6 +60,10 @@ public class EntityRabbit extends EntityAnimal {
 		//        navigator.func_179678_a(2.5F);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityRabbit.AIPanic(1.33D));
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.POWDER_SNOW.isEnabled()) {
+			// 26.3's ClimbOnTopOfPowderSnowGoal (spec §62.4), jump only
+			tasks.addTask(1, new ganymedes01.etfuturum.entities.ai.EntityAIClimbOnTopOfPowderSnow(this));
+		}
 		tasks.addTask(2, new EntityAIMate(this, 0.8D));
 		tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.carrot, false));
 		tasks.addTask(5, new EntityRabbit.AIRaidFarm());

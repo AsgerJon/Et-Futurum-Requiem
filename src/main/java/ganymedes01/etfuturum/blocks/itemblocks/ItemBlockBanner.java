@@ -31,13 +31,28 @@ public class ItemBlockBanner extends ItemBlock {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		final Block block = world.getBlock(x, y, z);
-		if (block == Blocks.cauldron) {
-			final int meta = world.getBlockMetadata(x, y, z);
-			if (meta > 0) {
-				stack.setTagCompound(null);
-				world.setBlockMetadataWithNotify(x, y, z, meta - 1, 3);
-				return true;
+		// 26.3's wash (CauldronInteractions.bannerInteraction, spec §66.7): a banner with layers loses its top one, one
+		// banner off the stack, one level of water; a plain banner is used as on any block
+		if (block == Blocks.cauldron && world.getBlockMetadata(x, y, z) > 0 && TileEntityBanner.getPatterns(stack) > 0) {
+			if (!world.isRemote) {
+				if (stack.stackSize == 1 && !player.capabilities.isCreativeMode) {
+					TileEntityBanner.removeBannerData(stack);
+				} else {
+					// 26.3's ItemUtils.createFilledResult: the washed one into the inventory (dropped if full); in
+					// creative the patterned one stays
+					ItemStack washed = stack.copy();
+					washed.stackSize = 1;
+					TileEntityBanner.removeBannerData(washed);
+					if (!player.capabilities.isCreativeMode) {
+						stack.stackSize--;
+					}
+					if (!player.inventory.addItemStackToInventory(washed)) {
+						player.dropPlayerItemWithRandomChoice(washed, false);
+					}
+				}
+				world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
 			}
+			return true;
 		}
 
 		if (side == 0) {

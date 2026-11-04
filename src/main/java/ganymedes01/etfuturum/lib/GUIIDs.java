@@ -10,4 +10,5 @@ public class GUIIDs {
 	public static final int BLAST_FURNACE = 5;
 	public static final int SHULKER_BOX = 6;
 	public static final int SMITHING_TABLE = 7;
+	public static final int LOOM = 8;
 }

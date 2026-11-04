@@ -1,8 +1,10 @@
 package ganymedes01.etfuturum.offhand;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
 import cpw.mods.fml.common.eventhandler.Event;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.network.UseOffhandMessage;
+import io.github.asgerjon.mcfly.network.UseOffhandMessage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -40,7 +42,7 @@ public final class OffhandUseClient {
 		World world = mc.theWorld;
 		if (hit.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 			Entity entity = hit.entityHit;
-			EtFuturum.networkWrapper.sendToServer(UseOffhandMessage.entity(entity.getEntityId()));
+			McFlyNetwork.CHANNEL.sendToServer(UseOffhandMessage.entity(entity.getEntityId()));
 			if (OffhandUse.withOffhandInMainHand(player, () -> player.interactWith(entity))) {
 				return true;
 			}
@@ -57,7 +59,7 @@ public final class OffhandUseClient {
 					if (event.isCanceled()) {
 						return null;
 					}
-					EtFuturum.networkWrapper.sendToServer(UseOffhandMessage.block(x, y, z, side, hx, hy, hz));
+					McFlyNetwork.CHANNEL.sendToServer(UseOffhandMessage.block(x, y, z, side, hx, hy, hz));
 					return useOnBlockLocally(mc, player, world, x, y, z, side, hx, hy, hz, event);
 				});
 				if (used == null) {
@@ -78,7 +80,7 @@ public final class OffhandUseClient {
 			if (event.isCanceled()) {
 				return null;
 			}
-			EtFuturum.networkWrapper.sendToServer(UseOffhandMessage.air());
+			McFlyNetwork.CHANNEL.sendToServer(UseOffhandMessage.air());
 			return useInAirLocally(mc, player, world);
 		});
 		if (used != null && used) {

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.gui;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -19,12 +20,12 @@ public class GuiFovEffectsSlider extends GuiButton {
 
 	public GuiFovEffectsSlider(int id, int x, int y) {
 		super(id, x, y, 150, 20, "");
-		position = (float) Math.sqrt(ConfigFunctions.fovEffectScale);
+		position = (float) Math.sqrt(McFlyConfig.fovEffectScale);
 		displayString = label();
 	}
 
 	private static String label() {
-		int percent = (int) (ConfigFunctions.fovEffectScale * 100.0F);
+		int percent = (int) (McFlyConfig.fovEffectScale * 100.0F);
 		return I18n.format("options.etfuturum.fovEffects") + ": " + (percent == 0 ? I18n.format("options.off") : percent + "%");
 	}
 
@@ -36,7 +37,7 @@ public class GuiFovEffectsSlider extends GuiButton {
 
 	private void moveTo(int mouseX) {
 		position = MathHelper.clamp_float((mouseX - (xPosition + 4)) / (float) (width - 8), 0.0F, 1.0F);
-		ConfigFunctions.fovEffectScale = position * position;
+		McFlyConfig.fovEffectScale = position * position;
 		displayString = label();
 	}
 
@@ -67,7 +68,7 @@ public class GuiFovEffectsSlider extends GuiButton {
 	public void mouseReleased(int mouseX, int mouseY) {
 		if (dragging) {
 			dragging = false;
-			ConfigFunctions.saveFovEffectScale(ConfigFunctions.fovEffectScale);
+			McFlyConfig.saveFovEffectScale(McFlyConfig.fovEffectScale);
 		}
 	}
 }

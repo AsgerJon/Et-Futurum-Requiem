@@ -1,0 +1,2 @@
+# 26.3's shulker
+shulker armour fresh 0, opened 0, closed again 20

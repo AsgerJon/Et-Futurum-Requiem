@@ -1,10 +1,16 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.HashMultimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.potion.BrewingTable;
+import ganymedes01.etfuturum.potion.NamedPotion;
+import ganymedes01.etfuturum.potion.NamedPotions;
+import ganymedes01.etfuturum.potion.PotionContents;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourLingeringPotion;
 import ganymedes01.etfuturum.entities.EntityLingeringPotion;
@@ -95,8 +101,20 @@ public class ItemLingeringPotion extends ItemPotion {
 		return effects;
 	}
 
+	/** Potions by name (spec §69): on once EFR has started. */
+	private static boolean byName() {
+		return McFlyConfig.potionsByName && NamedPotions.isReady();
+	}
+
 	@Override
 	public List<PotionEffect> getEffects(ItemStack stack) {
+		// a potion by name: its 26.3 effects at the lingering potion's 1/4
+		if (byName()) {
+			PotionContents contents = PotionContents.of(stack);
+			if (contents.potion() != null) {
+				return contents.scaledEffects(PotionContents.durationScale(stack));
+			}
+		}
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9)) {
 			List<PotionEffect> list = new ArrayList<PotionEffect>();
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
@@ -115,6 +133,15 @@ public class ItemLingeringPotion extends ItemPotion {
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
+		if (byName()) {
+			PotionContents contents = PotionContents.of(stack);
+			if (contents.potion() != null || contents.customName() != null) {
+				String key = contents.nameKey("lingering_potion");
+				if (StatCollector.canTranslate(key)) {
+					return StatCollector.translateToLocal(key).trim();
+				}
+			}
+		}
 		if (stack.getItemDamage() == 0)
 			return StatCollector.translateToLocal("item.emptyPotion.name").trim();
 		String s = StatCollector.translateToLocal("potion.prefix.lingering").trim() + " ";
@@ -195,6 +222,16 @@ public class ItemLingeringPotion extends ItemPotion {
 		List<ItemStack> potions = new ArrayList<ItemStack>();
 		super.getSubItems(item, tab, potions);
 
+		if (byName()) {
+			// 26.3's: every offered potion in its order, then 1.7.10's unnamed ones
+			for (NamedPotion potion : NamedPotions.available()) {
+				list.add(BrewingTable.create(BrewingTable.Container.LINGERING, potion));
+			}
+			for (ItemStack potion : potions)
+				if (!isSplash(potion.getItemDamage()) && PotionContents.of(potion).potion() == null)
+					list.add(potion);
+			return;
+		}
 		for (ItemStack potion : potions)
 			if (!isSplash(potion.getItemDamage()))
 				list.add(potion);

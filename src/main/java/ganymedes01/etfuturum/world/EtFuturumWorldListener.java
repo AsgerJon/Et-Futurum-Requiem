@@ -4,10 +4,12 @@ import com.google.common.collect.Maps;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.trident.Lightning;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -221,11 +223,12 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 	}
 
+	/** 26.3's level events 1.7.10 lacks, on the client: the electric sparks of lightning (Lightning.SPARKS_EVENT). */
 	@Override
-	public void playAuxSFX(EntityPlayer p_72706_1_, int p_72706_2_, int p_72706_3_, int p_72706_4_, int p_72706_5_,
-						   int p_72706_6_) {
-		// TODO Auto-generated method stub
-
+	public void playAuxSFX(EntityPlayer player, int type, int x, int y, int z, int data) {
+		if (type == Lightning.SPARKS_EVENT && world.isRemote) {
+			CustomParticles.spawnElectricSparks(world, x, y, z, data);
+		}
 	}
 
 	@Override

@@ -34,6 +34,52 @@ public class ItemShieldRenderer implements IItemRenderer {
 	public static final FloatBuffer FIRST_PERSON_HAND = BufferUtils.createFloatBuffer(16);
 	public static float firstPersonRaise = 1.0F;
 	private final ModelShield model = new ModelShield();
+	/** A decorated shield's frame (26.3's shield_base), under its base colour and layers. */
+	private static final ResourceLocation FRAME = new ResourceLocation(Reference.MOD_ID, "textures/entity/shield/base.png");
+	private static final java.util.Map<String, ResourceLocation> CANVASES = new java.util.HashMap<>();
+
+	/**
+	 * What a shield is drawn with: plain, 26.3's shield_base_nopattern; with a banner on it (spec §66.9), a canvas as a
+	 * banner's: the frame, the face in the base colour, then the layers (26.3's shield pattern textures as masks),
+	 * made once and kept.
+	 */
+	public static ResourceLocation textureFor(ItemStack stack) {
+		int base = ganymedes01.etfuturum.blocks.ModernBanners.shieldBase(stack);
+		if (base < 0) {
+			return TEXTURE;
+		}
+		java.util.List<String> textures = new java.util.ArrayList<>();
+		java.util.List<ganymedes01.etfuturum.lib.EnumColor> colours = new java.util.ArrayList<>();
+		textures.add(ganymedes01.etfuturum.blocks.ModernBanners.shieldMask("base"));
+		colours.add(ganymedes01.etfuturum.lib.EnumColor.fromDamage(base));
+		StringBuilder key = new StringBuilder("shield_canvas/b").append(base);
+		net.minecraft.nbt.NBTTagList layers = ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner.getSubTag(stack, "BlockEntityTag", false).getTagList("Patterns", 10);
+		for (int i = 0; i < layers.tagCount() && i < ganymedes01.etfuturum.blocks.ModernBanners.MAX_LAYERS; i++) {
+			net.minecraft.nbt.NBTTagCompound layer = layers.getCompoundTagAt(i);
+			ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern pattern =
+				ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern.getPatternByID(layer.getString("Pattern"));
+			// one another mod added through EFR's API has no shield texture: left off (else the whole canvas fails)
+			if (pattern != null && ganymedes01.etfuturum.blocks.ModernBanners.isModern(pattern)) {
+				int colour = layer.getInteger("Color") & 15;
+				textures.add(ganymedes01.etfuturum.blocks.ModernBanners.shieldMask(pattern.getPatternName()));
+				colours.add(ganymedes01.etfuturum.lib.EnumColor.fromDamage(colour));
+				key.append('_').append(pattern.getPatternID()).append(colour);
+			}
+		}
+		ResourceLocation canvas = CANVASES.get(key.toString());
+		if (canvas == null) {
+			if (CANVASES.size() >= 256) {
+				for (ResourceLocation old : CANVASES.values()) {
+					Minecraft.getMinecraft().getTextureManager().deleteTexture(old);
+				}
+				CANVASES.clear();
+			}
+			canvas = new ResourceLocation(Reference.MOD_ID, key.toString());
+			Minecraft.getMinecraft().getTextureManager().loadTexture(canvas, new ganymedes01.etfuturum.client.LayeredColorMaskTexture(FRAME, textures, colours, true));
+			CANVASES.put(key.toString(), canvas);
+		}
+		return canvas;
+	}
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -47,7 +93,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(textureFor(stack));
 		GL11.glPushMatrix();
 		switch (type) {
 			case INVENTORY -> {
@@ -126,18 +172,19 @@ public class ItemShieldRenderer implements IItemRenderer {
 	/**
 	 * In an item frame, as modern's ItemFrameRenderer places an item: from the middle of the frame's cell (where
 	 * combat.client.MixinRenderItemFrame calls this), turned to face out (modern's 180 - the facing's yaw is 1.7.10's
-	 * frame yaw), 7/16 toward the wall, turned by the frame's rotation (1.7.10's quarter turns are two of modern's
-	 * eighths), at half size, then the shield's fixed display. 1.7.10 drew framed items as dropped ones, placed by
+	 * frame yaw), 7/16 toward the wall, turned by the frame's rotation (26.3's eighths with the port's frames, §67.3;
+	 * else 1.7.10's quarter turns), at half size, then the shield's fixed display. 1.7.10 drew framed items as dropped ones, placed by
 	 * Forge's in-frame steps.
 	 */
 	public void renderInFrame(EntityItemFrame frame) {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(textureFor(frame.getDisplayedItem()));
 		GL11.glPushMatrix();
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glRotatef(frame.rotationYaw, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(0.0F, 0.0F, 0.4375F);
-		GL11.glRotatef(frame.getRotation() * 90.0F, 0.0F, 0.0F, 1.0F);
+		// 26.3's eighths (spec §67.3), or 1.7.10's quarters without the port's frames
+		GL11.glRotatef(frame.getRotation() * ganymedes01.etfuturum.entities.ModernFrames.degreesPerTurn(), 0.0F, 0.0F, 1.0F);
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		display(-4.5F, 4.5F, -5.0F, 0.0F, 180.0F, 0.0F, 0.55F);
 		drawModel();
@@ -151,7 +198,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 	}
 
 	/** For the left hand modern mirrors the translation's x and the Y and Z rotations. */
-	private static void display(boolean leftHand, float x, float y, float z, float rotX, float rotY, float rotZ, float scale) {
+	static void display(boolean leftHand, float x, float y, float z, float rotX, float rotY, float rotZ, float scale) {
 		GL11.glTranslatef((leftHand ? -x : x) / 16.0F, y / 16.0F, z / 16.0F);
 		GL11.glRotatef(rotX, 1.0F, 0.0F, 0.0F);
 		GL11.glRotatef(leftHand ? -rotY : rotY, 0.0F, 1.0F, 0.0F);
@@ -165,7 +212,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 	 * (RenderPlayer.renderEquippedItems: translate, the block branch's translate, turns and scale; Forge's block
 	 * helper's -0.5 centring), so modern's placement can follow.
 	 */
-	private static void undoHeldBlockPlacement() {
+	static void undoHeldBlockPlacement() {
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		GL11.glScalef(-1.0F / 0.375F, -1.0F / 0.375F, 1.0F / 0.375F);
 		GL11.glRotatef(-45.0F, 0.0F, 1.0F, 0.0F);

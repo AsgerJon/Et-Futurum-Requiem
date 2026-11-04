@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import baubles.api.BaubleType;
 import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
@@ -56,7 +57,8 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	 */
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return repair.getItem() == Items.leather;
+		// 26.3 mends elytra with phantom membranes (spec §68.2); without them, leather as 1.9 to 1.12
+		return io.github.asgerjon.mcfly.registry.McFlyItems.PHANTOM_MEMBRANE.isEnabled() ? repair.getItem() == io.github.asgerjon.mcfly.registry.McFlyItems.PHANTOM_MEMBRANE.get() : repair.getItem() == Items.leather;
 	}
 
 	/**
@@ -69,7 +71,7 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 		boolean chestSlotAllowed = !ModsList.BAUBLES_EXPANDED.isLoaded() || ConfigModCompat.elytraBaublesExpandedCompat != 2;
 		ItemStack worn = getElytra(playerIn);
 		if (worn != null) {
-			if (ConfigMixins.rightClickArmorSwap && chestSlotAllowed && worn == playerIn.getEquipmentInSlot(3) && !ItemStack.areItemStacksEqual(itemStackIn, worn)) {
+			if (McFlyConfig.rightClickArmorSwap && chestSlotAllowed && worn == playerIn.getEquipmentInSlot(3) && !ItemStack.areItemStacksEqual(itemStackIn, worn)) {
 				return swapWithChestSlot(itemStackIn, worldIn, playerIn, worn);
 			}
 			return itemStackIn;
@@ -86,7 +88,7 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 				}
 				return itemStackIn;
 			}
-			if (ConfigMixins.rightClickArmorSwap) {
+			if (McFlyConfig.rightClickArmorSwap) {
 				return swapWithChestSlot(itemStackIn, worldIn, playerIn, itemStack);
 			}
 		}

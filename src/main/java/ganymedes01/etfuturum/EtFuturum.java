@@ -1,21 +1,28 @@
 package ganymedes01.etfuturum;
 
-import ganymedes01.etfuturum.network.ItemCooldownHandler;
-import ganymedes01.etfuturum.network.ItemCooldownMessage;
-import ganymedes01.etfuturum.network.OverlayMessage;
-import ganymedes01.etfuturum.network.OverlayMessageHandler;
-import ganymedes01.etfuturum.network.PunchHandler;
-import ganymedes01.etfuturum.network.PunchMessage;
-import ganymedes01.etfuturum.network.PlayerSettingsMessage;
-import ganymedes01.etfuturum.network.PlayerSettingsHandler;
-import ganymedes01.etfuturum.network.CommandSuggestionRequestHandler;
-import ganymedes01.etfuturum.network.CommandSuggestionRequestMessage;
-import ganymedes01.etfuturum.network.CommandSuggestionsHandler;
-import ganymedes01.etfuturum.network.CommandSuggestionsMessage;
-import ganymedes01.etfuturum.network.CommandTreeHandler;
-import ganymedes01.etfuturum.network.CommandTreeMessage;
-import ganymedes01.etfuturum.network.OfflineSkinHandler;
-import ganymedes01.etfuturum.network.OfflineSkinMessage;
+import io.github.asgerjon.mcfly.registry.McFlyItems;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.network.ItemCooldownHandler;
+import io.github.asgerjon.mcfly.network.ItemCooldownMessage;
+import io.github.asgerjon.mcfly.network.OverlayMessage;
+import io.github.asgerjon.mcfly.network.FreezingHandler;
+import io.github.asgerjon.mcfly.network.FreezingMessage;
+import io.github.asgerjon.mcfly.network.SnowflakeHandler;
+import io.github.asgerjon.mcfly.network.SnowflakeMessage;
+import io.github.asgerjon.mcfly.network.OverlayMessageHandler;
+import io.github.asgerjon.mcfly.network.PunchHandler;
+import io.github.asgerjon.mcfly.network.PunchMessage;
+import io.github.asgerjon.mcfly.network.PlayerSettingsMessage;
+import io.github.asgerjon.mcfly.network.PlayerSettingsHandler;
+import io.github.asgerjon.mcfly.network.CommandSuggestionRequestHandler;
+import io.github.asgerjon.mcfly.network.CommandSuggestionRequestMessage;
+import io.github.asgerjon.mcfly.network.CommandSuggestionsHandler;
+import io.github.asgerjon.mcfly.network.CommandSuggestionsMessage;
+import io.github.asgerjon.mcfly.network.CommandTreeHandler;
+import io.github.asgerjon.mcfly.network.CommandTreeMessage;
+import io.github.asgerjon.mcfly.network.OfflineSkinHandler;
+import io.github.asgerjon.mcfly.network.OfflineSkinMessage;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -29,6 +36,7 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -97,15 +105,15 @@ import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
-import ganymedes01.etfuturum.network.SweepParticleHandler;
-import ganymedes01.etfuturum.network.SweepParticleMessage;
+import io.github.asgerjon.mcfly.network.SweepParticleHandler;
+import io.github.asgerjon.mcfly.network.SweepParticleMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.offhand.Offhand;
-import ganymedes01.etfuturum.network.UseOffhandHandler;
-import ganymedes01.etfuturum.network.UseOffhandMessage;
-import ganymedes01.etfuturum.network.SwapHandsHandler;
-import ganymedes01.etfuturum.network.SwapHandsMessage;
+import io.github.asgerjon.mcfly.network.UseOffhandHandler;
+import io.github.asgerjon.mcfly.network.UseOffhandMessage;
+import io.github.asgerjon.mcfly.network.SwapHandsHandler;
+import io.github.asgerjon.mcfly.network.SwapHandsMessage;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.potion.ModernPotionColors;
 import ganymedes01.etfuturum.recipes.ModFuels;
@@ -202,7 +210,10 @@ public class EtFuturum {
 				firework.setTagCompound(nbt);
 				p_78018_1_.add(firework);
 			}
-			for (int i : ModEntityList.eggIDs) {
+			// EFR's spawn eggs and ours (McFly's list, spec §79 B6), in their ids' order
+			java.util.TreeSet<Integer> eggs = new java.util.TreeSet<>(ModEntityList.eggIDs);
+			eggs.addAll(io.github.asgerjon.mcfly.registry.McFlyEntities.eggIds());
+			for (int i : eggs) {
 				p_78018_1_.add(new ItemStack(Items.spawn_egg, 1, i));
 			}
 			super.displayAllReleventItems(p_78018_1_);
@@ -269,6 +280,8 @@ public class EtFuturum {
 	@EventHandler
 	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
+		// our own base (spec §79): McFly's start-up, first
+		McFly.preInit(event);
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
@@ -306,6 +319,11 @@ public class EtFuturum {
 				BuiltInResourcePack.register("vanilla_overrides");
 			}
 
+			// the four labels 1.7.10 has under 26.3's keys with older English (spec §54.10)
+			if (McFlyConfig.modernOptions) {
+				BuiltInResourcePack.register("modern_options");
+			}
+
 			GrayscaleWaterResourcePack.inject();
 
 			DynamicSoundsResourcePack.inject();
@@ -313,6 +331,11 @@ public class EtFuturum {
 
 		if (ConfigExperiments.netherDimensionProvider) {
 			NetherBiomeManager.init();
+		}
+		// the End's outer biomes (spec §76.5), and the dragon fight's tick (§76.6)
+		if (ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
+			ganymedes01.etfuturum.world.end.modern.ModernEndBiomes.init();
+			cpw.mods.fml.common.FMLCommonHandler.instance().bus().register(ganymedes01.etfuturum.world.end.modern.ModernEndEvents.INSTANCE);
 		}
 
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
@@ -329,21 +352,11 @@ public class EtFuturum {
 		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
 		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
-		networkWrapper.registerMessage(SwapHandsHandler.class, SwapHandsMessage.class, 8, Side.SERVER);
-		networkWrapper.registerMessage(UseOffhandHandler.class, UseOffhandMessage.class, 9, Side.SERVER);
-		networkWrapper.registerMessage(PlayerSettingsHandler.class, PlayerSettingsMessage.class, 10, Side.SERVER);
-		networkWrapper.registerMessage(OfflineSkinHandler.class, OfflineSkinMessage.class, 11, Side.CLIENT);
-		networkWrapper.registerMessage(CommandTreeHandler.class, CommandTreeMessage.class, 12, Side.CLIENT);
-		networkWrapper.registerMessage(CommandSuggestionRequestHandler.class, CommandSuggestionRequestMessage.class, 13, Side.SERVER);
-		networkWrapper.registerMessage(CommandSuggestionsHandler.class, CommandSuggestionsMessage.class, 14, Side.CLIENT);
-		networkWrapper.registerMessage(PunchHandler.class, PunchMessage.class, 15, Side.SERVER);
-		networkWrapper.registerMessage(ItemCooldownHandler.class, ItemCooldownMessage.class, 16, Side.CLIENT);
-		networkWrapper.registerMessage(SweepParticleHandler.class, SweepParticleMessage.class, 17, Side.CLIENT);
-		networkWrapper.registerMessage(OverlayMessageHandler.class, OverlayMessage.class, 18, Side.CLIENT);
-		if (ConfigMixins.modernCombat) {
+		// named effects (spec §70): the server's effect numbers, at join
+		if (McFlyConfig.modernCombat) {
 			DamageRules.install();
 		}
-		if (ConfigMixins.modernChat) {
+		if (McFlyConfig.modernChat) {
 			ModernExceptions.install();
 		}
 
@@ -360,10 +373,14 @@ public class EtFuturum {
         if (ConfigEntities.enableModernWither) {
             BlockDispenser.dispenseBehaviorRegistry.putObject(Items.skull, new DispenserBehaviourWitherSpawning());
         }
+		if (McFlyItems.POWDER_SNOW_BUCKET.isEnabled()) {
+			ganymedes01.etfuturum.core.handlers.PowderSnowEvents.registerDispensers();
+		}
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		McFly.init(event);
 		for (ModBlocks block : ModBlocks.VALUES) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {
 				((IInitAction) block.get()).initAction();
@@ -403,6 +420,7 @@ public class EtFuturum {
 	@EventHandler
 	@SuppressWarnings("unchecked")
 	public void postInit(FMLPostInitializationEvent event) {
+		McFly.postInit(event);
 		if (ConfigFunctions.enableUpdatedFoodValues) {
 			((ItemFood) Items.carrot).healAmount = 3;
 			((ItemFood) Items.baked_potato).healAmount = 5;
@@ -456,11 +474,11 @@ public class EtFuturum {
 		if (ConfigBlocksItems.enablePigstep) {
 			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
 		}
-		if (ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
+		if (McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
 			// Bastion chests hold the template in modern; this version has no bastions, so fortress chests do.
-			ChestGenHooks.addItem(NETHER_FORTRESS, new EtFuturumLootTables.OncePerChest(ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 0, 1, 1, 5));
+			ChestGenHooks.addItem(NETHER_FORTRESS, new EtFuturumLootTables.OncePerChest(McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 0, 1, 1, 5));
 		}
-		if (ConfigBlocksItems.enablePigstep || ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
+		if (ConfigBlocksItems.enablePigstep || McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
 			if (fortressWeightedField != null) {
 				try {
 					Field contents = ChestGenHooks.class.getDeclaredField("contents");
@@ -506,6 +524,10 @@ public class EtFuturum {
 		CompostingRegistry.init();
 		ModFuels.init();
 		ModernPotionColors.apply();
+		// potions by name (spec §69): every mod's effects and items exist now
+		ganymedes01.etfuturum.potion.NamedPotions.setReady();
+		// named effects (spec §70): every mod has made and named its effects now
+		ganymedes01.etfuturum.potion.EffectRegistry.refresh();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
 
@@ -589,8 +611,13 @@ public class EtFuturum {
 			DimensionProviderEFRNether.init();
 		}
 
-		if (ConfigExperiments.endDimensionProvider) {
+		if (ConfigExperiments.endDimensionProvider && !ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
 			DimensionProviderEFREnd.init(); // Come back to
+		}
+		// the End as 26.3 (spec §76): after everything else, so it's the End's provider
+		if (ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
+			net.minecraftforge.common.DimensionManager.unregisterProviderType(1);
+			net.minecraftforge.common.DimensionManager.registerProviderType(1, ganymedes01.etfuturum.world.end.modern.WorldProviderModernEnd.class, false);
 		}
 	}
 
@@ -752,8 +779,14 @@ public class EtFuturum {
 	}
 
 	@EventHandler
+	public void serverStarted(FMLServerStartedEvent event) {
+		McFly.serverStarted(event);
+	}
+
+	@EventHandler
 	public void serverStopped(FMLServerStoppedEvent event) {
 		ServerEventHandler.INSTANCE.onServerStopped();
+		McFly.serverStopped(event);
 	}
 
 	/**
@@ -943,7 +976,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.stray.step", "hostile");
 		config.addSoundEvent(ver, "entity.stray.hurt", "hostile");
 		config.addSoundEvent(ver, "entity.stray.death", "hostile");
-		config.addSoundEvent(ver, "entity.skeleton.converted_to_stray", "hostile");
 		config.addSoundEvent(ver, "entity.shulker_bullet.hurt", "hostile");
 		config.addSoundEvent(ver, "entity.shulker_bullet.hit", "hostile");
 		config.addSoundEvent(ver, "entity.shulker.ambient", "hostile");
@@ -965,6 +997,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.squid.hurt", "neutral");
 		config.addSoundEvent(ver, "entity.squid.death", "neutral");
 		config.addSoundEvent(ver, "entity.squid.squirt", "neutral");
+		// wind charged's burst (spec §69.11)
 		config.addSoundEvent(ver, "entity.witch.ambient", "hostile");
 		config.addSoundEvent(ver, "entity.witch.hurt", "hostile");
 		config.addSoundEvent(ver, "entity.witch.death", "hostile");
@@ -976,8 +1009,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.item_frame.rotate_item", "player");
 		config.addSoundEvent(ver, "entity.painting.break", "player");
 		config.addSoundEvent(ver, "entity.painting.place", "player");
-		config.addSoundEvent(ver, "entity.leash_knot.break", "player");
-		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
 		config.addSoundEvent(ver, "entity.ender_eye.death", "neutral");
 		config.addSoundEvent(ver, "entity.ender_eye.launch", "neutral");
 		config.addSoundEvent(ver, "entity.fishing_bobber.retrieve", "neutral");
@@ -1013,8 +1044,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.attack.strong", "player");
 		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
 		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
-		config.addSoundEvent(ver, "item.shield.block", "player");
-		config.addSoundEvent(ver, "item.shield.break", "player");
 		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
 
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
@@ -1080,6 +1109,9 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
 		config.addSoundEvent(ver, "block.smithing_table.use", "player");
+		// the loom (spec §66.5): picking a pattern (a screen's sound), taking the result
+		// the dragon's breath (spec §76.8)
+		// a kill's end gateway appearing (spec §76.10)
 		config.addSoundEvent(ver, "block.enchantment_table.use", "player");
 		config.addSoundEvent(ver, "block.beacon.activate", "block");
 		config.addSoundEvent(ver, "block.beacon.ambient", "block");
@@ -1167,5 +1199,7 @@ public class EtFuturum {
 				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
 		}
+		// ours (spec §79 B5): McFly's own list, in the one MCLib takes for this mod
+		io.github.asgerjon.mcfly.sound.McFlySounds.addTo(config, ver);
 	}
 }

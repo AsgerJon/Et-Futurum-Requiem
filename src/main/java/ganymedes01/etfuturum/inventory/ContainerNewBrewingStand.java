@@ -148,6 +148,9 @@ public class ContainerNewBrewingStand extends Container {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
+			if (stack != null && io.github.asgerjon.mcfly.config.McFlyConfig.potionsByName && ganymedes01.etfuturum.potion.NamedPotions.isReady()) {
+				return ganymedes01.etfuturum.potion.BrewingTable.isIngredient(stack);
+			}
 			return stack != null && stack.getItem().isPotionIngredient(stack);
 		}
 	}

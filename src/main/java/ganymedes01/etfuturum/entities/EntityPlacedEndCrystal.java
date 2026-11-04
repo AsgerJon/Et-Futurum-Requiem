@@ -25,6 +25,15 @@ public class EntityPlacedEndCrystal extends EntityEnderCrystal {
 
 	@Override
 	public void onUpdate() {
+		if (!worldObj.isRemote && !isDead && ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
+			// 26.3's End (spec §76.9): an old save's EFR crystal becomes 26.3's where it stands (its respawn is the fight's)
+			EntityEnderCrystal crystal = new EntityEnderCrystal(worldObj);
+			crystal.setLocationAndAngles(blockX + 0.5, blockY + 1, blockZ + 0.5, rotationYaw, 0.0F);
+			ganymedes01.etfuturum.world.end.modern.EndCrystals.setShowBottom(crystal, false);
+			worldObj.spawnEntityInWorld(crystal);
+			setDead();
+			return;
+		}
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;

@@ -1,8 +1,11 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import ganymedes01.etfuturum.offhand.Offhand;
-import ganymedes01.etfuturum.network.PlayerSettingsMessage;
+import io.github.asgerjon.mcfly.network.PlayerSettingsMessage;
 import ganymedes01.etfuturum.skins.SkinParts;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -938,15 +941,17 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onDisconnected(cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
 		ganymedes01.etfuturum.client.chat.ClientCommands.forget();
-		if (ConfigMixins.offlineSkins) {
+		// named effects (spec §70): the server's effect numbers go with it
+		ganymedes01.etfuturum.potion.EffectNumbers.forget();
+		if (McFlyConfig.offlineSkins) {
 			OfflineSkinsClient.forget();
 		}
 	}
 
 	/** The local player's skin parts and main hand, for the server to show to everyone. Nothing is sent outside a world. */
 	public static void sendPlayerSettings() {
-		if ((ConfigMixins.skinCustomization || Offhand.isEnabled()) && Minecraft.getMinecraft().getNetHandler() != null) {
-			EtFuturum.networkWrapper.sendToServer(new PlayerSettingsMessage(SkinParts.localMask(), ConfigFunctions.mainHandLeft));
+		if ((McFlyConfig.skinCustomization || Offhand.isEnabled()) && Minecraft.getMinecraft().getNetHandler() != null) {
+			McFlyNetwork.CHANNEL.sendToServer(new PlayerSettingsMessage(SkinParts.localMask(), McFlyConfig.mainHandLeft));
 		}
 	}
 
@@ -967,7 +972,7 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void onRenderAirBubbles(RenderGameOverlayEvent.Pre event) {
-		if (ConfigMixins.enableModernBreathing && event.type == RenderGameOverlayEvent.ElementType.AIR) {
+		if (McFlyConfig.enableModernBreathing && event.type == RenderGameOverlayEvent.ElementType.AIR) {
 			event.setCanceled(true);
 			ModernAirBubbles.render(mc, event.resolution.getScaledWidth(), event.resolution.getScaledHeight());
 		}

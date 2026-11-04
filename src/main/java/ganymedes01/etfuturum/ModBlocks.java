@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 
@@ -37,8 +38,6 @@ import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockBone;
 import ganymedes01.etfuturum.blocks.BlockBountifulStone;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
-import ganymedes01.etfuturum.blocks.BlockDriedKelp;
-import ganymedes01.etfuturum.blocks.BlockKelp;
 import ganymedes01.etfuturum.blocks.BlockBuddingAmethyst;
 import ganymedes01.etfuturum.blocks.BlockCartographyTable;
 import ganymedes01.etfuturum.blocks.BlockCaveVines;
@@ -74,7 +73,6 @@ import ganymedes01.etfuturum.blocks.BlockIronTrapdoor;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockLavaCauldron;
 import ganymedes01.etfuturum.blocks.BlockLight;
-import ganymedes01.etfuturum.blocks.BlockLightningRod;
 import ganymedes01.etfuturum.blocks.BlockLoom;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockMangroveRoots;
@@ -299,7 +297,6 @@ public enum ModBlocks {
 	COPPER_GRATE(ConfigBlocksItems.enableCopper, new BlockCopperGrate()),
 	COPPER_BULB(ConfigBlocksItems.enableCopper, new BlockCopperBulb(false)),
 	POWERED_COPPER_BULB(ConfigBlocksItems.enableCopper, new BlockCopperBulb(true), null),
-	LIGHTNING_ROD(ConfigExperiments.enableLightningRod, new BlockLightningRod()),
 	DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BlockDeepslate()),
 	COBBLED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("cobbled_deepslate")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
@@ -512,8 +509,6 @@ public enum ModBlocks {
 	LAVA_CAULDRON(ConfigBlocksItems.enableLavaCauldrons, new BlockLavaCauldron(), null),
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
 	BUBBLE_COLUMN(ConfigBlocksItems.enableBubbleColumns, new BlockBubbleColumn(new Block[]{Blocks.soul_sand}, new Block[]{MAGMA.get()}), null),
-	KELP(ConfigBlocksItems.enableKelp, new BlockKelp()),
-	DRIED_KELP_BLOCK(ConfigBlocksItems.enableKelp, new BlockDriedKelp()),
 
 	// barrels + iron barrels
 	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA), ItemBlockBarrel.class),
@@ -872,7 +867,7 @@ public enum ModBlocks {
 	//Creative-only stuff
 
 	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs()),
-	END_GATEWAY(ConfigExperiments.endDimensionProvider, new BlockEndGateway()),
+	END_GATEWAY(ConfigExperiments.endDimensionProvider || McFlyConfig.modernEnd, new BlockEndGateway()),
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 

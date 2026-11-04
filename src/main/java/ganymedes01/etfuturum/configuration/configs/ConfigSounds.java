@@ -128,7 +128,7 @@ public class ConfigSounds extends ConfigBase {
 		combatSounds = getBoolean("combatSounds", catPlayer, true, "New sounds for player attacking.");
 		armorEquip = getBoolean("armorEquip", catPlayer, true, "New sounds for equipping armor.");
 		paintingItemFramePlacing = getBoolean("paintingItemFramePlacing", catPlayer, true, "New sounds for placing, interacting with, and destroying item frames or paintings.");
-		leashSounds = getBoolean("leashSounds", catPlayer, true, "New sounds for placing, interacting with, and destroying item frames or paintings.");
+		leashSounds = getBoolean("leashSounds", catPlayer, true, "Sounds for tying a lead to a fence and for taking or breaking the knot off it, as in modern (the lead's tied and untied sounds).");
 		bonemealing = getBoolean("bonemealing", catPlayer, true, "New sounds for using bone meal.");
 		combatSoundStrongThreshold = getFloat("combatSoundStrongThreshold", catPlayer, 4.0F, 0, Float.MAX_VALUE, "Damage threshold for attacks to play the \"strong\" hit sound. 1 = half heart, 2 = full heart. 4 (default) = 2 hearts");
 

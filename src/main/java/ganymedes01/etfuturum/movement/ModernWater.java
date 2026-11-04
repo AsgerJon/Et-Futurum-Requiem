@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.movement;
 
-import ganymedes01.etfuturum.mixins.early.modernmovement.AccessorBlockLiquid;
+import io.github.asgerjon.mcfly.mixins.early.modernmovement.AccessorBlockLiquid;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;

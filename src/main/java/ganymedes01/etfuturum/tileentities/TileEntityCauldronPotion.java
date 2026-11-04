@@ -14,6 +14,13 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 	@Override
 	public int getWaterColor() {
 		if (worldObj.isRemote && potion != null && potion.getItem() instanceof ItemPotion) {
+			// a potion by name (spec §69): its 26.3 colour
+			if (ganymedes01.etfuturum.potion.NamedPotions.isReady()) {
+				ganymedes01.etfuturum.potion.PotionContents contents = ganymedes01.etfuturum.potion.PotionContents.of(potion);
+				if (contents.isNamed()) {
+					return contents.color();
+				}
+			}
 			return Items.potionitem.getColorFromDamage(potion.getItemDamage());
 		}
 		return 0;

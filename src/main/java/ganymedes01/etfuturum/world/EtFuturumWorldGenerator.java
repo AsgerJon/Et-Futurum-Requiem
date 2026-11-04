@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.world;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
@@ -345,8 +346,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && world.provider instanceof WorldProviderEnd
-				&& !(ConfigWorld.chorusOnlyOnOuterIslands && isMainEndIsland(chunkX, chunkZ))) {
+		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && !(world.provider instanceof ganymedes01.etfuturum.world.end.modern.WorldProviderModernEnd) && world.provider instanceof WorldProviderEnd
+				&& !(McFlyConfig.chorusOnlyOnOuterIslands && isMainEndIsland(chunkX, chunkZ))) {
 			int x = (chunkX << 4) + rand.nextInt(16) + 8;
 			int y = world.getActualHeight();
 			int z = (chunkZ << 4) + rand.nextInt(16) + 8;

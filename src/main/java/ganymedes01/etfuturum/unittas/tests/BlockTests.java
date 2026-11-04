@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.command.modern.arguments.BlockInput;
 import ganymedes01.etfuturum.unittas.TasCommand;
 import ganymedes01.etfuturum.unittas.TasTestCase;
@@ -106,6 +107,30 @@ public class BlockTests extends TasTestCase {
 		assertIsNotNone(first, "the chest is empty");
 		assertEqual(Items.diamond, first.getItem());
 		assertEqual(3, first.stackSize);
+	}
+
+	/** EFR's slabs have a slab's states; the double one is a block of its own, as 1.7.10's are (the user, 2026-11-01). */
+	public void testEfrSlabTypes() {
+		if (!ModBlocks.SMOOTH_QUARTZ_SLAB.isEnabled() || !ModBlocks.CUT_COPPER_SLAB.isEnabled()) {
+			skipTest("no smooth quartz or cut copper slab");
+		}
+		String slab = Block.blockRegistry.getNameForObject(ModBlocks.SMOOTH_QUARTZ_SLAB.get());
+		String doubleSlab = Block.blockRegistry.getNameForObject(ModBlocks.DOUBLE_SMOOTH_QUARTZ_SLAB.get());
+		command("/setblock 10 4 10 smooth_quartz_slab");
+		assertEqual(slab + ":0", blockAt(10, 4, 10));
+		command("/setblock 11 4 10 smooth_quartz_slab[type=top]");
+		assertEqual(slab + ":8", blockAt(11, 4, 10));
+		assertNoError(command("/setblock 12 4 10 smooth_quartz_slab[type=double]"));
+		assertEqual(doubleSlab + ":0", blockAt(12, 4, 10));
+		// a variant keeps its meta in the double block (waxed, so it doesn't age during the test)
+		command("/setblock 13 4 10 waxed_exposed_cut_copper_slab");
+		int variant = onServer(() -> world().getBlockMetadata(13, 4, 10));
+		assertTrue(variant > 0, "waxed exposed is not cut copper's first variant");
+		command("/setblock 14 4 10 waxed_exposed_cut_copper_slab[type=double]");
+		assertEqual(Block.blockRegistry.getNameForObject(ModBlocks.DOUBLE_CUT_COPPER_SLAB.get()) + ":" + variant, blockAt(14, 4, 10));
+		// and a double slab is that slab to a block filter
+		assertNoError(command("/fill 12 4 10 12 4 10 stone replace smooth_quartz_slab"));
+		assertEqual("minecraft:stone:0", blockAt(12, 4, 10));
 	}
 
 	public void testLegacyForm() {

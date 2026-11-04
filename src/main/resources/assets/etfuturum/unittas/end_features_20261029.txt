@@ -1,0 +1,1007 @@
+# 26.3's outer End features, seed 20261029: i name step index; chunk cx cz kind; c x z y0-y1 ... (end stone from y0 to y1); b x y z block [age]
+i end_island_decorated 0 0
+i end_gateway_return 4 0
+i chorus_plant 9 0
+chunk 64 2 chorus
+c 1024 32 14-64
+c 1024 33 14-64
+c 1024 34 14-64
+c 1024 35 14-64
+c 1024 36 13-64
+c 1024 37 13-64
+c 1024 38 13-64
+c 1024 39 13-64
+c 1024 40 13-65
+c 1024 41 13-65
+c 1024 42 13-65
+c 1024 43 13-65
+c 1024 44 12-65
+c 1024 45 12-65
+c 1024 46 12-65
+c 1024 47 12-65
+c 1025 32 14-64
+c 1025 33 14-64
+c 1025 34 14-64
+c 1025 35 14-64
+c 1025 36 13-64
+c 1025 37 13-64
+c 1025 38 13-64
+c 1025 39 13-65
+c 1025 40 13-65
+c 1025 41 13-65
+c 1025 42 13-65
+c 1025 43 12-65
+c 1025 44 12-65
+c 1025 45 12-65
+c 1025 46 12-65
+c 1025 47 12-65
+c 1026 32 14-64
+c 1026 33 14-64
+c 1026 34 14-64
+c 1026 35 13-64
+c 1026 36 13-64
+c 1026 37 13-64
+c 1026 38 13-64
+c 1026 39 13-65
+c 1026 40 13-65
+c 1026 41 13-65
+c 1026 42 13-65
+c 1026 43 12-65
+c 1026 44 12-65
+c 1026 45 12-65
+c 1026 46 12-65
+c 1026 47 12-65
+c 1027 32 14-64
+c 1027 33 14-64
+c 1027 34 14-64
+c 1027 35 13-64
+c 1027 36 13-64
+c 1027 37 13-64
+c 1027 38 13-64
+c 1027 39 13-65
+c 1027 40 13-65
+c 1027 41 13-65
+c 1027 42 12-65
+c 1027 43 12-65
+c 1027 44 12-65
+c 1027 45 12-65
+c 1027 46 12-65
+c 1027 47 12-65
+c 1028 32 14-64
+c 1028 33 14-64
+c 1028 34 14-64
+c 1028 35 13-64
+c 1028 36 13-64
+c 1028 37 13-64
+c 1028 38 13-65
+c 1028 39 13-65
+c 1028 40 13-65
+c 1028 41 12-65
+c 1028 42 12-65
+c 1028 43 12-65
+b 1028 147 44 minecraft:purpur_stairs
+c 1028 44 12-65
+b 1028 147 45 minecraft:purpur_stairs
+c 1028 45 12-65
+b 1028 147 46 minecraft:purpur_stairs
+c 1028 46 12-65
+b 1028 147 47 minecraft:purpur_stairs
+c 1028 47 12-65
+c 1029 32 14-64
+c 1029 33 14-64
+c 1029 34 14-64
+c 1029 35 13-64
+c 1029 36 13-64
+c 1029 37 13-64
+c 1029 38 13-65
+c 1029 39 13-65
+c 1029 40 12-65
+c 1029 41 12-65
+c 1029 42 12-65
+c 1029 43 12-65
+b 1029 147 44 minecraft:purpur_stairs
+c 1029 44 12-65
+b 1029 111 45 minecraft:purpur_stairs
+b 1029 143 45 minecraft:purpur_stairs
+b 1029 144 45 minecraft:end_rod
+b 1029 147 45 minecraft:purpur_block
+c 1029 45 12-65
+b 1029 111 46 minecraft:purpur_stairs
+b 1029 143 46 minecraft:purpur_stairs
+b 1029 147 46 minecraft:purpur_block
+c 1029 46 12-65
+b 1029 111 47 minecraft:purpur_stairs
+b 1029 143 47 minecraft:purpur_stairs
+b 1029 147 47 minecraft:purpur_block
+c 1029 47 11-65
+c 1030 32 14-64
+c 1030 33 14-64
+c 1030 34 14-64
+c 1030 35 13-64
+c 1030 36 13-64
+c 1030 37 13-64
+c 1030 38 13-65
+c 1030 39 12-65
+c 1030 40 12-65
+c 1030 41 12-65
+c 1030 42 12-65
+c 1030 43 12-65
+b 1030 147 44 minecraft:purpur_stairs
+c 1030 44 12-65
+b 1030 111 45 minecraft:purpur_stairs
+b 1030 143 45 minecraft:purpur_stairs
+b 1030 147 45 minecraft:purpur_block
+c 1030 45 12-65
+b 1030 107 46 minecraft:purpur_stairs
+b 1030 108 46 minecraft:end_rod
+b 1030 111 46 minecraft:purpur_block
+b 1030 112 46 minecraft:end_rod
+b 1030 143 46 minecraft:purpur_block
+b 1030 144 46 minecraft:purpur_pillar
+b 1030 145 46 minecraft:purpur_pillar
+b 1030 146 46 minecraft:purpur_pillar
+b 1030 147 46 minecraft:purpur_block
+c 1030 46 12-65
+b 1030 107 47 minecraft:purpur_stairs
+b 1030 111 47 minecraft:purpur_block
+b 1030 143 47 minecraft:purpur_block
+b 1030 144 47 minecraft:end_stone_bricks
+b 1030 145 47 minecraft:end_stone_bricks
+b 1030 146 47 minecraft:end_stone_bricks
+b 1030 147 47 minecraft:purpur_block
+c 1030 47 11-65
+c 1031 32 14-64
+c 1031 33 14-64
+c 1031 34 14-64
+c 1031 35 13-64
+c 1031 36 13-64
+c 1031 37 13-64
+c 1031 38 13-65
+c 1031 39 12-65
+c 1031 40 12-65
+c 1031 41 12-65
+c 1031 42 12-65
+c 1031 43 12-65
+b 1031 147 44 minecraft:purpur_stairs
+c 1031 44 12-65
+b 1031 111 45 minecraft:purpur_stairs
+b 1031 143 45 minecraft:purpur_stairs
+b 1031 147 45 minecraft:purpur_block
+c 1031 45 12-65
+b 1031 107 46 minecraft:purpur_stairs
+b 1031 111 46 minecraft:purpur_block
+b 1031 143 46 minecraft:purpur_block
+b 1031 144 46 minecraft:end_stone_bricks
+b 1031 145 46 minecraft:end_stone_bricks
+b 1031 146 46 minecraft:end_stone_bricks
+b 1031 147 46 minecraft:purpur_block
+c 1031 46 11-65
+b 1031 107 47 minecraft:purpur_block
+b 1031 108 47 minecraft:purpur_pillar
+b 1031 109 47 minecraft:purpur_pillar
+b 1031 110 47 minecraft:purpur_pillar
+b 1031 111 47 minecraft:purpur_block
+b 1031 143 47 minecraft:purpur_block
+b 1031 146 47 minecraft:purpur_slab
+b 1031 147 47 minecraft:purpur_slab
+c 1031 47 11-65
+c 1032 32 15-64
+c 1032 33 14-64
+c 1032 34 14-64
+c 1032 35 13-64
+c 1032 36 13-64
+c 1032 37 13-65
+c 1032 38 12-65
+c 1032 39 12-65
+c 1032 40 12-65
+c 1032 41 12-65
+c 1032 42 12-65
+c 1032 43 12-65
+b 1032 147 44 minecraft:purpur_stairs
+c 1032 44 12-65
+b 1032 111 45 minecraft:purpur_stairs
+b 1032 143 45 minecraft:purpur_stairs
+b 1032 147 45 minecraft:purpur_block
+c 1032 45 11-65
+b 1032 107 46 minecraft:purpur_stairs
+b 1032 111 46 minecraft:purpur_block
+b 1032 143 46 minecraft:purpur_block
+b 1032 144 46 minecraft:end_stone_bricks
+b 1032 145 46 minecraft:end_stone_bricks
+b 1032 146 46 minecraft:end_stone_bricks
+b 1032 147 46 minecraft:purpur_block
+c 1032 46 11-65
+b 1032 107 47 minecraft:purpur_block
+b 1032 108 47 minecraft:end_stone_bricks
+b 1032 109 47 minecraft:end_stone_bricks
+b 1032 110 47 minecraft:end_stone_bricks
+b 1032 111 47 minecraft:purpur_block
+b 1032 143 47 minecraft:purpur_block
+b 1032 147 47 minecraft:purpur_block
+c 1032 47 11-65
+c 1033 32 15-64
+c 1033 33 14-64
+c 1033 34 14-64
+c 1033 35 13-64
+c 1033 36 13-64
+c 1033 37 13-65
+c 1033 38 12-65
+b 1033 71 39 minecraft:chorus_plant
+b 1033 72 39 minecraft:chorus_plant
+b 1033 73 39 minecraft:chorus_plant
+b 1033 74 39 minecraft:chorus_plant
+b 1033 75 39 minecraft:chorus_plant
+c 1033 39 12-65
+c 1033 40 12-65
+c 1033 41 12-65
+c 1033 42 12-65
+c 1033 43 12-65
+b 1033 147 44 minecraft:purpur_stairs
+c 1033 44 12-65
+b 1033 111 45 minecraft:purpur_stairs
+b 1033 143 45 minecraft:purpur_stairs
+b 1033 147 45 minecraft:purpur_block
+c 1033 45 12-65
+b 1033 107 46 minecraft:purpur_stairs
+b 1033 111 46 minecraft:purpur_block
+b 1033 143 46 minecraft:purpur_block
+b 1033 144 46 minecraft:end_stone_bricks
+b 1033 145 46 minecraft:end_stone_bricks
+b 1033 146 46 minecraft:end_stone_bricks
+b 1033 147 46 minecraft:purpur_block
+c 1033 46 11-65
+b 1033 107 47 minecraft:purpur_block
+b 1033 108 47 minecraft:end_stone_bricks
+b 1033 109 47 minecraft:magenta_stained_glass
+b 1033 110 47 minecraft:magenta_stained_glass
+b 1033 111 47 minecraft:purpur_block
+b 1033 143 47 minecraft:purpur_block
+b 1033 147 47 minecraft:purpur_block
+c 1033 47 11-65
+c 1034 32 15-64
+c 1034 33 14-64
+c 1034 34 14-64
+c 1034 35 13-64
+c 1034 36 13-64
+c 1034 37 13-65
+b 1034 66 38 minecraft:chorus_plant
+b 1034 67 38 minecraft:chorus_plant
+b 1034 68 38 minecraft:chorus_plant
+b 1034 69 38 minecraft:chorus_plant
+b 1034 70 38 minecraft:chorus_plant
+b 1034 79 38 minecraft:chorus_plant
+b 1034 80 38 minecraft:chorus_plant
+b 1034 81 38 minecraft:chorus_plant
+b 1034 82 38 minecraft:chorus_flower 5
+c 1034 38 12-65
+b 1034 70 39 minecraft:chorus_plant
+b 1034 71 39 minecraft:chorus_plant
+b 1034 75 39 minecraft:chorus_plant
+b 1034 76 39 minecraft:chorus_plant
+b 1034 77 39 minecraft:chorus_plant
+b 1034 78 39 minecraft:chorus_plant
+b 1034 79 39 minecraft:chorus_plant
+c 1034 39 12-65
+c 1034 40 12-65
+c 1034 41 12-65
+c 1034 42 12-65
+c 1034 43 12-65
+b 1034 147 44 minecraft:purpur_stairs
+c 1034 44 12-65
+b 1034 111 45 minecraft:purpur_stairs
+b 1034 143 45 minecraft:purpur_stairs
+b 1034 147 45 minecraft:purpur_block
+c 1034 45 12-65
+b 1034 107 46 minecraft:purpur_stairs
+b 1034 111 46 minecraft:purpur_block
+b 1034 143 46 minecraft:purpur_block
+b 1034 144 46 minecraft:end_stone_bricks
+b 1034 145 46 minecraft:end_stone_bricks
+b 1034 146 46 minecraft:end_stone_bricks
+b 1034 147 46 minecraft:purpur_block
+c 1034 46 12-65
+b 1034 107 47 minecraft:purpur_block
+b 1034 108 47 minecraft:end_stone_bricks
+b 1034 109 47 minecraft:end_stone_bricks
+b 1034 110 47 minecraft:end_stone_bricks
+b 1034 111 47 minecraft:purpur_block
+b 1034 143 47 minecraft:purpur_block
+b 1034 147 47 minecraft:purpur_block
+c 1034 47 11-65
+c 1035 32 14-64
+c 1035 33 14-64
+c 1035 34 14-64
+c 1035 35 13-64
+c 1035 36 13-64
+c 1035 37 13-65
+b 1035 70 38 minecraft:chorus_plant
+b 1035 71 38 minecraft:chorus_plant
+b 1035 72 38 minecraft:chorus_plant
+b 1035 73 38 minecraft:chorus_plant
+b 1035 74 38 minecraft:chorus_plant
+c 1035 38 13-65
+c 1035 39 12-65
+c 1035 40 12-65
+c 1035 41 12-65
+b 1035 70 42 minecraft:chorus_plant
+c 1035 42 12-65
+b 1035 71 43 minecraft:chorus_plant
+b 1035 72 43 minecraft:chorus_plant
+c 1035 43 12-65
+b 1035 72 44 minecraft:chorus_plant
+b 1035 73 44 minecraft:chorus_plant
+b 1035 74 44 minecraft:chorus_plant
+b 1035 75 44 minecraft:chorus_flower 5
+b 1035 147 44 minecraft:purpur_stairs
+c 1035 44 12-65
+b 1035 111 45 minecraft:purpur_stairs
+b 1035 143 45 minecraft:purpur_stairs
+b 1035 147 45 minecraft:purpur_block
+c 1035 45 12-65
+b 1035 107 46 minecraft:purpur_stairs
+b 1035 111 46 minecraft:purpur_block
+b 1035 143 46 minecraft:purpur_block
+b 1035 144 46 minecraft:end_stone_bricks
+b 1035 145 46 minecraft:magenta_stained_glass
+b 1035 146 46 minecraft:magenta_stained_glass
+b 1035 147 46 minecraft:purpur_block
+c 1035 46 12-65
+b 1035 107 47 minecraft:purpur_block
+b 1035 108 47 minecraft:end_stone_bricks
+b 1035 109 47 minecraft:end_stone_bricks
+b 1035 110 47 minecraft:end_stone_bricks
+b 1035 111 47 minecraft:purpur_block
+b 1035 131 47 minecraft:purpur_block
+b 1035 132 47 minecraft:purpur_pillar
+b 1035 133 47 minecraft:purpur_pillar
+b 1035 134 47 minecraft:purpur_pillar
+b 1035 135 47 minecraft:purpur_block
+b 1035 136 47 minecraft:purpur_pillar
+b 1035 137 47 minecraft:purpur_pillar
+b 1035 138 47 minecraft:purpur_pillar
+b 1035 139 47 minecraft:purpur_block
+b 1035 140 47 minecraft:purpur_pillar
+b 1035 141 47 minecraft:purpur_pillar
+b 1035 142 47 minecraft:purpur_pillar
+b 1035 143 47 minecraft:purpur_block
+b 1035 147 47 minecraft:purpur_block
+c 1035 47 11-65
+c 1036 32 14-64
+c 1036 33 14-64
+c 1036 34 14-64
+c 1036 35 13-64
+c 1036 36 13-64
+c 1036 37 13-65
+b 1036 74 38 minecraft:chorus_plant
+b 1036 75 38 minecraft:chorus_flower 5
+c 1036 38 13-65
+c 1036 39 12-65
+b 1036 73 40 minecraft:chorus_plant
+b 1036 74 40 minecraft:chorus_flower 5
+c 1036 40 12-65
+b 1036 70 41 minecraft:chorus_plant
+b 1036 71 41 minecraft:chorus_plant
+b 1036 72 41 minecraft:chorus_plant
+b 1036 73 41 minecraft:chorus_plant
+b 1036 75 41 minecraft:chorus_plant
+b 1036 76 41 minecraft:chorus_plant
+b 1036 77 41 minecraft:chorus_plant
+b 1036 78 41 minecraft:chorus_plant
+c 1036 41 12-65
+b 1036 66 42 minecraft:chorus_plant
+b 1036 67 42 minecraft:chorus_plant
+b 1036 68 42 minecraft:chorus_plant
+b 1036 69 42 minecraft:chorus_plant
+b 1036 70 42 minecraft:chorus_plant
+b 1036 79 42 minecraft:chorus_plant
+b 1036 80 42 minecraft:chorus_plant
+b 1036 81 42 minecraft:chorus_plant
+b 1036 82 42 minecraft:chorus_plant
+b 1036 83 42 minecraft:chorus_flower 5
+c 1036 42 12-65
+b 1036 70 43 minecraft:chorus_plant
+b 1036 71 43 minecraft:chorus_plant
+b 1036 75 43 minecraft:chorus_plant
+b 1036 76 43 minecraft:chorus_plant
+b 1036 77 43 minecraft:chorus_plant
+b 1036 78 43 minecraft:chorus_plant
+b 1036 79 43 minecraft:chorus_plant
+c 1036 43 12-65
+b 1036 79 44 minecraft:chorus_plant
+b 1036 80 44 minecraft:chorus_plant
+b 1036 81 44 minecraft:chorus_plant
+b 1036 82 44 minecraft:chorus_plant
+b 1036 83 44 minecraft:chorus_flower 5
+b 1036 147 44 minecraft:purpur_stairs
+c 1036 44 12-65
+b 1036 111 45 minecraft:purpur_stairs
+b 1036 143 45 minecraft:purpur_stairs
+b 1036 147 45 minecraft:purpur_block
+c 1036 45 12-65
+b 1036 107 46 minecraft:purpur_stairs
+b 1036 111 46 minecraft:purpur_block
+b 1036 133 46 minecraft:purpur_stairs
+b 1036 137 46 minecraft:purpur_stairs
+b 1036 141 46 minecraft:purpur_stairs
+b 1036 143 46 minecraft:purpur_block
+b 1036 144 46 minecraft:end_stone_bricks
+b 1036 145 46 minecraft:end_stone_bricks
+b 1036 146 46 minecraft:end_stone_bricks
+b 1036 147 46 minecraft:purpur_block
+c 1036 46 12-65
+b 1036 107 47 minecraft:purpur_block
+b 1036 108 47 minecraft:end_stone_bricks
+b 1036 109 47 minecraft:end_stone_bricks
+b 1036 110 47 minecraft:end_stone_bricks
+b 1036 111 47 minecraft:purpur_block
+b 1036 131 47 minecraft:purpur_block
+b 1036 132 47 minecraft:purpur_pillar
+b 1036 133 47 minecraft:purpur_pillar
+b 1036 134 47 minecraft:purpur_pillar
+b 1036 135 47 minecraft:purpur_block
+b 1036 136 47 minecraft:purpur_pillar
+b 1036 137 47 minecraft:purpur_pillar
+b 1036 138 47 minecraft:purpur_pillar
+b 1036 139 47 minecraft:purpur_block
+b 1036 140 47 minecraft:purpur_pillar
+b 1036 141 47 minecraft:purpur_pillar
+b 1036 142 47 minecraft:purpur_pillar
+b 1036 143 47 minecraft:purpur_block
+b 1036 147 47 minecraft:purpur_block
+c 1036 47 12-65
+c 1037 32 14-64
+c 1037 33 14-64
+c 1037 34 14-64
+c 1037 35 13-64
+c 1037 36 13-64
+c 1037 37 13-65
+c 1037 38 13-65
+c 1037 39 12-65
+c 1037 40 12-65
+b 1037 73 41 minecraft:chorus_plant
+b 1037 74 41 minecraft:chorus_plant
+b 1037 75 41 minecraft:chorus_plant
+c 1037 41 12-65
+c 1037 42 12-65
+b 1037 71 43 minecraft:chorus_plant
+b 1037 72 43 minecraft:chorus_plant
+b 1037 73 43 minecraft:chorus_plant
+b 1037 74 43 minecraft:chorus_plant
+b 1037 75 43 minecraft:chorus_plant
+c 1037 43 12-65
+b 1037 75 44 minecraft:chorus_plant
+b 1037 76 44 minecraft:chorus_plant
+b 1037 147 44 minecraft:purpur_stairs
+c 1037 44 12-65
+b 1037 111 45 minecraft:purpur_stairs
+b 1037 143 45 minecraft:purpur_stairs
+b 1037 147 45 minecraft:purpur_block
+c 1037 45 12-65
+b 1037 107 46 minecraft:purpur_stairs
+b 1037 111 46 minecraft:purpur_block
+b 1037 143 46 minecraft:purpur_block
+b 1037 144 46 minecraft:end_stone_bricks
+b 1037 145 46 minecraft:magenta_stained_glass
+b 1037 146 46 minecraft:magenta_stained_glass
+b 1037 147 46 minecraft:purpur_block
+c 1037 46 12-65
+b 1037 107 47 minecraft:purpur_block
+b 1037 108 47 minecraft:end_stone_bricks
+b 1037 109 47 minecraft:end_stone_bricks
+b 1037 110 47 minecraft:end_stone_bricks
+b 1037 111 47 minecraft:purpur_block
+b 1037 131 47 minecraft:purpur_block
+b 1037 132 47 minecraft:purpur_pillar
+b 1037 133 47 minecraft:purpur_pillar
+b 1037 134 47 minecraft:purpur_pillar
+b 1037 135 47 minecraft:purpur_block
+b 1037 136 47 minecraft:purpur_pillar
+b 1037 137 47 minecraft:purpur_pillar
+b 1037 138 47 minecraft:purpur_pillar
+b 1037 139 47 minecraft:purpur_block
+b 1037 140 47 minecraft:purpur_pillar
+b 1037 141 47 minecraft:purpur_pillar
+b 1037 142 47 minecraft:purpur_pillar
+b 1037 143 47 minecraft:purpur_block
+b 1037 147 47 minecraft:purpur_block
+c 1037 47 12-65
+c 1038 32 14-64
+c 1038 33 14-64
+c 1038 34 14-64
+c 1038 35 13-64
+c 1038 36 13-65
+c 1038 37 13-65
+c 1038 38 13-65
+c 1038 39 12-65
+c 1038 40 12-65
+c 1038 41 12-65
+c 1038 42 12-65
+b 1038 75 43 minecraft:chorus_plant
+c 1038 43 12-65
+b 1038 76 44 minecraft:chorus_plant
+b 1038 77 44 minecraft:chorus_plant
+b 1038 78 44 minecraft:chorus_plant
+b 1038 79 44 minecraft:chorus_plant
+b 1038 80 44 minecraft:chorus_flower 5
+b 1038 147 44 minecraft:purpur_stairs
+c 1038 44 12-65
+b 1038 111 45 minecraft:purpur_stairs
+b 1038 143 45 minecraft:purpur_stairs
+b 1038 147 45 minecraft:purpur_block
+c 1038 45 12-65
+b 1038 107 46 minecraft:purpur_stairs
+b 1038 111 46 minecraft:purpur_block
+b 1038 143 46 minecraft:purpur_block
+b 1038 144 46 minecraft:end_stone_bricks
+b 1038 145 46 minecraft:end_stone_bricks
+b 1038 146 46 minecraft:end_stone_bricks
+b 1038 147 46 minecraft:purpur_block
+c 1038 46 12-65
+b 1038 107 47 minecraft:purpur_block
+b 1038 108 47 minecraft:end_stone_bricks
+b 1038 109 47 minecraft:end_stone_bricks
+b 1038 110 47 minecraft:end_stone_bricks
+b 1038 111 47 minecraft:purpur_block
+b 1038 143 47 minecraft:purpur_block
+b 1038 147 47 minecraft:purpur_block
+c 1038 47 12-65
+c 1039 32 14-64
+c 1039 33 14-64
+c 1039 34 14-64
+c 1039 35 13-64
+c 1039 36 13-65
+c 1039 37 13-65
+c 1039 38 13-65
+c 1039 39 13-65
+c 1039 40 12-65
+c 1039 41 12-65
+c 1039 42 12-65
+c 1039 43 12-65
+b 1039 147 44 minecraft:purpur_stairs
+c 1039 44 12-65
+b 1039 111 45 minecraft:purpur_stairs
+b 1039 143 45 minecraft:purpur_stairs
+b 1039 147 45 minecraft:purpur_block
+c 1039 45 12-65
+b 1039 107 46 minecraft:purpur_stairs
+b 1039 111 46 minecraft:purpur_block
+b 1039 143 46 minecraft:purpur_block
+b 1039 144 46 minecraft:end_stone_bricks
+b 1039 145 46 minecraft:end_stone_bricks
+b 1039 146 46 minecraft:end_stone_bricks
+b 1039 147 46 minecraft:purpur_block
+c 1039 46 12-65
+b 1039 107 47 minecraft:purpur_block
+b 1039 108 47 minecraft:end_stone_bricks
+b 1039 109 47 minecraft:end_stone_bricks
+b 1039 110 47 minecraft:end_stone_bricks
+b 1039 111 47 minecraft:purpur_block
+b 1039 143 47 minecraft:purpur_block
+b 1039 147 47 minecraft:purpur_block
+c 1039 47 12-65
+chunk 64 -16 island
+c 1028 -247 57-57
+c 1028 -246 57-57
+c 1028 -245 57-57
+c 1028 -244 57-57
+c 1028 -243 57-57
+c 1028 -242 57-57
+c 1028 -241 57-57
+c 1029 -248 57-57
+c 1029 -247 57-57
+c 1029 -246 57-57
+c 1029 -245 56-57
+c 1029 -244 56-57
+c 1029 -243 56-57
+c 1029 -242 57-57
+c 1029 -241 57-57
+c 1030 -248 57-57
+c 1030 -247 57-57
+c 1030 -246 56-57
+c 1030 -245 56-57
+c 1030 -244 56-57
+c 1030 -243 56-57
+c 1030 -242 56-57
+c 1030 -241 57-57
+c 1031 -248 57-57
+c 1031 -247 56-57
+c 1031 -246 56-57
+c 1031 -245 55-57
+c 1031 -244 55-57
+c 1031 -243 55-57
+c 1031 -242 56-57
+c 1031 -241 56-57
+c 1032 -248 57-57
+c 1032 -247 56-57
+c 1032 -246 56-57
+c 1032 -245 55-57
+c 1032 -244 55-57
+c 1032 -243 55-57
+c 1032 -242 56-57
+c 1032 -241 56-57
+c 1033 -248 57-57
+c 1033 -247 56-57
+c 1033 -246 56-57
+c 1033 -245 55-57
+c 1033 -244 55-57
+c 1033 -243 55-57
+c 1033 -242 56-57
+c 1033 -241 56-57
+c 1034 -248 57-57
+c 1034 -247 57-57
+c 1034 -246 56-57
+c 1034 -245 56-57
+c 1034 -244 56-57
+c 1034 -243 56-57
+c 1034 -242 56-57
+c 1034 -241 57-57
+c 1035 -248 57-57
+c 1035 -247 57-57
+c 1035 -246 57-57
+c 1035 -245 56-57
+c 1035 -244 56-57
+c 1035 -243 56-57
+c 1035 -242 57-57
+c 1035 -241 57-57
+c 1036 -247 57-57
+c 1036 -246 57-57
+c 1036 -245 57-57
+c 1036 -244 57-57
+c 1036 -243 57-57
+c 1036 -242 57-57
+c 1036 -241 57-57
+chunk 125 37 gateway
+c 2000 592 12-61
+c 2000 593 12-61
+c 2000 594 12-62
+c 2000 595 12-62
+c 2000 596 12-62
+c 2000 597 13-62
+c 2000 598 13-62
+c 2000 599 13-62
+c 2000 600 13-62
+c 2000 601 13-62
+c 2000 602 13-61
+c 2000 603 13-61
+c 2000 604 13-61
+c 2000 605 14-61
+c 2000 606 14-60
+c 2000 607 14-60
+c 2001 592 12-61
+c 2001 593 12-61
+c 2001 594 12-61
+c 2001 595 12-62
+c 2001 596 12-62
+c 2001 597 13-62
+c 2001 598 13-62
+c 2001 599 13-62
+c 2001 600 13-62
+c 2001 601 13-62
+c 2001 602 13-61
+c 2001 603 13-61
+c 2001 604 14-61
+c 2001 605 14-61
+c 2001 606 14-60
+c 2001 607 14-60
+c 2002 592 12-61
+c 2002 593 12-61
+c 2002 594 12-61
+c 2002 595 12-61
+c 2002 596 12-62
+c 2002 597 13-62
+c 2002 598 13-62
+c 2002 599 13-62
+c 2002 600 13-62
+c 2002 601 13-62
+c 2002 602 13-61
+c 2002 603 13-61
+c 2002 604 14-61
+c 2002 605 14-61
+c 2002 606 14-60
+c 2002 607 14-60
+c 2003 592 12-61
+c 2003 593 12-61
+c 2003 594 12-61
+c 2003 595 12-61
+c 2003 596 12-62
+c 2003 597 13-62
+c 2003 598 13-62
+c 2003 599 13-62
+c 2003 600 13-62
+c 2003 601 13-62
+c 2003 602 13-61
+c 2003 603 13-61
+c 2003 604 14-61
+c 2003 605 14-61
+c 2003 606 14-61
+c 2003 607 14-60
+c 2004 592 12-61
+c 2004 593 12-61
+c 2004 594 12-61
+c 2004 595 12-61
+c 2004 596 12-62
+c 2004 597 13-62
+c 2004 598 13-62
+c 2004 599 13-62
+c 2004 600 13-62
+c 2004 601 13-62
+c 2004 602 13-61
+c 2004 603 13-61
+c 2004 604 14-61
+c 2004 605 14-61
+c 2004 606 14-61
+c 2004 607 14-60
+c 2005 592 12-61
+c 2005 593 12-61
+c 2005 594 12-61
+c 2005 595 12-61
+c 2005 596 12-61
+c 2005 597 13-62
+c 2005 598 13-62
+c 2005 599 13-62
+c 2005 600 13-62
+c 2005 601 13-62
+b 2005 68 602 minecraft:bedrock
+b 2005 70 602 minecraft:bedrock
+c 2005 602 13-61
+c 2005 603 13-61
+c 2005 604 14-61
+c 2005 605 14-61
+c 2005 606 14-61
+c 2005 607 14-60
+c 2006 592 12-61
+c 2006 593 12-61
+c 2006 594 12-61
+c 2006 595 12-61
+c 2006 596 12-61
+c 2006 597 13-62
+c 2006 598 13-62
+c 2006 599 13-62
+c 2006 600 13-62
+b 2006 68 601 minecraft:bedrock
+b 2006 70 601 minecraft:bedrock
+c 2006 601 13-62
+b 2006 67 602 minecraft:bedrock
+b 2006 68 602 minecraft:bedrock
+b 2006 69 602 minecraft:end_gateway
+b 2006 70 602 minecraft:bedrock
+b 2006 71 602 minecraft:bedrock
+c 2006 602 13-61
+b 2006 68 603 minecraft:bedrock
+b 2006 70 603 minecraft:bedrock
+c 2006 603 14-61
+c 2006 604 14-61
+c 2006 605 14-61
+c 2006 606 14-61
+c 2006 607 15-60
+c 2007 592 12-61
+c 2007 593 12-61
+c 2007 594 12-61
+c 2007 595 12-61
+c 2007 596 12-61
+c 2007 597 13-61
+c 2007 598 13-62
+c 2007 599 13-62
+c 2007 600 13-62
+c 2007 601 13-62
+b 2007 68 602 minecraft:bedrock
+b 2007 70 602 minecraft:bedrock
+c 2007 602 13-61
+c 2007 603 14-61
+c 2007 604 14-61
+c 2007 605 14-61
+c 2007 606 14-61
+c 2007 607 15-60
+c 2008 592 12-61
+c 2008 593 12-61
+c 2008 594 12-61
+c 2008 595 12-61
+c 2008 596 12-61
+c 2008 597 13-61
+c 2008 598 13-62
+c 2008 599 13-62
+c 2008 600 13-62
+c 2008 601 13-62
+c 2008 602 13-61
+c 2008 603 14-61
+c 2008 604 14-61
+c 2008 605 14-61
+c 2008 606 14-61
+c 2008 607 15-60
+c 2009 592 12-61
+c 2009 593 12-61
+c 2009 594 13-61
+c 2009 595 13-61
+c 2009 596 13-61
+c 2009 597 13-61
+c 2009 598 13-61
+c 2009 599 13-61
+c 2009 600 13-62
+c 2009 601 13-61
+c 2009 602 14-61
+c 2009 603 14-61
+c 2009 604 14-61
+c 2009 605 14-61
+c 2009 606 15-61
+c 2009 607 15-60
+c 2010 592 13-61
+c 2010 593 13-61
+c 2010 594 13-61
+c 2010 595 13-61
+c 2010 596 13-61
+c 2010 597 13-61
+c 2010 598 13-61
+c 2010 599 13-61
+c 2010 600 13-61
+c 2010 601 14-61
+b 2010 64 602 minecraft:chorus_plant
+b 2010 65 602 minecraft:chorus_plant
+b 2010 66 602 minecraft:chorus_plant
+b 2010 69 602 minecraft:chorus_plant
+b 2010 70 602 minecraft:chorus_plant
+b 2010 71 602 minecraft:chorus_plant
+b 2010 72 602 minecraft:chorus_plant
+b 2010 73 602 minecraft:chorus_flower 5
+c 2010 602 14-61
+c 2010 603 14-61
+c 2010 604 14-61
+c 2010 605 14-61
+c 2010 606 15-60
+c 2010 607 15-60
+c 2011 592 13-61
+c 2011 593 13-61
+c 2011 594 13-61
+c 2011 595 13-61
+c 2011 596 13-61
+c 2011 597 13-61
+c 2011 598 13-61
+c 2011 599 13-61
+c 2011 600 13-61
+b 2011 64 601 minecraft:chorus_plant
+b 2011 65 601 minecraft:chorus_plant
+b 2011 66 601 minecraft:chorus_plant
+c 2011 601 14-61
+b 2011 62 602 minecraft:chorus_plant
+b 2011 63 602 minecraft:chorus_plant
+b 2011 64 602 minecraft:chorus_plant
+b 2011 67 602 minecraft:chorus_plant
+b 2011 68 602 minecraft:chorus_plant
+b 2011 69 602 minecraft:chorus_plant
+c 2011 602 14-61
+c 2011 603 14-61
+c 2011 604 14-61
+c 2011 605 15-61
+c 2011 606 15-60
+c 2011 607 15-60
+b 2012 65 592 minecraft:chorus_plant
+c 2012 592 14-60
+c 2012 593 14-61
+c 2012 594 14-61
+c 2012 595 14-61
+c 2012 596 14-61
+c 2012 597 14-61
+c 2012 598 14-61
+c 2012 599 14-61
+c 2012 600 14-61
+b 2012 67 601 minecraft:chorus_plant
+b 2012 68 601 minecraft:chorus_plant
+b 2012 69 601 minecraft:chorus_plant
+b 2012 70 601 minecraft:chorus_plant
+b 2012 71 601 minecraft:chorus_plant
+c 2012 601 14-61
+b 2012 64 602 minecraft:chorus_plant
+b 2012 65 602 minecraft:chorus_plant
+b 2012 66 602 minecraft:chorus_plant
+b 2012 67 602 minecraft:chorus_plant
+b 2012 71 602 minecraft:chorus_plant
+b 2012 72 602 minecraft:chorus_plant
+b 2012 73 602 minecraft:chorus_plant
+c 2012 602 14-61
+c 2012 603 14-61
+c 2012 604 15-61
+c 2012 605 15-60
+c 2012 606 15-60
+c 2012 607 15-60
+b 2013 61 592 minecraft:chorus_plant
+b 2013 62 592 minecraft:chorus_plant
+b 2013 63 592 minecraft:chorus_plant
+b 2013 64 592 minecraft:chorus_plant
+b 2013 65 592 minecraft:chorus_plant
+c 2013 592 14-60
+c 2013 593 14-60
+c 2013 594 14-61
+c 2013 595 14-61
+c 2013 596 14-61
+c 2013 597 14-61
+c 2013 598 14-61
+c 2013 599 14-61
+c 2013 600 14-61
+b 2013 71 601 minecraft:chorus_plant
+b 2013 72 601 minecraft:chorus_plant
+b 2013 73 601 minecraft:chorus_plant
+b 2013 74 601 minecraft:chorus_plant
+c 2013 601 14-61
+b 2013 74 602 minecraft:chorus_plant
+b 2013 75 602 minecraft:chorus_plant
+b 2013 76 602 minecraft:chorus_plant
+b 2013 77 602 minecraft:chorus_flower 5
+c 2013 602 14-61
+c 2013 603 14-61
+c 2013 604 15-60
+c 2013 605 15-60
+c 2013 606 15-60
+c 2013 607 16-60
+b 2014 69 592 minecraft:chorus_plant
+b 2014 70 592 minecraft:chorus_plant
+b 2014 71 592 minecraft:chorus_plant
+b 2014 72 592 minecraft:chorus_plant
+c 2014 592 15-60
+b 2014 72 593 minecraft:chorus_plant
+b 2014 73 593 minecraft:chorus_plant
+b 2014 74 593 minecraft:chorus_plant
+b 2014 75 593 minecraft:chorus_plant
+b 2014 76 593 minecraft:chorus_flower 5
+c 2014 593 15-60
+c 2014 594 14-60
+c 2014 595 14-60
+c 2014 596 14-61
+b 2014 72 597 minecraft:chorus_plant
+b 2014 73 597 minecraft:chorus_plant
+b 2014 74 597 minecraft:chorus_plant
+b 2014 75 597 minecraft:chorus_plant
+b 2014 76 597 minecraft:chorus_flower 5
+c 2014 597 14-61
+b 2014 68 598 minecraft:chorus_plant
+b 2014 69 598 minecraft:chorus_plant
+b 2014 70 598 minecraft:chorus_plant
+b 2014 71 598 minecraft:chorus_plant
+b 2014 72 598 minecraft:chorus_plant
+c 2014 598 14-61
+b 2014 65 599 minecraft:chorus_plant
+b 2014 66 599 minecraft:chorus_flower 5
+c 2014 599 14-61
+c 2014 600 14-61
+c 2014 601 14-61
+c 2014 602 14-61
+c 2014 603 15-60
+c 2014 604 15-60
+c 2014 605 15-60
+c 2014 606 15-60
+c 2014 607 16-60
+b 2015 72 592 minecraft:chorus_plant
+b 2015 73 592 minecraft:chorus_flower 5
+c 2015 592 15-60
+c 2015 593 15-60
+c 2015 594 15-60
+c 2015 595 15-60
+c 2015 596 15-60
+c 2015 597 15-60
+b 2015 65 598 minecraft:chorus_plant
+b 2015 66 598 minecraft:chorus_plant
+b 2015 67 598 minecraft:chorus_plant
+b 2015 68 598 minecraft:chorus_plant
+b 2015 72 598 minecraft:chorus_plant
+b 2015 73 598 minecraft:chorus_plant
+b 2015 74 598 minecraft:chorus_plant
+c 2015 598 14-60
+b 2015 62 599 minecraft:chorus_plant
+b 2015 63 599 minecraft:chorus_plant
+b 2015 64 599 minecraft:chorus_plant
+b 2015 65 599 minecraft:chorus_plant
+b 2015 74 599 minecraft:chorus_plant
+b 2015 75 599 minecraft:chorus_plant
+b 2015 76 599 minecraft:chorus_plant
+b 2015 77 599 minecraft:chorus_flower 5
+c 2015 599 14-61
+b 2015 65 600 minecraft:chorus_plant
+b 2015 66 600 minecraft:chorus_plant
+b 2015 67 600 minecraft:chorus_plant
+b 2015 68 600 minecraft:chorus_plant
+c 2015 600 14-61
+c 2015 601 14-60
+c 2015 602 15-60
+c 2015 603 15-60
+c 2015 604 15-60
+c 2015 605 15-60
+c 2015 606 16-60
+c 2015 607 16-60

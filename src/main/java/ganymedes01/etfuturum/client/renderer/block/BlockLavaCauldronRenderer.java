@@ -23,7 +23,7 @@ public class BlockLavaCauldronRenderer extends BlockCauldronBaseRenderer {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		super.renderWorldBlock(world, x, y, z, block, modelId, renderer);
 		IIcon lava = BlockLiquid.getLiquidIcon("lava_still");
-		renderer.renderFaceYPos(block, x, y - 1.0F + (0.9375F), z, lava);
+		CauldronModel.content(renderer, block, x, y, z, 0.9375D, lava);
 		return true;
 	}
 

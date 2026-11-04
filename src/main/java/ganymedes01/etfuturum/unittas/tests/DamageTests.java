@@ -1,18 +1,21 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.mixins.early.combat.AccessorEntity;
+import io.github.asgerjon.mcfly.mixins.early.combat.AccessorEntity;
 import ganymedes01.etfuturum.unittas.TasTestCase;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -42,7 +45,7 @@ public class DamageTests extends TasTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigMixins.modernCombat) {
+		if (!McFlyConfig.modernCombat) {
 			skipTest("the combat update is turned off (modernCombat)");
 		}
 		onServer(() -> player().setGameType(WorldSettings.GameType.SURVIVAL));
@@ -176,14 +179,14 @@ public class DamageTests extends TasTestCase {
 	 * as EFR had it, left the second.
 	 */
 	public void testHarmingArrowAfterATotem() {
-		boolean before = ConfigFunctions.arrowHarmingAfterTotemFix;
+		boolean before = McFlyConfig.arrowHarmingAfterTotemFix;
 		try {
-			ConfigFunctions.arrowHarmingAfterTotemFix = false;
+			McFlyConfig.arrowHarmingAfterTotemFix = false;
 			harmingArrowAt2HealthWithTwoTotems();
 			assertIsNone(onServer(() -> player().getHeldItem()));
 			assertTrue(onServer(() -> player().getHealth() > 0.0F), "dead: the second totem didn't save the player");
 		} finally {
-			ConfigFunctions.arrowHarmingAfterTotemFix = before;
+			McFlyConfig.arrowHarmingAfterTotemFix = before;
 		}
 	}
 
@@ -192,16 +195,16 @@ public class DamageTests extends TasTestCase {
 	 * first totem, so the second stays, and the first one's 8 golden hearts are untouched.
 	 */
 	public void testHarmingArrowAfterATotemFixed() {
-		boolean before = ConfigFunctions.arrowHarmingAfterTotemFix;
+		boolean before = McFlyConfig.arrowHarmingAfterTotemFix;
 		try {
-			ConfigFunctions.arrowHarmingAfterTotemFix = true;
+			McFlyConfig.arrowHarmingAfterTotemFix = true;
 			harmingArrowAt2HealthWithTwoTotems();
 			assertEqual(1, onServer(() -> player().getHeldItem() == null ? 0 : player().getHeldItem().stackSize), "totems left");
 			// untouched by Harming: the golden hearts all there (health is 1 and up, Regeneration II heals at once)
 			assertAlmostEqual(8.0, onServer(() -> player().getAbsorptionAmount()), 1.0E-4);
 			assertTrue(onServer(() -> player().getHealth() > 0.0F), "dead");
 		} finally {
-			ConfigFunctions.arrowHarmingAfterTotemFix = before;
+			McFlyConfig.arrowHarmingAfterTotemFix = before;
 		}
 	}
 
@@ -330,13 +333,33 @@ public class DamageTests extends TasTestCase {
 	 */
 	public void testBlastProtectionOnARealExplosion() {
 		// both explosions in one server step, so the first push can't move the player before the second
+		String[] before = new String[1];
 		double[] pushes = onServer(() -> {
+			before[0] = blastSurroundings();
 			double bare = explosionPush();
 			player().inventory.armorInventory[3] = enchanted(Item.getItemFromBlock(Blocks.pumpkin), Enchantment.blastProtection, 4);
 			return new double[]{bare, explosionPush()};
 		});
-		assertGreater(pushes[0], 0.0);
+		assertTrue(pushes[0] > 0.0, "no push; " + before[0]);
 		assertAlmostEqual(0.4, pushes[1] / pushes[0], 1.0E-6);
+	}
+
+	/** For a failure: the player's place, the ray share the blast would see, and any block between them. In a server step. */
+	private static String blastSurroundings() {
+		EntityPlayer player = player();
+		StringBuilder blocks = new StringBuilder();
+		for (int x = -1; x <= 1; x++) {
+			for (int y = 3; y <= 6; y++) {
+				for (int z = 0; z <= 4; z++) {
+					if (!world().isAirBlock(x, y, z) && y > 3) {
+						blocks.append(' ').append(Block.blockRegistry.getNameForObject(world().getBlock(x, y, z))).append('@').append(x).append(',').append(y).append(',').append(z);
+					}
+				}
+			}
+		}
+		return "player at " + player.posX + " " + player.posY + " " + player.posZ + ", flying " + player.capabilities.isFlying
+			+ ", riding " + player.ridingEntity + ", density " + world().getBlockDensity(Vec3.createVectorHelper(0.5, 4.5, 3.0), player.boundingBox)
+			+ ", blocks:" + (blocks.length() == 0 ? " none" : blocks);
 	}
 
 	/** An explosion of 2 a few blocks ahead; the length of the push sent to the player's client. In a server step. */
@@ -439,6 +462,8 @@ public class DamageTests extends TasTestCase {
 	 */
 	public void testKnockback() {
 		EntityVillager villager = spawn(EntityVillager::new, 0.5, 4.0, 2.0);
+		// no AI: a step aside before the hit turns the push off the player's line (0.697 for 0.7 once, 2026-11-03)
+		onServer(() -> villager.tasks.taskEntries.clear());
 		double[] pushed = push(villager, true);
 		assertAlmostEqual(0.4, pushed[0], 1.0E-6);
 		assertAlmostEqual(0.4, pushed[1], 1.0E-6);

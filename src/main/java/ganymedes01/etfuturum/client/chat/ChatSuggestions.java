@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.chat;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.Message;
 import com.mojang.brigadier.ParseResults;
@@ -250,7 +251,7 @@ public final class ChatSuggestions {
 		recomputeUsageWidth();
 		usageX = usage.isEmpty() ? 0 : MathHelper.clamp_int(screenX(context.startPos), 0, screenX(0) + input.getWidth() - usageWidth);
 		list = null;
-		if (allowSuggestions && ConfigFunctions.commandSuggestions) {
+		if (allowSuggestions && McFlyConfig.commandSuggestions) {
 			showSuggestions();
 		}
 	}

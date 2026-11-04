@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -12,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionHelper;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.potion.BrewingTable;
+import ganymedes01.etfuturum.potion.NamedPotions;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -84,6 +88,18 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 	private boolean canBrew() {
 		if (fuel > 0 && inventory[3] != null && inventory[3].stackSize > 0) {
 			ItemStack itemstack = inventory[3];
+			// potions by name (spec §69): 26.3's table, then 1.7.10's bits where the table leaves it to them
+			if (byName()) {
+				if (!BrewingTable.isIngredient(itemstack)) {
+					return false;
+				}
+				for (int i = 0; i < 3; i++) {
+					if (BrewingTable.brew(inventory[i], itemstack) != null) {
+						return true;
+					}
+				}
+				return false;
+			}
 
 			if (!itemstack.getItem().isPotionIngredient(itemstack))
 				return false;
@@ -125,7 +141,14 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 		if (ForgeEventFactory.onPotionAttemptBreaw(new ItemStack[]{inventory[0], inventory[1], inventory[2], inventory[3]}))
 			return;
 		if (canBrew()) {
-			for (int i = 0; i < 3; i++)
+			if (byName()) {
+				for (int i = 0; i < 3; i++) {
+					ItemStack made = BrewingTable.brew(inventory[i], inventory[3]);
+					if (made != null) {
+						inventory[i] = made;
+					}
+				}
+			} else for (int i = 0; i < 3; i++)
 				if (inventory[i] != null && inventory[i].getItem() instanceof ItemPotion) {
 					int j = inventory[i].getItemDamage();
 					if (ItemPotion.isSplash(j) && inventory[3].getItem() == ModItems.DRAGON_BREATH.get())
@@ -160,6 +183,11 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			ForgeEventFactory.onPotionBrewed(new ItemStack[]{inventory[0], inventory[1], inventory[2], inventory[3]});
 			worldObj.playSound(xCoord, yCoord, zCoord, Reference.MCAssetVer + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
 		}
+	}
+
+	/** Brewing by 26.3's table (spec §69), once EFR has started (`NamedPotions.isReady`). */
+	private static boolean byName() {
+		return McFlyConfig.potionsByName && NamedPotions.isReady();
 	}
 
 	private int applyIngredient(int meta, ItemStack stack) {
@@ -232,7 +260,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 		if (slot == 4)
 			return stack.getItem() == Items.blaze_powder;
 		else if (slot == 3)
-			return stack.getItem().isPotionIngredient(stack);
+			return byName() ? BrewingTable.isIngredient(stack) : stack.getItem().isPotionIngredient(stack);
 		else
 			return stack.getItem() instanceof ItemPotion || stack.getItem() == Items.glass_bottle;
 	}

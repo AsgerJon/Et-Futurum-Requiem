@@ -17,6 +17,11 @@ public class BlockCauldronBaseRenderer extends BlockModelBase {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		// 26.3's model (spec §63.5); the contents then go through CauldronModel.content
+		if (CauldronModel.isEnabled()) {
+			CauldronModel.render(world, x, y, z, block, renderer);
+			return true;
+		}
 		renderer.renderStandardBlock(block, x, y, z);
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));

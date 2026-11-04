@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.inventory;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,7 +19,7 @@ public final class ContainerClose {
 
 	/** Takes the stack back; false when the caller should drop it as before. */
 	public static boolean giveBack(EntityPlayer player, ItemStack stack) {
-		if (!ConfigMixins.itemsBackOnClose || stack == null) {
+		if (!McFlyConfig.itemsBackOnClose || stack == null) {
 			return false;
 		}
 		if (player.worldObj.isRemote) {

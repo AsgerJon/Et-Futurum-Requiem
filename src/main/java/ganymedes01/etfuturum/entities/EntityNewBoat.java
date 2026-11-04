@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
@@ -283,7 +284,7 @@ public class EntityNewBoat extends Entity {
 						boat.setStackDisplayName(this.entityName);
 					}
 					entityDropItem(boat, 0);
-					if (this instanceof EntityNewBoatWithChest && !ConfigFunctions.dropVehiclesTogether) {
+					if (this instanceof EntityNewBoatWithChest && !McFlyConfig.dropVehiclesTogether) {
 						this.dropItem(Item.getItemFromBlock(Blocks.chest), 1);
 					}
 				}
@@ -1104,9 +1105,9 @@ public class EntityNewBoat extends Entity {
 		getDataWatcher().updateObject(DATA_ID_TYPE, boatType);
 		resourceDomain = domain;
 
-		boatInfo = ItemNewBoat.BOAT_INFO.get(domain + ":" + boatType + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
+		boatInfo = ItemNewBoat.BOAT_INFO.get(domain + ":" + boatType + (McFlyConfig.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
 		if (boatInfo == null) {
-			boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak" + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
+			boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak" + (McFlyConfig.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
 			resourceDomain = "minecraft";
 			getDataWatcher().updateObject(DATA_ID_TYPE, "oak");
 		}

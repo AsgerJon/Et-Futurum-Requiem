@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.placement;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -102,7 +103,7 @@ public final class PlacedShape {
 
 	/** The entity the server's check leaves out: never the placing player once the modern block use packets count it. */
 	public static Entity excluded(Entity placer) {
-		return ConfigMixins.modernBlockUsePackets && placer instanceof EntityPlayer ? null : placer;
+		return McFlyConfig.modernBlockUsePackets && placer instanceof EntityPlayer ? null : placer;
 	}
 
 	private static AxisAlignedBB bounds(Block block, int x, int y, int z) {

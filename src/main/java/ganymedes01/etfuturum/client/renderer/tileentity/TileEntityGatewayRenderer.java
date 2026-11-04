@@ -1,12 +1,10 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -19,25 +17,33 @@ import java.util.Random;
 public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
 	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
-	private static final ResourceLocation END_GATEWAY_BEAM_TEXTURE = new ResourceLocation("textures/entity/end_gateway_beam.png");
+	private static final ResourceLocation END_GATEWAY_BEAM_TEXTURE = new ResourceLocation("etfuturum", "textures/entity/end_portal/end_gateway_beam.png");
 	private static final Random RANDOM = new Random(31100L);
 	private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
 	private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
 	FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
-	public void renderTileEntityAt(TileEntityGateway te, double x, double y, double z, float destroyStage) {
+	/** 26.3's DyeColor.MAGENTA and PURPLE texture colours: the beam while it appears, and after something goes through. */
+	private static final float[] SPAWN_COLOUR = {0xC7 / 255.0F, 0x4E / 255.0F, 0xBD / 255.0F};
+	private static final float[] COOLDOWN_COLOUR = {0x89 / 255.0F, 0x32 / 255.0F, 0xB8 / 255.0F};
+
+	public void renderTileEntityAt(TileEntityGateway te, double x, double y, double z, float partialTicks) {
 		GL11.glDisable(GL11.GL_FOG);
 
+		// 26.3's TheEndGatewayRenderer: the beam swells and fades over the time (sin), up to the world's top while it
+		// appears, 50 after a use, as far below as above
 		if (te.isSpawning() || te.isCoolingDown()) {
-			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-			this.bindTexture(END_GATEWAY_BEAM_TEXTURE);
-			float f = te.isSpawning() ? te.getSpawnPercent() : te.getCooldownPercent();
-			double d0 = te.isSpawning() ? 256.0D - y : 25.0D;
-			f = MathHelper.sin(f * (float) Math.PI);
-			int j = MathHelper.floor_double((double) f * d0);
-			float[] afloat = EntitySheep.fleeceColorTable[te.isSpawning() ? ConfigBlocksItems.endGatewaySpawnColor : ConfigBlocksItems.endGatewayEntryColor];
-			TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, destroyStage, f, (double) te.getWorldObj().getTotalWorldTime(), 0, j, afloat, 0.15D, 0.175D);
-			TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, destroyStage, f, (double) te.getWorldObj().getTotalWorldTime(), 0, -j, afloat, 0.15D, 0.175D);
+			float scale = te.isSpawning() ? te.getSpawnPercent(partialTicks) : te.getCooldownPercent(partialTicks);
+			double distance = te.isSpawning() ? te.getWorldObj().getHeight() - 1 : 50.0;
+			scale = MathHelper.sin(scale * (float) Math.PI);
+			int height = MathHelper.floor_double(scale * distance);
+			if (height > 0) {
+				GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
+				this.bindTexture(END_GATEWAY_BEAM_TEXTURE);
+				float[] colour = te.isSpawning() ? SPAWN_COLOUR : COOLDOWN_COLOUR;
+				double time = Math.floorMod(te.getWorldObj().getTotalWorldTime(), 40L);
+				TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, partialTicks, scale, time, -height, height * 2, colour, 0.15D, 0.175D);
+			}
 		}
 
 		GL11.glDisable(GL11.GL_LIGHTING);

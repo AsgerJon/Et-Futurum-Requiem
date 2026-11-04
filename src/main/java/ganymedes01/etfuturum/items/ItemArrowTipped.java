@@ -1,5 +1,10 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.potion.NamedPotion;
+import ganymedes01.etfuturum.potion.NamedPotions;
+import ganymedes01.etfuturum.potion.PotionContents;
 import com.google.common.collect.HashMultimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,6 +32,7 @@ import net.minecraft.util.StatCollector;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -64,6 +70,13 @@ public class ItemArrowTipped extends Item {
 	}
 
 	public List<PotionEffect> getEffects(ItemStack stack) {
+		// a potion by name (spec §69): its 26.3 effects at the tipped arrow's 1/8
+		if (byName()) {
+			PotionContents contents = PotionContents.of(stack);
+			if (contents.potion() != null) {
+				return contents.scaledEffects(PotionContents.durationScale(stack));
+			}
+		}
 		if (stack.hasTagCompound()) {
 			if (stack.getTagCompound().hasKey("Potion", 10)) {
 				NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
@@ -106,6 +119,46 @@ public class ItemArrowTipped extends Item {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+		if (byName()) {
+			// 26.3's: an arrow of every offered potion in its order, then 1.7.10's unnamed ones
+			for (NamedPotion potion : NamedPotions.available()) {
+				ItemStack arrow = new ItemStack(item, 1, 0);
+				PotionContents.write(arrow, false, potion, Collections.emptyList(), null, null);
+				list.add(arrow);
+			}
+			List<ItemStack> old = new ArrayList<>();
+			listByDamage(item, old);
+			for (ItemStack arrow : old) {
+				if (PotionContents.of(arrow).potion() == null) {
+					list.add(arrow);
+				}
+			}
+			return;
+		}
+		listByDamage(item, list);
+	}
+
+	/** Potions by name (spec §69): on once EFR has started. */
+	private static boolean byName() {
+		return McFlyConfig.potionsByName && NamedPotions.isReady();
+	}
+
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		if (byName()) {
+			PotionContents contents = PotionContents.of(stack);
+			if (contents.potion() != null || contents.customName() != null) {
+				String key = contents.nameKey("tipped_arrow");
+				if (StatCollector.canTranslate(key)) {
+					return StatCollector.translateToLocal(key).trim();
+				}
+			}
+		}
+		return super.getItemStackDisplayName(stack);
+	}
+
+	/** 1.7.10's way: an arrow of each effect, plain, long and strong, by damage value. */
+	private void listByDamage(Item item, List<ItemStack> list) {
 		int j;
 
 		if (field_77835_b.isEmpty()) {

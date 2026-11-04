@@ -142,7 +142,8 @@ public final class LegacyEntityData {
 			}
 			int duration = (int) number(effect.get("duration"), 0);
 			NBTTagCompound legacy = new NBTTagCompound();
-			legacy.setByte("Id", (byte) potion.id);
+			// by name, as 1.7.10's effects are saved now (spec §70)
+			legacy.setString("id", EffectIds.idOf(potion));
 			legacy.setByte("Amplifier", (byte) number(effect.get("amplifier"), 0));
 			legacy.setInteger("Duration", duration == -1 ? Integer.MAX_VALUE : duration);
 			legacy.setBoolean("Ambient", number(effect.get("ambient"), 0) != 0);

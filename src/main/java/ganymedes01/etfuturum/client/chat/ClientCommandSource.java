@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.client.chat;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.context.StringRange;
 import com.mojang.brigadier.suggestion.Suggestion;
@@ -9,8 +11,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.command.modern.ComponentMessage;
 import ganymedes01.etfuturum.command.modern.SuggestionSource;
-import ganymedes01.etfuturum.network.CommandSuggestionRequestMessage;
-import ganymedes01.etfuturum.network.CommandSuggestionsMessage;
+import io.github.asgerjon.mcfly.network.CommandSuggestionRequestMessage;
+import io.github.asgerjon.mcfly.network.CommandSuggestionsMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiPlayerInfo;
 import net.minecraft.util.IChatComponent;
@@ -34,7 +36,7 @@ public final class ClientCommandSource implements SuggestionSource {
 		}
 		pending = new CompletableFuture<>();
 		int id = ++pendingId;
-		EtFuturum.networkWrapper.sendToServer(new CommandSuggestionRequestMessage(id, context.getInput()));
+		McFlyNetwork.CHANNEL.sendToServer(new CommandSuggestionRequestMessage(id, context.getInput()));
 		return pending;
 	}
 

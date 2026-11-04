@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.potion;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
@@ -26,11 +27,41 @@ public class ModPotions extends Potion {
 	}
 
 	public static Potion levitation;
+	/** Slow Falling (spec §68.4), with phantoms (their membranes brew it). */
+	public static Potion slowFalling;
+	/** 26.3's effects the last of its potions need (spec §69.11), on free numbers past the old table. */
+	public static Potion luck, unluck, windCharged, weaving, oozing, infested;
 
 	public static void init() {
 		if (ConfigEntities.enableShulker) {
-			levitation = new PotionLevitation("levitation", ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
+			// named effects (spec §70): no config id; 27, the old default, when free, so worlds saved by number read it
+			levitation = new PotionLevitation("levitation", EffectRegistry.freeNumber(27), true, 0xFFFFFF);
+			EffectRegistry.name(levitation, "minecraft:levitation");
 		}
+		if (McFlyConfig.enablePhantoms) {
+			// 26.3's MobEffects.SLOW_FALLING: beneficial, 0xF3CFB9
+			slowFalling = new PotionSlowFalling("slow_falling", EffectRegistry.freeNumber(28), false, 0xF3CFB9);
+			EffectRegistry.name(slowFalling, "minecraft:slow_falling");
+		}
+		// past 1.7.10's 32 slots: only with named effects, which grow the table
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.namedEffects) {
+			if (McFlyConfig.enableLuck) {
+				luck = modern("luck", false, 0x59C106);
+				unluck = modern("unluck", true, 0xC0A44D);
+			}
+			if (McFlyConfig.enableTrialEffects) {
+				windCharged = modern("wind_charged", true, 0xBDC9FF);
+				weaving = modern("weaving", true, 0x78695A);
+				oozing = modern("oozing", true, 0x99FFA3);
+				infested = modern("infested", true, 0x8C9B8C);
+			}
+		}
+	}
+
+	private static Potion modern(String name, boolean bad, int colour) {
+		Potion potion = new PotionModern(name, EffectRegistry.freeNumber(-1), bad, colour);
+		EffectRegistry.name(potion, "minecraft:" + name);
+		return potion;
 	}
 
 	/**

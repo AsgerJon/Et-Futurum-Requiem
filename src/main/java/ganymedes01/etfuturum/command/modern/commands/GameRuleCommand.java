@@ -22,7 +22,7 @@ public final class GameRuleCommand extends ModernCommand {
 	private static final String[][] RULES = {{"advance_time", "doDaylightCycle"}, {"spawn_mobs", "doMobSpawning"}, {"mob_drops", "doMobLoot"},
 		{"block_drops", "doTileDrops"}, {"keep_inventory", "keepInventory"}, {"mob_griefing", "mobGriefing"},
 		{"natural_health_regeneration", "naturalRegeneration"}, {"command_block_output", "commandBlockOutput"},
-		{"advance_weather", "doWeatherCycle"}};
+		{"advance_weather", "doWeatherCycle"}, {"spawn_phantoms", "doInsomnia"}};
 	/** A number in 26.3, on or off in 1.7.10; on reads as 26.3's default. */
 	private static final String FIRE = "fire_spread_radius_around_player";
 	private static final int FIRE_ON = 128;

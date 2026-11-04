@@ -107,14 +107,25 @@ public class ComponentTests extends TasTestCase {
 		NBTTagCompound pattern = banner.getTagCompound().getCompoundTag("BlockEntityTag").getTagList("Patterns", 10).getCompoundTagAt(0);
 		assertEqual("bs", pattern.getString("Pattern"));
 		assertEqual(14, pattern.getInteger("Color"));
+		// one of the four 1.8 hadn't (spec §66.11), by 26.3's name (the inventory emptied: give reads its first stack)
+		onServer(() -> player().inventory.clearInventory(null, -1));
+		ItemStack globe = give("white_banner[banner_patterns=[{pattern:\"globe\",color:\"blue\"}]]");
+		NBTTagCompound layer = globe.getTagCompound().getCompoundTag("BlockEntityTag").getTagList("Patterns", 10).getCompoundTagAt(0);
+		assertEqual("glb", layer.getString("Pattern"));
+		assertEqual(11, layer.getInteger("Color"));
 	}
 
 	public void testErrors() {
-		assertError(command("/give @s potion[potion_contents=\"luck\"]"), "needs the effect 'minecraft:luck', which 1.7.10 doesn't have");
+		// every 26.3 potion's effect exists now (spec §69.11): a test potion that needs one that doesn't
+		if (ganymedes01.etfuturum.potion.NamedPotions.byId("unittas:needs_nothing_there") == null) {
+			ganymedes01.etfuturum.potion.NamedPotions.register("unittas:needs_nothing_there", "needs_nothing_there", -1,
+				ganymedes01.etfuturum.potion.NamedPotions.effect("unittas:nothing_there", 100, 0));
+		}
+		assertError(command("/give @s potion[potion_contents=\"unittas:needs_nothing_there\"]"), "needs the effect 'unittas:nothing_there', which 1.7.10 doesn't have");
 		assertError(command("/give @s potion[potion_contents=\"nope\"]"), "Unknown potion 'minecraft:nope'");
 		assertError(command("/give @s written_book[written_book_content={title:\"This title is too long\",author:\"x\"}]"),
 			"1.7.10's books take titles of 16 characters at most");
-		assertError(command("/give @s white_banner[banner_patterns=[{pattern:\"globe\",color:\"red\"}]]"), "Unknown banner pattern 'minecraft:globe'");
+		assertError(command("/give @s white_banner[banner_patterns=[{pattern:\"nope\",color:\"red\"}]]"), "Unknown banner pattern 'minecraft:nope'");
 		assertError(command("/give @s diamond_sword[attribute_modifiers=[{type:\"armor\",id:\"x\",amount:1,operation:\"add_value\"}]]"),
 			"Unknown attribute 'minecraft:armor'");
 	}

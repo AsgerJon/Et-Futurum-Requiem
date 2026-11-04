@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.backinslime;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -122,7 +123,7 @@ public class MixinBlockPistonBase extends Block {
 		// Modern piston events (SPEC-modern-movement.md §35): the event acts on the piston standing here when it runs,
 		// and only the base restored after a retraction keeps the facing the event was queued with.
 		int queuedFacing = side;
-		if (ConfigMixins.modernPistonEvents) {
+		if (McFlyConfig.modernPistonEvents) {
 			int currentFacing = BlockPistonBase.getPistonOrientation(world.getBlockMetadata(x, y, z));
 			if (currentFacing != 7) {
 				side = currentFacing;
@@ -168,10 +169,10 @@ public class MixinBlockPistonBase extends Block {
 					} else {
 						etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, false, pushedBlockList, pushedBlockPosList);
 					}
-				} else if (ConfigMixins.modernPistonEvents) {
+				} else if (McFlyConfig.modernPistonEvents) {
 					world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 				}
-			} else if (ConfigMixins.modernPistonEvents) {
+			} else if (McFlyConfig.modernPistonEvents) {
 				// Vanilla and modern clear the block in front of a retracting piston without checking that it is the
 				// head. The head removes itself anyway, so this only shows in the exploding-piston bedrock method.
 				world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);

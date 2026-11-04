@@ -1,0 +1,67 @@
+# 26.3's end city loot: item id enchantability; ench id max weight costs(min-max per level) primary(items) exclusive(ids); roll seed slot item count [ench=level ...]
+item minecraft:diamond 0
+item minecraft:iron_ingot 0
+item minecraft:gold_ingot 0
+item minecraft:emerald 0
+item minecraft:beetroot_seeds 0
+item minecraft:saddle 0
+item minecraft:copper_horse_armor 0
+item minecraft:iron_horse_armor 0
+item minecraft:golden_horse_armor 0
+item minecraft:diamond_horse_armor 0
+item minecraft:diamond_sword 10
+item minecraft:diamond_spear 10
+item minecraft:diamond_boots 10
+item minecraft:diamond_chestplate 10
+item minecraft:diamond_leggings 10
+item minecraft:diamond_helmet 10
+item minecraft:diamond_pickaxe 10
+item minecraft:diamond_shovel 10
+item minecraft:iron_sword 14
+item minecraft:iron_boots 9
+item minecraft:iron_chestplate 9
+item minecraft:iron_leggings 9
+item minecraft:iron_helmet 9
+item minecraft:iron_pickaxe 14
+item minecraft:iron_shovel 14
+item minecraft:spire_armor_trim_smithing_template 0
+ench minecraft:protection 4 10 1-12,12-23,23-34,34-45 minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet minecraft:protection,minecraft:blast_protection,minecraft:fire_protection,minecraft:projectile_protection
+ench minecraft:fire_protection 4 5 10-18,18-26,26-34,34-42 minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet minecraft:protection,minecraft:blast_protection,minecraft:fire_protection,minecraft:projectile_protection
+ench minecraft:feather_falling 4 5 5-11,11-17,17-23,23-29 minecraft:diamond_boots,minecraft:iron_boots -
+ench minecraft:blast_protection 4 2 5-13,13-21,21-29,29-37 minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet minecraft:protection,minecraft:blast_protection,minecraft:fire_protection,minecraft:projectile_protection
+ench minecraft:projectile_protection 4 5 3-9,9-15,15-21,21-27 minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet minecraft:protection,minecraft:blast_protection,minecraft:fire_protection,minecraft:projectile_protection
+ench minecraft:respiration 3 2 10-40,20-50,30-60 minecraft:diamond_helmet,minecraft:iron_helmet -
+ench minecraft:aqua_affinity 1 2 1-41 minecraft:diamond_helmet,minecraft:iron_helmet -
+ench minecraft:thorns 3 1 10-60,30-80,50-100 minecraft:diamond_chestplate,minecraft:iron_chestplate -
+ench minecraft:depth_strider 3 2 10-25,20-35,30-45 minecraft:diamond_boots,minecraft:iron_boots minecraft:frost_walker,minecraft:depth_strider
+ench minecraft:sharpness 5 10 1-21,12-32,23-43,34-54,45-65 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:smite 5 5 5-25,13-33,21-41,29-49,37-57 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:bane_of_arthropods 5 5 5-25,13-33,21-41,29-49,37-57 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:knockback 2 5 5-55,25-75 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword -
+ench minecraft:fire_aspect 2 2 10-60,30-80 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword -
+ench minecraft:looting 3 2 15-65,24-74,33-83 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:iron_sword -
+ench minecraft:sweeping_edge 3 2 5-20,14-29,23-38 minecraft:diamond_sword,minecraft:iron_sword -
+ench minecraft:efficiency 5 10 1-51,11-61,21-71,31-81,41-91 minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_pickaxe,minecraft:iron_shovel -
+ench minecraft:silk_touch 1 1 15-65 minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_pickaxe,minecraft:iron_shovel minecraft:fortune,minecraft:silk_touch
+ench minecraft:unbreaking 3 5 5-55,13-63,21-71 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_sword,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet,minecraft:iron_pickaxe,minecraft:iron_shovel -
+ench minecraft:fortune 3 2 15-65,24-74,33-83 minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_pickaxe,minecraft:iron_shovel minecraft:fortune,minecraft:silk_touch
+ench minecraft:power 5 10 1-16,11-26,21-36,31-46,41-56 - -
+ench minecraft:punch 2 2 12-37,32-57 - -
+ench minecraft:flame 1 2 20-50 - -
+ench minecraft:infinity 1 1 20-50 - minecraft:infinity,minecraft:mending
+ench minecraft:luck_of_the_sea 3 2 15-65,24-74,33-83 - -
+ench minecraft:lure 3 2 15-65,24-74,33-83 - -
+ench minecraft:loyalty 3 5 12-50,19-50,26-50 - -
+ench minecraft:impaling 5 2 1-21,9-29,17-37,25-45,33-53 - minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:riptide 3 2 17-50,24-50,31-50 - minecraft:loyalty,minecraft:channeling
+ench minecraft:channeling 1 1 25-50 - -
+ench minecraft:multishot 1 2 20-50 - minecraft:multishot,minecraft:piercing
+ench minecraft:quick_charge 3 5 12-50,32-50,52-50 - -
+ench minecraft:piercing 4 10 1-50,11-50,21-50,31-50 - minecraft:multishot,minecraft:piercing
+ench minecraft:density 5 5 5-25,13-33,21-41,29-49,37-57 - minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:breach 4 2 15-65,24-74,33-83,42-92 - minecraft:sharpness,minecraft:smite,minecraft:bane_of_arthropods,minecraft:impaling,minecraft:density,minecraft:breach
+ench minecraft:lunge 3 5 5-25,13-33,21-41 minecraft:diamond_spear -
+ench minecraft:binding_curse 1 1 25-50 minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet -
+ench minecraft:vanishing_curse 1 1 25-50 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_sword,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet,minecraft:iron_pickaxe,minecraft:iron_shovel -
+ench minecraft:frost_walker 2 2 10-25,20-35 minecraft:diamond_boots,minecraft:iron_boots minecraft:frost_walker,minecraft:depth_strider
+ench minecraft:mending 1 2 25-75 minecraft:diamond_sword,minecraft:diamond_spear,minecraft:diamond_boots,minecraft:diamond_chestplate,minecraft:diamond_leggings,minecraft:diamond_helmet,minecraft:diamond_pickaxe,minecraft:diamond_shovel,minecraft:iron_sword,minecraft:iron_boots,minecraft:iron_chestplate,minecraft:iron_leggings,minecraft:iron_helmet,minecraft:iron_pickaxe,minecraft:iron_shovel -

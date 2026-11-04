@@ -27,8 +27,9 @@ public abstract class MixinSoundHandler {
 	private void etfu$heard(ISound sound, CallbackInfo ci) {
 		if (UnitTasMode.running && sound != null) {
 			ResourceLocation location = sound.getPositionedSoundLocation();
-			if (location.toString().equals("minecraft:none")) {
-				// 1.7.10's golems name the sounds they don't have "none" (EntityGolem): no sound, on purpose
+			if (location.toString().equals("minecraft:none") || location.getResourcePath().isEmpty()) {
+				// 1.7.10's golems name the sounds they don't have "none" (EntityGolem), and a wild ocelot's ambient
+				// sound is "" (EntityOcelot.getLivingSound): no sound, on purpose
 				return;
 			}
 			if (getSound(location) != null) {

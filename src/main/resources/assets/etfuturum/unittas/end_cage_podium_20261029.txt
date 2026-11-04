@@ -1,0 +1,4 @@
+# 26.3: a caged pillar's corner gap (the clip, an arrow), then an exit portal's activation drops
+clip miss
+crystals 1, after the arrow broken true
+podium drops minecraft:torch 4

@@ -129,6 +129,10 @@ public class EntityFox extends EntityAnimal {
 
         this.tasks.addTask(0, new EntityFox.AISwim());
         this.tasks.addTask(1, new EntityFox.AIStopWandering());
+        if (io.github.asgerjon.mcfly.registry.McFlyBlocks.POWDER_SNOW.isEnabled()) {
+            // 26.3's ClimbOnTopOfPowderSnowGoal (spec §62.4) at the fox's priority 0, jump only
+            this.tasks.addTask(0, new ganymedes01.etfuturum.entities.ai.EntityAIClimbOnTopOfPowderSnow(this));
+        }
         this.tasks.addTask(2, new EntityFox.AIEscapeWhenNotAggressive(2.2D));
 
         this.tasks.addTask(3, new EntityAICustomAvoidEntity(this, EntityPlayer.class, 16.0F, 1.6D, 1.4D,

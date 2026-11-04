@@ -1,0 +1,5 @@
+# modern options (spec §54.10): 26.3's English for the labels 1.7.10 has under the same keys
+options.vsync=VSync
+options.chat.opacity=Chat Text Opacity
+options.chat.scale=Chat Text Size
+options.chat.title=Chat Settings

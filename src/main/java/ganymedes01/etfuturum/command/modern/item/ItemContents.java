@@ -5,6 +5,9 @@ import ganymedes01.etfuturum.command.modern.arguments.ItemData;
 import ganymedes01.etfuturum.command.modern.entity.LegacyEntityData;
 import ganymedes01.etfuturum.command.modern.nbt.Snbt;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
+import ganymedes01.etfuturum.potion.NamedPotion;
+import ganymedes01.etfuturum.potion.NamedPotions;
+import ganymedes01.etfuturum.potion.PotionContents;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.init.Items;
@@ -13,11 +16,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,35 +30,7 @@ import java.util.UUID;
  */
 final class ItemContents {
 
-	private static final int DRINKABLE = 8192;
-	private static final int SPLASH = 16384;
-	/** Modern's potions 1.7.10 has, by the damage of the drinkable one. */
-	private static final Map<String, Integer> POTION_DAMAGE = new HashMap<>();
-	/** The others as modern makes them: effect/duration/amplifier, as custom effects on a plain drinkable potion. */
-	private static final Map<String, String> POTION_EFFECTS = new HashMap<>();
 	private static final List<String> SHAPES = Arrays.asList("small_ball", "large_ball", "star", "creeper", "burst");
-
-	static {
-		String[] damages = {"water 0", "awkward 16", "thick 32", "mundane 64", "regeneration 8193", "long_regeneration 8257",
-			"strong_regeneration 8225", "swiftness 8194", "long_swiftness 8258", "strong_swiftness 8226", "fire_resistance 8195",
-			"long_fire_resistance 8259", "poison 8196", "long_poison 8260", "strong_poison 8228", "healing 8197", "strong_healing 8229",
-			"night_vision 8198", "long_night_vision 8262", "weakness 8200", "long_weakness 8264", "strength 8201", "long_strength 8265",
-			"strong_strength 8233", "slowness 8202", "long_slowness 8266", "harming 8204", "strong_harming 8236", "water_breathing 8205",
-			"long_water_breathing 8269", "invisibility 8206", "long_invisibility 8270"};
-		for (String entry : damages) {
-			String[] pair = entry.split(" ");
-			POTION_DAMAGE.put("minecraft:" + pair[0], Integer.parseInt(pair[1]));
-		}
-		String[] effects = {"leaping jump_boost/3600/0", "long_leaping jump_boost/9600/0", "strong_leaping jump_boost/1800/1",
-			"strong_slowness slowness/400/3", "turtle_master slowness/400/3 resistance/400/2", "long_turtle_master slowness/800/3 resistance/800/2",
-			"strong_turtle_master slowness/400/5 resistance/400/3", "luck luck/6000/0", "slow_falling slow_falling/1800/0",
-			"long_slow_falling slow_falling/4800/0", "wind_charged wind_charged/3600/0", "weaving weaving/3600/0", "oozing oozing/3600/0",
-			"infested infested/3600/0"};
-		for (String entry : effects) {
-			int space = entry.indexOf(' ');
-			POTION_EFFECTS.put("minecraft:" + entry.substring(0, space), entry.substring(space + 1));
-		}
-	}
 
 	private ItemContents() {
 	}
@@ -85,55 +60,60 @@ final class ItemContents {
 	// ---------------------------------------------------------------- potion_contents
 
 	/**
-	 * A potion id, or {potion, custom_effects, custom_color, custom_name}. 1.7.10 keeps a potion in the item's damage:
-	 * a potion it has goes there (splash keeps its splash bit), one it lacks becomes custom effects on a plain
-	 * drinkable potion; custom effects are 1.7.10's CustomPotionEffects. The damage only goes on potions, EFR's lingering
-	 * potions and tipped arrows. The colour and name base have nowhere to go.
+	 * A potion id, or {potion, custom_effects, custom_color, custom_name}, by EFR's registry of potions by name (spec
+	 * §69): on a potion or splash potion as `PotionContents` keeps it (1.7.10's damage value for a potion 1.7.10 has,
+	 * else its name in NBT, the effects also in CustomPotionEffects). EFR's lingering potions and tipped arrows get
+	 * 1.7.10's damage value and the rest as custom effects, until they take names too (§69's stage C).
 	 */
 	static ItemComponents.Applier potionContents(Object value) throws DecodeException {
-		Object potionValue = value instanceof Map<?, ?> map ? map.get("potion") : value;
-		Integer damage = null;
-		NBTTagList effects = new NBTTagList();
+		Map<?, ?> map = value instanceof Map<?, ?> fields ? fields : null;
+		Object potionValue = map != null ? map.get("potion") : value;
+		NamedPotion potion = null;
 		if (potionValue != null) {
 			String id = ItemData.withNamespace(string(potionValue, "a potion id"));
-			damage = POTION_DAMAGE.get(id);
-			if (damage == null) {
-				String made = POTION_EFFECTS.get(id);
-				if (made == null) {
-					throw new DecodeException("Unknown potion '" + id + "'");
-				}
-				damage = DRINKABLE;
-				for (String effect : made.split(" ")) {
-					String[] parts = effect.split("/");
-					Potion potion = EffectIds.byId("minecraft:" + parts[0]);
-					if (potion == null) {
-						throw new DecodeException("Potion '" + id + "' needs the effect 'minecraft:" + parts[0] + "', which 1.7.10 doesn't have");
-					}
-					NBTTagCompound legacy = new NBTTagCompound();
-					legacy.setByte("Id", (byte) potion.id);
-					legacy.setByte("Amplifier", Byte.parseByte(parts[2]));
-					legacy.setInteger("Duration", Integer.parseInt(parts[1]));
-					effects.appendTag(legacy);
+			potion = NamedPotions.byId(id);
+			if (potion == null) {
+				throw new DecodeException("Unknown potion '" + id + "'");
+			}
+			for (NamedPotion.Effect effect : potion.effects()) {
+				if (EffectIds.byId(effect.effect()) == null) {
+					throw new DecodeException("Potion '" + id + "' needs the effect '" + effect.effect() + "', which 1.7.10 doesn't have");
 				}
 			}
 		}
-		if (value instanceof Map<?, ?> map && map.containsKey("custom_effects")) {
-			NBTTagList custom = LegacyEntityData.effectList(map.get("custom_effects"));
-			for (int i = 0; i < custom.tagCount(); i++) {
-				effects.appendTag(custom.getCompoundTagAt(i).copy());
-			}
-			if (damage == null) {
-				damage = DRINKABLE;
+		List<PotionEffect> custom = new ArrayList<>();
+		if (map != null && map.containsKey("custom_effects")) {
+			NBTTagList list = LegacyEntityData.effectList(map.get("custom_effects"));
+			for (int i = 0; i < list.tagCount(); i++) {
+				PotionEffect effect = PotionEffect.readCustomPotionEffectFromNBT(list.getCompoundTagAt(i));
+				if (effect != null) {
+					custom.add(effect);
+				}
 			}
 		}
-		int potionDamage = damage == null ? 0 : damage;
+		Integer color = map != null && map.get("custom_color") != null ? (int) LegacyEntityData.number(map.get("custom_color"), 0) : null;
+		String name = map != null && map.get("custom_name") != null ? string(map.get("custom_name"), "a potion name") : null;
+		NamedPotion named = potion;
 		return stack -> {
-			if (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof ItemArrowTipped) {
-				boolean splash = stack.getItem() == Items.potionitem && (stack.getItemDamage() & SPLASH) != 0;
-				stack.setItemDamage(splash ? potionDamage & ~DRINKABLE | SPLASH : potionDamage);
+			if (stack.getItem() == Items.potionitem) {
+				PotionContents.write(stack, PotionContents.isSplash(stack), named, custom, color, name);
+				return;
 			}
-			if (effects.tagCount() > 0) {
-				tag(stack).setTag("CustomPotionEffects", effects.copy());
+			int legacy = named == null ? -1 : named.legacyDamage();
+			if (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof ItemArrowTipped) {
+				stack.setItemDamage(legacy >= 0 ? legacy : named != null || !custom.isEmpty() ? PotionContents.DRINKABLE : 0);
+			}
+			List<PotionEffect> effects = new ArrayList<>();
+			if (named != null && legacy < 0) {
+				effects.addAll(named.potionEffects());
+			}
+			effects.addAll(custom);
+			if (!effects.isEmpty()) {
+				NBTTagList list = new NBTTagList();
+				for (PotionEffect effect : effects) {
+					list.appendTag(effect.writeCustomPotionEffectToNBT(new NBTTagCompound()));
+				}
+				tag(stack).setTag("CustomPotionEffects", list);
 			}
 		};
 	}

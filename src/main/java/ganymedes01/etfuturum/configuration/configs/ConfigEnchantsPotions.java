@@ -9,24 +9,17 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static boolean enableFrostWalker;
 	public static boolean enableMending;
 	public static boolean enableSwiftSneak;
-	public static boolean enableDepthStrider;
-	public static boolean enableSweepingEdge;
 	public static int mendingID;
 	public static int frostWalkerID;
 	public static int swiftSneakID;
-	public static int depthStriderID;
-	public static int sweepingEdgeID;
-	public static int levitationID;
-	public static boolean modernPotionColors;
 
 	static final String catEnchants = "enchantments";
 	static final String catPotions = "potions";
 
-
 	public ConfigEnchantsPotions(File file) {
 		super(file);
 		setCategoryComment(catEnchants, "Settings for enchantments.\nBy default, only IDs up to 255 are allowed, only assign a larger value if an ID extension is present.");
-		setCategoryComment(catPotions, "Settings for potions.\nBy default, only IDs up to 31 are allowed, only assign a larger value if an ID extension is present.");
+		setCategoryComment(catPotions, "Settings for potions. Effects have no ids to set: they are known by name, as in 26.3, and get their numbers as the game starts.");
 
 		configCats.add(getCategory(catEnchants));
 		configCats.add(getCategory(catPotions));
@@ -41,14 +34,8 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		mendingID = getInt("mendingID", catEnchants, 201, 0, Short.MAX_VALUE, "");
 		enableSwiftSneak = getBoolean("swiftSneak", catEnchants, true, "");
 		swiftSneakID = getInt("swiftSneakID", catEnchants, 202, 0, Short.MAX_VALUE, "");
-		enableDepthStrider = getBoolean("depthStrider", catEnchants, true, "Faster movement in water. Needs enableModernSwimming in mixins.cfg, since the effect is part of the modern water movement.");
-		depthStriderID = getInt("depthStriderID", catEnchants, 203, 0, Short.MAX_VALUE, "");
-		enableSweepingEdge = getBoolean("sweepingEdge", catEnchants, true, "Stronger sweeps for swords (1.11+): a sweep deals 1 plus half (I), two thirds (II) or three quarters (III) of the attack's damage instead of 1. Needs modernCombat in mixins.cfg, since sweeps are part of the combat update.");
-		sweepingEdgeID = getInt("sweepingEdgeID", catEnchants, 204, 0, Short.MAX_VALUE, "");
 
 		//potions
-		levitationID = getInt("levitationID", catPotions, 27, 0, Short.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
-		modernPotionColors = getBoolean("modernPotionColors", catPotions, true, "Potion liquid colours as in modern versions (changed in 1.19.4): speed is cyan, strength gold, fire resistance orange, night vision lime, and so on. Colours the potion items, thrown potions, effect particles, lingering clouds and tipped arrows. The water bottle is the same blue in both.");
 	}
 
 }

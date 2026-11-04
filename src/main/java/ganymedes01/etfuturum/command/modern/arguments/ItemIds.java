@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -110,10 +111,15 @@ public final class ItemIds {
 	 * EFR's item by the names it shows (`tile.etfuturum.polished_granite`): modern's id where modern has that name,
 	 * `etfuturum:` and the name where it doesn't, the registry name when EFR's name isn't one at all. A block that lists
 	 * its variants by name is read from its list first, so a name goes to its own damage rather than to an unused damage
-	 * that shows the same name. Shulker boxes keep their colour in data.
+	 * that shows the same name. Shulker boxes keep their colour in data. A double slab shows its slab's name and modern
+	 * has no such item, so it keeps only its registry name.
 	 */
 	private static void addEfr(Map<String, Entry> ids, Item item, String registryName, Set<String> modern, Map<String, String> efrNames) {
 		Block block = Block.getBlockFromItem(item);
+		if (block instanceof BlockSlab && block.isOpaqueCube()) {
+			ids.putIfAbsent(registryName.toLowerCase(Locale.ROOT), new Entry(item, 0, null));
+			return;
+		}
 		String[] types = block instanceof ISubBlocksBlock sub ? sub.getTypes() : null;
 		int metas = item.getHasSubtypes() ? 16 : 1;
 		boolean named = false;

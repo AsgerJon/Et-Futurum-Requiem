@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.gui;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.skins.SkinPart;
@@ -17,10 +18,10 @@ public class GuiSkinCustomization extends GuiScreen {
 
 	private static final int MAIN_HAND = 100, DONE = 200;
 	private final GuiScreen parent;
-	private final boolean[] shown = ConfigFunctions.skinPartsShown();
-	private final boolean[] shownBefore = ConfigFunctions.skinPartsShown();
-	private final boolean leftHandedBefore = ConfigFunctions.mainHandLeft;
-	private boolean leftHanded = ConfigFunctions.mainHandLeft;
+	private final boolean[] shown = McFlyConfig.skinPartsShown();
+	private final boolean[] shownBefore = McFlyConfig.skinPartsShown();
+	private final boolean leftHandedBefore = McFlyConfig.mainHandLeft;
+	private boolean leftHanded = McFlyConfig.mainHandLeft;
 
 	public GuiSkinCustomization(GuiScreen parent) {
 		this.parent = parent;
@@ -67,7 +68,7 @@ public class GuiSkinCustomization extends GuiScreen {
 	@Override
 	public void onGuiClosed() {
 		if (!Arrays.equals(shown, shownBefore) || leftHanded != leftHandedBefore) {
-			ConfigFunctions.saveSkinOptions(shown, leftHanded);
+			McFlyConfig.saveSkinOptions(shown, leftHanded);
 			ClientEventHandler.sendPlayerSettings();
 		}
 	}

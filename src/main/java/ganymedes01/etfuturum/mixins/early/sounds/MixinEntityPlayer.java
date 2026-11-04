@@ -49,6 +49,9 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 			if (etfuturum$lastDamageSource == BlockBerryBush.SWEET_BERRY_BUSH) {
 				return Reference.MCAssetVer + ":entity.player.hurt_sweet_berry_bush";
 			}
+			if (etfuturum$lastDamageSource == ganymedes01.etfuturum.entities.Freezing.FREEZE) {
+				return Reference.MCAssetVer + ":entity.player.hurt_freeze";
+			}
 		}
 		return null;
 	}

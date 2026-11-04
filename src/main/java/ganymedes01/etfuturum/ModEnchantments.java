@@ -1,15 +1,21 @@
 package ganymedes01.etfuturum;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import baubles.common.lib.PlayerHandler;
 import ganymedes01.etfuturum.compat.CompatBackhand;
 import ganymedes01.etfuturum.compat.ModsList;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
+import ganymedes01.etfuturum.enchantment.Channeling;
 import ganymedes01.etfuturum.enchantment.DepthStrider;
 import ganymedes01.etfuturum.enchantment.SweepingEdge;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
+import ganymedes01.etfuturum.enchantment.Riptide;
+import ganymedes01.etfuturum.enchantment.Loyalty;
+import ganymedes01.etfuturum.enchantment.Impaling;
 import ganymedes01.etfuturum.enchantment.SwiftSneak;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.block.Block;
@@ -38,6 +44,10 @@ public class ModEnchantments {
 	public static Enchantment swiftSneak;
 	public static Enchantment depthStrider;
 	public static Enchantment sweepingEdge;
+	public static Enchantment riptide;
+	public static Enchantment channeling;
+	public static Enchantment loyalty;
+	public static Enchantment impaling;
 
 	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap<>();
 
@@ -48,10 +58,18 @@ public class ModEnchantments {
 			mending = new Mending();
 		if (ConfigEnchantsPotions.enableSwiftSneak)
 			swiftSneak = new SwiftSneak();
-		if (ConfigEnchantsPotions.enableDepthStrider && ConfigMixins.enableModernSwimming)
+		if (McFlyConfig.enableDepthStrider && McFlyConfig.enableModernSwimming)
 			depthStrider = new DepthStrider();
-		if (ConfigEnchantsPotions.enableSweepingEdge && ConfigMixins.modernCombat)
+		if (McFlyConfig.enableSweepingEdge && McFlyConfig.modernCombat)
 			sweepingEdge = new SweepingEdge();
+		if (McFlyConfig.enableRiptide && McFlyConfig.enableTrident && McFlyConfig.modernCombat)
+			riptide = new Riptide();
+		if (McFlyConfig.enableChanneling && McFlyConfig.enableTrident && McFlyConfig.modernCombat)
+			channeling = new Channeling();
+		if (McFlyConfig.enableLoyalty && McFlyConfig.enableTrident && McFlyConfig.modernCombat)
+			loyalty = new Loyalty();
+		if (McFlyConfig.enableImpaling && McFlyConfig.enableTrident && McFlyConfig.modernCombat)
+			impaling = new Impaling();
 	}
 
 	// Frost Walker logic

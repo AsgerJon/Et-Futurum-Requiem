@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.offhand.Hand;
@@ -44,7 +45,7 @@ public class OffhandSwingTests extends TasTestCase {
 	@Override
 	protected void tearDown() {
 		onClient(() -> {
-			ConfigFunctions.mainHandLeft = false;
+			McFlyConfig.mainHandLeft = false;
 			ClientEventHandler.sendPlayerSettings();
 		});
 	}
@@ -57,7 +58,7 @@ public class OffhandSwingTests extends TasTestCase {
 		List<String> problems = new ArrayList<>();
 		for (boolean left : new boolean[]{false, true}) {
 			onClient(() -> {
-				ConfigFunctions.mainHandLeft = left;
+				McFlyConfig.mainHandLeft = left;
 				ClientEventHandler.sendPlayerSettings();
 			});
 			waitUntilOnClient("the main hand set", () -> Offhand.isLeftHanded(mc().thePlayer) == left, 20);
@@ -128,6 +129,11 @@ public class OffhandSwingTests extends TasTestCase {
 		Block there = onServer(() -> world().getBlock(X, Y + 1, Z));
 		boolean rightBlock = placed == null ? there == Blocks.air : there == placed;
 		boolean somethingAbove = onServer(() -> !world().isAirBlock(X, Y + 2, Z));
+		// the placed block goes again: left two blocks ahead of the start, it stood between later tests and their targets
+		onServer(() -> {
+			world().setBlock(X, Y + 1, Z, Blocks.air, 0, 3);
+			world().setBlock(X, Y + 2, Z, Blocks.air, 0, 3);
+		});
 		if (!moved && rightBlock && !somethingAbove) {
 			return null;
 		}

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.potion;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import net.minecraft.potion.Potion;
 
@@ -15,7 +16,7 @@ public final class ModernPotionColors {
 	}
 
 	public static void apply() {
-		if (!ConfigEnchantsPotions.modernPotionColors) {
+		if (!McFlyConfig.modernPotionColors) {
 			return;
 		}
 		Potion.moveSpeed.liquidColor = 0x33EBFF;

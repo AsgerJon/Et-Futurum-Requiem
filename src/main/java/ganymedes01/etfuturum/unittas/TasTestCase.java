@@ -16,6 +16,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -350,6 +351,11 @@ public abstract class TasTestCase {
 	/** Presses the key once (down for one tick). */
 	protected final void tap(KeyBinding key) {
 		hold(key, 1);
+	}
+
+	/** This run's results folder (report.txt, screenshots/), for a test that writes a file of its own there. */
+	protected final File resultsFolder() {
+		return game.request().results;
 	}
 
 	// ---------------------------------------------------------------- screenshots

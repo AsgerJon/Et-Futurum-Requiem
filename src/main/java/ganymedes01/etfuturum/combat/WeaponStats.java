@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.combat;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import ganymedes01.etfuturum.ModMaterials;
-import ganymedes01.etfuturum.mixins.early.combat.AccessorItemSword;
+import io.github.asgerjon.mcfly.mixins.early.combat.AccessorItemSword;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.Item;

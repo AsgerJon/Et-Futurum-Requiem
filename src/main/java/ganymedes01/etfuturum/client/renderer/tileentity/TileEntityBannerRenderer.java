@@ -1,19 +1,20 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import ganymedes01.etfuturum.client.LayeredColorMaskTexture;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.model.ModelBanner;
-import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,10 +23,16 @@ import java.util.Map;
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 
 	private static final Map<String, TimedBannerTexture> CANVAS_TEXTURES = Maps.newHashMap();
-	private static final ResourceLocation BASE_TEXTURE = new ResourceLocation("textures/entity/banner_base.png");
+	/** 26.3's banner (its pole, bar and flag), under the layers (spec §66.11). */
+	private static final ResourceLocation BASE_TEXTURE = new ResourceLocation(ganymedes01.etfuturum.lib.Reference.MOD_ID, "textures/entity/banner/banner_base.png");
 	private final ModelBanner bannerModel = new ModelBanner();
 
-	private ResourceLocation getTexture(TileEntityBanner banner) {
+	/** A banner's canvas: its base and layers as one texture, made once and kept a minute (the loom's preview too). */
+	public static ResourceLocation canvasOf(TileEntityBanner banner) {
+		return getTexture(banner);
+	}
+
+	private static ResourceLocation getTexture(TileEntityBanner banner) {
 		String s = banner.getPatternResourceLocation();
 
 		if (s.isEmpty())
@@ -50,22 +57,37 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 					return null;
 			}
 
-			List<EnumBannerPattern> list1 = banner.getPatternList();
-			List<EnumColor> list = banner.getColorList();
-			ArrayList<String> arraylist = Lists.newArrayList();
-			Iterator<EnumBannerPattern> patters = list1.iterator();
-
-			while (patters.hasNext())
-				arraylist.add("textures/entity/banner/" + patters.next().getPatternName() + ".png");
-
 			texture = new TimedBannerTexture();
 			texture.texture = new ResourceLocation(s);
-			Minecraft.getMinecraft().getTextureManager().loadTexture(texture.texture, new LayeredColorMaskTexture(BASE_TEXTURE, arraylist, list));
+			Minecraft.getMinecraft().getTextureManager().loadTexture(texture.texture, new LayeredColorMaskTexture(BASE_TEXTURE, layerTextures(banner), banner.getColorList(), layerRules(banner)));
 			CANVAS_TEXTURES.put(s, texture);
 		}
 
 		texture.time = System.currentTimeMillis();
 		return texture.texture;
+	}
+
+	/** Each layer's texture, the base first (the tests read it). */
+	public static List<String> layerTextures(TileEntityBanner banner) {
+		List<String> textures = new ArrayList<>();
+		for (EnumBannerPattern pattern : banner.getPatternList()) {
+			textures.add(ganymedes01.etfuturum.blocks.ModernBanners.bannerTexture(pattern));
+		}
+		return textures;
+	}
+
+	/** Each layer's rule: 26.3's for its patterns, 1.8's for one another mod added (its mask, spec §66.11). */
+	private static List<Boolean> layerRules(TileEntityBanner banner) {
+		List<Boolean> rules = new ArrayList<>();
+		for (EnumBannerPattern pattern : banner.getPatternList()) {
+			rules.add(ganymedes01.etfuturum.blocks.ModernBanners.isModern(pattern));
+		}
+		return rules;
+	}
+
+	/** A banner's canvas as an image, as its texture is made (the tests read it, spec §66.11). */
+	public static BufferedImage canvasImage(IResourceManager resources, TileEntityBanner banner) throws IOException {
+		return LayeredColorMaskTexture.compose(resources, BASE_TEXTURE, layerTextures(banner), banner.getColorList(), layerRules(banner));
 	}
 
 	static class TimedBannerTexture {

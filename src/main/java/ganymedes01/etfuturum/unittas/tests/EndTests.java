@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.utils.EndCredits;
@@ -27,7 +28,7 @@ public class EndTests extends TasTestCase {
 	@Override
 	protected void tearDown() {
 		onClient(() -> {
-			ConfigFunctions.mainHandLeft = false;
+			McFlyConfig.mainHandLeft = false;
 			ClientEventHandler.sendPlayerSettings();
 		});
 	}
@@ -84,7 +85,7 @@ public class EndTests extends TasTestCase {
 
 	private void leftHanded() {
 		onClient(() -> {
-			ConfigFunctions.mainHandLeft = true;
+			McFlyConfig.mainHandLeft = true;
 			ClientEventHandler.sendPlayerSettings();
 		});
 		waitUntil("the server knows the main hand", () -> Offhand.isLeftHanded(player()), 20);

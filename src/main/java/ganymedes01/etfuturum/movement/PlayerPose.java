@@ -8,7 +8,9 @@ public enum PlayerPose {
 	STANDING(1.8F, 1.62F),
 	CROUCHING(1.5F, 1.27F),
 	SWIMMING(0.6F, 0.4F),
-	FALL_FLYING(0.6F, 0.4F);
+	FALL_FLYING(0.6F, 0.4F),
+	/** Riptide's spin attack (§58.2), last so the synced ids of the others stay. */
+	SPIN_ATTACK(0.6F, 0.4F);
 
 	public static final float STANDING_EYE_HEIGHT = 1.62F;
 	private static final PlayerPose[] VALUES = values();

@@ -1,0 +1,149 @@
+# 26.3's end city loot: item id enchantability; ench id max weight costs(min-max per level) primary(items) exclusive(ids); roll seed slot item count [ench=level ...]
+roll 1 3 minecraft:iron_ingot 7
+roll 1 4 minecraft:gold_ingot 1
+roll 1 5 minecraft:gold_ingot 1
+roll 1 22 minecraft:iron_ingot 1
+roll 1 23 minecraft:gold_ingot 1
+roll 2 2 minecraft:diamond_leggings 1 minecraft:fire_protection=3 minecraft:mending=1 minecraft:unbreaking=3
+roll 2 7 minecraft:emerald 1
+roll 2 11 minecraft:emerald 1
+roll 2 12 minecraft:emerald 1
+roll 2 15 minecraft:iron_leggings 1 minecraft:binding_curse=1 minecraft:mending=1 minecraft:protection=4
+roll 2 22 minecraft:iron_leggings 1 minecraft:binding_curse=1 minecraft:mending=1
+roll 2 23 minecraft:emerald 1
+roll 2 24 minecraft:iron_boots 1 minecraft:mending=1
+roll 3 1 minecraft:diamond_boots 1 minecraft:mending=1 minecraft:protection=4
+roll 3 3 minecraft:gold_ingot 1
+roll 3 4 minecraft:iron_ingot 1
+roll 3 7 minecraft:diamond 4
+roll 3 9 minecraft:iron_ingot 1
+roll 3 10 minecraft:diamond_leggings 1 minecraft:vanishing_curse=1
+roll 3 12 minecraft:diamond 3
+roll 3 14 minecraft:gold_ingot 1
+roll 3 19 minecraft:iron_ingot 4
+roll 3 20 minecraft:diamond_leggings 1 minecraft:protection=3 minecraft:unbreaking=3
+roll 4 0 minecraft:beetroot_seeds 1
+roll 4 3 minecraft:iron_horse_armor 1
+roll 4 13 minecraft:beetroot_seeds 1
+roll 4 15 minecraft:beetroot_seeds 1
+roll 4 16 minecraft:beetroot_seeds 1
+roll 4 19 minecraft:diamond_boots 1 minecraft:depth_strider=2
+roll 4 20 minecraft:diamond_leggings 1 minecraft:fire_protection=2
+roll 5 12 minecraft:iron_shovel 1 minecraft:efficiency=4 minecraft:silk_touch=1 minecraft:unbreaking=3 minecraft:vanishing_curse=1
+roll 5 14 minecraft:saddle 1
+roll 5 20 minecraft:iron_shovel 1 minecraft:efficiency=4 minecraft:fortune=3
+roll 5 24 minecraft:saddle 1
+roll 6 2 minecraft:iron_ingot 4
+roll 6 17 minecraft:iron_ingot 3
+roll 6 18 minecraft:diamond_chestplate 1 minecraft:protection=3
+roll 6 24 minecraft:diamond_leggings 1 minecraft:blast_protection=4 minecraft:mending=1 minecraft:unbreaking=3
+roll 7 9 minecraft:iron_pickaxe 1 minecraft:efficiency=3 minecraft:unbreaking=3
+roll 7 10 minecraft:iron_shovel 1 minecraft:efficiency=3 minecraft:silk_touch=1 minecraft:unbreaking=3
+roll 7 16 minecraft:diamond_chestplate 1 minecraft:protection=4
+roll 8 0 minecraft:gold_ingot 1
+roll 8 1 minecraft:iron_ingot 2
+roll 8 5 minecraft:gold_ingot 1
+roll 8 6 minecraft:spire_armor_trim_smithing_template 1
+roll 8 11 minecraft:gold_ingot 1
+roll 8 12 minecraft:gold_ingot 1
+roll 8 14 minecraft:beetroot_seeds 3
+roll 8 16 minecraft:iron_shovel 1 minecraft:efficiency=4 minecraft:unbreaking=3
+roll 8 17 minecraft:iron_ingot 2
+roll 8 21 minecraft:beetroot_seeds 7
+roll 8 22 minecraft:diamond_sword 1 minecraft:looting=3 minecraft:sharpness=4
+roll 8 25 minecraft:gold_ingot 4
+roll 9 1 minecraft:diamond_pickaxe 1 minecraft:efficiency=3
+roll 9 2 minecraft:iron_ingot 1
+roll 9 8 minecraft:iron_ingot 1
+roll 9 9 minecraft:iron_pickaxe 1 minecraft:efficiency=3 minecraft:fortune=2 minecraft:unbreaking=3
+roll 9 11 minecraft:iron_sword 1 minecraft:fire_aspect=2 minecraft:vanishing_curse=1
+roll 9 18 minecraft:gold_ingot 1
+roll 9 19 minecraft:gold_ingot 1
+roll 9 21 minecraft:iron_ingot 3
+roll 9 25 minecraft:diamond_chestplate 1 minecraft:unbreaking=3
+roll 10 2 minecraft:gold_ingot 1
+roll 10 3 minecraft:gold_ingot 3
+roll 10 5 minecraft:diamond 2
+roll 10 8 minecraft:beetroot_seeds 1
+roll 10 10 minecraft:beetroot_seeds 1
+roll 10 11 minecraft:diamond 1
+roll 10 12 minecraft:iron_shovel 1 minecraft:mending=1
+roll 10 14 minecraft:diamond_helmet 1 minecraft:mending=1
+roll 10 19 minecraft:beetroot_seeds 2
+roll 10 20 minecraft:diamond 2
+roll 10 22 minecraft:diamond 1
+roll 10 24 minecraft:gold_ingot 1
+roll 11 3 minecraft:gold_ingot 1
+roll 11 12 minecraft:diamond_shovel 1 minecraft:unbreaking=3
+roll 11 14 minecraft:diamond_shovel 1 minecraft:fortune=2
+roll 11 18 minecraft:diamond_shovel 1 minecraft:efficiency=4 minecraft:fortune=2
+roll 11 19 minecraft:diamond_shovel 1 minecraft:efficiency=4 minecraft:fortune=3
+roll 11 26 minecraft:gold_ingot 1
+roll 12 4 minecraft:iron_ingot 3
+roll 12 5 minecraft:iron_ingot 1
+roll 12 6 minecraft:gold_ingot 3
+roll 12 8 minecraft:iron_ingot 1
+roll 12 11 minecraft:iron_ingot 1
+roll 12 18 minecraft:iron_ingot 1
+roll 12 20 minecraft:gold_ingot 3
+roll 12 26 minecraft:iron_ingot 2
+roll 13 3 minecraft:diamond_spear 1 minecraft:knockback=2 minecraft:looting=3 minecraft:lunge=3 minecraft:smite=5
+roll 13 20 minecraft:saddle 1
+roll 13 21 minecraft:diamond_boots 1 minecraft:feather_falling=4 minecraft:unbreaking=3
+roll 13 26 minecraft:diamond_helmet 1 minecraft:mending=1 minecraft:protection=3
+roll 14 15 minecraft:iron_ingot 5
+roll 14 19 minecraft:diamond_pickaxe 1 minecraft:efficiency=5 minecraft:unbreaking=3
+roll 14 22 minecraft:iron_ingot 1
+roll 15 0 minecraft:gold_ingot 1
+roll 15 1 minecraft:gold_ingot 1
+roll 15 3 minecraft:gold_ingot 2
+roll 15 10 minecraft:gold_ingot 2
+roll 15 16 minecraft:diamond_chestplate 1 minecraft:protection=4 minecraft:unbreaking=3
+roll 15 19 minecraft:diamond_spear 1 minecraft:mending=1 minecraft:sharpness=4
+roll 15 25 minecraft:gold_ingot 1
+roll 16 12 minecraft:gold_ingot 1
+roll 16 15 minecraft:gold_ingot 4
+roll 16 21 minecraft:gold_ingot 1
+roll 16 22 minecraft:iron_sword 1 minecraft:bane_of_arthropods=3 minecraft:sweeping_edge=3
+roll 16 26 minecraft:diamond_horse_armor 1
+roll 17 3 minecraft:iron_boots 1 minecraft:depth_strider=2 minecraft:unbreaking=3
+roll 17 12 minecraft:iron_leggings 1 minecraft:binding_curse=1 minecraft:mending=1 minecraft:protection=4 minecraft:unbreaking=3
+roll 17 17 minecraft:spire_armor_trim_smithing_template 1
+roll 17 22 minecraft:iron_pickaxe 1 minecraft:efficiency=4 minecraft:silk_touch=1
+roll 18 16 minecraft:golden_horse_armor 1
+roll 18 18 minecraft:diamond_chestplate 1 minecraft:binding_curse=1 minecraft:protection=3 minecraft:unbreaking=3
+roll 19 2 minecraft:iron_ingot 3
+roll 19 14 minecraft:iron_ingot 1
+roll 19 21 minecraft:diamond_leggings 1 minecraft:mending=1 minecraft:protection=4 minecraft:unbreaking=3
+roll 19 25 minecraft:iron_ingot 1
+roll 20 3 minecraft:diamond 1
+roll 20 6 minecraft:beetroot_seeds 1
+roll 20 8 minecraft:gold_ingot 1
+roll 20 10 minecraft:saddle 1
+roll 20 11 minecraft:diamond 2
+roll 20 13 minecraft:beetroot_seeds 5
+roll 20 17 minecraft:gold_ingot 2
+roll 20 21 minecraft:diamond 1
+roll 20 24 minecraft:diamond_boots 1 minecraft:protection=3
+roll 20 25 minecraft:gold_ingot 2
+roll 21 5 minecraft:beetroot_seeds 1
+roll 21 6 minecraft:diamond_chestplate 1 minecraft:mending=1 minecraft:protection=4 minecraft:thorns=2 minecraft:vanishing_curse=1
+roll 21 11 minecraft:beetroot_seeds 1
+roll 21 12 minecraft:iron_helmet 1 minecraft:aqua_affinity=1 minecraft:protection=3 minecraft:unbreaking=3
+roll 21 15 minecraft:beetroot_seeds 1
+roll 21 17 minecraft:iron_pickaxe 1 minecraft:efficiency=3
+roll 21 22 minecraft:diamond_leggings 1 minecraft:binding_curse=1 minecraft:fire_protection=2
+roll 21 24 minecraft:beetroot_seeds 1
+roll 22 6 minecraft:diamond_horse_armor 1
+roll 22 9 minecraft:iron_sword 1 minecraft:bane_of_arthropods=5 minecraft:looting=3 minecraft:unbreaking=3
+roll 22 19 minecraft:iron_pickaxe 1 minecraft:efficiency=5 minecraft:mending=1
+roll 22 25 minecraft:diamond_sword 1 minecraft:mending=1 minecraft:sharpness=4 minecraft:unbreaking=3
+roll 23 9 minecraft:diamond_leggings 1 minecraft:mending=1 minecraft:protection=4
+roll 23 10 minecraft:iron_leggings 1 minecraft:protection=3
+roll 23 12 minecraft:diamond 1
+roll 23 16 minecraft:saddle 1
+roll 23 23 minecraft:diamond 1
+roll 24 14 minecraft:spire_armor_trim_smithing_template 1
+roll 24 18 minecraft:diamond_sword 1 minecraft:knockback=2
+roll 24 20 minecraft:diamond 1
+roll 24 23 minecraft:diamond 1

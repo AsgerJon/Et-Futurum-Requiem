@@ -1,5 +1,8 @@
 package ganymedes01.etfuturum.command.modern;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.github.bsideup.jabel.Desugar;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -37,8 +40,8 @@ import ganymedes01.etfuturum.command.modern.commands.FillCommand;
 import ganymedes01.etfuturum.command.modern.commands.SetBlockCommand;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.CommandSuggestionsMessage;
-import ganymedes01.etfuturum.network.CommandTreeMessage;
+import io.github.asgerjon.mcfly.network.CommandSuggestionsMessage;
+import io.github.asgerjon.mcfly.network.CommandTreeMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.command.CommandHandler;
@@ -97,7 +100,7 @@ public final class ModernCommands {
 		WRAPPED.clear();
 		REQUESTS.clear();
 		MODERN.clear();
-		if (ConfigMixins.modernChat) {
+		if (McFlyConfig.modernChat) {
 			register(new EffectCommand());
 			register(new EnchantCommand());
 			register(new GiveCommand());
@@ -150,7 +153,7 @@ public final class ModernCommands {
 				command = command.substring(1);
 			}
 			String name = command.split(" ", 2)[0];
-			ModernCommand modern = ConfigMixins.modernChat ? MODERN.get(name) : null;
+			ModernCommand modern = McFlyConfig.modernChat ? MODERN.get(name) : null;
 			if (modern != null) {
 				ModernCommandSource source = new ModernCommandSource(sender);
 				ParseResults<ModernCommandSource> parse = dispatcher.parse(command, source);
@@ -285,7 +288,7 @@ public final class ModernCommands {
 
 	/** Sends the player the commands they may use: on login, and whenever their permission changes. */
 	public static synchronized void sendCommands(EntityPlayerMP player) {
-		if (!ConfigMixins.modernChat || player.playerNetServerHandler == null) {
+		if (!McFlyConfig.modernChat || player.playerNetServerHandler == null) {
 			return;
 		}
 		wrapLegacyCommands(player.mcServer);
@@ -309,7 +312,7 @@ public final class ModernCommands {
 		CommandTree.write(root, usage, buf);
 		byte[] bytes = new byte[buf.readableBytes()];
 		buf.readBytes(bytes);
-		EtFuturum.networkWrapper.sendTo(new CommandTreeMessage(bytes), player);
+		McFlyNetwork.CHANNEL.sendTo(new CommandTreeMessage(bytes), player);
 	}
 
 	/** Everyone's permissions may have changed (cheats turned on for the LAN world). */
@@ -342,7 +345,7 @@ public final class ModernCommands {
 				reader.skip();
 			}
 			ParseResults<ModernCommandSource> parse = dispatcher.parse(reader, new ModernCommandSource(player));
-			dispatcher.getCompletionSuggestions(parse).thenAccept(suggestions -> EtFuturum.networkWrapper.sendTo(
+			dispatcher.getCompletionSuggestions(parse).thenAccept(suggestions -> McFlyNetwork.CHANNEL.sendTo(
 				new CommandSuggestionsMessage(request.id, limit(suggestions)), player));
 		} catch (Exception e) {
 			LOGGER.error("Failed to resolve command suggestions for {}", player.getCommandSenderName(), e);

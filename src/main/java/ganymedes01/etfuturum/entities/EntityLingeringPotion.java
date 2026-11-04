@@ -38,7 +38,7 @@ public class EntityLingeringPotion extends EntityPotion implements IEntityAdditi
 			return;
 
 		worldObj.spawnEntityInWorld(new EntityLingeringEffect(worldObj, this));
-		worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), stack.getItemDamage());
+		worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), ganymedes01.etfuturum.potion.ThrownPotions.splashData(stack));
 		setDead();
 	}
 

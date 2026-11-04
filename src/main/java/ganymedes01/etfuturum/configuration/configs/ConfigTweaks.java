@@ -6,7 +6,6 @@ import java.io.File;
 
 public class ConfigTweaks extends ConfigBase {
 
-	public static boolean dyableShulkers;
 
 	public static boolean enableOldGravel;
 	public static boolean enableRoses;
@@ -35,7 +34,6 @@ public class ConfigTweaks extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		dyableShulkers = getBoolean("dyableShulkers", catBedrockParity, true, "Clicking a Shulker to dye them. As an added bonus, you can also click them with a water bucket (water is not consumed) or pour water on them to remove the dye.");
 
 		enableRoses = getBoolean("enableOldRoses", catAbandoned, true, "");
 		enableOldGravel = getBoolean("enableOldGravel", catAbandoned, true, "");

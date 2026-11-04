@@ -66,7 +66,8 @@ public final class EntityTypeIds {
 		{"lingering_effect", "area_effect_cloud"}, {"villager_zombie", "zombie_villager"}, {"end_crystal", "end_crystal"},
 		{"ender_dragon", "ender_dragon"}, {"snow_golem", "snow_golem"}, {"brown_mooshroom", "mooshroom"},
 		{"fireproof_item", "item"}, {"shulker", "shulker"}, {"shulker_candy", "shulker_bullet"},
-		{"boosting_firework_rocket", "firework_rocket"}, {"bee", "bee"}, {"fox", "fox"},
+		{"boosting_firework_rocket", "firework_rocket"}, {"bee", "bee"}, {"fox", "fox"}, {"trident", "trident"},
+		{"polar_bear", "polar_bear"}, {"glow_squid", "glow_squid"}, {"phantom", "phantom"},
 	};
 
 	/** Abstract bases and helpers that have no modern type. */

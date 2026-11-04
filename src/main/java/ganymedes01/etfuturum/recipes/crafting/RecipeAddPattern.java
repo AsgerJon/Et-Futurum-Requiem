@@ -18,6 +18,10 @@ public class RecipeAddPattern implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting grid, World world) {
+		// 26.3 has no patterns in the grid (the loom adds them; spec §66.4): only with the option on
+		if (!io.github.asgerjon.mcfly.config.McFlyConfig.bannerGridPatterns) {
+			return false;
+		}
 		boolean flag = false;
 
 		for (int i = 0; i < grid.getSizeInventory(); i++) {

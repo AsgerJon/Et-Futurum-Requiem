@@ -102,7 +102,8 @@ public final class EntityNbtPattern {
 				if (potion == null) {
 					throw new DecodeException("Unknown effect '" + ItemData.withNamespace(id) + "'");
 				}
-				effect.setByte("Id", (byte) potion.id);
+				// by name, as entities save their effects now (spec §70)
+				effect.setString("id", EffectIds.idOf(potion));
 			}
 			if (map.containsKey("amplifier")) {
 				effect.setByte("Amplifier", (byte) LegacyEntityData.number(map.get("amplifier"), 0));

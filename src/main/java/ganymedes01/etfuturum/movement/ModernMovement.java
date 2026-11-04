@@ -1,8 +1,10 @@
 package ganymedes01.etfuturum.movement;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.elytra.FallFlying;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import ganymedes01.etfuturum.trident.Riptide;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -23,7 +25,7 @@ public final class ModernMovement {
 	 * The elytra's hitbox and eyes come from the pose system too (§16).
 	 */
 	public static boolean isPoseSystemEnabled() {
-		return ConfigMixins.enableModernSneaking || ConfigMixins.enableModernSwimming || ConfigMixins.enableElytra;
+		return McFlyConfig.enableModernSneaking || McFlyConfig.enableModernSwimming || ConfigMixins.enableElytra;
 	}
 
 	/**
@@ -62,23 +64,26 @@ public final class ModernMovement {
 		if (player.isRiding() || isSpectator(player) || canFit(player, desired)) {
 			return desired;
 		}
-		if (ConfigMixins.enableModernSneaking && canFit(player, PlayerPose.CROUCHING)) {
+		if (McFlyConfig.enableModernSneaking && canFit(player, PlayerPose.CROUCHING)) {
 			return PlayerPose.CROUCHING;
 		}
-		if (ConfigMixins.enableModernSwimming) {
+		if (McFlyConfig.enableModernSwimming) {
 			return PlayerPose.SWIMMING;
 		}
 		return desired;
 	}
 
 	private static PlayerPose getDesiredPose(EntityPlayer player) {
-		if (ConfigMixins.enableModernSwimming && ((IPosePlayer) player).etfu$isSwimming()) {
+		if (McFlyConfig.enableModernSwimming && ((IPosePlayer) player).etfu$isSwimming()) {
 			return PlayerPose.SWIMMING;
 		}
 		if (ConfigMixins.enableElytra && isElytraFlying(player)) {
 			return PlayerPose.FALL_FLYING;
 		}
-		if (ConfigMixins.enableModernSneaking && player.isSneaking() && !player.capabilities.isFlying) {
+		if (Riptide.isSpinning(player)) {
+			return PlayerPose.SPIN_ATTACK;
+		}
+		if (McFlyConfig.enableModernSneaking && player.isSneaking() && !player.capabilities.isFlying) {
 			return PlayerPose.CROUCHING;
 		}
 		return PlayerPose.STANDING;
@@ -140,7 +145,7 @@ public final class ModernMovement {
 	 * flight.
 	 */
 	public static boolean isVisuallyCrouching(EntityPlayer player) {
-		if (!ConfigMixins.enableModernSneaking) {
+		if (!McFlyConfig.enableModernSneaking) {
 			return player.isSneaking();
 		}
 		if (player instanceof IClientPosePlayer) {

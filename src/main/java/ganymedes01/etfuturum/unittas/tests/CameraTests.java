@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.ActiveRenderInfo;
 /**
  * The first-person camera at the eyes (SPEC-modern-movement.md §53.5). 1.7.10 works out, each frame, the middle of the
  * near plane (0.05 in front of the camera) relative to the player's eyes: 0.05 ahead of them with the camera at the
- * eyes, as 26.3, and 0.05 behind them with 1.7.10's camera 0.1 back. The picture is checked by ./unittas-compare.sh's
+ * eyes, as 26.3, and 0.05 behind them with 1.7.10's camera 0.1 back. The picture is checked by ./unittas_mcfly-compare.sh's
  * calibration.first_person.
  */
 public class CameraTests extends TasTestCase {

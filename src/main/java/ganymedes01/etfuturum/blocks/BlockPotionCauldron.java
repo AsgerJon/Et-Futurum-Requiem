@@ -126,7 +126,12 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 				ItemStack tippedArrow = ModItems.TIPPED_ARROW.newItemStack(Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
 				final int setMeta = tippedArrow.stackSize >= tipmax ? -1 : meta - (tippedArrow.stackSize < 32 ? 1 : 2);
 
-				if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {
+				// a potion by name (spec §69): the arrows hold the same potion
+				ganymedes01.etfuturum.potion.PotionContents contents = io.github.asgerjon.mcfly.config.McFlyConfig.potionsByName
+					&& ganymedes01.etfuturum.potion.NamedPotions.isReady() ? ganymedes01.etfuturum.potion.PotionContents.of(potionCauldron.potion) : null;
+				if (contents != null && contents.potion() != null) {
+					ganymedes01.etfuturum.potion.PotionContents.write(tippedArrow, false, contents.potion(), contents.customEffects(), contents.customColor(), contents.customName());
+				} else if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {
 					NBTTagCompound tag = new NBTTagCompound();
 					tag.setTag("CustomPotionEffects", potionCauldron.potion.getTagCompound().getTagList("CustomPotionEffects", 10).copy());
 					tippedArrow.setTagCompound(tag);

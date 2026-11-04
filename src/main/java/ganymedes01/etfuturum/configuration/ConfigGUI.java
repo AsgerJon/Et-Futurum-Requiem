@@ -4,6 +4,7 @@ import cpw.mods.fml.client.config.DummyConfigElement;
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 import ganymedes01.etfuturum.lib.Reference;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -16,7 +17,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
- * The in-game config screen: one entry per config file, each holding that file's categories and their options.
+ * The in-game config screen: one entry per config file, each holding that file's categories and their options, and
+ * McFly's (our own options, config/mcfly.cfg).
  * Closing it with a change saves the file and reloads that config's values (ConfigBase.onConfigChanged); options
  * read at startup, the mixin toggles above all, still need a restart.
  */
@@ -41,6 +43,8 @@ public class ConfigGUI extends GuiConfig {
 			String label = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 			list.add(new DummyConfigElement.DummyCategoryElement(label, label, categories));
 		}
+		// ours, in their own file (spec §79 B2)
+		list.add(new DummyConfigElement.DummyCategoryElement("McFly", "McFly", McFlyConfig.screenCategories()));
 		return list;
 	}
 }

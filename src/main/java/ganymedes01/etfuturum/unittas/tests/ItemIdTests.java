@@ -1,11 +1,17 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
 import ganymedes01.etfuturum.unittas.TasTestCase;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /** Modern ids for 1.7.10's variants (spec §48): vanilla's by item and damage, EFR's by the name the player sees. */
 public class ItemIdTests extends TasTestCase {
@@ -66,6 +72,31 @@ public class ItemIdTests extends TasTestCase {
 		assertGivesNamed("white_bed", "White Bed");
 		assertGivesNamed("red_shulker_box", "Red Shulker Box");
 		assertGivesNamed("white_banner", "White Banner");
+	}
+
+	/** The user's report (2026-11-01): EFR's double slab shares its slab's name and got the id, so this gave double slabs. */
+	public void testEfrSlabIsTheSlab() {
+		if (!ModBlocks.SMOOTH_QUARTZ_SLAB.isEnabled()) {
+			skipTest("no smooth quartz slab");
+		}
+		onServer(() -> player().inventory.clearInventory(null, -1));
+		assertEqual(Item.getItemFromBlock(ModBlocks.SMOOTH_QUARTZ_SLAB.get()), give("smooth_quartz_slab").getItem());
+	}
+
+	/** Modern has no double slab item: a double slab keeps only its registry name, never a slab's modern id. */
+	public void testNoModernIdGivesADoubleSlab() {
+		List<String> doubles = onServer(() -> {
+			List<String> found = new ArrayList<>();
+			for (String id : ItemIds.ids()) {
+				Item item = ItemIds.byId(id).item();
+				if (item instanceof ItemBlock itemBlock && itemBlock.field_150939_a instanceof BlockSlab slab && slab.isOpaqueCube()
+					&& !id.equals(String.valueOf(Item.itemRegistry.getNameForObject(item)).toLowerCase(Locale.ROOT))) {
+					found.add(id);
+				}
+			}
+			return found;
+		});
+		assertEqual(new ArrayList<String>(), doubles);
 	}
 
 	public void testEfrOwnName() {

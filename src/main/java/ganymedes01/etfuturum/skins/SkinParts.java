@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.skins;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -17,7 +18,7 @@ public final class SkinParts {
 	/** Whether the player shows this part; everything is shown while the byte is not there. */
 	public static boolean shown(EntityPlayer player, SkinPart part) {
 		try {
-			return (player.getDataWatcher().getWatchableObjectByte(ConfigFunctions.skinPartsDataWatcherId) & part.mask()) != 0;
+			return (player.getDataWatcher().getWatchableObjectByte(McFlyConfig.skinPartsDataWatcherId) & part.mask()) != 0;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			return true;
 		}
@@ -26,14 +27,14 @@ public final class SkinParts {
 	/** Server side: the player's parts, as the message brought them. */
 	public static void set(EntityPlayer player, int mask) {
 		if (!player.worldObj.isRemote) {
-			player.getDataWatcher().updateObject(ConfigFunctions.skinPartsDataWatcherId, (byte) (mask & ALL));
+			player.getDataWatcher().updateObject(McFlyConfig.skinPartsDataWatcherId, (byte) (mask & ALL));
 		}
 	}
 
 	/** The local settings as a byte. */
 	public static int localMask() {
 		int mask = 0;
-		boolean[] shown = ConfigFunctions.skinPartsShown();
+		boolean[] shown = McFlyConfig.skinPartsShown();
 		for (SkinPart part : SkinPart.VALUES) {
 			if (shown[part.ordinal()]) {
 				mask |= part.mask();

@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.offhand;
 import cpw.mods.fml.common.eventhandler.Event;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.elytra.FallFlying;
-import ganymedes01.etfuturum.network.UseOffhandMessage;
+import io.github.asgerjon.mcfly.network.UseOffhandMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.recipes;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -84,6 +86,7 @@ public class ModRecipes {
 		if (ConfigBlocksItems.enableBanners) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
+			RecipeSorter.register(Reference.MOD_ID + ".RecipeShieldDecoration", ganymedes01.etfuturum.recipes.crafting.RecipeShieldDecoration.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		}
 		RecipeSorter.register(Reference.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
 		RecipeSorter.register(Reference.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
@@ -437,8 +440,18 @@ public class ModRecipes {
 			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
 		}
 
-		if (ModItems.SHIELD.isEnabled()) {
-			addShapedRecipe(ModItems.SHIELD.newItemStack(), "WoW", "WWW", " W ", 'W', "plankWood", 'o', "ingotIron");
+		if (McFlyItems.SHIELD.isEnabled()) {
+			addShapedRecipe(McFlyItems.SHIELD.newItemStack(), "WoW", "WWW", " W ", 'W', "plankWood", 'o', "ingotIron");
+		}
+
+		// the spyglass (spec §64.5): an amethyst shard over two copper ingots
+		// the glow item frame (spec §67.4): shapeless, an item frame and a glow ink sac
+		if (McFlyItems.GLOW_ITEM_FRAME.isEnabled()) {
+			GameRegistry.addShapelessRecipe(McFlyItems.GLOW_ITEM_FRAME.newItemStack(), new ItemStack(Items.item_frame), McFlyItems.GLOW_INK_SAC.newItemStack());
+		}
+
+		if (McFlyItems.SPYGLASS.isEnabled()) {
+			addShapedRecipe(McFlyItems.SPYGLASS.newItemStack(), "a", "c", "c", 'a', "gemAmethyst", 'c', "ingotCopper");
 		}
 
 		if (ConfigFunctions.enableRecipeForTotem) {
@@ -730,8 +743,26 @@ public class ModRecipes {
 		}
 		GameRegistry.addRecipe(new RecipeDuplicatePattern());
 		GameRegistry.addRecipe(new RecipeAddPattern());
+		// a banner on a shield (26.3's ShieldDecorationRecipe, spec §66.9)
+		if (McFlyItems.SHIELD.isEnabled()) {
+			GameRegistry.addRecipe(new ganymedes01.etfuturum.recipes.crafting.RecipeShieldDecoration());
+		}
+		// 26.3's banner pattern items: paper and a thing, shapeless (spec §66.6)
+		Object[][] patternItems = {{McFlyItems.FLOWER_BANNER_PATTERN, new ItemStack(Blocks.red_flower, 1, 8)},
+			{McFlyItems.CREEPER_BANNER_PATTERN, new ItemStack(Items.skull, 1, 4)}, {McFlyItems.SKULL_BANNER_PATTERN, new ItemStack(Items.skull, 1, 1)},
+			{McFlyItems.MOJANG_BANNER_PATTERN, new ItemStack(Items.golden_apple, 1, 1)},
+			{McFlyItems.FIELD_MASONED_BANNER_PATTERN, new ItemStack(Blocks.brick_block)}, {McFlyItems.BORDURE_INDENTED_BANNER_PATTERN, new ItemStack(Blocks.vine)}};
+		for (Object[] patternItem : patternItems) {
+			if (((ModItems) patternItem[0]).isEnabled()) {
+				GameRegistry.addShapelessRecipe(((ModItems) patternItem[0]).newItemStack(), new ItemStack(Items.paper), patternItem[1]);
+			}
+		}
 
 		addShapedRecipe(ModItems.WOODEN_ARMORSTAND.newItemStack(), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
+		// the turtle shell, from five scutes (spec §69.13)
+		if (McFlyItems.TURTLE_HELMET.isEnabled()) {
+			addShapedRecipe(McFlyItems.TURTLE_HELMET.newItemStack(), "xxx", "x x", 'x', McFlyItems.TURTLE_SCUTE.newItemStack());
+		}
 
 		addShapedRecipe(ModItems.RABBIT_STEW.newItemStack(), " R ", "CPM", " B ", 'R', ModItems.RABBIT_COOKED.newItemStack(), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood");
 		addShapedRecipe(ModItems.RABBIT_STEW.newItemStack(), " R ", "CPD", " B ", 'R', ModItems.RABBIT_COOKED.newItemStack(), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', "bowlWood");
@@ -743,9 +774,9 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.BEETROOT_SOUP.newItemStack(), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot"));
 
-		addSmelting(ModBlocks.KELP.get(), ModItems.DRIED_KELP.newItemStack(), 0.1F);
-		addShapedRecipe(ModBlocks.DRIED_KELP_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.DRIED_KELP.newItemStack());
-		addShapelessRecipe(ModItems.DRIED_KELP.newItemStack(9), ModBlocks.DRIED_KELP_BLOCK.newItemStack());
+		addSmelting(McFlyBlocks.KELP.get(), McFlyItems.DRIED_KELP.newItemStack(), 0.1F);
+		addShapedRecipe(McFlyBlocks.DRIED_KELP_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', McFlyItems.DRIED_KELP.newItemStack());
+		addShapelessRecipe(McFlyItems.DRIED_KELP.newItemStack(9), McFlyBlocks.DRIED_KELP_BLOCK.newItemStack());
 
 		if (!ModsList.GTNH.isLoaded()) {
 			addShapedRecipe(ModBlocks.END_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.END_BRICKS.get());
@@ -871,9 +902,9 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.NETHERITE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
 		}
 		addShapedRecipe(ModItems.NETHERITE_INGOT.newItemStack(9), "x", 'x', ModBlocks.NETHERITE_BLOCK.get());
-		if (ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
+		if (McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.isEnabled()) {
 			// Modern's copy recipe: seven diamonds, netherrack and a template make two templates.
-			addShapedRecipe(ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.newItemStack(2), "dtd", "dnd", "ddd", 'd', "gemDiamond", 't', ModItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 'n', Blocks.netherrack);
+			addShapedRecipe(McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.newItemStack(2), "dtd", "dnd", "ddd", 'd', "gemDiamond", 't', McFlyItems.NETHERITE_UPGRADE_SMITHING_TEMPLATE.get(), 'n', Blocks.netherrack);
 		}
 
 		addSmelting(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new ItemStack(Items.gold_ingot), .1F);
@@ -1003,6 +1034,9 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.COPPER_TRAPDOOR.newItemStack(2), "xxX", "xxX", 'x', ModItems.COPPER_INGOT.newItemStack());
 		}
 
+		//Lightning rod
+		addShapedRecipe(McFlyBlocks.LIGHTNING_ROD.newItemStack(), "x", "x", "x", 'x', "ingotCopper");
+
 
 		boolean slimeball = true;
 		for (int k = 0; k <= IDegradable.waxStrings.length; k++) {
@@ -1071,6 +1105,12 @@ public class ModRecipes {
 				addShapelessRecipe(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.EXPOSED_COPPER_TRAPDOOR.newItemStack());
 				addShapelessRecipe(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.WEATHERED_COPPER_TRAPDOOR.newItemStack());
 				addShapelessRecipe(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.OXIDIZED_COPPER_TRAPDOOR.newItemStack());
+
+				//Lightning rod to waxed lightning rod
+				addShapelessRecipe(McFlyBlocks.WAXED_LIGHTNING_ROD.newItemStack(), waxString, McFlyBlocks.LIGHTNING_ROD.newItemStack());
+				addShapelessRecipe(McFlyBlocks.WAXED_EXPOSED_LIGHTNING_ROD.newItemStack(), waxString, McFlyBlocks.EXPOSED_LIGHTNING_ROD.newItemStack());
+				addShapelessRecipe(McFlyBlocks.WAXED_WEATHERED_LIGHTNING_ROD.newItemStack(), waxString, McFlyBlocks.WEATHERED_LIGHTNING_ROD.newItemStack());
+				addShapelessRecipe(McFlyBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.newItemStack(), waxString, McFlyBlocks.OXIDIZED_LIGHTNING_ROD.newItemStack());
 			}
 		}
 
@@ -1136,13 +1176,8 @@ public class ModRecipes {
 
 			PotionEffect effect = EtFuturum.getSuspiciousStewEffect(getStewFlowers().get(i));
 
-			stew.stackTagCompound = new NBTTagCompound();
-			NBTTagList effectsList = new NBTTagList();
-			stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
-			NBTTagCompound potionEffect = new NBTTagCompound();
-			potionEffect.setByte(ItemSuspiciousStew.stewEffect, (byte) effect.getPotionID());
-			potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effect.getDuration());
-			effectsList.appendTag(potionEffect);
+			// the stew's effect by name (spec §70)
+			ItemSuspiciousStew.addEffect(stew, Potion.potionTypes[effect.getPotionID()], effect.getDuration());
 			addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
@@ -1225,6 +1260,9 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.NETHER_BRICK_WALL.newItemStack(6), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
 
 		addShapedRecipe(ModBlocks.SMITHING_TABLE.newItemStack(), "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
+
+		// 26.3's: an iron ingot where 1.16 to 1.21.4 had a netherite ingot
+		addShapedRecipe(McFlyBlocks.LODESTONE.newItemStack(), "SSS", "S#S", "SSS", 'S', new ItemStack(Blocks.stonebrick, 1, 3), '#', "ingotIron");
 
 		addShapedRecipe(ModBlocks.FLETCHING_TABLE.newItemStack(), "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
 

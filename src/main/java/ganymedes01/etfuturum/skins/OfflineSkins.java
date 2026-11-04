@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.skins;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Iterables;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,7 +38,7 @@ import java.util.concurrent.Future;
  * player's own client gets the data in an {@code OfflineSkinMessage}. For test servers: any name wears the skin of
  * the account of that name. Answers are kept for a day in etfuturum_offline_skins.json next to the server's world,
  * which also keeps Mojang's limit of one request per profile per minute out of the way across restarts.
- * ConfigMixins.offlineSkins.
+ * McFlyConfig.offlineSkins.
  */
 public final class OfflineSkins {
 

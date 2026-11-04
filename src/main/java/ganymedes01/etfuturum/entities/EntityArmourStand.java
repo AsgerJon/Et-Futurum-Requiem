@@ -20,7 +20,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class EntityArmourStand extends EntityLiving {
 
@@ -281,10 +284,17 @@ public class EntityArmourStand extends EntityLiving {
 		}
 	}
 
+	/** Damage types that break a stand at once (26.3's always_kills_armor_stands, as 1.7.10 names them). */
+	private static final Set<String> ALWAYS_KILLS = new HashSet<>(Arrays.asList("arrow", "trident", "fireball", "witherSkull"));
+
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (isDead) return false;
 		if (!worldObj.isRemote && !canInteract) {
+			// 26.3's first rule: with mob griefing off, nothing a mob causes touches it (its arrows, a creeper's blast)
+			if (!worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing") && source.getEntity() instanceof EntityLiving) {
+				return false;
+			}
 			if (DamageSource.outOfWorld.equals(source)) {
 				setDead();
 				return false;
@@ -305,10 +315,12 @@ public class EntityArmourStand extends EntityLiving {
 				damageArmorStand(4.0F);
 				return false;
 			} else {
-				boolean flag = "arrow".equals(source.getDamageType());
+				// 26.3's always_kills_armor_stands, the ones 1.7.10 has: they break it at once and count as a hit (so a
+				// trident's Channeling strikes it, SPEC-modern-movement.md §58.3); punches (two within 5 ticks) don't count
+				boolean alwaysKills = ALWAYS_KILLS.contains(source.getDamageType());
 				boolean flag1 = "player".equals(source.getDamageType());
 
-				if (!flag1 && !flag)
+				if (!flag1 && !alwaysKills)
 					return false;
 				if (source.getSourceOfDamage() instanceof EntityArrow)
 					source.getSourceOfDamage().setDead();
@@ -318,11 +330,11 @@ public class EntityArmourStand extends EntityLiving {
 				else if (source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode) {
 					playParticles();
 					setDead();
-					return false;
+					return alwaysKills;
 				} else {
 					long i = worldObj.getTotalWorldTime();
 
-					if (i - punchCooldown > 5L && !flag)
+					if (i - punchCooldown > 5L && !alwaysKills)
 						punchCooldown = i;
 					else {
 						dropBlock();
@@ -330,7 +342,7 @@ public class EntityArmourStand extends EntityLiving {
 						setDead();
 					}
 
-					return false;
+					return alwaysKills;
 				}
 			}
 		}

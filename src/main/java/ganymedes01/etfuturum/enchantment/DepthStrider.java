@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.enchantment;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import net.minecraft.enchantment.Enchantment;
@@ -12,7 +13,7 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 public class DepthStrider extends Enchantment {
 
 	public DepthStrider() {
-		super(ConfigEnchantsPotions.depthStriderID, 2, EnumEnchantmentType.armor_feet);
+		super(McFlyConfig.depthStriderID, 2, EnumEnchantmentType.armor_feet);
 		Enchantment.addToBookList(this);
 		setName("depth_strider");
 	}

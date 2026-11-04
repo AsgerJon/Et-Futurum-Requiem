@@ -13,7 +13,10 @@ import net.minecraft.world.World;
 public class ItemSuspiciousStew extends ItemSoup {
 
 	public static final String effectsList = "Effects";
+	/** An old stew's effect number; stews are written by name now ({@link #stewEffectName}). */
 	public static final String stewEffect = "EffectId";
+	/** 26.3's name of the effect in a stew's entry. */
+	public static final String stewEffectName = "id";
 	public static final String stewEffectDuration = "EffectDuration";
 	public static final String stewEffectLevel = "EffectLevel";
 	//The potion ID should be set as a byte
@@ -41,17 +44,46 @@ public class ItemSuspiciousStew extends ItemSoup {
 				NBTTagList list = (NBTTagList) nbtBase.getTag(effectsList);
 				for (int i = 0; i < list.tagCount(); i++) {
 					NBTTagCompound nbt = list.getCompoundTagAt(i);
-					if (!nbt.hasKey(stewEffect) || nbt.getInteger(stewEffect) <= 0 || nbt.getInteger(stewEffect) >= Potion.potionTypes.length || Potion.potionTypes[nbt.getInteger(stewEffect)] == null)
+					Potion effect = effectOf(nbt);
+					if (effect == null)
 						continue;
 					int effectDuration = 160;
 					if (nbt.hasKey(stewEffectDuration)) {
 						effectDuration = nbt.getInteger(stewEffectDuration);
 					}
 					effectDuration = effectDuration > 1 ? effectDuration : 1;
-					player.addPotionEffect(new PotionEffect(nbt.getByte(stewEffect), effectDuration, nbt.getByte(stewEffectLevel)));
+					player.addPotionEffect(new PotionEffect(effect.id, effectDuration, nbt.getByte(stewEffectLevel)));
 				}
 			}
 		}
+	}
+
+	/** Adds an effect to the stew, by its name (26.3's `suspicious_stew_effects`: {id, duration}; spec §70, stage B). */
+	public static void addEffect(ItemStack stew, Potion potion, int duration) {
+		if (!stew.hasTagCompound()) {
+			stew.setTagCompound(new NBTTagCompound());
+		}
+		if (!stew.getTagCompound().hasKey(effectsList, 9)) {
+			stew.getTagCompound().setTag(effectsList, new NBTTagList());
+		}
+		NBTTagCompound entry = new NBTTagCompound();
+		String name = ganymedes01.etfuturum.potion.EffectRegistry.key(potion);
+		if (name != null) {
+			entry.setString(stewEffectName, name);
+		} else {
+			entry.setByte(stewEffect, (byte) potion.id);
+		}
+		entry.setInteger(stewEffectDuration, duration);
+		stew.getTagCompound().getTagList(effectsList, 10).appendTag(entry);
+	}
+
+	/** The effect of one of the stew's entries, or null: by its name, or an old stew's number. */
+	public static Potion effectOf(NBTTagCompound entry) {
+		if (entry.hasKey(stewEffectName, 8)) {
+			return ganymedes01.etfuturum.potion.EffectRegistry.get(entry.getString(stewEffectName));
+		}
+		int id = entry.getByte(stewEffect);
+		return id > 0 && id < Potion.potionTypes.length ? Potion.potionTypes[id] : null;
 	}
 
 	public boolean hasPotion(ItemStack stack) {

@@ -1,5 +1,8 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import io.github.asgerjon.mcfly.network.McFlyNetwork;
+
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
@@ -41,6 +44,7 @@ import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.FallFlying;
 
+import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -56,18 +60,18 @@ import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
+import ganymedes01.etfuturum.gamerule.DoInsomnia;
 import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
 import ganymedes01.etfuturum.gamerule.PlayersSleepingPercentage;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.OfflineSkinMessage;
+import io.github.asgerjon.mcfly.network.OfflineSkinMessage;
 import ganymedes01.etfuturum.skins.OfflineSkins;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
-import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 
@@ -88,6 +92,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
+import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -100,6 +105,7 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
@@ -107,6 +113,7 @@ import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
@@ -154,6 +161,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldServer;
@@ -209,6 +217,7 @@ import java.nio.file.Path;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -240,13 +249,13 @@ public class ServerEventHandler {
 	/** The skin data an offline server looked up for a player goes to that player's own client (OfflineSkins). */
 	@SubscribeEvent
 	public void onPlayerLoggedIn(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
-		if (ConfigMixins.modernChat && event.player instanceof EntityPlayerMP player) {
+		if (McFlyConfig.modernChat && event.player instanceof EntityPlayerMP player) {
 			ganymedes01.etfuturum.command.modern.ModernCommands.sendCommands(player);
 		}
-		if (ConfigMixins.offlineSkins && event.player instanceof EntityPlayerMP player && OfflineSkins.wasResolved(player.getGameProfile())) {
+		if (McFlyConfig.offlineSkins && event.player instanceof EntityPlayerMP player && OfflineSkins.wasResolved(player.getGameProfile())) {
 			com.mojang.authlib.properties.Property textures = OfflineSkins.textures(player.getGameProfile());
 			if (textures != null && textures.getSignature() != null) {
-				EtFuturum.networkWrapper.sendTo(new OfflineSkinMessage(player.getCommandSenderName(), textures.getValue(), textures.getSignature()), player);
+				McFlyNetwork.CHANNEL.sendTo(new OfflineSkinMessage(player.getCommandSenderName(), textures.getValue(), textures.getSignature()), player);
 			}
 		}
 	}
@@ -399,14 +408,14 @@ public class ServerEventHandler {
 			// --- Left-click an item frame --- //
 			if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityItemFrame itemframe) {
 				if (itemframe.getDisplayedItem() != null) {
-					event.target.playSound(Reference.MCAssetVer + ":entity.item_frame.remove_item", 1.0F, 1.0F);
+					event.target.playSound(Reference.MCAssetVer + ":entity." + ganymedes01.etfuturum.entities.ModernFrames.soundName(itemframe) + ".remove_item", 1.0F, 1.0F);
 				} else {
-					event.target.playSound(Reference.MCAssetVer + ":entity.item_frame.break", 1.0F, 1.0F);
+					event.target.playSound(Reference.MCAssetVer + ":entity." + ganymedes01.etfuturum.entities.ModernFrames.soundName(itemframe) + ".break", 1.0F, 1.0F);
 				}
 			} else if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityPainting) { // --- Break a painting --- //
 				event.target.playSound(Reference.MCAssetVer + ":entity.painting.break", 1.0F, 1.0F);
 			} else if (ConfigSounds.leashSounds && event.target instanceof EntityLeashKnot) { // --- Break a lead knot --- //
-				event.target.playSound(Reference.MCAssetVer + ":entity.leash_knot.break", 1.0F, 1.0F);
+				event.target.playSound(Reference.MCAssetVer + ":item.lead.untied", 1.0F, 1.0F);
 			}
 		}
 	}
@@ -418,11 +427,14 @@ public class ServerEventHandler {
 
 		String sound = "";
 		if (ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityItemFrame) {
-			sound = "item_frame";
+			sound = ganymedes01.etfuturum.entities.ModernFrames.soundName(event.entity);
 		} else if (ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityPainting) {
 			sound = "painting";
 		} else if (ConfigSounds.leashSounds && event.entity instanceof EntityLeashKnot) {
-			sound = "leash_knot";
+			// 26.3's knot plays the lead's sound (`LeashFenceKnotEntity.playPlacementSound`); entity.leash_knot.place
+			// isn't in 1.21.10's sound list (the assets EFR plays), so it played nothing (SPEC-modern-movement.md §64.6)
+			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":item.lead.tied", 1.0F, 1.0F);
+			return;
 		}
 		if (!sound.equals("")) {
 			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":entity." + sound + ".place", 1.0F, 1.0F);
@@ -505,12 +517,32 @@ public class ServerEventHandler {
 		if(isChunkLoaded(world.provider.dimensionId, chunkX, chunkZ)){
 			world.spawnEntityInWorld(newEntity);
 		}else{
-			IChunkProvider chunkProv = world.getChunkProvider();
-			if(chunkProv.chunkExists(chunkX, chunkZ)){
-				Chunk chunk = chunkProv.loadChunk(chunkX, chunkZ);
-				chunk.addEntity(newEntity);
-				chunk.removeEntity(oldEntity);
+			// its chunk is loading: Forge is going through the chunk's entity list by index, and taking the old one out
+			// now skipped the next (never in the world, frozen and unseen, spec §75); the swap waits for the tick's end
+			REPLACE_AFTER_LOADING.add(new Entity[] {oldEntity, newEntity});
+		}
+	}
+
+	/** Entities met while their chunk loaded, with their replacements: swapped at the end of their world's tick. */
+	private static final java.util.Queue<Entity[]> REPLACE_AFTER_LOADING = new java.util.concurrent.ConcurrentLinkedQueue<>();
+
+	/** The swaps of this world's entities met while their chunks loaded (from the world tick's end). */
+	private static void replaceAfterLoading(World world) {
+		for (java.util.Iterator<Entity[]> it = REPLACE_AFTER_LOADING.iterator(); it.hasNext(); ) {
+			Entity[] pair = it.next();
+			Entity oldEntity = pair[0];
+			if (oldEntity.worldObj != world) {
+				continue;
 			}
+			it.remove();
+			IChunkProvider chunks = world.getChunkProvider();
+			// a chunk unloaded meanwhile keeps the old entity, swapped when it loads again
+			if (oldEntity.isDead || !oldEntity.addedToChunk || !chunks.chunkExists(oldEntity.chunkCoordX, oldEntity.chunkCoordZ)) {
+				continue;
+			}
+			Chunk chunk = chunks.provideChunk(oldEntity.chunkCoordX, oldEntity.chunkCoordZ);
+			chunk.removeEntity(oldEntity);
+			world.spawnEntityInWorld(pair[1]);
 		}
 	}
 
@@ -1327,10 +1359,13 @@ public class ServerEventHandler {
 	private void dropHead(EntityLivingBase entity, DamageSource source, int looting, List<EntityItem> drops) {
 		if (isPoweredCreeper(source)) {
 			int meta = getHeadMetadata(entity);
-			if (meta >= 0)
+			// modern: one head a creeper, the first it kills that has one (spec §58.3)
+			if (meta >= 0 && (!McFlyConfig.modernLightning || creepersThatDroppedAHead.add(source.getEntity())))
 				addDrop(new ItemStack(Items.skull, 1, meta), entity, drops);
 		}
 	}
+
+	private static final Set<Entity> creepersThatDroppedAHead = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private void addDrop(ItemStack stack, EntityLivingBase entity, List<EntityItem> list) {
 		if (stack.stackSize <= 0)
@@ -1356,6 +1391,8 @@ public class ServerEventHandler {
 			return 2;
 		else if (entity.getClass() == EntitySkeleton.class && ((EntitySkeleton) entity).getSkeletonType() == 0)
 			return 0;
+		else if (McFlyConfig.modernLightning && entity.getClass() == EntitySkeleton.class && ((EntitySkeleton) entity).getSkeletonType() == 1)
+			return 1;
 		else if (entity.getClass() == EntityCreeper.class)
 			return 4;
 
@@ -1375,18 +1412,8 @@ public class ServerEventHandler {
 					entityendermite.aggroEndermen(64);
 				}
 			}
-
-			ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
-
-			for (ForgeDirection enumfacing : horizontal) {
-				TileEntity tile = event.entity.worldObj.getTileEntity(MathHelper.floor_double(event.targetX + enumfacing.offsetX), MathHelper.floor_double(event.targetY), MathHelper.floor_double(event.targetZ + enumfacing.offsetZ));
-				if (!event.entity.worldObj.isRemote && tile instanceof TileEntityGateway && !((TileEntityGateway) tile).isCoolingDown()) {
-					((TileEntityGateway) tile).teleportEntity(event.entity);
-					tile.markDirty();
-					event.setCanceled(true);
-					break;
-				}
-			}
+			// a pearl goes through an end gateway itself now (26.3's, TileEntityGateway): EFR's sending its thrower through
+			// when it landed beside one is gone
 		}
 	}
 
@@ -1425,15 +1452,6 @@ public class ServerEventHandler {
 						break;
 					}
 				}
-			}
-		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(entity) == 51 /*Skeleton ID*/ && world.rand.nextFloat() < .80F && world.canBlockSeeTheSky(x, y + 1, z)) {
-			Chunk chunk = world.getChunkFromBlockCoords(x, z);
-			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()));
-			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
-				EntityStray stray = new EntityStray(world);
-				replaceEntity(entity, stray, world, event);
-				stray.onSpawnWithEgg(null);
-				event.setResult(Result.DENY);
 			}
 		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(entity) == 54 /*Zombie ID*/ && world.rand.nextFloat() < .80F && world.canBlockSeeTheSky(x, y + 1, z)) {
 			Chunk chunk = world.getChunkFromBlockCoords(x, z);
@@ -1618,16 +1636,16 @@ public class ServerEventHandler {
 
 			if (stack != null && itemframe.getDisplayedItem() == null) // This frame is empty and is getting an item placed inside.
 			{
-				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer + ":entity.item_frame.add_item", 1.0F, 1.0F);
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer + ":entity." + ganymedes01.etfuturum.entities.ModernFrames.soundName(itemframe) + ".add_item", 1.0F, 1.0F);
 			} else if (itemframe.getDisplayedItem() != null) // There is an item in there, it's going to be rotated.
 			{
-				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer + ":entity.item_frame.rotate_item", 1.0F, 1.0F);
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer + ":entity." + ganymedes01.etfuturum.entities.ModernFrames.soundName(itemframe) + ".rotate_item", 1.0F, 1.0F);
 			}
 			return;
 		}
 
 		if (ConfigSounds.leashSounds && target instanceof EntityLeashKnot) { // --- Remove a Lead Knot --- //
-			world.playSoundEffect(target.posX + 0.5, target.posY + 0.5, target.posZ + 0.5, Reference.MCAssetVer + ":entity.leash_knot.break", 1.0F, 1.0F);
+			world.playSoundEffect(target.posX + 0.5, target.posY + 0.5, target.posZ + 0.5, Reference.MCAssetVer + ":item.lead.untied", 1.0F, 1.0F);
 		}
 	}
 
@@ -1715,36 +1733,101 @@ public class ServerEventHandler {
 		return p_70672_2_;
 	}
 
+	/**
+	 * Lightning on an entity. With modernLightning, as 26.3 (spec §58.3): hanging entities and armour stands are left
+	 * alone; a pig becomes a zombie pigman and a villager a witch, both never despawning, except on Peaceful, where they
+	 * are only struck; a mooshroom swaps colour once a bolt, unharmed, keeping its age, name, health and leash.
+	 */
 	@SubscribeEvent
 	public void entityStruckByLightning(EntityStruckByLightningEvent event) {
-		if (ConfigEntities.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager villager) {
-			if (!villager.worldObj.isRemote) {
-				EntityWitch witch = new EntityWitch(villager.worldObj);
+		Entity entity = event.entity;
+		if (entity.worldObj.isRemote) {
+			return;
+		}
+		boolean modern = McFlyConfig.modernLightning;
+		boolean peaceful = entity.worldObj.difficultySetting == EnumDifficulty.PEACEFUL;
+		if (modern && (entity instanceof EntityHanging || entity instanceof EntityArmourStand)) {
+			event.setCanceled(true);
+		} else if (modern && entity.getClass() == EntityPig.class) {
+			event.setCanceled(true);
+			if (peaceful) {
+				struckAsAnything(entity);
+			} else {
+				EntityPig pig = (EntityPig) entity;
+				EntityPigZombie pigman = new EntityPigZombie(pig.worldObj);
+				pigman.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+				convert(pig, pigman);
+			}
+		} else if (ConfigEntities.enableVillagerTurnsIntoWitch && entity instanceof EntityVillager villager && !(modern && peaceful)) {
+			EntityWitch witch = new EntityWitch(villager.worldObj);
+			if (modern) {
+				event.setCanceled(true);
+				witch.onSpawnWithEgg(null);
+				convert(villager, witch);
+			} else {
 				witch.copyLocationAndAnglesFrom(villager);
 				witch.onSpawnWithEgg(null);
 				villager.worldObj.spawnEntityInWorld(witch);
 				villager.setDead();
 			}
-		} else if (ConfigEntities.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class) {
-			EntityMooshroom mooshroom = (EntityMooshroom) event.entity;
-			if (!mooshroom.worldObj.isRemote) {
-				EntityBrownMooshroom brownmooshroom = new EntityBrownMooshroom(mooshroom.worldObj);
-				brownmooshroom.copyLocationAndAnglesFrom(mooshroom);
-				brownmooshroom.onSpawnWithEgg(null);
-				mooshroom.worldObj.spawnEntityInWorld(brownmooshroom);
-				brownmooshroom.playSound(Reference.MCAssetVer + ":entity.mooshroom.convert", 1, 1);
+		} else if (ConfigEntities.enableBrownMooshroom && entity instanceof EntityMooshroom mooshroom
+			&& (entity.getClass() == EntityMooshroom.class || entity.getClass() == EntityBrownMooshroom.class)) {
+			if (modern) {
+				// modern's mooshroom only changes colour, once a bolt, and takes no harm
+				event.setCanceled(true);
+				if (mooshroomBolts.get(mooshroom) == event.lightning) {
+					return;
+				}
+			} else if (entity.ticksExisted <= 40) {
+				return;
+			}
+			EntityMooshroom swapped = mooshroom instanceof EntityBrownMooshroom ? new EntityMooshroom(mooshroom.worldObj) : new EntityBrownMooshroom(mooshroom.worldObj);
+			if (modern) {
+				swapped.setGrowingAge(mooshroom.getGrowingAge());
+				convert(mooshroom, swapped);
+				swapped.setHealth(mooshroom.getHealth());
+				mooshroomBolts.put(swapped, event.lightning);
+				swapped.playSound(Reference.MCAssetVer + ":entity.mooshroom.convert", 2.0F, 1.0F);
+			} else {
+				swapped.copyLocationAndAnglesFrom(mooshroom);
+				swapped.onSpawnWithEgg(null);
+				mooshroom.worldObj.spawnEntityInWorld(swapped);
+				swapped.playSound(Reference.MCAssetVer + ":entity.mooshroom.convert", 1, 1);
 				mooshroom.setDead();
 			}
-		} else if (ConfigEntities.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
-			EntityBrownMooshroom brownmooshroom = (EntityBrownMooshroom) event.entity;
-			if (!brownmooshroom.worldObj.isRemote) {
-				EntityMooshroom mooshroom = new EntityMooshroom(brownmooshroom.worldObj);
-				mooshroom.copyLocationAndAnglesFrom(brownmooshroom);
-				mooshroom.onSpawnWithEgg(null);
-				brownmooshroom.worldObj.spawnEntityInWorld(mooshroom);
-				mooshroom.playSound(Reference.MCAssetVer + ":entity.mooshroom.convert", 1, 1);
-				brownmooshroom.setDead();
-			}
+		}
+	}
+
+	/** The bolt each swapped mooshroom came from, so the same bolt doesn't swap it back. */
+	private static final Map<EntityMooshroom, EntityLightningBolt> mooshroomBolts = new WeakHashMap<>();
+
+	/**
+	 * Modern's conversion (ConversionParams.single): the new mob takes the old one's place, turn, name and leash, and
+	 * never despawns; the old one goes.
+	 */
+	private static void convert(EntityLiving from, EntityLiving to) {
+		to.setLocationAndAngles(from.posX, from.posY, from.posZ, from.rotationYaw, from.rotationPitch);
+		to.renderYawOffset = from.renderYawOffset;
+		to.rotationYawHead = from.rotationYawHead;
+		if (from.hasCustomNameTag()) {
+			to.setCustomNameTag(from.getCustomNameTag());
+			to.setAlwaysRenderNameTag(from.getAlwaysRenderNameTag());
+		}
+		to.func_110163_bv();
+		from.worldObj.spawnEntityInWorld(to);
+		if (from.getLeashed() && from.getLeashedToEntity() != null) {
+			to.setLeashedToEntity(from.getLeashedToEntity(), true);
+		}
+		from.setDead();
+	}
+
+	/** What 1.7.10 does to anything lightning strikes: 5 fire damage and 8 seconds of fire. */
+	private static void struckAsAnything(Entity entity) {
+		if (!entity.isImmuneToFire()) {
+			entity.attackEntityFrom(DamageSource.inFire, 5.0F);
+		}
+		if (!entity.isBurning()) {
+			entity.setFire(8);
 		}
 	}
 
@@ -1760,7 +1843,7 @@ public class ServerEventHandler {
 
 		// --- Attack a living entity --- //
 		// with the combat update the attack plays modern's sounds by its charge itself (spec §46.3)
-		if (ConfigSounds.combatSounds && !ConfigMixins.modernCombat && event.source.damageType.equals("player")) {
+		if (ConfigSounds.combatSounds && !McFlyConfig.modernCombat && event.source.damageType.equals("player")) {
 			EntityPlayer playerSource = (EntityPlayer) event.source.getEntity();
 			World world = playerSource.worldObj;
 			double x = targetEntity.posX;
@@ -1947,6 +2030,11 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
+		// 26.3's bedrock has no loot: broken (the exit portal's activation breaks its own pillar), it drops nothing
+		// (spec §76.15); 1.7.10's dropped itself
+		if (event.block == Blocks.bedrock && ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
+			event.drops.clear();
+		}
 		if (event.block == Blocks.double_stone_slab) {
 			if (ModBlocks.SMOOTH_STONE.isEnabled() && event.blockMetadata == 8) {
 				event.drops.clear();
@@ -1967,6 +2055,11 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.enableDoWeatherCycle) {
 			DoWeatherCycle.registerGamerule(event.world);
+		}
+
+		// phantoms over the sleepless (spec §68.3)
+		if (ganymedes01.etfuturum.entities.PhantomSpawning.isOn()) {
+			DoInsomnia.registerGamerule(event.world);
 		}
 
 		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
@@ -1992,7 +2085,7 @@ public class ServerEventHandler {
 	public void onTickEnd(TickEvent.ServerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
 			playersClosedContainers.clear();
-			if (ConfigMixins.modernChat) {
+			if (McFlyConfig.modernChat) {
 				ganymedes01.etfuturum.command.modern.ModernCommands.answerRequests();
 			}
 		}
@@ -2062,8 +2155,34 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
-		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
-			DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
+		if (e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
+			if (ConfigMixins.enableDoWeatherCycle) {
+				DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
+			}
+			// the time since rest and the phantom spawner (spec §68.3)
+			if (ganymedes01.etfuturum.entities.PhantomSpawning.isOn() && e.world instanceof WorldServer) {
+				ganymedes01.etfuturum.entities.PhantomSpawning.worldTick((WorldServer) e.world);
+			}
+			// potion cauldrons loaded without a potion, back to plain ones out of chunk loading (spec §74)
+			ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater.resetQueued(e.world);
+			// entities EFR replaces, met while their chunk loaded (spec §75)
+			replaceAfterLoading(e.world);
+		}
+	}
+
+	/** 26.3's infested (spec §69.11): hurt, sometimes silverfish; last, so a hurt another mod stops doesn't. */
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onInfestedHurt(net.minecraftforge.event.entity.living.LivingHurtEvent e) {
+		if (e.ammount > 0.0F && !e.entityLiving.worldObj.isRemote) {
+			ganymedes01.etfuturum.potion.ModernEffects.onHurt(e.entityLiving);
+		}
+	}
+
+	/** 26.3's `die` puts the time since rest back to 0 (spec §68.3); last, so a death another mod stops doesn't. */
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onDeathRestReset(net.minecraftforge.event.entity.living.LivingDeathEvent e) {
+		if (!e.entityLiving.worldObj.isRemote && ganymedes01.etfuturum.entities.PhantomSpawning.isOn()) {
+			ganymedes01.etfuturum.entities.PhantomSpawning.onDeath(e.entityLiving);
 		}
 	}
 

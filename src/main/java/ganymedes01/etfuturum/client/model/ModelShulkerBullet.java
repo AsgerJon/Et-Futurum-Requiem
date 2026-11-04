@@ -2,39 +2,25 @@ package ganymedes01.etfuturum.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
+/** 26.3's ShulkerBulletModel (SPEC-modern-movement.md §76.13): three crossed slabs, turned by the bullet's yaw and pitch. */
 public class ModelShulkerBullet extends ModelBase {
-	public ModelRenderer renderer;
+
+	private final ModelRenderer main;
 
 	public ModelShulkerBullet() {
-		this.textureWidth = 64;
-		this.textureHeight = 32;
-		this.renderer = new ModelRenderer(this);
-		this.renderer.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -1.0F, 8, 8, 2, 0.0F);
-		this.renderer.setTextureOffset(0, 10).addBox(-1.0F, -4.0F, -4.0F, 2, 8, 8, 0.0F);
-		this.renderer.setTextureOffset(20, 0).addBox(-4.0F, -1.0F, -4.0F, 8, 2, 8, 0.0F);
-		this.renderer.setRotationPoint(0.0F, 0.0F, 0.0F);
+		textureWidth = 64;
+		textureHeight = 32;
+		main = new ModelRenderer(this);
+		main.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -1.0F, 8, 8, 2);
+		main.setTextureOffset(0, 10).addBox(-1.0F, -4.0F, -4.0F, 2, 8, 8);
+		main.setTextureOffset(20, 0).addBox(-4.0F, -1.0F, -4.0F, 8, 2, 8);
 	}
 
-	/**
-	 * Sets the models various rotation angles then renders the model.
-	 */
-	@Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		this.renderer.render(scale);
-	}
-
-	/**
-	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
-	 * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
-	 * "far" arms and legs can swing at most.
-	 */
-	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-		this.renderer.rotateAngleY = netHeadYaw * 0.017453292F;
-		this.renderer.rotateAngleX = headPitch * 0.017453292F;
+	/** Drawn at the yaw and pitch (degrees). */
+	public void render(float yaw, float pitch, float scale) {
+		main.rotateAngleY = yaw * ((float) Math.PI / 180.0F);
+		main.rotateAngleX = pitch * ((float) Math.PI / 180.0F);
+		main.render(scale);
 	}
 }
