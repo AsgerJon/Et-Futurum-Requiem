@@ -1,12 +1,12 @@
 package io.github.asgerjon.mcfly.mixins.early.combat;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import ganymedes01.etfuturum.combat.DamageRules;
 import ganymedes01.etfuturum.combat.ShieldBlocking;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -90,7 +90,7 @@ public abstract class MixinEntityLivingBase extends Entity {
 		if (broken == null || !(broken.getItem() instanceof ItemShield)) {
 			original.call(self, sound, volume, pitch);
 		} else if (!this.worldObj.isRemote) {
-			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, Reference.MCAssetVer + ":item.shield.break", volume, pitch);
+			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, McFly.MC_ASSETS + ":item.shield.break", volume, pitch);
 		}
 	}
 }

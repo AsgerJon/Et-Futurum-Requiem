@@ -25,9 +25,23 @@ public final class McFly {
 	public static final String NAME = "McFly";
 	public static final Logger LOG = LogManager.getLogger(NAME);
 
+	/**
+	 * The domain our ids, names, textures and translations live under (spec §79, B8): in this fork the mod is EFR's, so
+	 * `etfuturum` (old saves hold `etfuturum:...`); `mcfly` once McFly is its own mod.
+	 */
+	public static final String DOMAIN = "etfuturum";
+
+	/** The domain MCLib gives the sounds it fetches from the launcher's assets, by the version they're from (spec §79, B5). */
+	public static final String MC_ASSETS = "minecraft_1.21.10";
+
 	private static volatile String phase = "not started";
 
 	private McFly() {
+	}
+
+	/** A block's or item's unlocalised name under our domain (`etfuturum.powder_snow`). */
+	public static String name(String path) {
+		return DOMAIN + "." + path;
 	}
 
 	/** Where its start-up is: "not started", "pre-init", "init", "post-init", "server started", "server stopped". */

@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.potion;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.mixins.early.moderneffects.AccessorEntitySlime;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockDoor;
@@ -129,7 +129,7 @@ public final class ModernEffects {
 		for (ChunkPosition pos : reached(world, source, x, y, z, size, random)) {
 			trigger(world, pos.chunkPosX, pos.chunkPosY, pos.chunkPosZ);
 		}
-		world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.breeze.wind_burst", 4.0F,
+		world.playSoundEffect(x, y, z, McFly.MC_ASSETS + ":entity.breeze.wind_burst", 4.0F,
 			(1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 		if (world instanceof WorldServer server) {
 			server.func_147487_a(size < 2.0F ? "explode" : "largeexplode", x, y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);

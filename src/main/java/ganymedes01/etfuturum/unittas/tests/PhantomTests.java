@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.entities.EntityPhantom;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.client.particle.EffectRenderer;
@@ -35,7 +35,7 @@ import java.util.List;
 public class PhantomTests extends TasTestCase {
 
 	private static final int GROUND = 4;
-	private static final String MODERN = Reference.MCAssetVer + ":";
+	private static final String MODERN = McFly.MC_ASSETS + ":";
 
 	@Override
 	protected int timeoutSeconds() {

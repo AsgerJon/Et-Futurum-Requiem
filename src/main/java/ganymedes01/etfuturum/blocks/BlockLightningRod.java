@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.trident.Lightning;
@@ -216,7 +216,7 @@ public class BlockLightningRod extends BaseBlock implements IDegradable {
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		if (world.isThundering() && world.rand.nextInt(200) <= world.getTotalWorldTime() % 200L
 			&& Lightning.isHighestInColumn(world, x, y, z)) {
-			CustomParticles.spawnElectricSparksAlongAxis(world, x, y, z, axis(world.getBlockMetadata(x, y, z)), 1, 2);
+			McFlyParticlesClient.electricSparksAlongAxis(x, y, z, axis(world.getBlockMetadata(x, y, z)), 1, 2);
 		}
 	}
 

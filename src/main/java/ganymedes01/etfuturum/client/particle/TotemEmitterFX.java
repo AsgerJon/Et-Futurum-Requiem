@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.client.particle;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticles;
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
@@ -35,7 +37,7 @@ public class TotemEmitterFX extends EntityFX {
 			double x = entity.posX + entity.width * xa / 4.0D;
 			double y = entity.boundingBox.minY + entity.height * (0.5D + ya / 4.0D);
 			double z = entity.posZ + entity.width * za / 4.0D;
-			CustomParticles.spawnParticle(worldObj, new TotemFX(worldObj, x, y, z, xa, ya + 0.2D, za));
+			McFlyParticlesClient.add(McFlyParticles.TOTEM_OF_UNDYING, x, y, z, xa, ya + 0.2D, za);
 		}
 		if (++life >= LIFE) {
 			setDead();

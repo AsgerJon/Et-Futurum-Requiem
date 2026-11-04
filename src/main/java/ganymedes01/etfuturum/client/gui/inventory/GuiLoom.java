@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ModernBanners;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerLoom;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
@@ -52,7 +51,7 @@ public class GuiLoom extends GuiContainer {
 	private int startRow;
 
 	private static ResourceLocation texture(String name) {
-		return Utils.getResource(Reference.MOD_ID + ":textures/gui/container/" + name + ".png");
+		return new net.minecraft.util.ResourceLocation(McFly.DOMAIN + ":textures/gui/container/" + name + ".png");
 	}
 
 	public GuiLoom(ContainerLoom container) {
@@ -216,7 +215,7 @@ public class GuiLoom extends GuiContainer {
 		if (displayPatterns) {
 			int index = patternAt(mouseX, mouseY);
 			if (index >= 0 && container.enchantItem(mc.thePlayer, index)) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation(Reference.MCAssetVer + ":ui.loom.select_pattern"), 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation(McFly.MC_ASSETS + ":ui.loom.select_pattern"), 1.0F));
 				mc.playerController.sendEnchantPacket(container.windowId, index);
 				return;
 			}

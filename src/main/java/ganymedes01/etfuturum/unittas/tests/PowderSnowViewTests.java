@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.entities.Freezing;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,8 +21,8 @@ public class PowderSnowViewTests extends ComparisonTestCase {
 	}
 
 	public void testScreenshots() throws Exception {
-		Block snow = GameRegistry.findBlock(Reference.MOD_ID, "powder_snow");
-		Item bucket = GameRegistry.findItem(Reference.MOD_ID, "powder_snow_bucket");
+		Block snow = GameRegistry.findBlock(McFly.DOMAIN, "powder_snow");
+		Item bucket = GameRegistry.findItem(McFly.DOMAIN, "powder_snow_bucket");
 		assertIsNotNone(snow, "EFR has no powder snow block");
 		assertIsNotNone(bucket, "EFR has no powder snow bucket");
 		comparisonViews(() -> {
@@ -37,7 +37,7 @@ public class PowderSnowViewTests extends ComparisonTestCase {
 				world().setBlockToAir(0, 4, 3);
 			});
 			// the cauldron, full and at level 1 (spec §62.8): the content is the powder snow texture
-			Block cauldron = GameRegistry.findBlock(Reference.MOD_ID, "powder_snow_cauldron");
+			Block cauldron = GameRegistry.findBlock(McFly.DOMAIN, "powder_snow_cauldron");
 			assertIsNotNone(cauldron, "EFR has no powder snow cauldron");
 			look(0.0F, 30.0F);
 			onServer(() -> {

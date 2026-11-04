@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -47,7 +46,8 @@ public class BlockKelp extends BaseBlock implements IGrowable {
 		setLightOpacity(Blocks.water.getLightOpacity());
 		setTickRandomly(true);
 		setMapColorBaseBlock(Blocks.water);
-		Utils.setBlockSound(this, ModSounds.soundWetGrass);
+		// EFR's wet grass sound, or plain grass with EFR's new block sounds off
+		setStepSound(ganymedes01.etfuturum.configuration.configs.ConfigSounds.newBlockSounds ? ModSounds.soundWetGrass : Block.soundTypeGrass);
 	}
 
 	public static boolean isTip(int meta) {
@@ -240,7 +240,7 @@ public class BlockKelp extends BaseBlock implements IGrowable {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.KELP;
+		return McFlyRenderIds.KELP;
 	}
 
 	@Override

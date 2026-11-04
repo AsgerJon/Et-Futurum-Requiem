@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.passive.EntityHorse;
 
 /**
@@ -23,9 +23,9 @@ public final class ModernHorses {
 	/** The ridden float: up 0.04 a tick in water deeper than this. */
 	public static final double RIDDEN_FLOAT = 0.04D, FLOAT_DEPTH = 0.4D;
 
-	public static final String AMBIENT_WATER = Reference.MCAssetVer + ":entity.skeleton_horse.ambient_water";
-	public static final String SWIM = Reference.MCAssetVer + ":entity.skeleton_horse.swim";
-	public static final String JUMP_WATER = Reference.MCAssetVer + ":entity.skeleton_horse.jump_water";
+	public static final String AMBIENT_WATER = McFly.MC_ASSETS + ":entity.skeleton_horse.ambient_water";
+	public static final String SWIM = McFly.MC_ASSETS + ":entity.skeleton_horse.swim";
+	public static final String JUMP_WATER = McFly.MC_ASSETS + ":entity.skeleton_horse.jump_water";
 
 	private ModernHorses() {
 	}

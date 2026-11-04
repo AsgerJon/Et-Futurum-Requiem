@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.chat;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
@@ -9,7 +10,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.command.modern.CommandTree;
 import ganymedes01.etfuturum.command.modern.LegacyCommands;
-import ganymedes01.etfuturum.lib.Reference;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommand;
@@ -30,7 +30,7 @@ import java.util.Map;
 @SideOnly(Side.CLIENT)
 public final class ClientCommands {
 
-	private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+	private static final Logger LOGGER = LogManager.getLogger(McFly.DOMAIN);
 	private static final ClientCommandSource SOURCE = new ClientCommandSource();
 	/** The server or Forge runs the command; the client's tree only needs to know that input ending here runs. */
 	private static final Command<ClientCommandSource> RUN_ELSEWHERE = context -> 0;

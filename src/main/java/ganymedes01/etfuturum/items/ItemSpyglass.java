@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 public class ItemSpyglass extends BaseItem {
 
 	public static final int USE_DURATION = 1200;
-	public static final String USE_SOUND = Reference.MCAssetVer + ":item.spyglass.use";
-	public static final String STOP_SOUND = Reference.MCAssetVer + ":item.spyglass.stop_using";
+	public static final String USE_SOUND = McFly.MC_ASSETS + ":item.spyglass.use";
+	public static final String STOP_SOUND = McFly.MC_ASSETS + ":item.spyglass.stop_using";
 
 	public ItemSpyglass() {
 		super("spyglass");

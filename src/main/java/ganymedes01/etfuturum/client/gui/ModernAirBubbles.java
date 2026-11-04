@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.gui;
 
-import ganymedes01.etfuturum.lib.Reference;
+import io.github.asgerjon.mcfly.McFly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -22,7 +22,7 @@ public final class ModernAirBubbles {
 	private static final ResourceLocation AIR = new ResourceLocation("etfuturum", "textures/gui/hud/air.png");
 	private static final ResourceLocation AIR_BURSTING = new ResourceLocation("etfuturum", "textures/gui/hud/air_bursting.png");
 	private static final ResourceLocation AIR_EMPTY = new ResourceLocation("etfuturum", "textures/gui/hud/air_empty.png");
-	private static final String POP_SOUND = Reference.MCAssetVer + ":block.bubble_column.bubble_pop";
+	private static final String POP_SOUND = McFly.MC_ASSETS + ":block.bubble_column.bubble_pop";
 	private static final int BUBBLES = 10;
 	private static final int MAX_AIR = 300;
 

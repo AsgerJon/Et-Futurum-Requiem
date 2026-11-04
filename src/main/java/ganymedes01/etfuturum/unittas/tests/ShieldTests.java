@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.projectile.EntityEgg;
@@ -10,7 +11,6 @@ import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.combat.ShieldBlocking;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.entity.item.EntityItem;
@@ -44,8 +44,8 @@ import java.util.function.Function;
  */
 public class ShieldTests extends ComparisonTestCase {
 
-	private static final String BLOCK_SOUND = Reference.MCAssetVer + ":item.shield.block";
-	private static final String BREAK_SOUND = Reference.MCAssetVer + ":item.shield.break";
+	private static final String BLOCK_SOUND = McFly.MC_ASSETS + ":item.shield.block";
+	private static final String BREAK_SOUND = McFly.MC_ASSETS + ":item.shield.break";
 
 	/** In survival: a creative player takes no damage to block. */
 	@Override
@@ -292,7 +292,7 @@ public class ShieldTests extends ComparisonTestCase {
 		serverTicks(2);
 		assertEqual(before, onServer(() -> player().getHealth()), "the trident got through the shield");
 		assertEqual(9, shieldDamage(), "the shield's wear (1 + 8)");
-		waitForSound(Reference.MCAssetVer + ":item.trident.hit", 20);
+		waitForSound(McFly.MC_ASSETS + ":item.trident.hit", 20);
 		assertTrue(onServer(() -> trident.motionZ >= 0.0 || trident.posZ > 1.5), "the trident didn't bounce back (motion z " + onServer(() -> trident.motionZ) + ")");
 		serverTicks(5);
 		assertAlmostEqual(0.5, onServer(() -> player().posZ), 0.05);

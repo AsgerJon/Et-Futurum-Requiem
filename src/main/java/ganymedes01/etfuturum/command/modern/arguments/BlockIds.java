@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.github.bsideup.jabel.Desugar;
 import ganymedes01.etfuturum.blocks.BaseSlab;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockDoor;
@@ -41,7 +41,7 @@ import java.util.TreeMap;
 public final class BlockIds {
 
 	private static final String MINECRAFT = "minecraft:";
-	private static final String EFR_PREFIX = Reference.MOD_ID + ":";
+	private static final String EFR_PREFIX = McFly.DOMAIN + ":";
 
 	/** A 1.7.10 block and meta, and the modern properties it stands for. */
 	@Desugar
@@ -343,10 +343,10 @@ public final class BlockIds {
 				continue;
 			}
 			String name = block.getUnlocalizedName();
-			if (name == null || !name.startsWith("tile." + Reference.MOD_ID + ".")) {
+			if (name == null || !name.startsWith("tile." + McFly.DOMAIN + ".")) {
 				continue;
 			}
-			name = name.substring(("tile." + Reference.MOD_ID + ".").length());
+			name = name.substring(("tile." + McFly.DOMAIN + ".").length());
 			if (!name.matches("[a-z0-9_]+")) {
 				continue;
 			}

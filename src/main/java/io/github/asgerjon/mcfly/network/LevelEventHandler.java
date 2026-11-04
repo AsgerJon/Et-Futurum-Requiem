@@ -1,9 +1,9 @@
 package io.github.asgerjon.mcfly.network;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityHugeExplodeFX;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public class LevelEventHandler implements IMessageHandler<LevelEventMessage, IMe
 		if (message.event == 3000) {
 			// an end gateway appearing: the explosion emitter (always shown), the sound (10, 0.7 * (1 +- 0.2))
 			mc.effectRenderer.addEffect(new EntityHugeExplodeFX(world, x, y, z, 0.0, 0.0, 0.0));
-			world.playSound(x, y, z, Reference.MCAssetVer + ":block.end_gateway.spawn", 10.0F, (1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
+			world.playSound(x, y, z, McFly.MC_ASSETS + ":block.end_gateway.spawn", 10.0F, (1.0F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
 		} else if (message.event == 2016) {
 			// a shulker's teleport (26.3's singleBlockTeleportationParticles): 128 portal particles strewn along the line
 			// from its new block to its old, each moving up to 0.1 each way

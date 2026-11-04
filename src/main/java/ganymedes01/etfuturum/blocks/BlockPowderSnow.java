@@ -1,22 +1,20 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
+import io.github.asgerjon.mcfly.particle.McFlyParticles;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
-import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.ducks.IFreezingEntity;
 import ganymedes01.etfuturum.entities.Freezing;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import io.github.asgerjon.mcfly.mixins.early.powdersnow.AccessorEntityLivingBase;
-import io.github.asgerjon.mcfly.network.SnowflakeMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLogic;
@@ -56,7 +54,7 @@ public class BlockPowderSnow extends Block {
 		setResistance(0.25F * 5.0F / 3.0F);
 		setLightOpacity(1);
 		setStepSound(ModSounds.soundPowderSnow);
-		setBlockName(Utils.getUnlocalisedName("powder_snow"));
+		setBlockName(McFly.name("powder_snow"));
 		setBlockTextureName("powder_snow");
 	}
 
@@ -94,7 +92,7 @@ public class BlockPowderSnow extends Block {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.POWDER_SNOW;
+		return McFlyRenderIds.POWDER_SNOW;
 	}
 
 	/** 26.3 {@code skipRendering}: no face against another powder snow block. */
@@ -154,9 +152,9 @@ public class BlockPowderSnow extends Block {
 			}
 			if (!world.isRemote && state.etfu$movedSideways() && world.rand.nextBoolean()) {
 				float sideways = 1.0F / 12.0F;
-				McFlyNetwork.CHANNEL.sendToAllAround(new SnowflakeMessage(entity.posX, y + 1, entity.posZ,
-								(world.rand.nextFloat() * 2.0F - 1.0F) * sideways, 0.05F, (world.rand.nextFloat() * 2.0F - 1.0F) * sideways),
-						new NetworkRegistry.TargetPoint(entity.dimension, entity.posX, y + 1, entity.posZ, 32.0D));
+				// one snowflake by name (spec §79 B7): count 0, so it moves by the spread given (speed 1)
+				McFlyParticles.send((net.minecraft.world.WorldServer) world, McFlyParticles.SNOWFLAKE, entity.posX, y + 1, entity.posZ, 0,
+					(world.rand.nextFloat() * 2.0F - 1.0F) * sideways, 0.05F, (world.rand.nextFloat() * 2.0F - 1.0F) * sideways, 1.0D);
 			}
 		}
 		// 26.3 applies FREEZE once a tick however many powder snow blocks the entity is in

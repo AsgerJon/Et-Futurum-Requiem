@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.command.modern;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  */
 public final class LegacyCommands {
 
-	private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+	private static final Logger LOGGER = LogManager.getLogger(McFly.DOMAIN);
 
 	private LegacyCommands() {
 	}

@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.movement.IPosePlayer;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.trident.Impaling;
@@ -46,9 +46,9 @@ public class EntityThrownTrident extends Entity implements IProjectile, IEntityA
 	private static final double GRAVITY = 0.05D;
 	private static final int DESPAWN_TICKS = 1200;
 	private static final int FOIL_WATCHER = 16, LOYALTY_WATCHER = 17, NO_PHYSICS_WATCHER = 18;
-	private static final String HIT_SOUND = Reference.MCAssetVer + ":item.trident.hit";
-	private static final String HIT_GROUND_SOUND = Reference.MCAssetVer + ":item.trident.hit_ground";
-	private static final String RETURN_SOUND = Reference.MCAssetVer + ":item.trident.return";
+	private static final String HIT_SOUND = McFly.MC_ASSETS + ":item.trident.hit";
+	private static final String HIT_GROUND_SOUND = McFly.MC_ASSETS + ":item.trident.hit_ground";
+	private static final String RETURN_SOUND = McFly.MC_ASSETS + ":item.trident.return";
 
 	private int xTile = -1, yTile = -1, zTile = -1;
 	private Block inTile;

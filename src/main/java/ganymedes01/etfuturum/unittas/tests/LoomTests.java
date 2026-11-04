@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
@@ -7,7 +8,6 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.GuiLoom;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.inventory.ContainerLoom;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -116,7 +116,7 @@ public class LoomTests extends ScreenTestCase {
 		assertEqual(0, TileEntityBanner.getBaseColor(result), "its base colour (white)");
 		assertEqual("bs", BannerTests.layer(result, 0), "its layer (26.3's stripe_bottom)");
 		assertEqual(14, colour(result, 0), "the layer's colour (red)");
-		waitForSound(Reference.MCAssetVer + ":ui.loom.select_pattern", 20);
+		waitForSound(McFly.MC_ASSETS + ":ui.loom.select_pattern", 20);
 	}
 
 	/** Taking the result uses one banner and one dye, plays the loom's sound, and the pick goes when one runs out. */
@@ -133,7 +133,7 @@ public class LoomTests extends ScreenTestCase {
 		assertEqual(1, onServer(() -> loom().bannerSlot.getStack() == null ? 0 : loom().bannerSlot.getStack().stackSize), "banners left");
 		assertTrue(onServer(() -> !loom().dyeSlot.getHasStack()), "the dye used");
 		assertEqual(-1, onServer(() -> loom().selected()), "the pick, once the dye ran out");
-		waitForSound(Reference.MCAssetVer + ":ui.loom.take_result", 20);
+		waitForSound(McFly.MC_ASSETS + ":ui.loom.take_result", 20);
 	}
 
 	/** A banner with 6 layers takes no more: no result, whatever is picked. */

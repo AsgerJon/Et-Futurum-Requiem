@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.world.end.modern.dragon;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.entities.EntityAreaEffectCloud;
 import ganymedes01.etfuturum.entities.EntityDragonFireball;
 import net.minecraft.entity.boss.EntityDragon;
@@ -32,7 +33,7 @@ final class DragonBreath {
 		double dx = target.posX - sx;
 		double dy = target.boundingBox.minY + target.height * 0.5 - sy;
 		double dz = target.posZ - sz;
-		dragon.worldObj.playSoundEffect(dragon.posX, dragon.posY, dragon.posZ, ganymedes01.etfuturum.lib.Reference.MCAssetVer + ":entity.ender_dragon.shoot", 10.0F,
+		dragon.worldObj.playSoundEffect(dragon.posX, dragon.posY, dragon.posZ, McFly.MC_ASSETS + ":entity.ender_dragon.shoot", 10.0F,
 			1.0F + (dragon.getRNG().nextFloat() - dragon.getRNG().nextFloat()) * 0.2F);
 		dragon.worldObj.spawnEntityInWorld(new EntityDragonFireball(dragon.worldObj, dragon, sx, sy, sz, dx, dy, dz));
 	}

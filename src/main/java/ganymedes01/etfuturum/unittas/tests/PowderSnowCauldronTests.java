@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.Freezing;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -242,19 +242,19 @@ public class PowderSnowCauldronTests extends TasTestCase {
 	// ---------------------------------------------------------------- helpers
 
 	private static Block snow() {
-		Block block = GameRegistry.findBlock(Reference.MOD_ID, "powder_snow");
+		Block block = GameRegistry.findBlock(McFly.DOMAIN, "powder_snow");
 		assertIsNotNone(block, "EFR has no powder snow block");
 		return block;
 	}
 
 	private static Block cauldron() {
-		Block block = GameRegistry.findBlock(Reference.MOD_ID, "powder_snow_cauldron");
+		Block block = GameRegistry.findBlock(McFly.DOMAIN, "powder_snow_cauldron");
 		assertIsNotNone(block, "EFR has no powder snow cauldron");
 		return block;
 	}
 
 	private static Item bucket() {
-		Item item = GameRegistry.findItem(Reference.MOD_ID, "powder_snow_bucket");
+		Item item = GameRegistry.findItem(McFly.DOMAIN, "powder_snow_bucket");
 		assertIsNotNone(item, "EFR has no powder snow bucket");
 		return item;
 	}

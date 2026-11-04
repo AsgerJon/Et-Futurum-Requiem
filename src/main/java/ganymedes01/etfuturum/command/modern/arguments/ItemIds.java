@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.github.bsideup.jabel.Desugar;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
@@ -30,7 +30,7 @@ import java.util.TreeSet;
  */
 public final class ItemIds {
 
-	private static final String EFR_PREFIX = Reference.MOD_ID + ":";
+	private static final String EFR_PREFIX = McFly.DOMAIN + ":";
 	private static final String MINECRAFT = "minecraft:";
 
 	/** An id's item, the damage that makes it the id's variant, and the data that does (null for none). */
@@ -161,10 +161,10 @@ public final class ItemIds {
 				name = name.substring(prefix.length());
 			}
 		}
-		if (!name.startsWith(Reference.MOD_ID + ".")) {
+		if (!name.startsWith(McFly.DOMAIN + ".")) {
 			return false;
 		}
-		name = name.substring(Reference.MOD_ID.length() + 1);
+		name = name.substring(McFly.DOMAIN.length() + 1);
 		if (!isPlainName(name)) {
 			return false;
 		}

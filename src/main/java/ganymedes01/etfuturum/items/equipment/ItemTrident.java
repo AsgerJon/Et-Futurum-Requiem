@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.google.common.collect.Multimap;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.entities.EntityThrownTrident;
 import ganymedes01.etfuturum.items.BaseItem;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.trident.Riptide;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class ItemTrident extends BaseItem {
 	/** Modern charges for as long as the button is held. */
 	public static final int USE_DURATION = 72000;
 	public static final float SHOOT_POWER = 2.5F;
-	private static final String THROW_SOUND = Reference.MCAssetVer + ":item.trident.throw";
+	private static final String THROW_SOUND = McFly.MC_ASSETS + ":item.trident.throw";
 
 	public ItemTrident() {
 		super("trident");

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client;
 
-import ganymedes01.etfuturum.core.utils.Logger;
+import io.github.asgerjon.mcfly.McFly;
 import net.minecraft.client.Minecraft;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public final class ChatHistoryFile {
 			lines.removeIf(String::isEmpty);
 			return lines.size() > KEPT ? new ArrayList<>(lines.subList(lines.size() - KEPT, lines.size())) : new ArrayList<>(lines);
 		} catch (IOException e) {
-			Logger.warn("Could not read the chat history from " + file + ": " + e);
+			McFly.LOG.warn("Could not read the chat history from " + file + ": " + e);
 			return new ArrayList<>();
 		}
 	}
@@ -46,7 +46,7 @@ public final class ChatHistoryFile {
 		try {
 			Files.write(file().toPath(), kept, StandardCharsets.UTF_8);
 		} catch (IOException e) {
-			Logger.warn("Could not save the chat history to " + file() + ": " + e);
+			McFly.LOG.warn("Could not save the chat history to " + file() + ": " + e);
 		}
 	}
 }

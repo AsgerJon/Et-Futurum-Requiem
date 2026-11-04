@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.offhand;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.entity.EntityLivingBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -48,7 +48,7 @@ public final class Offhand {
 		boolean otherOffhand = ModsList.BACKHAND.isLoaded() || ModsList.BATTLEGEAR_2.isLoaded();
 		enabled = McFlyConfig.enableOffhand && !otherOffhand;
 		if (McFlyConfig.enableOffhand && otherOffhand) {
-			Logger.info("Et Futurum Requiem's off-hand is off because Backhand or Battlegear 2 is loaded; a player can only have one.");
+			McFly.LOG.info("Et Futurum Requiem's off-hand is off because Backhand or Battlegear 2 is loaded; a player can only have one.");
 		}
 	}
 

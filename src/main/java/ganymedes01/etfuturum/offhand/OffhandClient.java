@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.offhand;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.network.SwapHandsMessage;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.client.Minecraft;
@@ -30,8 +30,8 @@ public final class OffhandClient {
 	public static final OffhandClient INSTANCE = new OffhandClient();
 	public static KeyBinding keySwap;
 
-	private static final ResourceLocation LEFT_SLOT = new ResourceLocation(Reference.MOD_ID, "textures/gui/hotbar_offhand_left.png");
-	private static final ResourceLocation RIGHT_SLOT = new ResourceLocation(Reference.MOD_ID, "textures/gui/hotbar_offhand_right.png");
+	private static final ResourceLocation LEFT_SLOT = new ResourceLocation(McFly.DOMAIN, "textures/gui/hotbar_offhand_left.png");
+	private static final ResourceLocation RIGHT_SLOT = new ResourceLocation(McFly.DOMAIN, "textures/gui/hotbar_offhand_right.png");
 
 	private OffhandClient() {
 	}

@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.LodestoneNeedle;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import ganymedes01.etfuturum.world.LodestoneRecord;
@@ -46,8 +46,8 @@ import java.util.TreeSet;
 public class LodestoneTests extends TasTestCase {
 
 	private static final String TRACKED = "LodestoneTracked", POS = "LodestonePos", DIMENSION = "LodestoneDimension";
-	private static final String LOCK = Reference.MCAssetVer + ":item.lodestone_compass.lock";
-	private static final String PLACE = Reference.MCAssetVer + ":block.lodestone.place";
+	private static final String LOCK = McFly.MC_ASSETS + ":item.lodestone_compass.lock";
+	private static final String PLACE = McFly.MC_ASSETS + ":block.lodestone.place";
 	/** The lodestone the player clicks. */
 	private static final int[] FRONT = {0, 5, 2};
 	/** Lodestones in the work area. */
@@ -572,7 +572,7 @@ public class LodestoneTests extends TasTestCase {
 	// ---------------------------------------------------------------- helpers
 
 	private static Block lodestone() {
-		Block block = GameRegistry.findBlock(Reference.MOD_ID, "lodestone");
+		Block block = GameRegistry.findBlock(McFly.DOMAIN, "lodestone");
 		assertIsNotNone(block, "EFR has no lodestone block");
 		return block;
 	}

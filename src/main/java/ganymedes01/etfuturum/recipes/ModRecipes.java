@@ -753,8 +753,8 @@ public class ModRecipes {
 			{McFlyItems.MOJANG_BANNER_PATTERN, new ItemStack(Items.golden_apple, 1, 1)},
 			{McFlyItems.FIELD_MASONED_BANNER_PATTERN, new ItemStack(Blocks.brick_block)}, {McFlyItems.BORDURE_INDENTED_BANNER_PATTERN, new ItemStack(Blocks.vine)}};
 		for (Object[] patternItem : patternItems) {
-			if (((ModItems) patternItem[0]).isEnabled()) {
-				GameRegistry.addShapelessRecipe(((ModItems) patternItem[0]).newItemStack(), new ItemStack(Items.paper), patternItem[1]);
+			if (((McFlyItems) patternItem[0]).isEnabled()) {
+				GameRegistry.addShapelessRecipe(((McFlyItems) patternItem[0]).newItemStack(), new ItemStack(Items.paper), patternItem[1]);
 			}
 		}
 

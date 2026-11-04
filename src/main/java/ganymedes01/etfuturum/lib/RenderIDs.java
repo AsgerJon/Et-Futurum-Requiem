@@ -35,7 +35,4 @@ public class RenderIDs {
 	public static final int GLOW_LICHEN = RenderingRegistry.getNextAvailableRenderId();
 	public static final int EXTENDED_CROSSED_SQUARES = RenderingRegistry.getNextAvailableRenderId();
 	public static final int FENCE = RenderingRegistry.getNextAvailableRenderId();
-	public static final int KELP = RenderingRegistry.getNextAvailableRenderId();
-	public static final int POWDER_SNOW = RenderingRegistry.getNextAvailableRenderId();
-	public static final int POWDER_SNOW_CAULDRON = RenderingRegistry.getNextAvailableRenderId();
 }

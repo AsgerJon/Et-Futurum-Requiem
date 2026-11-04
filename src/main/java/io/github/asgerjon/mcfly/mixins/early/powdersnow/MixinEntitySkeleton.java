@@ -1,12 +1,12 @@
 package io.github.asgerjon.mcfly.mixins.early.powdersnow;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ducks.IStrayConversion;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.Freezing;
-import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.network.StrayConversionMessage;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
@@ -122,7 +122,7 @@ public abstract class MixinEntitySkeleton extends EntityMob implements IStrayCon
 		setDead();
 		worldObj.spawnEntityInWorld(stray);
 		// 26.3's level event 1048
-		worldObj.playSoundEffect(stray.posX, stray.posY, stray.posZ, Reference.MCAssetVer + ":entity.skeleton.converted_to_stray", 2.0F,
+		worldObj.playSoundEffect(stray.posX, stray.posY, stray.posZ, McFly.MC_ASSETS + ":entity.skeleton.converted_to_stray", 2.0F,
 				(rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 	}
 

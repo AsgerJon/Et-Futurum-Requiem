@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.command.modern.arguments.BlockIds;
@@ -8,7 +9,6 @@ import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityThrownTrident;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.trident.Lightning;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
@@ -53,7 +53,7 @@ import java.util.function.Function;
 public class LightningTests extends TasTestCase {
 
 	private static final String TRIDENT = "minecraft:trident";
-	private static final String THUNDER_SOUND = Reference.MCAssetVer + ":item.trident.thunder";
+	private static final String THUNDER_SOUND = McFly.MC_ASSETS + ":item.trident.thunder";
 	/** Past creative's 6-block mob reach: right-clicking a villager in reach trades. */
 	private static final double TARGET_Z = 7.5D;
 

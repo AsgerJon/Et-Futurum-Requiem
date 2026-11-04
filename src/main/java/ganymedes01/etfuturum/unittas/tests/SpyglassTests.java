@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.Spyglass;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.client.model.ModelBiped;
@@ -23,8 +23,8 @@ import net.minecraft.world.WorldSettings;
  */
 public class SpyglassTests extends TasTestCase {
 
-	private static final String USE = Reference.MCAssetVer + ":item.spyglass.use";
-	private static final String STOP = Reference.MCAssetVer + ":item.spyglass.stop_using";
+	private static final String USE = McFly.MC_ASSETS + ":item.spyglass.use";
+	private static final String STOP = McFly.MC_ASSETS + ":item.spyglass.stop_using";
 
 	@Override
 	protected void setUp() {

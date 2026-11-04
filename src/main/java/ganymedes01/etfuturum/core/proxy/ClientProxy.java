@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
@@ -261,8 +262,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer(RenderIDs.BARREL));
 		RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer(RenderIDs.GLAZED_TERRACOTTA));
 		RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer(RenderIDs.LAVA_CAULDRON));
-		RenderingRegistry.registerBlockHandler(new ganymedes01.etfuturum.client.renderer.block.BlockPowderSnowRenderer(RenderIDs.POWDER_SNOW));
-		RenderingRegistry.registerBlockHandler(new ganymedes01.etfuturum.client.renderer.block.BlockPowderSnowCauldronRenderer(RenderIDs.POWDER_SNOW_CAULDRON));
+		RenderingRegistry.registerBlockHandler(new ganymedes01.etfuturum.client.renderer.block.BlockPowderSnowRenderer(McFlyRenderIds.POWDER_SNOW));
+		RenderingRegistry.registerBlockHandler(new ganymedes01.etfuturum.client.renderer.block.BlockPowderSnowCauldronRenderer(McFlyRenderIds.POWDER_SNOW_CAULDRON));
 		RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer(RenderIDs.STONECUTTER));
 		RenderingRegistry.registerBlockHandler(new BlockComposterRenderer(RenderIDs.COMPOSTER));
 		RenderingRegistry.registerBlockHandler(new BlockLoomRenderer(RenderIDs.LOOM));
@@ -278,7 +279,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new BlockPinkPetalsRenderer(RenderIDs.PINK_PETALS));
 		RenderingRegistry.registerBlockHandler(new BlockBambooRenderer(RenderIDs.BAMBOO));
 		RenderingRegistry.registerBlockHandler(new BlockBubbleColumnRenderer(RenderIDs.BUBBLE_COLUMN));
-		RenderingRegistry.registerBlockHandler(new BlockKelpRenderer(RenderIDs.KELP));
+		RenderingRegistry.registerBlockHandler(new BlockKelpRenderer(McFlyRenderIds.KELP));
 		RenderingRegistry.registerBlockHandler(new BlockGlowLichenRenderer(RenderIDs.GLOW_LICHEN));
 		RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER));
 	}

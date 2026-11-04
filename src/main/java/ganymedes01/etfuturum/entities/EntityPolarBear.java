@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
-import ganymedes01.etfuturum.lib.Reference;
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -293,7 +293,7 @@ public class EntityPolarBear extends EntityAnimal {
 
 	private void playWarningSound() {
 		if (warningSoundTicks <= 0) {
-			playSound(Reference.MCAssetVer + ":entity.polar_bear.warning", getSoundVolume(), getSoundPitch());
+			playSound(McFly.MC_ASSETS + ":entity.polar_bear.warning", getSoundVolume(), getSoundPitch());
 			warningSoundTicks = 40;
 		}
 	}
@@ -378,22 +378,22 @@ public class EntityPolarBear extends EntityAnimal {
 
 	@Override
 	protected String getLivingSound() {
-		return Reference.MCAssetVer + ":entity.polar_bear." + (isChild() ? "ambient_baby" : "ambient");
+		return McFly.MC_ASSETS + ":entity.polar_bear." + (isChild() ? "ambient_baby" : "ambient");
 	}
 
 	@Override
 	protected String getHurtSound() {
-		return Reference.MCAssetVer + ":entity.polar_bear.hurt";
+		return McFly.MC_ASSETS + ":entity.polar_bear.hurt";
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return Reference.MCAssetVer + ":entity.polar_bear.death";
+		return McFly.MC_ASSETS + ":entity.polar_bear.death";
 	}
 
 	@Override
 	protected void func_145780_a(int x, int y, int z, Block block) {
-		playSound(Reference.MCAssetVer + ":entity.polar_bear.step", 0.15F, 1.0F);
+		playSound(McFly.MC_ASSETS + ":entity.polar_bear.step", 0.15F, 1.0F);
 	}
 
 	// ---------------------------------------------------------------- the tasks

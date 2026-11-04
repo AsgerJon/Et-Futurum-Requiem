@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.client;
 
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.client.particle.CustomParticles;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -19,8 +19,8 @@ public final class TotemEffects {
 	}
 
 	public static void play(Entity entity) {
-		CustomParticles.spawnTotemParticles(entity.worldObj, entity);
-		entity.worldObj.playSound(entity.posX, entity.boundingBox.minY, entity.posZ, Reference.MCAssetVer + ":item.totem.use", 1.0F, 1.0F, false);
+		McFlyParticlesClient.totemEmitter(entity);
+		entity.worldObj.playSound(entity.posX, entity.boundingBox.minY, entity.posZ, McFly.MC_ASSETS + ":item.totem.use", 1.0F, 1.0F, false);
 		Minecraft mc = Minecraft.getMinecraft();
 		if (entity == mc.thePlayer) {
 			TotemActivation.activate(heldTotem(mc.thePlayer));

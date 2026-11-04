@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.LodestoneRecord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,7 @@ public final class LodestoneCompass {
 	public static final String TRACKED = "LodestoneTracked";
 	/** The target, {X, Y, Z}, and its dimension number; both missing when there is none. */
 	public static final String POS = "LodestonePos", DIMENSION = "LodestoneDimension";
-	public static final String LOCK_SOUND = Reference.MCAssetVer + ":item.lodestone_compass.lock";
+	public static final String LOCK_SOUND = McFly.MC_ASSETS + ":item.lodestone_compass.lock";
 
 	private LodestoneCompass() {
 	}

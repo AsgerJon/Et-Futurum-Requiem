@@ -1,8 +1,8 @@
 package io.github.asgerjon.mcfly.mixins.early.trident;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.trident.IVisualBolt;
 import ganymedes01.etfuturum.trident.Lightning;
 import net.minecraft.block.Block;
@@ -75,11 +75,11 @@ public abstract class MixinEntityLightningBolt implements IVisualBolt {
 
 	@ModifyConstant(method = "onUpdate", constant = @Constant(stringValue = "ambient.weather.thunder"))
 	private String etfu$modernThunder(String sound) {
-		return Reference.MCAssetVer + ":entity.lightning_bolt.thunder";
+		return McFly.MC_ASSETS + ":entity.lightning_bolt.thunder";
 	}
 
 	@ModifyConstant(method = "onUpdate", constant = @Constant(stringValue = "random.explode"))
 	private String etfu$modernImpact(String sound) {
-		return Reference.MCAssetVer + ":entity.lightning_bolt.impact";
+		return McFly.MC_ASSETS + ":entity.lightning_bolt.impact";
 	}
 }

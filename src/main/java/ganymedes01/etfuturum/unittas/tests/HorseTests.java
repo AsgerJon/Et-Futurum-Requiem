@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,7 +34,7 @@ import java.util.List;
 public class HorseTests extends TasTestCase {
 
 	private static final int Y = 4;
-	private static final String MODERN = Reference.MCAssetVer + ":";
+	private static final String MODERN = McFly.MC_ASSETS + ":";
 	private static final int PLAIN = 0, ZOMBIE = 3, SKELETON = 4;
 
 	@Override

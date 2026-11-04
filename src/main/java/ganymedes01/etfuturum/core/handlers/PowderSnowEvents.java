@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
@@ -10,7 +11,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.entities.Freezing;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -51,7 +51,7 @@ public class PowderSnowEvents {
 		world.setBlockToAir(x, y, z);
 		if (!world.isRemote) {
 			world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block));
-			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
+			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
 		}
 		event.result = new ItemStack(McFlyItems.POWDER_SNOW_BUCKET.get());
 		event.setResult(Event.Result.ALLOW);
@@ -98,7 +98,7 @@ public class PowderSnowEvents {
 				int z = source.getZInt() + facing.getFrontOffsetZ();
 				if (y >= 0 && y < 256 && world.isAirBlock(x, y, z)) {
 					world.setBlock(x, y, z, snow, 0, 3);
-					world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
+					world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
 					stack.func_150996_a(Items.bucket);
 					stack.stackSize = 1;
 					return stack;
@@ -122,7 +122,7 @@ public class PowderSnowEvents {
 				}
 				world.setBlockToAir(x, y, z);
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(snow));
-				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
+				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
 				// 1.7.10's dispenser sound and smoke, as its own behaviours make them
 				world.playAuxSFX(1000, source.getXInt(), source.getYInt(), source.getZInt(), 0);
 				world.playAuxSFX(2000, source.getXInt(), source.getYInt(), source.getZInt(), facing.getFrontOffsetX() + 1 + (facing.getFrontOffsetZ() + 1) * 3);

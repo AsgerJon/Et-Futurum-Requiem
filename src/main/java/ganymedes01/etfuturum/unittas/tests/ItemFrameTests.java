@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.entities.EntityGlowItemFrame;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -35,7 +35,7 @@ public class ItemFrameTests extends TasTestCase {
 	private static final int BX = 12, BY = 5, BZ = -8;
 	/** 1.7.10's `hangingDirection` and the port's two new ones. */
 	private static final int SOUTH = 0, NORTH = 2, FLOOR = 4, CEILING = 5;
-	private static final String MODERN = Reference.MCAssetVer + ":";
+	private static final String MODERN = McFly.MC_ASSETS + ":";
 
 	@Override
 	protected int timeoutSeconds() {

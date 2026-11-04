@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.skins;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Iterables;
 import com.google.gson.JsonElement;
@@ -7,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.File;
@@ -73,7 +73,7 @@ public final class OfflineSkins {
 		try {
 			return lookup.get();
 		} catch (ExecutionException e) {
-			Logger.warn("Could not look up the skin of " + name + ", the default one stays: " + e.getCause());
+			McFly.LOG.warn("Could not look up the skin of " + name + ", the default one stays: " + e.getCause());
 			return null;
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -113,7 +113,7 @@ public final class OfflineSkins {
 			return found;
 		} catch (IOException e) {
 			if (cached != null) {
-				Logger.warn("Could not refresh the skin of " + name + ", using the one from " + cached.age() + " ago: " + e.getMessage());
+				McFly.LOG.warn("Could not refresh the skin of " + name + ", using the one from " + cached.age() + " ago: " + e.getMessage());
 				return cached.textures;
 			}
 			throw e;
@@ -130,7 +130,7 @@ public final class OfflineSkins {
 			account = getJson(NAME_TO_ID_FALLBACK + encoded);
 		}
 		if (account == null || !account.has("id")) {
-			Logger.info("No Mojang account is named " + name + ": the default skin stays.");
+			McFly.LOG.info("No Mojang account is named " + name + ": the default skin stays.");
 			return null;
 		}
 		String id = account.get("id").getAsString();
@@ -139,12 +139,12 @@ public final class OfflineSkins {
 			for (JsonElement element : profile.getAsJsonArray("properties")) {
 				JsonObject property = element.getAsJsonObject();
 				if (property.has("name") && "textures".equals(property.get("name").getAsString()) && property.has("value") && property.has("signature")) {
-					Logger.info("Offline skin: " + name + " wears the skin of the account " + account.get("name").getAsString() + " (" + id + ").");
+					McFly.LOG.info("Offline skin: " + name + " wears the skin of the account " + account.get("name").getAsString() + " (" + id + ").");
 					return new Property("textures", property.get("value").getAsString(), property.get("signature").getAsString());
 				}
 			}
 		}
-		Logger.info("The Mojang account " + name + " has no skin data: the default skin stays.");
+		McFly.LOG.info("The Mojang account " + name + " has no skin data: the default skin stays.");
 		return null;
 	}
 
@@ -201,7 +201,7 @@ public final class OfflineSkins {
 				CACHE.put(entry.getKey(), new Entry(textures, answer.has("time") ? answer.get("time").getAsLong() : 0L));
 			}
 		} catch (IOException | RuntimeException e) {
-			Logger.warn("Could not read " + file + ", looking the skins up again: " + e);
+			McFly.LOG.warn("Could not read " + file + ", looking the skins up again: " + e);
 			CACHE.clear();
 		}
 	}
@@ -221,7 +221,7 @@ public final class OfflineSkins {
 		try {
 			Files.write(file.toPath(), json.toString().getBytes(StandardCharsets.UTF_8));
 		} catch (IOException e) {
-			Logger.warn("Could not write " + file + ": " + e);
+			McFly.LOG.warn("Could not write " + file + ": " + e);
 		}
 	}
 

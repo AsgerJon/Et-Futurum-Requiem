@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.world;
 
-import ganymedes01.etfuturum.lib.Reference;
+import io.github.asgerjon.mcfly.McFly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class LodestoneRecord extends WorldSavedData {
 
-	private static final String NAME = Reference.MOD_ID + "_lodestones";
+	private static final String NAME = McFly.DOMAIN + "_lodestones";
 
 	/** Each x, y, z exactly, whatever the height: a taller world's lodestones too (§57.2). */
 	private final Set<ChunkCoordinates> positions = new HashSet<>();

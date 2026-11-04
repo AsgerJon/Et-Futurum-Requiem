@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.inventory;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -91,7 +91,7 @@ public class ContainerLoom extends Container {
 					long time = ContainerLoom.this.world.getTotalWorldTime();
 					if (lastSoundTime != time) {
 						ContainerLoom.this.world.playSoundEffect(ContainerLoom.this.x + 0.5, ContainerLoom.this.y + 0.5,
-							ContainerLoom.this.z + 0.5, Reference.MCAssetVer + ":ui.loom.take_result", 1.0F, 1.0F);
+							ContainerLoom.this.z + 0.5, McFly.MC_ASSETS + ":ui.loom.take_result", 1.0F, 1.0F);
 						lastSoundTime = time;
 					}
 				}

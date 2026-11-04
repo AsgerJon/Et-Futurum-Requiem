@@ -1,6 +1,6 @@
 package io.github.asgerjon.mcfly.mixins.early.creativetab.client;
 
-import ganymedes01.etfuturum.lib.Reference;
+import io.github.asgerjon.mcfly.McFly;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -48,7 +48,7 @@ public abstract class MixinGuiContainerCreative extends InventoryEffectRenderer 
 	/** Modern's background for the tab, with the frames where the slots now are. */
 	@ModifyArg(method = "drawGuiContainerBackgroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ResourceLocation;<init>(Ljava/lang/String;)V"))
 	private String etfu$modernTabBackground(String path) {
-		return path.endsWith("tab_inventory.png") ? Reference.MOD_ID + ":" + path : path;
+		return path.endsWith("tab_inventory.png") ? McFly.DOMAIN + ":" + path : path;
 	}
 
 	/**

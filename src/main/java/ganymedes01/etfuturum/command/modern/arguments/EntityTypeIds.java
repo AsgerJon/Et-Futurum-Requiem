@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.items.ItemNewBoat;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -71,9 +71,9 @@ public final class EntityTypeIds {
 	};
 
 	/** Abstract bases and helpers that have no modern type. */
-	private static final Set<String> NO_TYPE = new TreeSet<>(Arrays.asList("Mob", "Monster", Reference.MOD_ID + ".new_boat_seat"));
-	private static final String EFR_BOAT = Reference.MOD_ID + ".new_boat";
-	private static final String EFR_CHEST_BOAT = Reference.MOD_ID + ".chest_boat";
+	private static final Set<String> NO_TYPE = new TreeSet<>(Arrays.asList("Mob", "Monster", McFly.DOMAIN + ".new_boat_seat"));
+	private static final String EFR_BOAT = McFly.DOMAIN + ".new_boat";
+	private static final String EFR_CHEST_BOAT = McFly.DOMAIN + ".chest_boat";
 	private static final String[] HORSES = {"horse", "donkey", "mule", "zombie_horse", "skeleton_horse"};
 
 	/** Modern types EFR has its own mob for, used by /summon over vanilla's (spec §47.3). */
@@ -244,7 +244,7 @@ public final class EntityTypeIds {
 			names.put(pair[0], "minecraft:" + pair[1]);
 		}
 		for (String[] pair : EFR) {
-			names.put(Reference.MOD_ID + "." + pair[0], "minecraft:" + pair[1]);
+			names.put(McFly.DOMAIN + "." + pair[0], "minecraft:" + pair[1]);
 		}
 		for (Object registered : EntityList.stringToClassMapping.keySet()) {
 			String name = (String) registered;
@@ -277,7 +277,7 @@ public final class EntityTypeIds {
 		for (int pass = 0; pass < 3; pass++) {
 			for (Map.Entry<String, String> entry : names.entrySet()) {
 				String name = entry.getKey();
-				int kind = name.indexOf('.') < 0 ? 0 : name.startsWith(Reference.MOD_ID + ".") ? 1 : 2;
+				int kind = name.indexOf('.') < 0 ? 0 : name.startsWith(McFly.DOMAIN + ".") ? 1 : 2;
 				if (kind == pass && (!reverse.containsKey(entry.getValue()) || kind == 1 && EFR_PREFERRED.contains(entry.getValue()))) {
 					reverse.put(entry.getValue(), name);
 				}

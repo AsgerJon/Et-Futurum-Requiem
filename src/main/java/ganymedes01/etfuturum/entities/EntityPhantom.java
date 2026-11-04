@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,12 +31,12 @@ import java.util.List;
  */
 public class EntityPhantom extends EntityFlying implements IMob {
 
-	public static final String AMBIENT = Reference.MCAssetVer + ":entity.phantom.ambient";
-	public static final String HURT = Reference.MCAssetVer + ":entity.phantom.hurt";
-	public static final String DEATH = Reference.MCAssetVer + ":entity.phantom.death";
-	public static final String FLAP = Reference.MCAssetVer + ":entity.phantom.flap";
-	public static final String SWOOP = Reference.MCAssetVer + ":entity.phantom.swoop";
-	public static final String BITE = Reference.MCAssetVer + ":entity.phantom.bite";
+	public static final String AMBIENT = McFly.MC_ASSETS + ":entity.phantom.ambient";
+	public static final String HURT = McFly.MC_ASSETS + ":entity.phantom.hurt";
+	public static final String DEATH = McFly.MC_ASSETS + ":entity.phantom.death";
+	public static final String FLAP = McFly.MC_ASSETS + ":entity.phantom.flap";
+	public static final String SWOOP = McFly.MC_ASSETS + ":entity.phantom.swoop";
+	public static final String BITE = McFly.MC_ASSETS + ":entity.phantom.bite";
 
 	public static final float FLAP_DEGREES_PER_TICK = 7.448451F;
 	public static final int TICKS_PER_FLAP = MathHelper.ceiling_float_int(24.166098F);

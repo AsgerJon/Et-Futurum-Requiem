@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.client.config.IConfigElement;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -184,8 +185,8 @@ public class BaseTests extends TasTestCase {
 	/** Our network messages (18, as of 2026-11-04; §79 B4). */
 	static final String[] OUR_MESSAGES = {"SwapHandsMessage", "UseOffhandMessage", "PlayerSettingsMessage", "OfflineSkinMessage",
 		"CommandTreeMessage", "CommandSuggestionRequestMessage", "CommandSuggestionsMessage", "PunchMessage", "ItemCooldownMessage",
-		"SweepParticleMessage", "OverlayMessage", "FreezingMessage", "SnowflakeMessage", "StrayConversionMessage", "EffectTableMessage",
-		"EndBossBarMessage", "DragonBreathBurstMessage", "LevelEventMessage"};
+		"OverlayMessage", "FreezingMessage", "StrayConversionMessage", "EffectTableMessage",
+		"EndBossBarMessage", "DragonBreathBurstMessage", "LevelEventMessage", "ParticleMessage"};
 
 	/** The message classes a channel's codec knows (FML's SimpleNetworkWrapper, by reflection). */
 	@SuppressWarnings("rawtypes")
@@ -218,7 +219,7 @@ public class BaseTests extends TasTestCase {
 				onEfr.add(message);
 			}
 		}
-		assertEqual("missing from ours [], on EFR's []", "missing from ours " + missing + ", on EFR's " + onEfr, "our 18 messages' channel");
+		assertEqual("missing from ours [], on EFR's []", "missing from ours " + missing + ", on EFR's " + onEfr, "our 17 messages' channel");
 	}
 
 	/**
@@ -232,7 +233,7 @@ public class BaseTests extends TasTestCase {
 		List<String> silent = onClient(() -> {
 			List<String> missing = new ArrayList<>();
 			for (String event : events.keySet()) {
-				if (mc().getSoundHandler().getSound(new net.minecraft.util.ResourceLocation(ganymedes01.etfuturum.lib.Reference.MCAssetVer, event)) == null) {
+				if (mc().getSoundHandler().getSound(new net.minecraft.util.ResourceLocation(McFly.MC_ASSETS, event)) == null) {
 					missing.add(event);
 				}
 			}
@@ -393,6 +394,146 @@ public class BaseTests extends TasTestCase {
 		notInTab.removeAll(inTab);
 		assertEqual(expected + " from " + (ids.isEmpty() ? "-" : ids.get(0)) + " on, none missing from the tab []",
 			order + " from " + (ids.isEmpty() ? "-" : ids.get(0)) + " on, none missing from the tab " + notInTab, "spawn eggs " + ids);
+	}
+
+	/** Our particles by their 26.3 names, with the class each comes out as on the client (§79 B7). */
+	static final String[][] OUR_PARTICLES = {
+		{"minecraft:sweep_attack", "SweepAttackFX"}, {"minecraft:glow", "GlowFX"}, {"minecraft:glow_squid_ink", "GlowSquidInkFX"},
+		{"minecraft:snowflake", "SnowflakeFX"}, {"minecraft:electric_spark", "ElectricSparkFX"}, {"minecraft:dragon_breath", "DragonBreathFX"},
+		{"minecraft:totem_of_undying", "TotemFX"}
+	};
+
+	/** The ways EFR's particle helper spawned ours before B7; none of them is left there. */
+	static final String[] OUR_PARTICLE_METHODS = {"spawnElectricSparks", "spawnElectricSparksAlongAxis", "spawnSweepAttack",
+		"spawnGlowSquidGlow", "spawnGlowSquidInk", "spawnTotemParticles", "spawnSnowflake"};
+
+	/** How many particles of each class (by simple name) the client shows within a block of a spot. */
+	private static Map<String, Integer> particlesNear(double x, double y, double z) throws Exception {
+		java.lang.reflect.Field layers = cpw.mods.fml.relauncher.ReflectionHelper.findField(net.minecraft.client.particle.EffectRenderer.class, "fxLayers", "field_78876_b");
+		Map<String, Integer> found = new java.util.TreeMap<>();
+		for (List<?> layer : (List<?>[]) layers.get(mc().effectRenderer)) {
+			for (Object particle : layer) {
+				net.minecraft.entity.Entity fx = (net.minecraft.entity.Entity) particle;
+				if (Math.abs(fx.posX - x) < 1 && Math.abs(fx.posY - y) < 1 && Math.abs(fx.posZ - z) < 1) {
+					found.merge(particle.getClass().getSimpleName(), 1, Integer::sum);
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
+	 * B7: each of our particles, sent from the server by its 26.3 name (26.3's level particles packet, on our channel:
+	 * `McFlyParticles.send` as `ServerLevel.sendParticles`, count 0 being one particle at the spot), reaches the client
+	 * as that particle; EFR's particle helper spawns none of ours any more.
+	 */
+	public void testParticlesSentByName() throws Exception {
+		Class<?> particles = mcfly("io.github.asgerjon.mcfly.particle.McFlyParticles");
+		Method send = particles.getMethod("send", net.minecraft.world.WorldServer.class, String.class, boolean.class, boolean.class,
+			double.class, double.class, double.class, int.class, double.class, double.class, double.class, double.class);
+		List<String> wrong = new ArrayList<>();
+		int i = 0;
+		for (String[] particle : OUR_PARTICLES) {
+			// a spot of its own for each, 3 blocks in front, in the air, the next 2 blocks along
+			int n = i++;
+			double[] at = onServer(() -> new double[]{Math.floor(player().posX) + 0.5 + 2 * n - 6, Math.floor(player().boundingBox.minY) + 2.5, Math.floor(player().posZ) + 3.5});
+			int sentTo = onServer(() -> (Integer) send.invoke(null, world(), particle[0], true, true, at[0], at[1], at[2], 0, 0.0, 0.0, 0.0, 0.0));
+			// each tick until it's seen (a spark lives 2 or 3 ticks)
+			Map<String, Integer> seen = new java.util.TreeMap<>();
+			for (int tick = 0; tick < 20 && !seen.containsKey(particle[1]); tick++) {
+				ticks(1);
+				seen = onClient(() -> particlesNear(at[0], at[1], at[2]));
+			}
+			if (sentTo != 1 || !seen.containsKey(particle[1])) {
+				wrong.add(particle[0] + " sent to " + sentTo + ", seen " + seen);
+			}
+		}
+		for (Method method : ganymedes01.etfuturum.client.particle.CustomParticles.class.getDeclaredMethods()) {
+			if (Arrays.asList(OUR_PARTICLE_METHODS).contains(method.getName())) {
+				wrong.add("EFR's CustomParticles." + method.getName());
+			}
+		}
+		assertEqual("[]", wrong.toString(), "our 7 particles by name");
+	}
+
+	/**
+	 * B7: 26.3's level particles packet's spread, on the client as `ClientPacketListener.handleParticleEvent` makes it:
+	 * a count above 0 gives that many particles, each around the spot by a Gaussian times the spread.
+	 */
+	public void testParticleCountAndSpread() throws Exception {
+		Class<?> particles = mcfly("io.github.asgerjon.mcfly.particle.McFlyParticles");
+		Method send = particles.getMethod("send", net.minecraft.world.WorldServer.class, String.class, boolean.class, boolean.class,
+			double.class, double.class, double.class, int.class, double.class, double.class, double.class, double.class);
+		double[] at = onServer(() -> new double[]{Math.floor(player().posX) + 0.5, Math.floor(player().boundingBox.minY) + 2.5, Math.floor(player().posZ) - 3.5});
+		onServer(() -> send.invoke(null, world(), "minecraft:electric_spark", true, true, at[0], at[1], at[2], 12, 0.1, 0.1, 0.1, 0.0));
+		// each tick until they're seen (a spark lives 2 or 3 ticks), the most seen at once
+		int most = 0;
+		for (int tick = 0; tick < 20 && most < 12; tick++) {
+			ticks(1);
+			Integer now = onClient(() -> particlesNear(at[0], at[1], at[2])).get("ElectricSparkFX");
+			most = Math.max(most, now == null ? 0 : now);
+		}
+		assertEqual(12, most, "sparks within a block of the spot, the most at once");
+	}
+
+	/** Our classes that used EFR's small helpers before B8 (§79 B8, surveyed 2026-11-04). */
+	static final String[] OUR_HELPER_USERS = {
+		"ganymedes01.etfuturum.client.ChatHistoryFile", "ganymedes01.etfuturum.client.LodestoneNeedle",
+		"ganymedes01.etfuturum.client.options.OptionsTxt", "ganymedes01.etfuturum.offhand.Offhand", "ganymedes01.etfuturum.skins.OfflineSkins",
+		"ganymedes01.etfuturum.blocks.BlockKelp", "ganymedes01.etfuturum.blocks.BlockPowderSnowCauldron", "ganymedes01.etfuturum.blocks.BlockPowderSnow",
+		"ganymedes01.etfuturum.blocks.ModernBanners", "ganymedes01.etfuturum.client.gui.inventory.GuiLoom",
+		"ganymedes01.etfuturum.items.equipment.ItemTurtleShell", "io.github.asgerjon.mcfly.registry.McFlyEntities",
+		"ganymedes01.etfuturum.client.renderer.block.BlockKelpRenderer"
+	};
+
+	/** EFR's small helpers (§79 B8), as class files name them. */
+	static final String[] EFR_HELPERS = {
+		"ganymedes01/etfuturum/core/utils/Logger", "ganymedes01/etfuturum/core/utils/Utils", "ganymedes01/etfuturum/lib/RenderIDs",
+		"ganymedes01/etfuturum/client/renderer/block/BlockModelBase"
+	};
+
+	/**
+	 * B8: none of our classes that used EFR's small helpers (its logger, `Utils`, `RenderIDs`, `BlockModelBase`) refers
+	 * to them any more, inner classes included (read from the class files, as built); McFly has its own names for the
+	 * domain our things live under and for MCLib's sound assets.
+	 */
+	public void testNoEfrHelpersInOurs() throws Exception {
+		List<String> wrong = new ArrayList<>();
+		for (String name : OUR_HELPER_USERS) {
+			List<String> classes = new ArrayList<>();
+			classes.add(name);
+			for (int i = 0; i < classes.size(); i++) {
+				byte[] bytes = net.minecraft.launchwrapper.Launch.classLoader.getClassBytes(classes.get(i));
+				if (bytes == null) {
+					wrong.add("no class file for " + classes.get(i));
+					continue;
+				}
+				String text = new String(bytes, StandardCharsets.ISO_8859_1);
+				for (String helper : EFR_HELPERS) {
+					if (text.contains(helper)) {
+						wrong.add(classes.get(i).substring(classes.get(i).lastIndexOf('.') + 1) + " uses " + helper.substring(helper.lastIndexOf('/') + 1));
+					}
+				}
+				// its inner classes, as its InnerClasses table names them
+				Matcher inner = Pattern.compile(Pattern.quote(name.replace('.', '/')) + "\\$[A-Za-z0-9_$]+").matcher(text);
+				while (inner.find()) {
+					String innerName = inner.group().replace('/', '.');
+					if (!classes.contains(innerName)) {
+						classes.add(innerName);
+					}
+				}
+			}
+		}
+		Class<?> base = mcfly(BASE);
+		String names = "";
+		for (String field : new String[]{"DOMAIN", "MC_ASSETS"}) {
+			try {
+				names += " " + base.getField(field).get(null);
+			} catch (NoSuchFieldException e) {
+				names += " (no " + field + ")";
+			}
+		}
+		assertEqual("[] etfuturum minecraft_1.21.10", wrong + names, "EFR's helpers in our classes, McFly's own names");
 	}
 
 	/**

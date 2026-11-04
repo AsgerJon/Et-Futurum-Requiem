@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.command.modern;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
 import io.github.asgerjon.mcfly.config.McFlyConfig;
@@ -39,7 +40,6 @@ import ganymedes01.etfuturum.command.modern.commands.CloneCommand;
 import ganymedes01.etfuturum.command.modern.commands.FillCommand;
 import ganymedes01.etfuturum.command.modern.commands.SetBlockCommand;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.network.CommandSuggestionsMessage;
 import io.github.asgerjon.mcfly.network.CommandTreeMessage;
 import io.netty.buffer.ByteBuf;
@@ -76,7 +76,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class ModernCommands {
 
-	private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+	private static final Logger LOGGER = LogManager.getLogger(McFly.DOMAIN);
 	private static final int MAX_SUGGESTIONS = 1000;
 	/** 1.7.10's handler runs these; the tree only needs to know that input ending here runs. */
 	private static final Command<ModernCommandSource> RUN_BY_LEGACY_HANDLER = context -> 0;

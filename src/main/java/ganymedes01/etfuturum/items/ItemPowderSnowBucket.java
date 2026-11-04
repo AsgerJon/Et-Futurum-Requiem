@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -37,7 +37,7 @@ public class ItemPowderSnowBucket extends BaseItem {
 				&& McFlyBlocks.POWDER_SNOW_CAULDRON.isEnabled()) {
 			if (!world.isRemote) {
 				world.setBlock(x, y, z, McFlyBlocks.POWDER_SNOW_CAULDRON.get(), 3, 3);
-				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
+				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
 				if (!player.capabilities.isCreativeMode) {
 					stack.func_150996_a(Items.bucket);
 				}
@@ -77,7 +77,7 @@ public class ItemPowderSnowBucket extends BaseItem {
 		if (!world.setBlock(x, y, z, snow, 0, 3)) {
 			return false;
 		}
-		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
+		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.empty_powder_snow", 1.0F, 1.0F);
 		if (!player.capabilities.isCreativeMode) {
 			stack.func_150996_a(Items.bucket);
 		}

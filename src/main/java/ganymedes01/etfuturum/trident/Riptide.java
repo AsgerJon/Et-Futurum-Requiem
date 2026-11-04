@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.trident;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.movement.ModernMovement;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -48,7 +48,7 @@ public final class Riptide {
 
 	/** The riptide sound of its level (the third for III and above). */
 	public static String sound(ItemStack trident) {
-		return Reference.MCAssetVer + ":item.trident.riptide_" + Math.min(Math.max(level(trident), 1), 3);
+		return McFly.MC_ASSETS + ":item.trident.riptide_" + Math.min(Math.max(level(trident), 1), 3);
 	}
 
 	/** In water, or in rain falling on the feet's or the head's block (modern's isInWaterOrRain). */

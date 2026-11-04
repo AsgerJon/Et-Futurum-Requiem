@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
@@ -7,7 +8,6 @@ import ganymedes01.etfuturum.blocks.ModernBanners;
 import ganymedes01.etfuturum.client.LayeredColorMaskTexture;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.lib.EnumColor;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.enchantment.Enchantment;
@@ -165,7 +165,7 @@ public class ShieldPatternTests extends TasTestCase {
 		List<String> wrong = onClient(() -> {
 			List<String> found = new ArrayList<>();
 			IResourceManager resources = mc().getResourceManager();
-			ResourceLocation frame = new ResourceLocation(Reference.MOD_ID, "textures/entity/shield/base.png");
+			ResourceLocation frame = new ResourceLocation(McFly.DOMAIN, "textures/entity/shield/base.png");
 			BufferedImage base = javax.imageio.ImageIO.read(resources.getResource(frame).getInputStream());
 			BufferedImage canvas = LayeredColorMaskTexture.compose(resources, frame,
 				Arrays.asList(ModernBanners.shieldMask("base"), ModernBanners.shieldMask("stripe_bottom")),

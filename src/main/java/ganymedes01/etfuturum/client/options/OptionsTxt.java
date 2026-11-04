@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.client.options;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +69,7 @@ public final class OptionsTxt {
 				}
 			}
 		} catch (IOException e) {
-			Logger.error("Can't read EFR's options from " + optionsFile + ": " + e);
+			McFly.LOG.error("Can't read EFR's options from " + optionsFile + ": " + e);
 			return;
 		}
 		McFlyConfig.skinCape = shown[0];

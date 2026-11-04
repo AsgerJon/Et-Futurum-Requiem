@@ -1,5 +1,6 @@
 package io.github.asgerjon.mcfly.mixins.early.modernend;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.entities.EntityAreaEffectCloud;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +32,7 @@ public class MixinItemGlassBottle {
 		for (EntityAreaEffectCloud cloud : clouds) {
 			if (!cloud.isDead && cloud.byDragon()) {
 				cloud.setRadius(cloud.getRadius() - 0.5F);
-				world.playSoundAtEntity(player, ganymedes01.etfuturum.lib.Reference.MCAssetVer + ":item.bottle.fill_dragonbreath", 1.0F, 1.0F);
+				world.playSoundAtEntity(player, McFly.MC_ASSETS + ":item.bottle.fill_dragonbreath", 1.0F, 1.0F);
 				ItemStack breath = new ItemStack(ModItems.DRAGON_BREATH.get());
 				if (!player.capabilities.isCreativeMode) {
 					stack.stackSize--;

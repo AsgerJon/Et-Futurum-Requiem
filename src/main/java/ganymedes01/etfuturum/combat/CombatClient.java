@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.combat;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Arm;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
@@ -34,7 +34,7 @@ public final class CombatClient {
 	}
 
 	private static ResourceLocation texture(String name) {
-		return new ResourceLocation(Reference.MOD_ID, "textures/gui/hud/" + name + ".png");
+		return new ResourceLocation(McFly.DOMAIN, "textures/gui/hud/" + name + ".png");
 	}
 
 	@SubscribeEvent

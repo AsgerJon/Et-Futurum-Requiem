@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
@@ -72,7 +72,7 @@ public final class ModernBanners {
 
 	/** A shield pattern's mask (26.3's shield pattern texture as EFR's masks are: white where it covers), by 26.3's name. */
 	public static String shieldMask(String pattern) {
-		return ganymedes01.etfuturum.lib.Reference.MOD_ID + ":textures/entity/shield/pattern/" + pattern + ".png";
+		return McFly.DOMAIN + ":textures/entity/shield/pattern/" + pattern + ".png";
 	}
 
 	/** One of 26.3's patterns (not one another mod added through EFR's API). */
@@ -85,7 +85,7 @@ public final class ModernBanners {
 	 * mod added through EFR's API, its 1.8 mask where such a mod puts it (drawn by 1.8's rule, as before).
 	 */
 	public static String bannerTexture(EnumBannerPattern pattern) {
-		return isModern(pattern) ? ganymedes01.etfuturum.lib.Reference.MOD_ID + ":textures/entity/banner/" + pattern.getPatternName() + ".png"
+		return isModern(pattern) ? McFly.DOMAIN + ":textures/entity/banner/" + pattern.getPatternName() + ".png"
 			: "textures/entity/banner/" + pattern.getPatternName() + ".png";
 	}
 
@@ -137,7 +137,8 @@ public final class ModernBanners {
 		if (stack == null) {
 			return -1;
 		}
-		for (String ore : Utils.getOreNames(stack)) {
+		for (int oreId : net.minecraftforge.oredict.OreDictionary.getOreIDs(stack)) {
+			String ore = net.minecraftforge.oredict.OreDictionary.getOreName(oreId);
 			for (EnumColor colour : EnumColor.VALUES) {
 				if (ore.equals(colour.getOreName())) {
 					return colour.getDamage();

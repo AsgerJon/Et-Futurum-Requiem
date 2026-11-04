@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -18,7 +19,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import ganymedes01.etfuturum.lib.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -147,7 +147,7 @@ public class BannerTests extends TasTestCase {
 
 	/** 26.3's banner texture by its name (spec §66.11: `etfuturum:textures/entity/banner/`, as RGBA). */
 	static java.awt.image.BufferedImage texture(IResourceManager resources, String name) throws java.io.IOException {
-		return javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(Reference.MOD_ID, "textures/entity/banner/" + name + ".png")).getInputStream());
+		return javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(McFly.DOMAIN, "textures/entity/banner/" + name + ".png")).getInputStream());
 	}
 
 	/** The canvas the renderer makes for that banner. */

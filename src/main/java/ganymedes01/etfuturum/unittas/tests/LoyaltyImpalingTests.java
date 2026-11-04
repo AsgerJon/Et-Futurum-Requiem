@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.command.modern.arguments.EnchantmentIds;
 import ganymedes01.etfuturum.command.modern.arguments.EntityTypeIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
 import ganymedes01.etfuturum.entities.EntityThrownTrident;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -49,7 +49,7 @@ import java.util.function.Function;
 public class LoyaltyImpalingTests extends TasTestCase {
 
 	private static final String TRIDENT = "minecraft:trident";
-	private static final String RETURN = Reference.MCAssetVer + ":item.trident.return";
+	private static final String RETURN = McFly.MC_ASSETS + ":item.trident.return";
 	private static final int PICKUP_ALLOWED = 1;
 	/** Past creative's 6-block mob reach. */
 	private static final double TARGET_Z = 7.5D;

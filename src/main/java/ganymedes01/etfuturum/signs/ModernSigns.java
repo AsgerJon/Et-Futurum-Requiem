@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.signs;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -96,7 +96,7 @@ public final class ModernSigns {
 				text.etfu$setColor(color);
 				sound = "item.dye.use";
 		}
-		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":" + sound, 1.0F, 1.0F);
+		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":" + sound, 1.0F, 1.0F);
 		if (!player.capabilities.isCreativeMode && --held.stackSize <= 0) {
 			player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 		}

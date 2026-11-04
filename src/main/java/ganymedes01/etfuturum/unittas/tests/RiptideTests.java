@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.command.modern.arguments.EnchantmentIds;
 import ganymedes01.etfuturum.command.modern.arguments.EntityTypeIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.trident.Riptide;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class RiptideTests extends TasTestCase {
 
 	private static final String TRIDENT = "minecraft:trident";
 	private static final String RIPTIDE = "minecraft:riptide";
-	private static final String SOUND = Reference.MCAssetVer + ":item.trident.riptide_";
+	private static final String SOUND = McFly.MC_ASSETS + ":item.trident.riptide_";
 
 	@Override
 	protected void tearDown() {

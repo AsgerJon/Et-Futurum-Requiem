@@ -1,10 +1,10 @@
 package io.github.asgerjon.mcfly.mixins.early.quickwins4;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.FilledResult;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,14 +57,14 @@ public abstract class MixinBlockCauldron {
 			if (!world.isRemote) {
 				world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 				world.func_147453_f(x, y, z, Blocks.cauldron);
-				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.fill", 1.0F, 1.0F);
+				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.fill", 1.0F, 1.0F);
 				FilledResult.fill(player, held, new ItemStack(Items.water_bucket));
 			}
 			cir.setReturnValue(true);
 		} else if (McFlyConfig.modernCauldrons && held.getItem() == Items.lava_bucket && level > 0 && ModBlocks.LAVA_CAULDRON.isEnabled()) {
 			if (!world.isRemote) {
 				world.setBlock(x, y, z, ModBlocks.LAVA_CAULDRON.get(), 0, 3);
-				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.empty_lava", 1.0F, 1.0F);
+				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.empty_lava", 1.0F, 1.0F);
 				if (!player.capabilities.isCreativeMode) {
 					held.func_150996_a(Items.bucket);
 				}

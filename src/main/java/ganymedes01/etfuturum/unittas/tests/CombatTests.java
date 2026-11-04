@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModEnchantments;
@@ -10,7 +11,6 @@ import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.mixins.early.fov.client.AccessorGuiOptionsRowList;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class CombatTests extends TasTestCase {
 
-	private static final String ATTACK_SOUND = Reference.MCAssetVer + ":entity.player.attack.";
+	private static final String ATTACK_SOUND = McFly.MC_ASSETS + ":entity.player.attack.";
 
 	@Override
 	protected void setUp() {

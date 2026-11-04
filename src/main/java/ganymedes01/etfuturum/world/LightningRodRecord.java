@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.world;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.blocks.BlockLightningRod;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.trident.Lightning;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class LightningRodRecord extends WorldSavedData {
 
-	private static final String NAME = Reference.MOD_ID + "_lightning_rods";
+	private static final String NAME = McFly.DOMAIN + "_lightning_rods";
 
 	private final Set<ChunkCoordinates> positions = new HashSet<>();
 	/**

@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -35,7 +34,7 @@ public class BlockPowderSnowCauldron extends BlockCauldron {
 		super();
 		setHardness(2.0F);
 		setStepSound(Blocks.cauldron.stepSound);
-		setBlockName(Utils.getUnlocalisedName("powder_snow_cauldron"));
+		setBlockName(McFly.name("powder_snow_cauldron"));
 	}
 
 	public static int contentHeight16(int level) {
@@ -56,7 +55,7 @@ public class BlockPowderSnowCauldron extends BlockCauldron {
 			}
 			if (!world.isRemote) {
 				world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
-				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
+				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.fill_powder_snow", 1.0F, 1.0F);
 				giveFilled(player, held, new ItemStack(McFlyItems.POWDER_SNOW_BUCKET.get()));
 			}
 			return true;
@@ -76,7 +75,7 @@ public class BlockPowderSnowCauldron extends BlockCauldron {
 	private static boolean replace(World world, int x, int y, int z, EntityPlayer player, ItemStack held, net.minecraft.block.Block block, int meta, String sound) {
 		if (!world.isRemote) {
 			world.setBlock(x, y, z, block, meta, 3);
-			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":" + sound, 1.0F, 1.0F);
+			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":" + sound, 1.0F, 1.0F);
 			if (!player.capabilities.isCreativeMode) {
 				held.func_150996_a(Items.bucket);
 			}
@@ -144,7 +143,7 @@ public class BlockPowderSnowCauldron extends BlockCauldron {
 
 	@Override
 	public int getRenderType() {
-		return RenderIDs.POWDER_SNOW_CAULDRON;
+		return McFlyRenderIds.POWDER_SNOW_CAULDRON;
 	}
 
 	@Override

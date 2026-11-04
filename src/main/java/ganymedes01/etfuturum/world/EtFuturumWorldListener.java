@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.world;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
-import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -227,7 +227,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	@Override
 	public void playAuxSFX(EntityPlayer player, int type, int x, int y, int z, int data) {
 		if (type == Lightning.SPARKS_EVENT && world.isRemote) {
-			CustomParticles.spawnElectricSparks(world, x, y, z, data);
+			McFlyParticlesClient.electricSparks(x, y, z, data);
 		}
 	}
 

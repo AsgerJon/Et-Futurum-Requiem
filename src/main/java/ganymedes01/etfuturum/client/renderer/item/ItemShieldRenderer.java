@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.model.ModelShield;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Arm;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.client.Minecraft;
@@ -29,13 +29,13 @@ import java.nio.FloatBuffer;
 @SideOnly(Side.CLIENT)
 public class ItemShieldRenderer implements IItemRenderer {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/entity/shield/base_nopattern.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(McFly.DOMAIN, "textures/entity/shield/base_nopattern.png");
 	/** The first-person hand's space and raise height (0 lowered to 1 up), kept each frame by combat.client.MixinItemRenderer. */
 	public static final FloatBuffer FIRST_PERSON_HAND = BufferUtils.createFloatBuffer(16);
 	public static float firstPersonRaise = 1.0F;
 	private final ModelShield model = new ModelShield();
 	/** A decorated shield's frame (26.3's shield_base), under its base colour and layers. */
-	private static final ResourceLocation FRAME = new ResourceLocation(Reference.MOD_ID, "textures/entity/shield/base.png");
+	private static final ResourceLocation FRAME = new ResourceLocation(McFly.DOMAIN, "textures/entity/shield/base.png");
 	private static final java.util.Map<String, ResourceLocation> CANVASES = new java.util.HashMap<>();
 
 	/**
@@ -74,7 +74,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 				}
 				CANVASES.clear();
 			}
-			canvas = new ResourceLocation(Reference.MOD_ID, key.toString());
+			canvas = new ResourceLocation(McFly.DOMAIN, key.toString());
 			Minecraft.getMinecraft().getTextureManager().loadTexture(canvas, new ganymedes01.etfuturum.client.LayeredColorMaskTexture(FRAME, textures, colours, true));
 			CANVASES.put(key.toString(), canvas);
 		}

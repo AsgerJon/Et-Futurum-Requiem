@@ -27,14 +27,14 @@ public final class McFlyNetwork {
 		CHANNEL.registerMessage(CommandSuggestionsHandler.class, CommandSuggestionsMessage.class, 6, Side.CLIENT);
 		CHANNEL.registerMessage(PunchHandler.class, PunchMessage.class, 7, Side.SERVER);
 		CHANNEL.registerMessage(ItemCooldownHandler.class, ItemCooldownMessage.class, 8, Side.CLIENT);
-		CHANNEL.registerMessage(SweepParticleHandler.class, SweepParticleMessage.class, 9, Side.CLIENT);
 		CHANNEL.registerMessage(OverlayMessageHandler.class, OverlayMessage.class, 10, Side.CLIENT);
 		CHANNEL.registerMessage(FreezingHandler.class, FreezingMessage.class, 11, Side.CLIENT);
-		CHANNEL.registerMessage(SnowflakeHandler.class, SnowflakeMessage.class, 12, Side.CLIENT);
 		CHANNEL.registerMessage(StrayConversionHandler.class, StrayConversionMessage.class, 13, Side.CLIENT);
 		CHANNEL.registerMessage(EffectTableHandler.class, EffectTableMessage.class, 14, Side.CLIENT);
 		CHANNEL.registerMessage(EndBossBarHandler.class, EndBossBarMessage.class, 15, Side.CLIENT);
 		CHANNEL.registerMessage(DragonBreathBurstHandler.class, DragonBreathBurstMessage.class, 16, Side.CLIENT);
 		CHANNEL.registerMessage(LevelEventHandler.class, LevelEventMessage.class, 17, Side.CLIENT);
+		// 26.3's level particles packet (spec §79 B7), in place of the sweep's and snowflakes' own (9, 12)
+		CHANNEL.registerMessage(ParticleHandler.class, ParticleMessage.class, 18, Side.CLIENT);
 	}
 }

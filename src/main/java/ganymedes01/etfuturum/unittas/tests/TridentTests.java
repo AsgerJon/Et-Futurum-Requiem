@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
@@ -7,7 +8,6 @@ import ganymedes01.etfuturum.command.modern.arguments.EntityTypeIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityThrownTrident;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
@@ -56,8 +56,8 @@ import java.util.function.Consumer;
 public class TridentTests extends TasTestCase {
 
 	private static final String TRIDENT = "minecraft:trident";
-	private static final String THROW = Reference.MCAssetVer + ":item.trident.throw";
-	private static final String HIT_GROUND = Reference.MCAssetVer + ":item.trident.hit_ground";
+	private static final String THROW = McFly.MC_ASSETS + ":item.trident.throw";
+	private static final String HIT_GROUND = McFly.MC_ASSETS + ":item.trident.hit_ground";
 	private static final String[] SOUNDS = {"throw", "hit", "hit_ground", "return", "riptide_1", "riptide_2", "riptide_3", "thunder"};
 	/** Villagers to throw at stand past creative's reach for mobs (6 in 1.7.10): right-clicking one in reach trades. */
 	private static final double TARGET_Z = 7.5D;
@@ -536,7 +536,7 @@ public class TridentTests extends TasTestCase {
 			List<String> found = new ArrayList<>();
 			for (String sound : SOUNDS) {
 				String path = "item.trident." + sound;
-				if (mc().getSoundHandler().getSound(new ResourceLocation(Reference.MCAssetVer, path)) == null) {
+				if (mc().getSoundHandler().getSound(new ResourceLocation(McFly.MC_ASSETS, path)) == null) {
 					found.add("the sound " + path);
 				}
 				if (!StatCollector.canTranslate("subtitle." + path)) {

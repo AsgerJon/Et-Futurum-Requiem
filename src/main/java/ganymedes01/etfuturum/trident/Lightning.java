@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.trident;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.blocks.BlockLightningRod;
 import ganymedes01.etfuturum.blocks.IDegradable;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.LightningRodRecord;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -30,7 +30,7 @@ import java.util.Random;
  */
 public final class Lightning {
 
-	private static final String THUNDER_SOUND = Reference.MCAssetVer + ":item.trident.thunder";
+	private static final String THUNDER_SOUND = McFly.MC_ASSETS + ":item.trident.thunder";
 	/** 26.3's level event for electric sparks: data an axis (0 x, 1 y, 2 z) along a block, or -1 on all its faces. */
 	public static final int SPARKS_EVENT = 3002;
 	/** How far natural lightning looks for a lightning rod. */

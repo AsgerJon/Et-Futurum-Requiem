@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.client;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.items.LodestoneCompass;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
@@ -183,7 +182,7 @@ public final class LodestoneNeedle {
 		private final int frame;
 
 		private NeedleSprite(int frame) {
-			super(Reference.MOD_ID + ":lodestone_compass_needle_" + (frame < 10 ? "0" : "") + frame);
+			super(McFly.DOMAIN + ":lodestone_compass_needle_" + (frame < 10 ? "0" : "") + frame);
 			this.frame = frame;
 		}
 
@@ -205,7 +204,7 @@ public final class LodestoneNeedle {
 				loadSprite(images, null, Minecraft.getMinecraft().gameSettings.anisotropicFiltering > 1);
 				return false;
 			} catch (IOException | RuntimeException e) {
-				Logger.error("Couldn't cut the lodestone compass's needle " + frame + " from the compass texture: " + e);
+				McFly.LOG.error("Couldn't cut the lodestone compass's needle " + frame + " from the compass texture: " + e);
 				return true;
 			}
 		}

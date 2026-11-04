@@ -1,12 +1,12 @@
 package io.github.asgerjon.mcfly.mixins.early.combat;
 
-import io.github.asgerjon.mcfly.network.McFlyNetwork;
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.particle.McFlyParticles;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.combat.AttackCooldown;
@@ -15,8 +15,6 @@ import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.combat.ItemCooldowns;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
 import ganymedes01.etfuturum.enchantment.SweepingEdge;
-import ganymedes01.etfuturum.lib.Reference;
-import io.github.asgerjon.mcfly.network.SweepParticleMessage;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -262,17 +260,19 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements ICom
 			}
 		}
 		etfu$playAttackSound("sweep");
-		// the sweep's particle, a block ahead at half height, for the players around (as modern's sendParticles)
-		double x = this.posX - MathHelper.sin(yaw);
-		double y = this.posY + this.height * 0.5D;
-		double z = this.posZ + MathHelper.cos(yaw);
-		McFlyNetwork.CHANNEL.sendToAllAround(new SweepParticleMessage(x, y, z), new NetworkRegistry.TargetPoint(this.dimension, this.posX, this.posY, this.posZ, 32.0D));
+		// the sweep's particle, a block ahead at half height, for the players around: 26.3's
+		// sendParticles(SWEEP_ATTACK, x + xd, y(0.5), z + zd, 0, xd, 0, zd, 0), by name (spec §79 B7)
+		double xd = -MathHelper.sin(yaw);
+		double zd = MathHelper.cos(yaw);
+		if (this.worldObj instanceof net.minecraft.world.WorldServer server) {
+			McFlyParticles.send(server, McFlyParticles.SWEEP_ATTACK, this.posX + xd, this.posY + this.height * 0.5D, this.posZ + zd, 0, xd, 0.0D, zd, 0.0D);
+		}
 	}
 
 	@Unique
 	private void etfu$playAttackSound(String name) {
 		if (!this.worldObj.isRemote) {
-			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, Reference.MCAssetVer + ":entity.player.attack." + name, 1.0F, 1.0F);
+			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, McFly.MC_ASSETS + ":entity.player.attack." + name, 1.0F, 1.0F);
 		}
 	}
 }

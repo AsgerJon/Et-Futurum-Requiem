@@ -1,5 +1,6 @@
 package io.github.asgerjon.mcfly.network;
 
+import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -35,7 +36,7 @@ public class DragonBreathBurstHandler implements IMessageHandler<DragonBreathBur
 			DragonBreathFX.spawn(world, message.x + vx * 0.1, message.y + 0.3, message.z + vz * 0.1, vx, vy, vz);
 		}
 		if (message.sound) {
-			world.playSound(message.x + 0.5, message.y + 0.5, message.z + 0.5, ganymedes01.etfuturum.lib.Reference.MCAssetVer + ":entity.dragon_fireball.explode", 1.0F, 0.9F + random.nextFloat() * 0.1F, false);
+			world.playSound(message.x + 0.5, message.y + 0.5, message.z + 0.5, McFly.MC_ASSETS + ":entity.dragon_fireball.explode", 1.0F, 0.9F + random.nextFloat() * 0.1F, false);
 		}
 	}
 }

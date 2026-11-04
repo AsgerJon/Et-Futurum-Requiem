@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.command.modern.arguments.EntityTypeIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -249,7 +249,7 @@ public class PolarBearTests extends TasTestCase {
 			Entity seen = mc().theWorld.getEntityByID(bear.getEntityId());
 			return seen != null && standing(seen);
 		}, 60);
-		waitForSound(Reference.MCAssetVer + ":entity.polar_bear.warning", 20);
+		waitForSound(McFly.MC_ASSETS + ":entity.polar_bear.warning", 20);
 	}
 
 	/** In reach, it hits for its 6 (on Normal, no armour). */
@@ -429,7 +429,7 @@ public class PolarBearTests extends TasTestCase {
 			List<String> found = new ArrayList<>();
 			for (String sound : SOUNDS) {
 				String path = "entity.polar_bear." + sound;
-				if (mc().getSoundHandler().getSound(new ResourceLocation(Reference.MCAssetVer, path)) == null) {
+				if (mc().getSoundHandler().getSound(new ResourceLocation(McFly.MC_ASSETS, path)) == null) {
 					found.add("the sound " + path);
 				}
 				if (!"step".equals(sound) && !StatCollector.canTranslate("subtitle." + path)) {

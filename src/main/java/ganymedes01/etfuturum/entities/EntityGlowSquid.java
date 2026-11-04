@@ -1,12 +1,13 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.particle.McFlyParticles;
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.EntityEvents;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,10 +24,10 @@ import net.minecraft.world.World;
  */
 public class EntityGlowSquid extends EntitySquid {
 
-	public static final String AMBIENT = Reference.MCAssetVer + ":entity.glow_squid.ambient";
-	public static final String HURT = Reference.MCAssetVer + ":entity.glow_squid.hurt";
-	public static final String DEATH = Reference.MCAssetVer + ":entity.glow_squid.death";
-	public static final String SQUIRT = Reference.MCAssetVer + ":entity.glow_squid.squirt";
+	public static final String AMBIENT = McFly.MC_ASSETS + ":entity.glow_squid.ambient";
+	public static final String HURT = McFly.MC_ASSETS + ":entity.glow_squid.hurt";
+	public static final String DEATH = McFly.MC_ASSETS + ":entity.glow_squid.death";
+	public static final String SQUIRT = McFly.MC_ASSETS + ":entity.glow_squid.squirt";
 
 	/** 1.7.10's squids use no DataWatcher id above 11; 16 is a mob's own, as other mobs' first. */
 	private static final int DARK_TICKS = 16;
@@ -77,10 +78,10 @@ public class EntityGlowSquid extends EntitySquid {
 			setDarkTicks(dark - 1);
 		}
 		if (worldObj.isRemote) {
-			CustomParticles.spawnGlowSquidGlow(worldObj,
+			McFlyParticlesClient.add(McFlyParticles.GLOW,
 				posX + width * (2.0D * rand.nextDouble() - 1.0D) * 0.6D,
 				boundingBox.minY + height * rand.nextDouble(),
-				posZ + width * (2.0D * rand.nextDouble() - 1.0D) * 0.6D);
+				posZ + width * (2.0D * rand.nextDouble() - 1.0D) * 0.6D, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -115,7 +116,7 @@ public class EntityGlowSquid extends EntitySquid {
 		for (int i = 0; i < 30; i++) {
 			Vec3 dir = turned(rand.nextFloat() * 0.6D - 0.3D, -1.0D, rand.nextFloat() * 0.6D - 0.3D);
 			double scale = (0.3D + rand.nextFloat() * 2.0D) * 0.1D;
-			CustomParticles.spawnGlowSquidInk(worldObj, posX + at.xCoord, posY + at.yCoord + 0.5D, posZ + at.zCoord,
+			McFlyParticlesClient.add(McFlyParticles.GLOW_SQUID_INK, posX + at.xCoord, posY + at.yCoord + 0.5D, posZ + at.zCoord,
 				dir.xCoord * scale, dir.yCoord * scale, dir.zCoord * scale);
 		}
 	}

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.command.modern;
 
+import io.github.asgerjon.mcfly.McFly;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
@@ -24,7 +25,6 @@ import ganymedes01.etfuturum.command.modern.arguments.MessageArgument;
 import ganymedes01.etfuturum.command.modern.arguments.GameModeArgument;
 import ganymedes01.etfuturum.command.modern.arguments.RotationArgument;
 import ganymedes01.etfuturum.command.modern.arguments.TimeArgument;
-import ganymedes01.etfuturum.lib.Reference;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public final class ArgumentTypes {
 
-	private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+	private static final Logger LOGGER = LogManager.getLogger(McFly.DOMAIN);
 	private static final Map<Class<?>, Serializer<?>> BY_CLASS = new HashMap<>();
 	private static final Map<String, Serializer<?>> BY_NAME = new HashMap<>();
 

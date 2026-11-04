@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.combat;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
-import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.network.ItemCooldownMessage;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
@@ -73,7 +73,7 @@ public final class ShieldBlocking {
 		wear(player, shield, damage);
 		if (!inHurtCooldown) {
 			float pitch = 0.8F + defender.getRNG().nextFloat() * 0.4F;
-			defender.worldObj.playSoundEffect(defender.posX, defender.posY, defender.posZ, Reference.MCAssetVer + ":item.shield.block", 1.0F, pitch);
+			defender.worldObj.playSoundEffect(defender.posX, defender.posY, defender.posZ, McFly.MC_ASSETS + ":item.shield.block", 1.0F, pitch);
 		}
 		if (!source.isProjectile() && direct instanceof EntityLivingBase attacker && disablesShields(attacker)) {
 			disable(player);
@@ -115,7 +115,7 @@ public final class ShieldBlocking {
 		((ICombatPlayer) player).etfu$getCooldowns().add(shield.getItem(), DISABLE_TICKS);
 		player.clearItemInUse();
 		float pitch = 0.8F + player.getRNG().nextFloat() * 0.4F;
-		player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Reference.MCAssetVer + ":item.shield.break", 0.8F, pitch);
+		player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, McFly.MC_ASSETS + ":item.shield.break", 0.8F, pitch);
 		if (player instanceof EntityPlayerMP playerMP) {
 			McFlyNetwork.CHANNEL.sendTo(new ItemCooldownMessage(shield.getItem(), DISABLE_TICKS), playerMP);
 		}

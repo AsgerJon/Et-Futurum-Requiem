@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.particle;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import net.minecraft.world.World;
 
 /**
@@ -10,7 +11,7 @@ import net.minecraft.world.World;
 public class TotemFX extends EtFuturumFXParticle {
 
 	public TotemFX(World world, double x, double y, double z, double mx, double my, double mz) {
-		super(world, x, y, z, mx, my, mz, 60 + CustomParticles.rand.nextInt(12), 0.75F * (particleRand.nextFloat() * 0.5F + 0.5F) * 2.0F,
+		super(world, x, y, z, mx, my, mz, 60 + McFlyParticlesClient.RANDOM.nextInt(12), 0.75F * (particleRand.nextFloat() * 0.5F + 0.5F) * 2.0F,
 			0xFFFFFFFF, "textures/particle/glitter.png", 8);
 		noClip = false;
 		particleGravity = 1.25F;

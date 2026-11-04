@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.signs.ISignText;
 import ganymedes01.etfuturum.signs.ModernSigns;
 import ganymedes01.etfuturum.unittas.TasTestCase;
@@ -26,7 +26,7 @@ import net.minecraft.world.WorldSettings;
 public class SignTextTests extends TasTestCase {
 
 	private static final int X = 2, Y = 4, Z = 3;
-	private static final String MODERN = Reference.MCAssetVer + ":";
+	private static final String MODERN = McFly.MC_ASSETS + ":";
 
 	@Override
 	protected void setUp() {
