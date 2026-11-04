@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
@@ -119,11 +120,11 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
 				}
 				return true;
-			} else if (item == Items.arrow && ModItems.TIPPED_ARROW.isEnabled()) {
+			} else if (item == Items.arrow && McFlyItems.TIPPED_ARROW.isEnabled()) {
 				final int meta = world.getBlockMetadata(x, y, z);
 				final int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
 
-				ItemStack tippedArrow = ModItems.TIPPED_ARROW.newItemStack(Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
+				ItemStack tippedArrow = McFlyItems.TIPPED_ARROW.newItemStack(Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
 				final int setMeta = tippedArrow.stackSize >= tipmax ? -1 : meta - (tippedArrow.stackSize < 32 ? 1 : 2);
 
 				// a potion by name (spec §69): the arrows hold the same potion

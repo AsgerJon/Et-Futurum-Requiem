@@ -51,8 +51,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableBeetroot;
 	public static boolean enableChorusFruit;
 	public static boolean enableGrassPath;
-	public static boolean enableTippedArrows;
-	public static boolean enableLingeringPotions;
 	public static boolean enableCryingObsidian;
 	public static boolean enableBrewingStands;
 	public static boolean enableColourfulBeacons;
@@ -139,7 +137,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCherryBlocks;
 	public static boolean enableBambooBlocks;
 
-	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
 	public static boolean enablePotionCauldron;
 	public static boolean enableNewBoats;
@@ -261,7 +258,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableVanillaSigns = getBoolean("enableVanillaSigns", catBlockFunc, true, "Enables variant signs for materials available natively in Minecraft 1.7");
 		enableNewSigns = getBoolean("enableNewSigns", catBlockFunc, true, "Enables wood variant signs for materials available in Minecraft after 1.7");
 		enableLavaCauldrons = getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
-		enableShulkerBoxes = getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
 		enablePotionCauldron = getBoolean("enablePotionCauldron", catBlockFunc, true, "A port of potion cauldrons from Bedrock Edition. Used to make tipped arrows and store potions.");
 		//Note the above option has an extra check in preInit to ensure Iron Chests is loaded. We can't do this here because Loader doesn't even exist yet since we initialize these configs while Mixins and ASM are being applied.
 		enableStonecutter = getBoolean("enableStonecutter", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
@@ -332,8 +328,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");
 		enableBeetroot = getBoolean("enableBeetroot", catItemMisc, true, "");
 		enableIronNugget = getBoolean("enableIronNugget", catItemMisc, true, "");
-		enableTippedArrows = getBoolean("enableTippedArrows", catItemMisc, true, "");
-		enableLingeringPotions = getBoolean("enableLingeringPotions", catItemMisc, true, "");
 		enableRawOres = getBoolean("enableRawOres", catItemMisc, true, "If true, vanilla and Et Futurum copper ores will drop raw ore items.");
 
 		enableTotemUndying = getBoolean("enableTotemUndying", catItemMisc, true, "");
@@ -390,7 +384,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	@Override
 	protected void initValues() {
 		if (!ModsList.IRON_CHEST.isLoaded()) {
-			ConfigModCompat.shulkerBoxesIronChest = false;
 			ConfigModCompat.barrelIronChest = false;
 		}
 	}

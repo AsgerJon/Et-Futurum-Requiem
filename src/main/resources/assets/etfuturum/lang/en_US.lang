@@ -1607,6 +1607,8 @@ tile.etfuturum.red_nether_brick_wall.name=Red Nether Brick Wall
 tile.etfuturum.end_brick_wall.name=End Stone Brick Wall
 
 tile.etfuturum.shulker_box.name=Shulker Box
+container.shulkerBox=Shulker Box
+container.shulkerBox.more=and %s more...
 tile.etfuturum.white_shulker_box.name=White Shulker Box
 tile.etfuturum.orange_shulker_box.name=Orange Shulker Box
 tile.etfuturum.magenta_shulker_box.name=Magenta Shulker Box

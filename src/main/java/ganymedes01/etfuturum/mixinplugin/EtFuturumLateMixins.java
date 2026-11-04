@@ -22,21 +22,6 @@ public class EtFuturumLateMixins implements ILateMixinLoader {
 	public List<String> getMixins(Set<String> loadedMods) {
 		List<String> mixins = new ArrayList<>();
 
-		if (ConfigMixins.enableSpectatorMode) {
-			if (loadedMods.contains("IronChest")) {
-				mixins.add("spectator.MixinContainerIronChest");
-			}
-			if (loadedMods.contains("appliedenergistics2")) {
-				mixins.add("spectator.MixinPacketInventoryAction");
-			}
-			if (loadedMods.contains("TConstruct")) {
-				mixins.add("spectator.MixinArmorProxyClientTConstruct");
-			}
-			if (loadedMods.contains("Thaumcraft")) {
-				mixins.add("spectator.MixinItemHoverHarnessThaumcraft");
-			}
-		}
-
 		return mixins;
 	}
 }

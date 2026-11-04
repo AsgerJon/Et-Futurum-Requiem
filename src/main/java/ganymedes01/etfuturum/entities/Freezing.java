@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
@@ -8,7 +10,6 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.ducks.IFreezingEntity;
 import io.github.asgerjon.mcfly.network.FreezingMessage;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -104,7 +105,7 @@ public final class Freezing {
 		if (entity instanceof EntitySkeleton && ((EntitySkeleton) entity).getSkeletonType() == 0) {
 			return false;
 		}
-		if (entity instanceof EntityPlayer && ConfigMixins.enableSpectatorMode && SpectatorMode.isSpectator((EntityPlayer) entity)) {
+		if (entity instanceof EntityPlayer && McFlyConfig.enableSpectatorMode && Spectator.isSpectator((EntityPlayer) entity)) {
 			return false;
 		}
 		if (entity instanceof EntityLivingBase) {

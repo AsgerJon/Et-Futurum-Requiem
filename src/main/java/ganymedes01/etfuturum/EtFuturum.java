@@ -115,7 +115,6 @@ import ganymedes01.etfuturum.potion.ModernPotionColors;
 import ganymedes01.etfuturum.recipes.ModFuels;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
@@ -305,7 +304,6 @@ public class EtFuturum {
 		ModEnchantments.init();
 		ModPotions.init();
 		Offhand.init();
-		SpectatorMode.init();
 
 		if (event.getSide() == Side.CLIENT) {
 

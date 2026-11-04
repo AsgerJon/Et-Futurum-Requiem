@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
@@ -91,7 +92,7 @@ public class BrewingTests extends TasTestCase {
 			assertTrue(splash != null, name + " + gunpowder brews nothing");
 			assertEqual(BrewingTable.Container.SPLASH, BrewingTable.containerOf(splash), name + " + gunpowder");
 			assertEqual("minecraft:" + name, idOf(splash), name + " + gunpowder");
-			if (ModItems.LINGERING_POTION.isEnabled() && ModItems.DRAGON_BREATH.isEnabled()) {
+			if (McFlyItems.LINGERING_POTION.isEnabled() && ModItems.DRAGON_BREATH.isEnabled()) {
 				ItemStack lingering = BrewingTable.brew(splash, ModItems.DRAGON_BREATH.newItemStack());
 				assertTrue(lingering != null, "splash " + name + " + dragon's breath brews nothing");
 				assertEqual(BrewingTable.Container.LINGERING, BrewingTable.containerOf(lingering), "splash " + name + " + dragon's breath");
@@ -216,7 +217,7 @@ public class BrewingTests extends TasTestCase {
 		List<BrewingTable.Container> list = new ArrayList<>();
 		list.add(BrewingTable.Container.POTION);
 		list.add(BrewingTable.Container.SPLASH);
-		if (ModItems.LINGERING_POTION.isEnabled()) {
+		if (McFlyItems.LINGERING_POTION.isEnabled()) {
 			list.add(BrewingTable.Container.LINGERING);
 		}
 		return list;

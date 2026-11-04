@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
 import io.github.asgerjon.mcfly.config.McFlyConfig;
@@ -51,13 +52,11 @@ import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityFox;
 import ganymedes01.etfuturum.entities.EntityHusk;
-import ganymedes01.etfuturum.entities.EntityLingeringEffect;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import ganymedes01.etfuturum.entities.EntityStray;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.gamerule.DoInsomnia;
@@ -70,7 +69,6 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import io.github.asgerjon.mcfly.network.OfflineSkinMessage;
 import ganymedes01.etfuturum.skins.OfflineSkins;
 import ganymedes01.etfuturum.recipes.ModRecipes;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
@@ -341,7 +339,7 @@ public class ServerEventHandler {
 
 		if (ConfigSounds.armorEquip && !entity.worldObj.isRemote && entity instanceof EntityPlayer player && !(entity instanceof FakePlayer)) {
 
-			if (!SpectatorMode.isSpectator(player)) {
+			if (!Spectator.isSpectator(player)) {
 				if (!armorTracker.containsKey(player)) {
 					// Items currently on the player
 					ItemStack playerBoots = player.getEquipmentInSlot(1);
@@ -554,73 +552,6 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
-	public void arrowNock(ArrowNockEvent event) {
-		if (event.result == null)
-			return;
-		IInventory invt = event.entityPlayer.inventory;
-		for (int i : Offhand.slotsOffhandFirst(invt)) {
-			ItemStack stack = invt.getStackInSlot(i);
-			if (stack == null || stack.stackSize <= 0)
-				continue;
-			if (stack.getItem() == Items.arrow)
-				return;
-			if (stack.getItem() == ModItems.TIPPED_ARROW.get()) {
-				event.setCanceled(true);
-				event.entityPlayer.setItemInUse(event.result, event.result.getItem().getMaxItemUseDuration(event.result));
-				return;
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void arrowLoose(ArrowLooseEvent event) {
-		if (event.bow == null)
-			return;
-
-		IInventory invt = event.entityPlayer.inventory;
-		for (int i : Offhand.slotsOffhandFirst(invt)) {
-			ItemStack arrow = invt.getStackInSlot(i);
-			if (arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.TIPPED_ARROW.get()) {
-				float charge = event.charge / 20.0F;
-				charge = (charge * charge + charge * 2.0F) / 3.0F;
-
-				if (charge < 0.1D)
-					return;
-				if (charge > 1.0F)
-					charge = 1.0F;
-
-				EntityTippedArrow arrowEntity = new EntityTippedArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
-				arrowEntity.setArrow(arrow);
-
-				if (charge == 1.0F)
-					arrowEntity.setIsCritical(true);
-
-				int power = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
-				if (power > 0)
-					arrowEntity.setDamage(arrowEntity.getDamage() + power * 0.5D + 0.5D);
-
-				int punch = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
-				if (punch > 0)
-					arrowEntity.setKnockbackStrength(punch);
-
-				if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
-					arrowEntity.setFire(100);
-
-				event.bow.damageItem(1, event.entityPlayer);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (event.entityPlayer.worldObj.rand.nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
-
-				if (!event.entityPlayer.capabilities.isCreativeMode && --arrow.stackSize <= 0)
-					event.entityPlayer.inventory.setInventorySlotContents(i, null);
-
-				if (!event.entityPlayer.worldObj.isRemote)
-					event.entityPlayer.worldObj.spawnEntityInWorld(arrowEntity);
-				event.setCanceled(true);
-				return;
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void onPlayerLoadFromFileEvent(PlayerEvent.LoadFromFile event) {
 		if (!ConfigBlocksItems.enableEnchantingTable) return;
 		Path file = event.getPlayerFile(Reference.MOD_ID).toPath();
@@ -784,7 +715,7 @@ public class ServerEventHandler {
 	public void captureLastSideHit(PlayerInteractEvent event) {
 		//I need this because onPlaceBlock doesn't tell us what side we hit.
 		//Using a MovingObjectPosition doesn't work either because that event fires AFTER the trapdoor is placed, so the MOP hits the trapdoor.
-		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !SpectatorMode.isSpectator(event.entityPlayer)) {
+		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !Spectator.isSpectator(event.entityPlayer)) {
 			sideHit.set(event.face);
 		}
 	}
@@ -845,7 +776,7 @@ public class ServerEventHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorMode.isSpectator(player)) {
+		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !Spectator.isSpectator(player)) {
 			if (player != null) {
 				final ItemStack heldStack = player.getHeldItem();
 				final World world = event.world;
@@ -2104,38 +2035,6 @@ public class ServerEventHandler {
 					EtFuturum.networkWrapper.sendTo(new AttackYawMessage(e.player.attackedAtYaw), (EntityPlayerMP) e.player);
 					lastAttackedAtYaw.get(e.player).setValue(e.player.attackedAtYaw);
 				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onExplosion(ExplosionEvent kaboom) {
-		if (ConfigBlocksItems.enableLingeringPotions && !kaboom.world.isRemote && kaboom.explosion.exploder instanceof EntityCreeper creeper) {
-			Collection<PotionEffect> collection = creeper.getActivePotionEffects();
-			if (!collection.isEmpty()) {
-				ItemStack potion = new ItemStack(ModItems.LINGERING_POTION.get());
-				NBTTagCompound compound1 = new NBTTagCompound();
-				NBTTagList potionList = new NBTTagList();
-
-				for (PotionEffect potioneffect : collection) {
-					NBTTagCompound compound2 = new NBTTagCompound();
-					potioneffect.writeCustomPotionEffectToNBT(compound2);
-					potionList.appendTag(compound2);
-				}
-
-				compound1.setTag("CustomPotionEffects", potionList);
-				potion.setTagCompound(compound1);
-
-				EntityLingeringEffect entityareaeffectcloud = new EntityLingeringEffect(kaboom.world, potion, creeper);
-				entityareaeffectcloud.setPosition(creeper.posX, creeper.posY, creeper.posZ);
-				entityareaeffectcloud.setColorOverride(PotionHelper.calcPotionLiquidColor(collection));
-//              entityareaeffectcloud.setRadius(2.5F);
-//              entityareaeffectcloud.setRadiusOnUse(-0.5F);
-//              entityareaeffectcloud.setWaitTime(10);
-//              entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
-//              entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
-
-				kaboom.world.spawnEntityInWorld(entityareaeffectcloud);
 			}
 		}
 	}

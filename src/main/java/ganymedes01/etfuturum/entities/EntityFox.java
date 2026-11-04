@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
@@ -15,7 +16,6 @@ import ganymedes01.etfuturum.entities.ai.EntityAIFleeSunExtended;
 import ganymedes01.etfuturum.entities.ai.ExtendedEntityLookHelper;
 import ganymedes01.etfuturum.entities.ai.TargetPredicate;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.Enchantment;
@@ -83,7 +83,7 @@ public class EntityFox extends EntityAnimal {
             entity -> entity instanceof EntityChicken || entity instanceof EntityRabbit;
     private static final Predicate<EntityLivingBase> NOTICEABLE_PLAYER_FILTER =
             entity -> !(entity instanceof EntityPlayer player)
-                    || (!player.isSneaking() && !player.capabilities.isCreativeMode && !SpectatorMode.isSpectator(player));
+                    || (!player.isSneaking() && !player.capabilities.isCreativeMode && !Spectator.isSpectator(player));
     private static final Predicate<EntityLivingBase> JUST_ATTACKED_SOMETHING_FILTER =
             entity -> entity instanceof EntityLiving;
 
@@ -1565,7 +1565,7 @@ public class EntityFox extends EntityAnimal {
             } else if (!(livingEntity instanceof EntityChicken) && !(livingEntity instanceof EntityRabbit) && !(livingEntity instanceof EntityMob)) {
                 if (livingEntity instanceof EntityTameable) {
                     return !((EntityTameable) livingEntity).isTamed();
-                } else if (livingEntity instanceof EntityPlayer player && (SpectatorMode.isSpectator(player) || player.capabilities.isCreativeMode)) {
+                } else if (livingEntity instanceof EntityPlayer player && (Spectator.isSpectator(player) || player.capabilities.isCreativeMode)) {
                     return false;
                 } else if (EntityFox.this.canTrust(livingEntity.getUniqueID())) {
                     return false;

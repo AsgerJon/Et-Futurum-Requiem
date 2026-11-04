@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.lib.Reference;
 import io.github.asgerjon.mcfly.network.LevelEventMessage;
@@ -576,8 +577,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 	@Override
 	protected void dropFewItems(boolean recentlyHit, int looting) {
 		int shells = rollShells(looting);
-		if (shells > 0 && ModItems.SHULKER_SHELL.isEnabled()) {
-			entityDropItem(ModItems.SHULKER_SHELL.newItemStack(shells), 0.0F);
+		if (shells > 0 && McFlyItems.SHULKER_SHELL.isEnabled()) {
+			entityDropItem(McFlyItems.SHULKER_SHELL.newItemStack(shells), 0.0F);
 		}
 	}
 

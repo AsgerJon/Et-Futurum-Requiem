@@ -52,6 +52,8 @@ public final class McFly {
 	public static void preInit(FMLPreInitializationEvent event) {
 		phase = "pre-init";
 		McFlyNetwork.register();
+		// spectator mode's game type (spec §83), before anything reads a player's
+		io.github.asgerjon.mcfly.spectator.Spectator.init();
 		// our blocks and items (spec §79 B6), under the ids the mod being loaded gives them (EFR's in this fork)
 		McFlyBlocks.register();
 		McFlyItems.register();
@@ -63,6 +65,17 @@ public final class McFly {
 
 	public static void init(FMLInitializationEvent event) {
 		phase = "init";
+		// tipped arrows from bows, a creeper's lingering cloud (spec §82)
+		net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.potion.PotionEvents.INSTANCE);
+		// spectator mode's rules (spec §83)
+		if (McFlyConfig.enableSpectatorMode) {
+			FMLCommonHandler.instance().bus().register(io.github.asgerjon.mcfly.spectator.Spectator.INSTANCE);
+			net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.spectator.Spectator.INSTANCE);
+			if (event.getSide().isClient()) {
+				FMLCommonHandler.instance().bus().register(io.github.asgerjon.mcfly.spectator.SpectatorClient.INSTANCE);
+				net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.spectator.SpectatorClient.INSTANCE);
+			}
+		}
 	}
 
 	public static void postInit(FMLPostInitializationEvent event) {

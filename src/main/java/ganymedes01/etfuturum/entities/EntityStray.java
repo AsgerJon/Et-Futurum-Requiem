@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
@@ -98,13 +99,18 @@ public class EntityStray extends EntitySkeleton {
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_) {
-		EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this, p_82196_1_, 1.6F, 14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
+		io.github.asgerjon.mcfly.potion.TippedArrow entityarrow = new io.github.asgerjon.mcfly.potion.TippedArrow(this.worldObj, this, p_82196_1_, 1.6F, 14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
 		entityarrow.setDamage(p_82196_2_ * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
 
 		//final int diff = this.worldObj.difficultySetting.getDifficultyId(); // unused variable
-		entityarrow.setArrow(ModItems.TIPPED_ARROW.newItemStack(1, 8202));//Temp
+		// 26.3's Stray.getArrow: its arrow slows for 600 ticks (spec §82)
+		net.minecraft.item.ItemStack slowness = McFlyItems.TIPPED_ARROW.newItemStack(1, 0);
+		net.minecraft.nbt.NBTTagCompound tag = new net.minecraft.nbt.NBTTagCompound();
+		tag.setTag("Potion", new net.minecraft.potion.PotionEffect(net.minecraft.potion.Potion.moveSlowdown.id, 600, 0).writeCustomPotionEffectToNBT(new net.minecraft.nbt.NBTTagCompound()));
+		slowness.setTagCompound(tag);
+		entityarrow.setArrow(slowness);
 
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);

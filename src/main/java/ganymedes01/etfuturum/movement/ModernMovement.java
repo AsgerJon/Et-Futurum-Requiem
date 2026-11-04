@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.movement;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.elytra.FallFlying;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.trident.Riptide;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -123,7 +123,7 @@ public final class ModernMovement {
 	}
 
 	private static boolean isSpectator(EntityPlayer player) {
-		return ConfigMixins.enableSpectatorMode && SpectatorMode.isSpectator(player);
+		return McFlyConfig.enableSpectatorMode && Spectator.isSpectator(player);
 	}
 
 	/**

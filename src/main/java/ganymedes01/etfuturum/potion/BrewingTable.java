@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.potion;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import com.github.bsideup.jabel.Desugar;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.command.modern.arguments.ItemIds;
@@ -134,7 +135,7 @@ public final class BrewingTable {
 	}
 
 	private static Item lingeringItem() {
-		return ModItems.LINGERING_POTION.isEnabled() ? ModItems.LINGERING_POTION.get() : null;
+		return McFlyItems.LINGERING_POTION.isEnabled() ? McFlyItems.LINGERING_POTION.get() : null;
 	}
 
 	// ---------------------------------------------------------------- brewing

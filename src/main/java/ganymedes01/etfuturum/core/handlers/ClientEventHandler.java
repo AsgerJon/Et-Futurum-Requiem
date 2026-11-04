@@ -19,7 +19,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
-import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.gui.ModernAirBubbles;
 import ganymedes01.etfuturum.client.gui.OverlayMessageHud;
 import ganymedes01.etfuturum.client.TotemActivation;
@@ -55,7 +54,6 @@ import ganymedes01.etfuturum.items.ItemHoneyBottle;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
 import net.minecraft.block.Block;
@@ -127,7 +125,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+import static io.github.asgerjon.mcfly.spectator.Spectator.isSpectator;
 
 public class ClientEventHandler {
 
@@ -862,12 +860,12 @@ public class ClientEventHandler {
 			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
 			int z = MathHelper.floor_double(entity.posZ);
 
-			if (entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
-				TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
-				if (TE != null) {
+			if (entity.worldObj.getBlock(x, y, z) instanceof io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlock
+				&& entity.worldObj.getTileEntity(x, y, z) instanceof io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity TE) {
+				{
 					if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
 						EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
-						dig.setParticleIcon(((BlockShulkerBox) TE.getBlockType()).colorIcons[TE.color]);
+						dig.setParticleIcon(((io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlock) TE.getBlockType()).iconFor(TE.colour()));
 						mc.effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
 					}
 				}

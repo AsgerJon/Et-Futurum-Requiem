@@ -38,7 +38,9 @@ public enum McFlyBlocks {
 	KELP(McFlyConfig.enableKelp, new BlockKelp()),
 	DRIED_KELP_BLOCK(McFlyConfig.enableKelp, new BlockDriedKelp()),
 	// banners (spec §80): the item its own, the tile entity registered with it (as EFR named it: old saves hold it)
-	BANNER(McFlyConfig.enableBanners, new io.github.asgerjon.mcfly.banner.BannerBlock(), io.github.asgerjon.mcfly.banner.BannerItem.class);
+	BANNER(McFlyConfig.enableBanners, new io.github.asgerjon.mcfly.banner.BannerBlock(), io.github.asgerjon.mcfly.banner.BannerItem.class),
+	// shulker boxes (spec §81): one block for all 17, as EFR named it (old saves hold it)
+	SHULKER_BOX(McFlyConfig.enableShulkerBoxes, new io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlock(), io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxItem.class);
 
 	public static final McFlyBlocks[] VALUES = values();
 
@@ -69,6 +71,9 @@ public enum McFlyBlocks {
 		}
 		if (BANNER.enabled) {
 			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.banner.BannerBlockEntity.class, io.github.asgerjon.mcfly.McFly.name("banner"));
+		}
+		if (SHULKER_BOX.enabled) {
+			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity.class, io.github.asgerjon.mcfly.McFly.name("shulker_box"));
 		}
 	}
 

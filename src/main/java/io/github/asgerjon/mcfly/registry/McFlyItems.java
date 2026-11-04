@@ -52,6 +52,11 @@ public enum McFlyItems {
 	FLOW_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("flow_banner_pattern", "flow", EnumRarity.rare)),
 	GUSTER_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("guster_banner_pattern", "guster", EnumRarity.rare)),
 	// the turtle shell (the aquatic update)
+	// the shulker's shell (spec §81)
+	SHULKER_SHELL(McFlyConfig.enableShulkerBoxes, new McFlyItem("shulker_shell")),
+	// lingering potions and tipped arrows (spec §82), under EFR's ids
+	LINGERING_POTION(McFlyConfig.enableLingeringPotions, new io.github.asgerjon.mcfly.potion.LingeringPotionItem()),
+	TIPPED_ARROW(McFlyConfig.enableTippedArrows, new io.github.asgerjon.mcfly.potion.TippedArrowItem()),
 	TURTLE_SCUTE(McFlyConfig.enableTurtleShell, new McFlyItem("turtle_scute")),
 	TURTLE_HELMET(McFlyConfig.enableTurtleShell, new ItemTurtleShell()),
 	// the glow item frame (spec §67.4)

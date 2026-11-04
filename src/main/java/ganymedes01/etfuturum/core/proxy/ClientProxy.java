@@ -59,8 +59,6 @@ import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.FoxRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.PolarBearRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
-import ganymedes01.etfuturum.client.renderer.entity.LingeringEffectRenderer;
-import ganymedes01.etfuturum.client.renderer.entity.LingeringPotionRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.NewBoatRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.NewSnowGolemRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.PlacedEndCrystalRenderer;
@@ -76,12 +74,10 @@ import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemShieldRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemLightningRodRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemTridentRenderer;
-import ganymedes01.etfuturum.client.renderer.item.ItemShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemSkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityGatewayRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityNewBeaconRenderer;
-import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
@@ -101,8 +97,6 @@ import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityFox;
 import ganymedes01.etfuturum.entities.EntityPolarBear;
 import ganymedes01.etfuturum.entities.EntityHusk;
-import ganymedes01.etfuturum.entities.EntityLingeringEffect;
-import ganymedes01.etfuturum.entities.EntityLingeringPotion;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
@@ -114,11 +108,9 @@ import ganymedes01.etfuturum.entities.EntityShulkerBullet;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import ganymedes01.etfuturum.world.nether.biome.utils.BiomeFogEventHandler;
 import net.minecraft.block.BlockBed;
@@ -150,10 +142,6 @@ public class ClientProxy extends CommonProxy {
 		}
 		if (McFlyItems.SPYGLASS.isEnabled()) {
 			MinecraftForge.EVENT_BUS.register(ganymedes01.etfuturum.client.Spyglass.INSTANCE);
-		}
-		if (ConfigMixins.enableSpectatorMode) {
-			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
-			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
 		}
 
 		if (ConfigFunctions.enableSubtitles) {
@@ -229,7 +217,7 @@ public class ClientProxy extends CommonProxy {
 				MinecraftForgeClient.registerItemRenderer(rod.getItem(), rodRenderer);
 			}
 		}
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.SHULKER_BOX.get()), new ItemShulkerBoxRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(McFlyBlocks.SHULKER_BOX.get()), new io.github.asgerjon.mcfly.shulkerbox.client.ShulkerBoxItemRenderer());
 		if (ConfigFunctions.inventoryBedModels) {
 			MinecraftForgeClient.registerItemRenderer(Items.bed, new Item3DBedRenderer((BlockBed) Blocks.bed));
 			for (ModBlocks bed : ModBlocks.BEDS) {
@@ -245,7 +233,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(BannerBlockEntity.class, new io.github.asgerjon.mcfly.banner.client.BannerRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
+		ClientRegistry.bindTileEntitySpecialRenderer(io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity.class, new io.github.asgerjon.mcfly.shulkerbox.client.ShulkerBoxRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
 
 		RenderingRegistry.registerBlockHandler(new BlockExtendedCrossedSquaresRenderer());
@@ -299,8 +287,7 @@ public class ClientProxy extends CommonProxy {
 		}
 		RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
-		RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
-		RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(io.github.asgerjon.mcfly.potion.ThrownLingeringPotion.class, new io.github.asgerjon.mcfly.potion.client.ThrownLingeringPotionRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());

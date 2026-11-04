@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
  * The totem of undying, where 1.7.10 sees a hit's death: after the hit is done (armour, protection, absorption), just
  * before the death sound and onDeath, as modern's checkTotemDeathProtection. A totem that saves the holder turns the
  * death into a hurt (its health is back above 0 when the check reads it). The tick it did is kept, for the Harming
- * arrow fix (EntityTippedArrow.applyEffectsTo).
+ * arrow fix (io.github.asgerjon.mcfly.potion.TippedArrow.applyEffectsTo).
  */
 @Mixin(EntityLivingBase.class)
 public class MixinEntityLivingBase implements ITotemUser {

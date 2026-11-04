@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -8,7 +9,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.movement.IPosePlayer;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.trident.Impaling;
 import ganymedes01.etfuturum.trident.Lightning;
 import io.netty.buffer.ByteBuf;
@@ -289,7 +289,7 @@ public class EntityThrownTrident extends Entity implements IProjectile, IEntityA
 		if (loyalty <= 0 || !(dealtDamage || isNoPhysics()) || thrower == null) {
 			return true;
 		}
-		if (!thrower.isEntityAlive() || thrower instanceof EntityPlayer player && SpectatorMode.isSpectator(player)) {
+		if (!thrower.isEntityAlive() || thrower instanceof EntityPlayer player && Spectator.isSpectator(player)) {
 			if (!worldObj.isRemote && pickup == PICKUP_ALLOWED) {
 				entityDropItem(getItem().copy(), 0.1F);
 			}

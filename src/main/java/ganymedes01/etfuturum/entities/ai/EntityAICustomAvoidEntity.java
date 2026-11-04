@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.entities.ai;
 
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;

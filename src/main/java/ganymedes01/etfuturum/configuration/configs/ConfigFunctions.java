@@ -30,7 +30,6 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableGamemodeSwitcher;
 	public static List<Item> shulkerBans;
 	public static String[] shulkerBansString;
-	public static int shulkerBoxTooltipLines;
 	public static boolean enableExtraF3HTooltips;
 	public static final String[] shulkerDefaultBans = new String[]{
 			"adventurebackpack:adventureBackpack",
@@ -231,7 +230,6 @@ public class ConfigFunctions extends ConfigBase {
 		enableFancySkulls = getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
 		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
 		enableExtraF3HTooltips = getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
-		shulkerBoxTooltipLines = getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass, sponge, potion, glass bottle and tipped arrow textures with their modern versions");

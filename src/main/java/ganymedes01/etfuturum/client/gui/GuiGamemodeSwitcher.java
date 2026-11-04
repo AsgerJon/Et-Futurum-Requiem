@@ -1,9 +1,10 @@
 package ganymedes01.etfuturum.client.gui;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -52,8 +53,8 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 				return WorldSettings.GameType.ADVENTURE;
 			}
 			case ADVENTURE: {
-				if (ConfigMixins.enableSpectatorMode)
-					return SpectatorMode.SPECTATOR_GAMETYPE;
+				if (McFlyConfig.enableSpectatorMode)
+					return Spectator.GAME_TYPE;
 				else
 					return WorldSettings.GameType.CREATIVE;
 			}
@@ -93,8 +94,8 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 		map.put(WorldSettings.GameType.CREATIVE, new ItemStack(Blocks.grass));
 		map.put(WorldSettings.GameType.SURVIVAL, new ItemStack(Items.iron_sword));
 		map.put(WorldSettings.GameType.ADVENTURE, new ItemStack(Items.map));
-		if (ConfigMixins.enableSpectatorMode)
-			map.put(SpectatorMode.SPECTATOR_GAMETYPE, new ItemStack(Items.ender_eye));
+		if (McFlyConfig.enableSpectatorMode)
+			map.put(Spectator.GAME_TYPE, new ItemStack(Items.ender_eye));
 
 		int i = 0;
 		int totalWidth = map.size() * 31 - 5;

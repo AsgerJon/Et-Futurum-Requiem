@@ -103,21 +103,16 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			McFlyMixins.EARLY.add("stepsounds.MixinEntity");
 		}
 
-		if (ConfigMixins.enableSpectatorMode) {
-			mixins.add("spectator.MixinGameType");
-			mixins.add("spectator.MixinEntity");
-			mixins.add("spectator.MixinWorld");
-			mixins.add("spectator.MixinWorldServer");
-			mixins.add("spectator.MixinEntityPlayer");
-			mixins.add("spectator.MixinNetHandlerPlayServer");
-			mixins.add("spectator.MixinInventoryPlayer");
-			mixins.add("spectator.MixinContainerChest");
-			mixins.add("spectator.MixinSlot");
-			mixins.add("spectator.MixinCommandGameMode");
+		// spectator mode (spec §83): ours, from McFly's mixin config
+		if (McFlyConfig.enableSpectatorMode) {
+			for (String mixin : new String[]{"MixinGameType", "MixinEntity", "MixinWorld", "MixinWorldServer", "MixinEntityPlayer",
+				"MixinNetHandlerPlayServer", "MixinInventoryPlayer", "MixinContainerChest", "MixinSlot", "MixinCommandGameMode"}) {
+				McFlyMixins.EARLY.add("spectator." + mixin);
+			}
 			if (side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("spectator.client.MixinEntityRenderer");
-				mixins.add("spectator.client.MixinEntityPlayer");
-				mixins.add("spectator.client.MixinWorldRenderer");
+				McFlyMixins.EARLY.add("spectator.client.MixinEntityRenderer");
+				McFlyMixins.EARLY.add("spectator.client.MixinEntityPlayer");
+				McFlyMixins.EARLY.add("spectator.client.MixinWorldRenderer");
 			}
 		}
 
@@ -165,7 +160,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 		}
 
 		// a tipped arrow's effects after its hit, a totem it used included, as modern's
-		if (ConfigBlocksItems.enableTippedArrows) {
+		if (McFlyConfig.enableTippedArrows) {
 			McFlyMixins.EARLY.add("tippedarrows.MixinEntityArrow");
 		}
 

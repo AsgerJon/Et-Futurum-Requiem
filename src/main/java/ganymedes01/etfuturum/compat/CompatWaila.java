@@ -5,9 +5,7 @@ import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
-import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -27,7 +25,7 @@ import java.util.List;
 public class CompatWaila {
 
 	public static void wailaCallback(IWailaRegistrar registrar) {
-		registrar.registerStackProvider(new ShulkerDataProvider(), BlockShulkerBox.class);
+		registrar.registerStackProvider(new ShulkerDataProvider(), io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlock.class);
 		registrar.registerStackProvider(new BannerDataProvider(), io.github.asgerjon.mcfly.banner.BannerBlock.class);
 		registrar.registerBodyProvider(new BannerDataProvider(), io.github.asgerjon.mcfly.banner.BannerBlock.class);
 		registrar.registerStackProvider(new PotionCauldronDataProvider(), BlockPotionCauldron.class);
@@ -114,12 +112,11 @@ public class CompatWaila {
 		@Override
 		public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
 			ItemStack stack = accessor.getStack();
-			if (accessor.getTileEntity() instanceof TileEntityShulkerBox box) {
+			if (accessor.getTileEntity() instanceof io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity box && box.colour() > 0) {
 				if (!stack.hasTagCompound()) {
 					stack.setTagCompound(new NBTTagCompound());
 				}
-				stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
-				stack.getTagCompound().setByte("Color", box.color);
+				stack.getTagCompound().setByte("Color", (byte) box.colour());
 			}
 			return stack;
 		}

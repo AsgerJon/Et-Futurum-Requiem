@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.entities.EntityShulker;
@@ -441,7 +442,7 @@ public class ShulkerTests extends TasTestCase {
 	}
 
 	public void testShellHalfTheTime() {
-		if (!ModItems.SHULKER_SHELL.isEnabled()) {
+		if (!McFlyItems.SHULKER_SHELL.isEnabled()) {
 			skipTest("shulker shells are off");
 		}
 		EntityShulker shulker = shulker(-6, -6);

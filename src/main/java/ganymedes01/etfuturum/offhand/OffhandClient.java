@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.offhand;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.network.McFlyNetwork;
 
@@ -8,7 +9,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import ganymedes01.etfuturum.EtFuturum;
 import io.github.asgerjon.mcfly.network.SwapHandsMessage;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.RenderHelper;
@@ -48,7 +48,7 @@ public final class OffhandClient {
 			return;
 		}
 		while (keySwap.isPressed()) {
-			if (!SpectatorMode.isSpectator(mc.thePlayer)) {
+			if (!Spectator.isSpectator(mc.thePlayer)) {
 				McFlyNetwork.CHANNEL.sendToServer(new SwapHandsMessage());
 			}
 		}

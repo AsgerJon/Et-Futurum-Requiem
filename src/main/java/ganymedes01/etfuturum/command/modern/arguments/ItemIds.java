@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.command.modern.arguments;
 import io.github.asgerjon.mcfly.McFly;
 import com.github.bsideup.jabel.Desugar;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
@@ -131,7 +130,7 @@ public final class ItemIds {
 				named |= addEfrName(ids, new ItemStack(item, 1, meta), modern, efrNames);
 			}
 		}
-		if (item instanceof ItemBlockShulkerBox) {
+		if (item instanceof io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxItem) {
 			for (int color = 1; color <= ModRecipes.dye_names.length; color++) {
 				ItemStack stack = new ItemStack(item);
 				stack.setTagCompound(new NBTTagCompound());

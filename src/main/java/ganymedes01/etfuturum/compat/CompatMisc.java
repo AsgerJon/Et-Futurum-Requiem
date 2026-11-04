@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
 import io.github.asgerjon.mcfly.banner.BannerPattern;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -32,7 +33,7 @@ public class CompatMisc {
 	public static void doLwjgl3ifyCompat() {
 		try {
 			List<String> extensibleEnums = new ArrayList<>();
-			if (ConfigMixins.enableSpectatorMode) {
+			if (McFlyConfig.enableSpectatorMode) {
 				extensibleEnums.add("net.minecraft.world.WorldSettings$GameType");
 			}
 

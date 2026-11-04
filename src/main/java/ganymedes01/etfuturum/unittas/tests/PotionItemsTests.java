@@ -1,20 +1,16 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.command.modern.arguments.EffectIds;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.entities.EntityLingeringEffect;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
-import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import ganymedes01.etfuturum.potion.BrewingTable;
 import ganymedes01.etfuturum.potion.NamedPotion;
 import ganymedes01.etfuturum.potion.NamedPotions;
 import ganymedes01.etfuturum.potion.PotionContents;
 import ganymedes01.etfuturum.potion.ThrownPotions;
-import ganymedes01.etfuturum.recipes.crafting.RecipeTippedArrow;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.creativetab.CreativeTabs;
@@ -80,9 +76,13 @@ public class PotionItemsTests extends TasTestCase {
 		lingeringOn();
 		EntityZombie zombie = stillZombie(3.0D);
 		onServer(() -> {
-			EntityLingeringEffect cloud = new EntityLingeringEffect(world(), lingering("slow_falling"), player());
-			cloud.setPosition(zombie.posX, zombie.posY, zombie.posZ);
-			world().spawnEntityInWorld(cloud);
+			// thrown onto the ground beside it: 26.3's cloud where it lands, at the zombie's feet (spec §82)
+			io.github.asgerjon.mcfly.potion.ThrownLingeringPotion thrown =
+				new io.github.asgerjon.mcfly.potion.ThrownLingeringPotion(world(), zombie.posX + 1.5, zombie.posY + 1.0, zombie.posZ, lingering("slow_falling"));
+			thrown.motionX = 0.0;
+			thrown.motionY = -0.5;
+			thrown.motionZ = 0.0;
+			world().spawnEntityInWorld(thrown);
 		});
 		serverTicks(40);
 		int duration = onServer(() -> {
@@ -133,8 +133,8 @@ public class PotionItemsTests extends TasTestCase {
 			for (int i = 0; i < 9; i++) {
 				grid.setInventorySlotContents(i, i == 4 ? lingering("slow_falling") : new ItemStack(Items.arrow));
 			}
-			return new RecipeTippedArrow(ModItems.TIPPED_ARROW.newItemStack(8, 0), "AAA", "ALA", "AAA", 'A', Items.arrow,
-				'L', ModItems.LINGERING_POTION.get()).getCraftingResult(grid);
+			return new io.github.asgerjon.mcfly.potion.TippedArrowRecipe(McFlyItems.TIPPED_ARROW.newItemStack(8, 0), "AAA", "ALA", "AAA", 'A', Items.arrow,
+				'L', McFlyItems.LINGERING_POTION.get()).getCraftingResult(grid);
 		});
 		assertTrue(made != null, "nothing made");
 		assertEqual(8, made.stackSize, "arrows made");
@@ -146,7 +146,7 @@ public class PotionItemsTests extends TasTestCase {
 		arrowsOn();
 		EntityZombie zombie = stillZombie(3.0D);
 		int duration = onServer(() -> {
-			EntityTippedArrow shot = new EntityTippedArrow(world(), zombie.posX, zombie.posY + 3.0D, zombie.posZ);
+			io.github.asgerjon.mcfly.potion.TippedArrow shot = new io.github.asgerjon.mcfly.potion.TippedArrow(world(), zombie.posX, zombie.posY + 3.0D, zombie.posZ);
 			shot.setArrow(arrow("slow_falling"));
 			shot.applyEffectsTo(zombie);
 			PotionEffect effect = zombie.getActivePotionEffect(EffectIds.byId("minecraft:slow_falling"));
@@ -180,7 +180,7 @@ public class PotionItemsTests extends TasTestCase {
 			player().inventory.mainInventory[player().inventory.currentItem] = new ItemStack(Items.arrow, 4);
 			ModBlocks.POTION_CAULDRON.get().onBlockActivated(world(), 2, 4, 2, player(), 1, 0.5F, 1.0F, 0.5F);
 			for (ItemStack stack : player().inventory.mainInventory) {
-				if (stack != null && stack.getItem() == ModItems.TIPPED_ARROW.get()) {
+				if (stack != null && stack.getItem() == McFlyItems.TIPPED_ARROW.get()) {
 					return stack;
 				}
 			}
@@ -226,23 +226,23 @@ public class PotionItemsTests extends TasTestCase {
 	// ---------------------------------------------------------------- helpers
 
 	private void lingeringOn() {
-		if (!ModItems.LINGERING_POTION.isEnabled()) {
+		if (!McFlyItems.LINGERING_POTION.isEnabled()) {
 			skipTest("lingering potions are off");
 		}
 	}
 
 	private void arrowsOn() {
-		if (!ModItems.TIPPED_ARROW.isEnabled()) {
+		if (!McFlyItems.TIPPED_ARROW.isEnabled()) {
 			skipTest("tipped arrows are off");
 		}
 	}
 
-	private static ItemLingeringPotion lingeringItem() {
-		return (ItemLingeringPotion) ModItems.LINGERING_POTION.get();
+	private static io.github.asgerjon.mcfly.potion.LingeringPotionItem lingeringItem() {
+		return (io.github.asgerjon.mcfly.potion.LingeringPotionItem) McFlyItems.LINGERING_POTION.get();
 	}
 
-	private static ItemArrowTipped arrowItem() {
-		return (ItemArrowTipped) ModItems.TIPPED_ARROW.get();
+	private static io.github.asgerjon.mcfly.potion.TippedArrowItem arrowItem() {
+		return (io.github.asgerjon.mcfly.potion.TippedArrowItem) McFlyItems.TIPPED_ARROW.get();
 	}
 
 	private static NamedPotion named(String name) {
@@ -262,7 +262,7 @@ public class PotionItemsTests extends TasTestCase {
 	}
 
 	private static ItemStack arrow(String name) {
-		ItemStack stack = ModItems.TIPPED_ARROW.newItemStack(1, 0);
+		ItemStack stack = McFlyItems.TIPPED_ARROW.newItemStack(1, 0);
 		PotionContents.write(stack, false, named(name), new ArrayList<>(), null, null);
 		return stack;
 	}

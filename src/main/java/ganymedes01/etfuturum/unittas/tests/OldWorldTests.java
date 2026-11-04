@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.ModernChests;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.potion.EffectRegistry;
 import ganymedes01.etfuturum.potion.ModPotions;
@@ -263,12 +263,12 @@ public class OldWorldTests extends TasTestCase {
 
 	/** EFR's one-effect tipped arrows (a stray's: an NBT `Potion` compound, the effect by number): their effect kept. */
 	public void testOldTippedArrow() {
-		if (!ModItems.TIPPED_ARROW.isEnabled()) {
+		if (!McFlyItems.TIPPED_ARROW.isEnabled()) {
 			skipTest("tipped arrows are off");
 		}
 		onServer(() -> {
 			world().setBlock(bx(0), 5, bz(0), Blocks.chest, 3, 3);
-			ItemStack arrow = ModItems.TIPPED_ARROW.newItemStack(1, 0);
+			ItemStack arrow = McFlyItems.TIPPED_ARROW.newItemStack(1, 0);
 			arrow.setTagCompound(new NBTTagCompound());
 			arrow.getTagCompound().setTag("Potion", new PotionEffect(Potion.moveSlowdown.id, 600, 0).writeCustomPotionEffectToNBT(new NBTTagCompound()));
 			((TileEntityChest) world().getTileEntity(bx(0), 5, bz(0))).setInventorySlotContents(0, arrow);
@@ -279,7 +279,7 @@ public class OldWorldTests extends TasTestCase {
 		}));
 		String effect = onServer(() -> {
 			ItemStack arrow = ((TileEntityChest) world().getTileEntity(bx(0), 5, bz(0))).getStackInSlot(0);
-			List<PotionEffect> list = ((ItemArrowTipped) arrow.getItem()).getEffects(arrow);
+			List<PotionEffect> list = ((io.github.asgerjon.mcfly.potion.TippedArrowItem) arrow.getItem()).getEffects(arrow);
 			return list == null || list.isEmpty() ? "none" : EffectRegistry.key(Potion.potionTypes[list.get(0).getPotionID()]);
 		});
 		assertEqual("minecraft:slowness", effect, "the old arrow's effect");

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.playerssleepingpercentage;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.profiler.Profiler;
@@ -43,7 +44,7 @@ public abstract class MixinWorldServer extends World {
 			ctx.cancel(/* /r/nosleep, vanilla behaviour */);
 		} else if (INSTANCE.percentrillo < 100) {
 			INSTANCE.sleepyPlayers.clear();
-			List<EntityPlayer> real = Utils.getListWithoutSpectators(this.playerEntities);
+			List<EntityPlayer> real = Spectator.withoutSpectators(this.playerEntities);
 			int cap = (int) Math.ceil(real.size() * INSTANCE.percentrillo * 0.01f);
 			for (EntityPlayer player : this.playerEntities) {
 				if (player.isPlayerSleeping()) {

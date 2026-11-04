@@ -98,7 +98,7 @@ final class TasSuites {
 		SUITES.put("quick5", Arrays.asList(SkeletonArmsTests.class, GlintTests.class, EfrBlockStateTests.class, StrongholdTests.class, SpyglassTests.class, HorseTests.class, QuickWins5ViewTests.class));
 		SUITES.put("glow", Arrays.asList(GlowSquidTests.class, SignTextTests.class, ItemFrameTests.class, GlowViewTests.class));
 		SUITES.put("phantom", Arrays.asList(PhantomTests.class, PhantomSpawnTests.class, PhantomViewTests.class));
-		SUITES.put("potions", Arrays.asList(PotionTests.class, BrewingTests.class, PotionItemsTests.class, ReagentItemsTests.class));
+		SUITES.put("potions", Arrays.asList(PotionTests.class, BrewingTests.class, PotionItemsTests.class, ReagentItemsTests.class, ganymedes01.etfuturum.unittas.tests.LingeringTippedTests.class));
 		SUITES.put("effects", Arrays.asList(EffectsTests.class, EffectSaveTests.class, EffectNetworkTests.class, TrialEffectsTests.class));
 		SUITES.put("chests", Arrays.asList(ChestTests.class));
 		SUITES.put("oldworld", Arrays.asList(OldWorldTests.class));
@@ -109,6 +109,8 @@ final class TasSuites {
 		// our own base (spec §79): the base class and our options in a file of our own
 		SUITES.put("base", Arrays.asList(ganymedes01.etfuturum.unittas.tests.BaseTests.class));
 		SUITES.put("end", Arrays.asList(ganymedes01.etfuturum.unittas.tests.EndTerrainTests.class, ganymedes01.etfuturum.unittas.tests.EndFightTests.class, ganymedes01.etfuturum.unittas.tests.EndRespawnTests.class, ganymedes01.etfuturum.unittas.tests.EndDragonTests.class, ganymedes01.etfuturum.unittas.tests.EndBreathTests.class, ganymedes01.etfuturum.unittas.tests.EndGatewayTests.class, ganymedes01.etfuturum.unittas.tests.EndFeatureTests.class, ganymedes01.etfuturum.unittas.tests.StructureTemplateTests.class, ganymedes01.etfuturum.unittas.tests.EndCityTests.class, ganymedes01.etfuturum.unittas.tests.LootTests.class, ganymedes01.etfuturum.unittas.tests.DragonHeadTests.class, ganymedes01.etfuturum.unittas.tests.ShulkerTests.class, ganymedes01.etfuturum.unittas.tests.EndViewTests.class));
+		SUITES.put("spectator", Arrays.asList(ganymedes01.etfuturum.unittas.tests.SpectatorTests.class));
+		SUITES.put("shulkerboxes", Arrays.asList(ganymedes01.etfuturum.unittas.tests.ShulkerBoxTests.class));
 		SUITES.put("banners", Arrays.asList(ganymedes01.etfuturum.unittas.tests.BannerTests.class, ganymedes01.etfuturum.unittas.tests.LoomTests.class, ganymedes01.etfuturum.unittas.tests.BannerViewTests.class, ganymedes01.etfuturum.unittas.tests.ShieldPatternTests.class));
 		// parked by the user (2026-10-30): EFR's observer clock pulses 1 tick in 3, 26.3's code gives 2-tick pulses
 		SUITES.put("redstone", Arrays.asList(TorchTests.class));

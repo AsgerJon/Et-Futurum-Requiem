@@ -30,9 +30,7 @@ import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 
-import ganymedes01.etfuturum.recipes.crafting.RecipeDyedShulkerBox;
 import ganymedes01.etfuturum.recipes.crafting.RecipeFixedFireworks;
-import ganymedes01.etfuturum.recipes.crafting.RecipeTippedArrow;
 import ganymedes01.etfuturum.recipes.crafting.ShapedEtFuturumRecipe;
 import ganymedes01.etfuturum.recipes.crafting.ShapelessEtFuturumRecipe;
 import net.minecraft.block.Block;
@@ -802,9 +800,9 @@ public class ModRecipes {
 		addShapedRecipe(new ItemStack(Blocks.double_plant, 1, 4), "xx", "xx", "xx", 'x', ModBlocks.ROSE.newItemStack());
 		addShapedRecipe(ModBlocks.ROSE.newItemStack(12), "xx", 'x', new ItemStack(Blocks.double_plant, 1, 4));
 
-		if (ModItems.TIPPED_ARROW.isEnabled() && ModItems.LINGERING_POTION.isEnabled()) {
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
-			GameRegistry.addRecipe(new RecipeTippedArrow(ModItems.TIPPED_ARROW.newItemStack(), "xxx", "xyx", "xxx", 'x', Items.arrow, 'y', ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)));
+		if (McFlyItems.TIPPED_ARROW.isEnabled() && McFlyItems.LINGERING_POTION.isEnabled()) {
+			RecipeSorter.register(Reference.MOD_ID + ".io.github.asgerjon.mcfly.potion.TippedArrowRecipe", io.github.asgerjon.mcfly.potion.TippedArrowRecipe.class, Category.SHAPED, "after:minecraft:shaped");
+			GameRegistry.addRecipe(new io.github.asgerjon.mcfly.potion.TippedArrowRecipe(McFlyItems.TIPPED_ARROW.newItemStack(), "xxx", "xyx", "xxx", 'x', Items.arrow, 'y', McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)));
 		}
 
 		if (!ModsList.GTNH.isLoaded()) {
@@ -1202,25 +1200,12 @@ public class ModRecipes {
 				addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
 			}
 
-			addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
+			addShapedRecipe(McFlyBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', McFlyItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
 		}
-		if (ModBlocks.SHULKER_BOX.isEnabled()) {
-			for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes
-				ItemStack shulker = ModBlocks.SHULKER_BOX.newItemStack();
-				shulker.setTagCompound(new NBTTagCompound());
-				shulker.getTagCompound().setByte("Color", (byte) (16 - i));
-				GameRegistry.addRecipe(new RecipeDyedShulkerBox(shulker, new Object[]{ModBlocks.SHULKER_BOX.get(), ore_dyes[i]}));
-			}
+		// dyeing a shulker box (spec §81): any box and a dye, contents kept
+		if (McFlyBlocks.SHULKER_BOX.isEnabled()) {
+			GameRegistry.addRecipe(new io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxDyeRecipe());
 		}
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 2), "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 3), "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 4), "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 5), "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 6), "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 7), "XYX", "XXX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 8), "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
 
 		if (ConfigWorld.tileReplacementMode == -1) {
 			//We keep the original enabled checks inside of the booleans and use the original addShapedRecipe function because we need to check it anyways for recipe removal

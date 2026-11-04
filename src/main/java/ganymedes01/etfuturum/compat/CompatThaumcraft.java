@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
@@ -70,7 +71,7 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModItems.CHORUS_FRUIT_POPPED.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.PLANT, 1).add(Aspect.FIRE, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.DRAGON_BREATH.newItemStack(), new AspectList().add(Aspect.DARKNESS, 2).add(Aspect.AIR, 2).add(Aspect.FIRE, 2).add(Aspect.MAGIC, 2));
 		ThaumcraftApi.registerObjectTag(ModItems.END_CRYSTAL.newItemStack(), new AspectList().add(Aspect.MAGIC, 3).add(Aspect.ELDRITCH, 3).add(Aspect.HEAL, 3)); // Matches entity
-		ThaumcraftApi.registerObjectTag(ModItems.SHULKER_SHELL.newItemStack(), new AspectList().add(Aspect.ARMOR, 2).add(Aspect.ELDRITCH, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.SHULKER_SHELL.newItemStack(), new AspectList().add(Aspect.ARMOR, 2).add(Aspect.ELDRITCH, 2));
 		ThaumcraftApi.registerObjectTag(ModItems.ELYTRA.newItemStack(), new AspectList().add(Aspect.FLIGHT, 4).add(Aspect.MOTION, 3).add(Aspect.TRAVEL, 3));
 		ThaumcraftApi.registerObjectTag(ModItems.PRISMARINE_CRYSTALS.newItemStack(), new AspectList().add(Aspect.WATER, 1).add(Aspect.CRYSTAL, 1).add(Aspect.LIGHT, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.PRISMARINE_SHARD.newItemStack(), new AspectList().add(Aspect.WATER, 1).add(Aspect.EARTH, 1));
@@ -83,7 +84,7 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_HIDE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_FOOT.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1).add(Aspect.MOTION, 2));
 
-		ThaumcraftApi.registerObjectTag(ModItems.TIPPED_ARROW.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.WEAPON, 1).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.TIPPED_ARROW.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.WEAPON, 1).add(Aspect.MAGIC, 2));
 
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.PIGSTEP_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.BEAST, 2));
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.OTHERSIDE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.ELDRITCH, 4));
@@ -94,51 +95,51 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LAVA_CHICKEN_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 4).add(Aspect.MOTION, 4));
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.FIVE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 8).add(Aspect.SENSES, 4));
 
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1));
 		// Regen
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8193), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8225), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 6).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8257), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8193), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8225), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 6).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8257), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
 		// Speed
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8194), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8226), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 6).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8258), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8194), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8226), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 6).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8258), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3));
 		// Fire Res
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8227), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8259), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8227), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8259), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1));
 		// Poison
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8196), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8228), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 6).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8260), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8196), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8228), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 6).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8260), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3));
 		// Healing
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8229), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8261), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8229), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8261), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3));
 		// Night Vision
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8230), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8262), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8230), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8262), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
 		// Weakness
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8232), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8232), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
 		// Strength
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8201), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8233), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 6).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8201), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8233), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 6).add(Aspect.MAGIC, 2));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3));
 		// Slowness
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8234), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8266), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8234), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8266), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3));
 		// Leaping
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8235), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8267), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8235), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8267), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3));
 		// Damage
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8236), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8268), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8236), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8268), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3));
 		// Water Breathing
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8237), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8269), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8237), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8269), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3));
 		// Invis
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8238), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
-		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8270), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8238), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
+		ThaumcraftApi.registerObjectTag(McFlyItems.LINGERING_POTION.newItemStack(1, 8270), new AspectList(McFlyItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3));
 
 		ThaumcraftApi.registerObjectTag(ModItems.DYE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Items.dye)));
 		ThaumcraftApi.registerObjectTag(ModItems.NUGGET_IRON.newItemStack(), new AspectList().add(Aspect.METAL, 1));

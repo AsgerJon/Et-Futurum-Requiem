@@ -42,10 +42,10 @@ public class BaseTests extends TasTestCase {
 		"chorusOnlyOnOuterIslands", "commandBlockCreativeOnly", "commandSuggestions", "connectionAcceptFix",
 		"coordinateSuggestions", "depthStrider", "depthStriderID", "dropVehiclesTogether", "effectPanelAlphaFix",
 		"enableBannerPatterns", "enableBanners", "enableBreezeRod", "enableFloatingItems", "enableGlowInkSac", "enableGlowItemFrames",
-		"enableGlowSquidSpawns", "enableGlowSquids", "enableKelp", "enableLodestone", "enableLuck",
+		"enableGlowSquidSpawns", "enableGlowSquids", "enableKelp", "enableLingeringPotions", "enableLodestone", "enableLuck",
 		"enableModernBreathing", "enableModernSneaking", "enableModernSwimming", "enableOffhand",
 		"enablePhantomSpawns", "enablePhantoms", "enablePolarBearSpawns", "enablePolarBears", "enablePowderSnow",
-		"enableShield", "enableSpyglass", "enableTrialEffects", "enableTrident", "enableTurtleShell", "endBarrensID",
+		"enableShield", "enableShulkerBoxes", "enableSpectatorMode", "enableSpyglass", "enableTippedArrows", "enableTrialEffects", "enableTrident", "enableTurtleShell", "endBarrensID",
 		"endCreditsOnce", "endHighlandsID", "endMidlandsID", "firstPersonCameraAtEyes", "fovEffectScale",
 		"fovEffects", "giveAbove64", "guiScaleWheel", "impaling", "impalingID", "itemsBackOnClose", "loyalty",
 		"loyaltyID", "mainHandLeft", "modernAnvilCosts", "modernBedUse", "modernBlockUsePackets", "modernCauldrons",
@@ -223,7 +223,7 @@ public class BaseTests extends TasTestCase {
 	}
 
 	/**
-	 * B5: our sound events are McFly's own list (55, as of 2026-11-04; 67 with our blocks' 12 since B9), handed to MCLib's asset director, and each
+	 * B5: our sound events are McFly's own list (55, as of 2026-11-04; 67 with our blocks' 12 since B9; 68 with the lingering potion's throw, §82), handed to MCLib's asset director, and each
 	 * resolves to a sound on the client (fetched from the launcher's assets).
 	 */
 	@SuppressWarnings("unchecked")
@@ -239,7 +239,7 @@ public class BaseTests extends TasTestCase {
 			}
 			return missing;
 		});
-		assertEqual("67 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
+		assertEqual("68 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
 	}
 
 	/** The blocks this fork added to EFR's list or rebuilt in it (13, as of 2026-11-04; §79 B6), by their entry names. */

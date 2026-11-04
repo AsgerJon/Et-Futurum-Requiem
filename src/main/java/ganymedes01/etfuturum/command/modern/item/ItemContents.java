@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.command.modern.arguments.EffectIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemData;
 import ganymedes01.etfuturum.command.modern.entity.LegacyEntityData;
 import ganymedes01.etfuturum.command.modern.nbt.Snbt;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.potion.NamedPotion;
 import ganymedes01.etfuturum.potion.NamedPotions;
 import ganymedes01.etfuturum.potion.PotionContents;
@@ -101,7 +100,7 @@ final class ItemContents {
 				return;
 			}
 			int legacy = named == null ? -1 : named.legacyDamage();
-			if (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof ItemArrowTipped) {
+			if (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem) {
 				stack.setItemDamage(legacy >= 0 ? legacy : named != null || !custom.isEmpty() ? PotionContents.DRINKABLE : 0);
 			}
 			List<PotionEffect> effects = new ArrayList<>();

@@ -1,5 +1,6 @@
 package io.github.asgerjon.mcfly.mixins.early.modernmovement.client;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
@@ -9,7 +10,6 @@ import ganymedes01.etfuturum.movement.IClientPosePlayer;
 import ganymedes01.etfuturum.movement.IPosePlayer;
 import ganymedes01.etfuturum.movement.ModernMovement;
 import ganymedes01.etfuturum.movement.PlayerPose;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -204,7 +204,7 @@ public class MixinEntityPlayerSP implements IClientPosePlayer {
 	@Unique
 	private void etfu$updateWaterVision(EntityPlayerSP player) {
 		if (player.isInsideOfMaterial(Material.water)) {
-			int speed = ConfigMixins.enableSpectatorMode && SpectatorMode.isSpectator(player) ? 10 : 1;
+			int speed = McFlyConfig.enableSpectatorMode && Spectator.isSpectator(player) ? 10 : 1;
 			etfu$waterVisionTime = Math.min(etfu$waterVisionTime + speed, 600);
 		} else if (etfu$waterVisionTime > 0) {
 			etfu$waterVisionTime = Math.max(etfu$waterVisionTime - 10, 0);

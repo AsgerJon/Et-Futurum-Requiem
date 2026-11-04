@@ -10,7 +10,6 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
 import ganymedes01.etfuturum.combat.ShieldBlocking;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.offhand.Hand;
 import ganymedes01.etfuturum.offhand.Offhand;
 import net.minecraft.entity.item.EntityItem;
@@ -110,11 +109,11 @@ public class ShieldTests extends ComparisonTestCase {
 	}
 
 	private static EntityArrow poisonArrow(World world) {
-		ItemStack tipped = new ItemStack(ModItems.TIPPED_ARROW.get());
+		ItemStack tipped = new ItemStack(McFlyItems.TIPPED_ARROW.get());
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setTag("Potion", new PotionEffect(Potion.poison.id, 200, 0).writeCustomPotionEffectToNBT(new NBTTagCompound()));
 		tipped.setTagCompound(tag);
-		EntityTippedArrow arrow = new EntityTippedArrow(world);
+		io.github.asgerjon.mcfly.potion.TippedArrow arrow = new io.github.asgerjon.mcfly.potion.TippedArrow(world);
 		arrow.setArrow(tipped);
 		return arrow;
 	}
@@ -215,7 +214,7 @@ public class ShieldTests extends ComparisonTestCase {
 	 * lands, doPostHurtEffects); one from behind, which lands, does.
 	 */
 	public void testTippedArrowBlocked() {
-		if (!ModItems.TIPPED_ARROW.isEnabled()) {
+		if (!McFlyItems.TIPPED_ARROW.isEnabled()) {
 			skipTest("tipped arrows are turned off");
 		}
 		raise();

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.potion;
 
-import ganymedes01.etfuturum.items.ItemArrowTipped;
-import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
@@ -50,7 +48,7 @@ public final class PotionContents {
 
 	/** Whether this item can hold a potion: a potion (drinkable, splash, EFR's lingering) or EFR's tipped arrow. */
 	public static boolean holdsPotion(ItemStack stack) {
-		return stack != null && (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof ItemArrowTipped);
+		return stack != null && (stack.getItem() instanceof ItemPotion || stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem);
 	}
 
 	/** What a potion item or tipped arrow holds; {@link #EMPTY} for anything else. */
@@ -59,7 +57,7 @@ public final class PotionContents {
 			return EMPTY;
 		}
 		NBTTagCompound tag = stack.getTagCompound();
-		boolean arrow = stack.getItem() instanceof ItemArrowTipped;
+		boolean arrow = stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem;
 		// EFR's own one-effect arrows (a stray's) keep that effect in a `Potion` compound; an arrow of damage 0 holds none
 		if (arrow && (tag != null && tag.hasKey(POTION, 10) || stack.getItemDamage() == 0 && (tag == null || !tag.hasKey(POTION, 8)))) {
 			return EMPTY;
@@ -106,7 +104,7 @@ public final class PotionContents {
 		int legacy = potion == null ? -1 : potion.legacyDamage();
 		// 1.7.10 has no splash water, awkward, thick or mundane: those are kept by name too; nor an arrow of water
 		boolean representable = legacy >= 0 && (!splash || (legacy & DRINKABLE) != 0)
-			&& !(stack.getItem() instanceof ItemArrowTipped && legacy == 0);
+			&& !(stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem && legacy == 0);
 		boolean byDamage = representable && custom.isEmpty();
 		stack.setItemDamage(representable ? splash ? legacy & ~DRINKABLE | SPLASH : legacy : splash ? SPLASH : DRINKABLE);
 		NBTTagCompound tag = stack.getTagCompound();
@@ -205,10 +203,10 @@ public final class PotionContents {
 	 * 1/8, a drinkable or splash potion's whole.
 	 */
 	public static float durationScale(ItemStack stack) {
-		if (stack != null && stack.getItem() instanceof ItemArrowTipped) {
+		if (stack != null && stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem) {
 			return 0.125F;
 		}
-		return stack != null && stack.getItem() instanceof ItemLingeringPotion ? 0.25F : 1.0F;
+		return stack != null && stack.getItem() instanceof io.github.asgerjon.mcfly.potion.LingeringPotionItem ? 0.25F : 1.0F;
 	}
 
 	/** The effects as the item gives them: 26.3's `withScaledDuration` (the floor, at least 1 tick). */
@@ -229,10 +227,10 @@ public final class PotionContents {
 
 	/** 26.3's item name for this kind of item: potion, splash_potion, lingering_potion or tipped_arrow. */
 	public static String itemKey(ItemStack stack) {
-		if (stack.getItem() instanceof ItemArrowTipped) {
+		if (stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem) {
 			return "tipped_arrow";
 		}
-		if (stack.getItem() instanceof ItemLingeringPotion) {
+		if (stack.getItem() instanceof io.github.asgerjon.mcfly.potion.LingeringPotionItem) {
 			return "lingering_potion";
 		}
 		return isSplash(stack) ? "splash_potion" : "potion";

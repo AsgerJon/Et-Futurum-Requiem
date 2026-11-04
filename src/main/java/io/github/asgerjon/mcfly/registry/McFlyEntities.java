@@ -54,6 +54,9 @@ public enum McFlyEntities {
 	// the glow squid (spec §67.1): seen up to 10 chunks away as 26.3's
 	GLOW_SQUID(EntityGlowSquid.class, "glow_squid", 25, 160, 3, true, 0x095656, 0x85F1BC, () -> McFlyConfig.enableGlowSquids),
 	// the End as 26.3 (spec §76.8): the dragon's breath
+	// lingering potions thrown and tipped arrows shot (spec §82): EFR's names and ids
+	THROWN_LINGERING_POTION(io.github.asgerjon.mcfly.potion.ThrownLingeringPotion.class, "lingering_potion", 6, 64, 10, true, () -> McFlyItems.LINGERING_POTION.isEnabled()),
+	SHOT_TIPPED_ARROW(io.github.asgerjon.mcfly.potion.TippedArrow.class, "tipped_arrow", 2, 64, 20, true, () -> McFlyItems.TIPPED_ARROW.isEnabled()),
 	AREA_EFFECT_CLOUD(EntityAreaEffectCloud.class, "area_effect_cloud", 28, 160, 10, false, ModernEnd::isActive),
 	DRAGON_FIREBALL(EntityDragonFireball.class, "dragon_fireball", 29, 64, 10, true, ModernEnd::isActive);
 

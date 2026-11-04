@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
@@ -152,7 +153,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 				if (inventory[i] != null && inventory[i].getItem() instanceof ItemPotion) {
 					int j = inventory[i].getItemDamage();
 					if (ItemPotion.isSplash(j) && inventory[3].getItem() == ModItems.DRAGON_BREATH.get())
-						inventory[i] = ModItems.LINGERING_POTION.newItemStack(inventory[i].stackSize, inventory[i].getItemDamage());
+						inventory[i] = McFlyItems.LINGERING_POTION.newItemStack(inventory[i].stackSize, inventory[i].getItemDamage());
 					else {
 						int k = applyIngredient(j, inventory[3]);
 						List<?> list = Items.potionitem.getEffects(j);

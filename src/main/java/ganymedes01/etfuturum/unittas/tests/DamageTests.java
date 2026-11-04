@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import io.github.asgerjon.mcfly.mixins.early.combat.AccessorEntity;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.block.Block;
@@ -210,18 +210,18 @@ public class DamageTests extends TasTestCase {
 
 	/** Two totems in hand, 2 health, and a Harming II arrow of 3 from the front; waits for the hit and its aftermath. */
 	private void harmingArrowAt2HealthWithTwoTotems() {
-		if (!ModItems.TIPPED_ARROW.isEnabled() || !ModItems.TOTEM_OF_UNDYING.isEnabled()) {
+		if (!McFlyItems.TIPPED_ARROW.isEnabled() || !ModItems.TOTEM_OF_UNDYING.isEnabled()) {
 			skipTest("tipped arrows or the totem of undying are turned off");
 		}
 		setHeld(new ItemStack(ModItems.TOTEM_OF_UNDYING.get(), 2));
 		onServer(() -> {
 			player().setHealth(2.0F);
 			player().hurtResistantTime = 0;
-			ItemStack tipped = new ItemStack(ModItems.TIPPED_ARROW.get());
+			ItemStack tipped = new ItemStack(McFlyItems.TIPPED_ARROW.get());
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setTag("Potion", new PotionEffect(Potion.harm.id, 1, 1).writeCustomPotionEffectToNBT(new NBTTagCompound()));
 			tipped.setTagCompound(tag);
-			EntityTippedArrow arrow = new EntityTippedArrow(world());
+			io.github.asgerjon.mcfly.potion.TippedArrow arrow = new io.github.asgerjon.mcfly.potion.TippedArrow(world());
 			arrow.setArrow(tipped);
 			arrow.setPosition(0.5, 5.0, 4.5);
 			arrow.setThrowableHeading(0.0, 0.0, -1.0, 1.5F, 0.0F);

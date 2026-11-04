@@ -71,6 +71,8 @@ public final class McFlySounds {
 		EVENTS.put("entity.dragon_fireball.explode", "hostile");
 		EVENTS.put("item.bottle.fill_dragonbreath", "neutral");
 		EVENTS.put("block.end_gateway.spawn", "block");
+		// a lingering potion thrown (spec §82)
+		EVENTS.put("entity.lingering_potion.throw", "neutral");
 		// our blocks' sound types (spec §79.4): 26.3's break, step and place for each
 		for (McFlySoundType type : McFlySoundType.VALUES) {
 			EVENTS.put("block." + type.soundName + ".break", "block");

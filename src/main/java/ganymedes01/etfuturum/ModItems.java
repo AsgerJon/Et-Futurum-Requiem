@@ -16,7 +16,6 @@ import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.items.DebugTestItem;
 import ganymedes01.etfuturum.items.ItemArmorStand;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.items.ItemBamboo;
 import ganymedes01.etfuturum.items.ItemCoopersMallet;
 import ganymedes01.etfuturum.items.ItemBarrelUpgrade;
@@ -27,11 +26,9 @@ import ganymedes01.etfuturum.items.ItemEndCrystal;
 import ganymedes01.etfuturum.items.ItemEtFuturumRecord;
 import ganymedes01.etfuturum.items.ItemGlowBerries;
 import ganymedes01.etfuturum.items.ItemHoneyBottle;
-import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import ganymedes01.etfuturum.items.ItemNetheriteIngot;
 import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemRabbitStew;
-import ganymedes01.etfuturum.items.ItemShulkerBoxUpgrade;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.ItemSweetBerries;
 import ganymedes01.etfuturum.items.ItemWoodSign;
@@ -66,9 +63,7 @@ public enum ModItems {
 	BEETROOT_SOUP(ConfigBlocksItems.enableBeetroot, new ItemBeetrootSoup()),
 	CHORUS_FRUIT(ConfigBlocksItems.enableChorusFruit, new ItemChorusFruit()),
 	CHORUS_FRUIT_POPPED(ConfigBlocksItems.enableChorusFruit, new BaseItem("popped_chorus_fruit")),
-	TIPPED_ARROW(ConfigBlocksItems.enableTippedArrows, new ItemArrowTipped()),
-	LINGERING_POTION(ConfigBlocksItems.enableLingeringPotions, new ItemLingeringPotion()),
-	DRAGON_BREATH(ConfigBlocksItems.enableLingeringPotions, new BaseItem("dragon_breath").setContainerItem(Items.glass_bottle).setPotionEffect("-14+13")),
+	DRAGON_BREATH(io.github.asgerjon.mcfly.config.McFlyConfig.enableLingeringPotions, new BaseItem("dragon_breath").setContainerItem(Items.glass_bottle).setPotionEffect("-14+13")),
 	ELYTRA(ConfigMixins.enableElytra, new ItemArmorElytra()),
 	END_CRYSTAL(ConfigEntities.enableDragonRespawn, new ItemEndCrystal()),
 	NUGGET_IRON(ConfigBlocksItems.enableIronNugget, new BaseItem("iron_nugget")),
@@ -91,7 +86,6 @@ public enum ModItems {
 	SUSPICIOUS_STEW(ConfigBlocksItems.enableSuspiciousStew, new ItemSuspiciousStew()),
 	SWEET_BERRIES(ConfigBlocksItems.enableSweetBerryBushes, new ItemSweetBerries()),
 	GLOW_BERRIES_ITEM(ConfigBlocksItems.enableGlowBerries, new ItemGlowBerries(ModBlocks.CAVE_VINE.get())),
-	SHULKER_SHELL(ConfigBlocksItems.enableShulkerBoxes, new BaseItem("shulker_shell")),
 	PIGSTEP_RECORD(ConfigBlocksItems.enablePigstep, new ItemEtFuturumRecord("pigstep")),
 	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),
 	PRECIPICE_RECORD(ConfigBlocksItems.enablePrecipice, new ItemEtFuturumRecord("precipice")),
@@ -102,7 +96,6 @@ public enum ModItems {
 	FIVE_RECORD(ConfigBlocksItems.enable5, new ItemEtFuturumRecord("5")),
 	DISC_FRAGMENT_5(ConfigBlocksItems.enable5, new BaseItem("disc_fragment_5", true)),
 	AMETHYST_SHARD(ConfigBlocksItems.enableAmethyst, new BaseItem("amethyst_shard")),
-	SHULKER_BOX_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
 	BARREL_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.barrelIronChest, new ItemBarrelUpgrade()),
 	COOPERS_MALLET(ConfigBlocksItems.enableBarrel && ConfigBlocksItems.enableCoopersMallet, new ItemCoopersMallet()),
 	HONEYCOMB(ConfigBlocksItems.enableHoney, new BaseItem("honeycomb")),

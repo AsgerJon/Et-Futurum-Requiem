@@ -117,7 +117,6 @@ import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.blocks.BlockSeaLantern;
 import ganymedes01.etfuturum.blocks.BlockShroomlight;
-import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSlime;
 import ganymedes01.etfuturum.blocks.BlockSmithingTable;
@@ -162,7 +161,6 @@ import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockLantern;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGlowLichen;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockNewDoor;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockRedSandstone;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockSign;
 import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateCopperOre;
@@ -481,7 +479,6 @@ public enum ModBlocks {
 	LIT_SMOKER(ConfigBlocksItems.enableSmoker, new BlockSmoker(true), null),
 	BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(false)),
 	LIT_BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(true), null),
-	SHULKER_BOX(ConfigBlocksItems.enableShulkerBoxes, new BlockShulkerBox(), ItemBlockShulkerBox.class),
 	SMITHING_TABLE(ConfigBlocksItems.enableSmithingTable, new BlockSmithingTable()),
 	COMPOSTER(ConfigBlocksItems.enableComposter, new BlockComposter()),
 	STONECUTTER(ConfigBlocksItems.enableStonecutter, new BlockStonecutter(), ItemBlockDecorationWorkbench.class),

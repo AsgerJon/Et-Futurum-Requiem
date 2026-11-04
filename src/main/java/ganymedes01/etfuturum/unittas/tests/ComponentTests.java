@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.unittas.tests;
 
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.item.ItemEditableBook;
 import net.minecraft.item.ItemPotion;
@@ -26,7 +25,7 @@ public class ComponentTests extends TasTestCase {
 	/** "speed 2" for Speed III: each effect the potion gives, by 1.7.10's effect name and amplifier. */
 	@SuppressWarnings("unchecked")
 	private static List<String> effects(ItemStack stack) {
-		List<PotionEffect> effects = stack.getItem() instanceof ItemArrowTipped arrow ? arrow.getEffects(stack)
+		List<PotionEffect> effects = stack.getItem() instanceof io.github.asgerjon.mcfly.potion.TippedArrowItem arrow ? arrow.getEffects(stack)
 			: ((ItemPotion) stack.getItem()).getEffects(stack);
 		List<String> named = new ArrayList<>();
 		if (effects != null) {

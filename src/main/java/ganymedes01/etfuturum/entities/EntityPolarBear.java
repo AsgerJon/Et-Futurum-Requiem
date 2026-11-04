@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.entities;
 
+import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.McFly;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -228,7 +228,7 @@ public class EntityPolarBear extends EntityAnimal {
 
 	/** A player it may go for: not in creative, not spectating, not on Peaceful. */
 	private boolean isValidPlayerTarget(EntityLivingBase entity) {
-		return entity instanceof EntityPlayer player && !player.capabilities.isCreativeMode && !SpectatorMode.isSpectator(player)
+		return entity instanceof EntityPlayer player && !player.capabilities.isCreativeMode && !Spectator.isSpectator(player)
 			&& worldObj.difficultySetting != EnumDifficulty.PEACEFUL;
 	}
 
@@ -437,7 +437,7 @@ public class EntityPolarBear extends EntityAnimal {
 			if (!isWithinHomeDistance(MathHelper.floor_double(target.posX), MathHelper.floor_double(target.posY), MathHelper.floor_double(target.posZ))) {
 				return false;
 			}
-			return !(target instanceof EntityPlayer player && (player.capabilities.isCreativeMode || SpectatorMode.isSpectator(player)));
+			return !(target instanceof EntityPlayer player && (player.capabilities.isCreativeMode || Spectator.isSpectator(player)));
 		}
 
 		@Override
@@ -450,7 +450,7 @@ public class EntityPolarBear extends EntityAnimal {
 		@Override
 		public void resetTask() {
 			EntityLivingBase target = getAttackTarget();
-			if (target instanceof EntityPlayer player && (player.capabilities.isCreativeMode || SpectatorMode.isSpectator(player))) {
+			if (target instanceof EntityPlayer player && (player.capabilities.isCreativeMode || Spectator.isSpectator(player))) {
 				setAttackTarget(null);
 			}
 			getNavigator().clearPathEntity();

@@ -29,6 +29,8 @@ public class EntityAreaEffectCloud extends Entity {
 	private static final int RADIUS = 20;
 	private static final int WAITING = 21;
 	private static final int PARTICLE = 22;
+	/** Its particles' colour (RGB; -1 none: 1.7.10's spell particles as they come). */
+	private static final int COLOUR = 23;
 	/** Particle kinds: 1 the dragon's breath. */
 	public static final int DRAGON_BREATH = 1;
 
@@ -60,6 +62,7 @@ public class EntityAreaEffectCloud extends Entity {
 		dataWatcher.addObject(RADIUS, 3.0F);
 		dataWatcher.addObject(WAITING, (byte) 0);
 		dataWatcher.addObject(PARTICLE, 0);
+		dataWatcher.addObject(COLOUR, -1);
 	}
 
 	public void setRadius(float radius) {
@@ -92,6 +95,31 @@ public class EntityAreaEffectCloud extends Entity {
 
 	public float getRadiusPerTick() {
 		return radiusPerTick;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+
+	public void setRadiusOnUse(float radiusOnUse) {
+		this.radiusOnUse = radiusOnUse;
+	}
+
+	public void setDurationOnUse(int durationOnUse) {
+		this.durationOnUse = durationOnUse;
+	}
+
+	public void setReapplicationDelay(int delay) {
+		this.reapplicationDelay = delay;
+	}
+
+	/** Its particles' colour (a potion's, RGB), or -1. */
+	public void setColour(int colour) {
+		dataWatcher.updateObject(COLOUR, colour);
+	}
+
+	public int colour() {
+		return dataWatcher.getWatchableObjectInt(COLOUR);
 	}
 
 	public void setPotionDurationScale(float scale) {
@@ -234,7 +262,13 @@ public class EntityAreaEffectCloud extends Entity {
 			if (particle() == DRAGON_BREATH) {
 				ganymedes01.etfuturum.client.particle.DragonBreathFX.spawn(worldObj, x, posY, z, (0.5 - rand.nextDouble()) * 0.15, 0.01F, (0.5 - rand.nextDouble()) * 0.15);
 			} else {
-				worldObj.spawnParticle("mobSpell", x, posY, z, 0.5, 0.5, 0.5);
+				int colour = colour();
+				// 1.7.10's spell particle takes its colour as its speed
+				if (colour >= 0) {
+					worldObj.spawnParticle("mobSpell", x, posY, z, (colour >> 16 & 0xFF) / 255.0, (colour >> 8 & 0xFF) / 255.0, (colour & 0xFF) / 255.0);
+				} else {
+					worldObj.spawnParticle("mobSpell", x, posY, z, 0.5, 0.5, 0.5);
+				}
 			}
 		}
 	}
@@ -265,6 +299,7 @@ public class EntityAreaEffectCloud extends Entity {
 		potionDurationScale = tag.hasKey("potion_duration_scale") ? tag.getFloat("potion_duration_scale") : 1.0F;
 		setRadius(tag.getFloat("Radius"));
 		setParticle(tag.getInteger("etfuturum_particle"));
+		setColour(tag.hasKey("etfuturum_color") ? tag.getInteger("etfuturum_color") : -1);
 		if (tag.hasKey("Owner")) {
 			ownerId = UUID.fromString(tag.getString("Owner"));
 		}
@@ -290,6 +325,7 @@ public class EntityAreaEffectCloud extends Entity {
 		tag.setFloat("potion_duration_scale", potionDurationScale);
 		tag.setFloat("Radius", getRadius());
 		tag.setInteger("etfuturum_particle", particle());
+		tag.setInteger("etfuturum_color", colour());
 		if (ownerId != null) {
 			tag.setString("Owner", ownerId.toString());
 		}
