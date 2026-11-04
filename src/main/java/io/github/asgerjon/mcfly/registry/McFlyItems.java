@@ -1,8 +1,8 @@
 package io.github.asgerjon.mcfly.registry;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.items.ItemBannerPattern;
 import ganymedes01.etfuturum.items.ItemDriedKelp;
 import ganymedes01.etfuturum.items.ItemGlowItemFrame;
@@ -35,10 +35,10 @@ public enum McFlyItems {
 	// the spyglass (spec §64.5); EFR's copper and amethyst must be on
 	SPYGLASS(McFlyConfig.enableSpyglass && ConfigBlocksItems.enableCopper && ConfigBlocksItems.enableAmethyst, new ItemSpyglass()),
 	// glow ink (spec §67) and the phantom's membrane (§68)
-	GLOW_INK_SAC(McFlyConfig.enableGlowInkSac, new BaseItem("glow_ink_sac")),
-	PHANTOM_MEMBRANE(McFlyConfig.enablePhantoms, new BaseItem("phantom_membrane")),
+	GLOW_INK_SAC(McFlyConfig.enableGlowInkSac, new McFlyItem("glow_ink_sac")),
+	PHANTOM_MEMBRANE(McFlyConfig.enablePhantoms, new McFlyItem("phantom_membrane")),
 	// the last potion recipes' reagents (spec §69.13), to be had in creative before their mobs come
-	BREEZE_ROD(McFlyConfig.enableBreezeRod, new BaseItem("breeze_rod")),
+	BREEZE_ROD(McFlyConfig.enableBreezeRod, new McFlyItem("breeze_rod")),
 	// 26.3's banner pattern items with recipes, for the loom (spec §66.6)
 	FLOWER_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("flower_banner_pattern", "flower", EnumRarity.common)),
 	CREEPER_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("creeper_banner_pattern", "creeper", EnumRarity.uncommon)),
@@ -52,7 +52,7 @@ public enum McFlyItems {
 	FLOW_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("flow_banner_pattern", "flow", EnumRarity.rare)),
 	GUSTER_BANNER_PATTERN(McFlyConfig.enableBannerPatterns, new ItemBannerPattern("guster_banner_pattern", "guster", EnumRarity.rare)),
 	// the turtle shell (the aquatic update)
-	TURTLE_SCUTE(McFlyConfig.enableTurtleShell, new BaseItem("turtle_scute")),
+	TURTLE_SCUTE(McFlyConfig.enableTurtleShell, new McFlyItem("turtle_scute")),
 	TURTLE_HELMET(McFlyConfig.enableTurtleShell, new ItemTurtleShell()),
 	// the glow item frame (spec §67.4)
 	GLOW_ITEM_FRAME(McFlyConfig.enableGlowItemFrames && McFlyConfig.enableGlowInkSac, new ItemGlowItemFrame());

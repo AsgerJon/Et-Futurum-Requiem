@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import ganymedes01.etfuturum.entities.ModernFrames;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /** The glow item frame's item (SPEC-modern-movement.md §67.4): placed as an item frame is (`ModernFrames.place`). */
-public class ItemGlowItemFrame extends BaseItem {
+public class ItemGlowItemFrame extends McFlyItem {
 
 	public ItemGlowItemFrame() {
 		super("glow_item_frame");

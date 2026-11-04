@@ -1,5 +1,10 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
+import io.github.asgerjon.mcfly.banner.client.BannerCanvas;
+import io.github.asgerjon.mcfly.dye.DyeColor;
+import io.github.asgerjon.mcfly.banner.BannerPatterns;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.banner.Banners;
 import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -44,26 +49,23 @@ public class ItemShieldRenderer implements IItemRenderer {
 	 * made once and kept.
 	 */
 	public static ResourceLocation textureFor(ItemStack stack) {
-		int base = ganymedes01.etfuturum.blocks.ModernBanners.shieldBase(stack);
+		int base = Banners.shieldBase(stack);
 		if (base < 0) {
 			return TEXTURE;
 		}
-		java.util.List<String> textures = new java.util.ArrayList<>();
-		java.util.List<ganymedes01.etfuturum.lib.EnumColor> colours = new java.util.ArrayList<>();
-		textures.add(ganymedes01.etfuturum.blocks.ModernBanners.shieldMask("base"));
-		colours.add(ganymedes01.etfuturum.lib.EnumColor.fromDamage(base));
+		java.util.List<BannerCanvas.Part> parts = new java.util.ArrayList<>();
+		parts.add(new BannerCanvas.Part(Banners.shieldMask("base"), DyeColor.byId(base).textureColour(), true));
 		StringBuilder key = new StringBuilder("shield_canvas/b").append(base);
-		net.minecraft.nbt.NBTTagList layers = ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner.getSubTag(stack, "BlockEntityTag", false).getTagList("Patterns", 10);
-		for (int i = 0; i < layers.tagCount() && i < ganymedes01.etfuturum.blocks.ModernBanners.MAX_LAYERS; i++) {
+		net.minecraft.nbt.NBTTagList layers = Banners.entityTag(stack, false).getTagList("Patterns", 10);
+		for (int i = 0; i < layers.tagCount() && i < Banners.MAX_LAYERS; i++) {
 			net.minecraft.nbt.NBTTagCompound layer = layers.getCompoundTagAt(i);
-			ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern pattern =
-				ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern.getPatternByID(layer.getString("Pattern"));
+			BannerPattern pattern =
+				BannerPatterns.byShortId(layer.getString("Pattern"));
 			// one another mod added through EFR's API has no shield texture: left off (else the whole canvas fails)
-			if (pattern != null && ganymedes01.etfuturum.blocks.ModernBanners.isModern(pattern)) {
+			if (pattern != null && pattern.isModern()) {
 				int colour = layer.getInteger("Color") & 15;
-				textures.add(ganymedes01.etfuturum.blocks.ModernBanners.shieldMask(pattern.getPatternName()));
-				colours.add(ganymedes01.etfuturum.lib.EnumColor.fromDamage(colour));
-				key.append('_').append(pattern.getPatternID()).append(colour);
+				parts.add(new BannerCanvas.Part(pattern.shieldTexture(), DyeColor.byId(colour).textureColour(), true));
+				key.append('_').append(pattern.shortId()).append(colour);
 			}
 		}
 		ResourceLocation canvas = CANVASES.get(key.toString());
@@ -75,7 +77,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 				CANVASES.clear();
 			}
 			canvas = new ResourceLocation(McFly.DOMAIN, key.toString());
-			Minecraft.getMinecraft().getTextureManager().loadTexture(canvas, new ganymedes01.etfuturum.client.LayeredColorMaskTexture(FRAME, textures, colours, true));
+			Minecraft.getMinecraft().getTextureManager().loadTexture(canvas, new BannerCanvas(FRAME, parts));
 			CANVASES.put(key.toString(), canvas);
 		}
 		return canvas;
@@ -198,7 +200,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 	}
 
 	/** For the left hand modern mirrors the translation's x and the Y and Z rotations. */
-	static void display(boolean leftHand, float x, float y, float z, float rotX, float rotY, float rotZ, float scale) {
+	public static void display(boolean leftHand, float x, float y, float z, float rotX, float rotY, float rotZ, float scale) {
 		GL11.glTranslatef((leftHand ? -x : x) / 16.0F, y / 16.0F, z / 16.0F);
 		GL11.glRotatef(rotX, 1.0F, 0.0F, 0.0F);
 		GL11.glRotatef(leftHand ? -rotY : rotY, 0.0F, 1.0F, 0.0F);
@@ -212,7 +214,7 @@ public class ItemShieldRenderer implements IItemRenderer {
 	 * (RenderPlayer.renderEquippedItems: translate, the block branch's translate, turns and scale; Forge's block
 	 * helper's -0.5 centring), so modern's placement can follow.
 	 */
-	static void undoHeldBlockPlacement() {
+	public static void undoHeldBlockPlacement() {
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		GL11.glScalef(-1.0F / 0.375F, -1.0F / 0.375F, 1.0F / 0.375F);
 		GL11.glRotatef(-45.0F, 0.0F, 1.0F, 0.0F);

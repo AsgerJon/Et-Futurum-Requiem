@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,7 @@ import java.util.List;
  * consumed with the diamond gear and the ingot. Found in Nether fortress chests here, bastions in modern, and copied
  * with seven diamonds and netherrack. The tooltip is modern's: what it applies to and what it takes.
  */
-public class ItemNetheriteUpgradeTemplate extends BaseItem {
+public class ItemNetheriteUpgradeTemplate extends McFlyItem {
 
 	public ItemNetheriteUpgradeTemplate() {
 		super("netherite_upgrade_smithing_template");

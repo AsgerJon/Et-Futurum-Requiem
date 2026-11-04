@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.particle;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticle;
 import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import net.minecraft.world.World;
 
@@ -8,7 +9,7 @@ import net.minecraft.world.World;
  * bright, gravity 1.25, friction 0.6, settling on blocks, a quarter of them yellowish and the rest green, fading out in
  * its second half.
  */
-public class TotemFX extends EtFuturumFXParticle {
+public class TotemFX extends McFlyParticle {
 
 	public TotemFX(World world, double x, double y, double z, double mx, double my, double mz) {
 		super(world, x, y, z, mx, my, mz, 60 + McFlyParticlesClient.RANDOM.nextInt(12), 0.75F * (particleRand.nextFloat() * 0.5F + 0.5F) * 2.0F,

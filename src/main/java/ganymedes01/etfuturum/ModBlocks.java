@@ -23,7 +23,6 @@ import ganymedes01.etfuturum.blocks.BlockBamboo;
 import ganymedes01.etfuturum.blocks.BlockBambooBlock;
 import ganymedes01.etfuturum.blocks.BlockBambooMosaic;
 import ganymedes01.etfuturum.blocks.BlockBambooShoot;
-import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBarrier;
 import ganymedes01.etfuturum.blocks.BlockBasalt;
@@ -156,7 +155,6 @@ import ganymedes01.etfuturum.blocks.itemblocks.BasePotableItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSlabItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSubtypesPotableItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockAmethystCluster;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBarrel;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDyedBed;
@@ -217,7 +215,6 @@ public enum ModBlocks {
 	BROWN_MUSHROOM(ConfigFunctions.enableSilkTouchingMushrooms, new BlockSilkedMushroom(Blocks.brown_mushroom_block, "brown")),
 	RED_MUSHROOM(ConfigFunctions.enableSilkTouchingMushrooms, new BlockSilkedMushroom(Blocks.red_mushroom_block, "red")),
 	COARSE_DIRT(ConfigBlocksItems.enableCoarseDirt, new BlockCoarseDirt()),
-	BANNER(ConfigBlocksItems.enableBanners, new BlockBanner(), ItemBlockBanner.class),
 	SLIME(ConfigBlocksItems.enableSlimeBlock, new BlockSlime()),
 	SPONGE(ConfigBlocksItems.enableSponge, new BlockSponge()),
 	BEETROOTS(ConfigBlocksItems.enableBeetroot, new BlockBeetroot(), null),

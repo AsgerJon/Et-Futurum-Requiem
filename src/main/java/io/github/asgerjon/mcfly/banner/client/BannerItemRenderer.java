@@ -1,8 +1,9 @@
-package ganymedes01.etfuturum.client.renderer.item;
+package io.github.asgerjon.mcfly.banner.client;
 
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import ganymedes01.etfuturum.client.renderer.item.ItemShieldRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -18,9 +19,9 @@ import org.lwjgl.opengl.GL12;
  * `template_banner.json`'s display for each view, and lit from the front in the GUI (its `gui_light: front`). The
  * places in hand come from the shield's renderer (ItemShieldRenderer), which follows 26.3's item rendering.
  */
-public class ItemBannerRenderer implements IItemRenderer {
+public class BannerItemRenderer implements IItemRenderer {
 
-	private final TileEntityBanner banner = new TileEntityBanner();
+	private final BannerBlockEntity banner = new BannerBlockEntity();
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -35,7 +36,7 @@ public class ItemBannerRenderer implements IItemRenderer {
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
 		banner.setItemValues(stack);
-		banner.isStanding = true;
+		banner.setStanding(true);
 		GL11.glPushMatrix();
 		switch (type) {
 			case INVENTORY -> {
@@ -114,7 +115,7 @@ public class ItemBannerRenderer implements IItemRenderer {
 	 */
 	public void renderInFrame(EntityItemFrame frame) {
 		banner.setItemValues(frame.getDisplayedItem());
-		banner.isStanding = true;
+		banner.setStanding(true);
 		GL11.glPushMatrix();
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -128,7 +129,7 @@ public class ItemBannerRenderer implements IItemRenderer {
 		GL11.glPopMatrix();
 	}
 
-	/** The special banner model: EFR's standing banner at the origin (see the class's note). */
+	/** The special banner model: our standing banner at the origin (see the class's note). */
 	private void drawBanner() {
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(banner, 0.0, 0.0, 0.0, 0.0F);
 	}

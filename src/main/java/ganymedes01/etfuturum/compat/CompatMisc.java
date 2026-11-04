@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.EtFuturum;
@@ -33,7 +35,6 @@ public class CompatMisc {
 			if (ConfigMixins.enableSpectatorMode) {
 				extensibleEnums.add("net.minecraft.world.WorldSettings$GameType");
 			}
-			extensibleEnums.add("ganymedes01.etfuturum.tileentities.TileEntityBanner$EnumBannerPattern");
 
 			ConfigUtils utils = new ConfigUtils(null);
 			Logger.trace("Found lwjgl3ify, registering the following extensible enum classes: " + extensibleEnums);

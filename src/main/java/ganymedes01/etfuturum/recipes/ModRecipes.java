@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.recipes;
 
+import io.github.asgerjon.mcfly.dye.DyeColor;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -26,11 +28,8 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
-import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.lib.Reference;
 
-import ganymedes01.etfuturum.recipes.crafting.RecipeAddPattern;
-import ganymedes01.etfuturum.recipes.crafting.RecipeDuplicatePattern;
 import ganymedes01.etfuturum.recipes.crafting.RecipeDyedShulkerBox;
 import ganymedes01.etfuturum.recipes.crafting.RecipeFixedFireworks;
 import ganymedes01.etfuturum.recipes.crafting.RecipeTippedArrow;
@@ -83,9 +82,8 @@ public class ModRecipes {
 	}
 
 	public static void postInit() {
-		if (ConfigBlocksItems.enableBanners) {
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
+		if (McFlyConfig.enableBanners) {
+			RecipeSorter.register(Reference.MOD_ID + ".BannerDuplicateRecipe", io.github.asgerjon.mcfly.banner.BannerDuplicateRecipe.class, Category.SHAPELESS, "after:minecraft:shapeless");
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeShieldDecoration", ganymedes01.etfuturum.recipes.crafting.RecipeShieldDecoration.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		}
 		RecipeSorter.register(Reference.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
@@ -738,11 +736,12 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether"));
 		}
 
-		for (EnumColor colour : EnumColor.VALUES) {
-			addShapedRecipe(ModBlocks.BANNER.newItemStack(1, colour.getDamage()), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.getDamage()), 'y', "stickWood");
+		// banners (spec §80): six wool of one colour and a stick, that colour's banner; copying a banner's layers. No
+		// patterns in the grid: the loom adds them, as in 26.3
+		for (DyeColor colour : DyeColor.values()) {
+			addShapedRecipe(McFlyBlocks.BANNER.newItemStack(1, colour.id()), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.id()), 'y', "stickWood");
 		}
-		GameRegistry.addRecipe(new RecipeDuplicatePattern());
-		GameRegistry.addRecipe(new RecipeAddPattern());
+		GameRegistry.addRecipe(new io.github.asgerjon.mcfly.banner.BannerDuplicateRecipe());
 		// a banner on a shield (26.3's ShieldDecorationRecipe, spec §66.9)
 		if (McFlyItems.SHIELD.isEnabled()) {
 			GameRegistry.addRecipe(new ganymedes01.etfuturum.recipes.crafting.RecipeShieldDecoration());

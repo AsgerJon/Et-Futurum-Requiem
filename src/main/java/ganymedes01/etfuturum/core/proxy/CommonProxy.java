@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -64,7 +65,6 @@ import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
@@ -155,9 +155,6 @@ public class CommonProxy implements IGuiHandler {
 		}
 		if (ModBlocks.POTION_CAULDRON.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
-		}
-		if (ModBlocks.BANNER.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 		}
 		if (ModBlocks.BEEHIVE.isEnabled() || ModBlocks.BEE_NEST.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBeeHive.class, Utils.getUnlocalisedName("hive"));

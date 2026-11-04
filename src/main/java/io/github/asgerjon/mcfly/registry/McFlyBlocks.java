@@ -36,30 +36,39 @@ public enum McFlyBlocks {
 	POWDER_SNOW_CAULDRON(McFlyConfig.enablePowderSnow, new BlockPowderSnowCauldron(), false),
 	// kelp (the aquatic update)
 	KELP(McFlyConfig.enableKelp, new BlockKelp()),
-	DRIED_KELP_BLOCK(McFlyConfig.enableKelp, new BlockDriedKelp());
+	DRIED_KELP_BLOCK(McFlyConfig.enableKelp, new BlockDriedKelp()),
+	// banners (spec §80): the item its own, the tile entity registered with it (as EFR named it: old saves hold it)
+	BANNER(McFlyConfig.enableBanners, new io.github.asgerjon.mcfly.banner.BannerBlock(), io.github.asgerjon.mcfly.banner.BannerItem.class);
 
 	public static final McFlyBlocks[] VALUES = values();
 
 	private final boolean enabled;
 	private final Block block;
-	private final boolean hasItem;
+	private final Class<? extends ItemBlock> item;
 
 	McFlyBlocks(boolean enabled, Block block) {
-		this(enabled, block, true);
+		this(enabled, block, ItemBlock.class);
 	}
 
 	McFlyBlocks(boolean enabled, Block block, boolean hasItem) {
-		this.enabled = enabled;
-		this.block = block;
-		this.hasItem = hasItem;
+		this(enabled, block, hasItem ? ItemBlock.class : null);
 	}
 
-	/** In pre-init: each one that's on, with a plain item block (or none), under its entry's name. */
+	McFlyBlocks(boolean enabled, Block block, Class<? extends ItemBlock> item) {
+		this.enabled = enabled;
+		this.block = block;
+		this.item = item;
+	}
+
+	/** In pre-init: each one that's on, with its item block (or none), under its entry's name; the banner's tile entity. */
 	public static void register() {
 		for (McFlyBlocks entry : VALUES) {
 			if (entry.enabled) {
-				GameRegistry.registerBlock(entry.block, entry.hasItem ? ItemBlock.class : null, entry.name().toLowerCase());
+				GameRegistry.registerBlock(entry.block, entry.item, entry.name().toLowerCase());
 			}
+		}
+		if (BANNER.enabled) {
+			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.banner.BannerBlockEntity.class, io.github.asgerjon.mcfly.McFly.name("banner"));
 		}
 	}
 

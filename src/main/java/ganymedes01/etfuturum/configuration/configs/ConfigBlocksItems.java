@@ -29,7 +29,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static int netheriteLeggingsProtection;
 	public static int netheriteBootsProtection;
 
-	public static boolean enableBanners;
 	public static boolean enableBarkLogs;
 	public static boolean enableStones;
 	public static boolean enableIronTrapdoor;
@@ -312,7 +311,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableNewFences = getBoolean("enableNewFences", catBlockMisc, true, "Enables variant fences for materials available in Minecraft after 1.7");
 		enableVanillaGates = getBoolean("enableVanillaGates", catBlockMisc, true, "Enablesvariant gates for materials available natively in Minecraft 1.7");
 		enableNewGates = getBoolean("enableNewGates", catBlockMisc, true, "Enables variant gates for materials available in Minecraft after 1.7");
-		enableBanners = getBoolean("enableBanners", catBlockMisc, true, "");
 		enableConcrete = getBoolean("enableConcrete", catBlockMisc, true, "");
 		enableStrippedLogs = getBoolean("enableStrippedLogs", catBlockMisc, true, "Enables stripped log blocks");
 		enableBarkLogs = getBoolean("enableBarkLogs", catBlockMisc, true, "Enables log blocks with bark on all sides");

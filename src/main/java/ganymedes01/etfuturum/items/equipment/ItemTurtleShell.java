@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import io.github.asgerjon.mcfly.registry.McFlyTab;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.ModMaterials;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,7 @@ public class ItemTurtleShell extends ItemArmor {
 		super(ModMaterials.TURTLE_ARMOUR, 0, 0);
 		setUnlocalizedName(McFly.name("turtle_helmet"));
 		setTextureName("turtle_helmet");
-		setCreativeTab(EtFuturum.creativeTabItems);
+		setCreativeTab(McFlyTab.TAB);
 	}
 
 	@Override

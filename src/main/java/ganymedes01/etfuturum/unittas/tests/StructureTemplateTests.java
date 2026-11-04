@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.BannerPatterns;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import ganymedes01.etfuturum.world.structure.modern.ModernBlockStates;
 import ganymedes01.etfuturum.world.structure.modern.ModernBox;
@@ -44,7 +46,7 @@ public class StructureTemplateTests extends TasTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ModBlocks.PURPUR_BLOCK.isEnabled() || !ModBlocks.END_ROD.isEnabled() || !ModBlocks.BANNER.isEnabled()) {
+		if (!ModBlocks.PURPUR_BLOCK.isEnabled() || !ModBlocks.END_ROD.isEnabled() || !McFlyBlocks.BANNER.isEnabled()) {
 			skipTest("purpur, end rods or banners are off");
 		}
 	}
@@ -117,7 +119,7 @@ public class StructureTemplateTests extends TasTestCase {
 		Block block = world.getBlock(x, y, z);
 		StringBuilder out = new StringBuilder(describe(block, world.getBlockMetadata(x, y, z)));
 		TileEntity entity = world.getTileEntity(x, y, z);
-		if (entity instanceof TileEntityBanner banner) {
+		if (entity instanceof BannerBlockEntity banner) {
 			NBTTagCompound tag = new NBTTagCompound();
 			banner.writeToNBT(tag);
 			out.append(" base ").append(tag.getInteger("Base")).append(tag.getBoolean("IsStanding") ? " standing" : " wall");
@@ -152,7 +154,7 @@ public class StructureTemplateTests extends TasTestCase {
 			out.append(" base ").append(15 - ModernBlockStates.woolMeta(colour)).append(state.id.endsWith("_wall_banner") ? " wall" : " standing");
 			for (int i = 2; i < parts.length; i++) {
 				String[] layer = parts[i].split(":");
-				out.append(' ').append(ganymedes01.etfuturum.blocks.ModernBanners.byName(layer[0]).getPatternID()).append(':').append(15 - ModernBlockStates.woolMeta(layer[1]));
+				out.append(' ').append(BannerPatterns.byName(layer[0]).shortId()).append(':').append(15 - ModernBlockStates.woolMeta(layer[1]));
 			}
 		} else if (parts.length > 1 && parts[1].equals("items")) {
 			for (int i = 2; i < parts.length; i++) {

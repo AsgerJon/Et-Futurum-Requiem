@@ -71,6 +71,12 @@ public final class McFlySounds {
 		EVENTS.put("entity.dragon_fireball.explode", "hostile");
 		EVENTS.put("item.bottle.fill_dragonbreath", "neutral");
 		EVENTS.put("block.end_gateway.spawn", "block");
+		// our blocks' sound types (spec §79.4): 26.3's break, step and place for each
+		for (McFlySoundType type : McFlySoundType.VALUES) {
+			EVENTS.put("block." + type.soundName + ".break", "block");
+			EVENTS.put("block." + type.soundName + ".step", "neutral");
+			EVENTS.put("block." + type.soundName + ".place", "block");
+		}
 	}
 
 	private McFlySounds() {

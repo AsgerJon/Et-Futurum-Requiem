@@ -1,10 +1,17 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.dye.DyeColor;
+import io.github.asgerjon.mcfly.banner.client.BannerItemRenderer;
+import io.github.asgerjon.mcfly.banner.client.BannerCanvas;
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.BannerPatterns;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.banner.Banners;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -32,7 +39,7 @@ public class BannerTests extends TasTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigBlocksItems.enableBanners) {
+		if (!McFlyConfig.enableBanners) {
 			skipTest("banners are off");
 		}
 	}
@@ -47,8 +54,8 @@ public class BannerTests extends TasTestCase {
 			int colour = wool;
 			ItemStack made = onServer(() -> craft(woolRow(colour), woolRow(colour), new ItemStack[] {null, new ItemStack(Items.stick), null}));
 			String woolName = COLOURS[colour] + " wool";
-			assertTrue(made != null && made.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get()), woolName + " made " + made);
-			assertEqual(colour, TileEntityBanner.getBaseColor(made), "the colour of the banner from " + woolName);
+			assertTrue(made != null && made.getItem() == Item.getItemFromBlock(McFlyBlocks.BANNER.get()), woolName + " made " + made);
+			assertEqual(colour, Banners.base(made), "the colour of the banner from " + woolName);
 			assertEqual(COLOURS[colour] + " Banner", made.getDisplayName(), "the banner from " + woolName);
 		}
 	}
@@ -61,27 +68,160 @@ public class BannerTests extends TasTestCase {
 	}
 
 	/**
-	 * EFR's crafting-grid patterns are off by default (26.3 has none, the loom adds them; §66.4): a banner under three
-	 * dyes in a row (EFR's top stripe) makes nothing; with the option on, it makes the stripe as EFR always did.
+	 * No patterns from the crafting grid at all (the user, 2026-11-04: "yeet those weird crafting recipe things"; spec
+	 * §80): a banner under three dyes in a row (1.8's top stripe), or beside a vine (1.8's curly border), makes nothing,
+	 * and the option that turned them on is gone. The loom adds patterns, as in 26.3.
 	 */
-	public void testGridPatternsOffByDefault() {
-		assertFalse(McFlyConfig.bannerGridPatterns, "the option's default (bannerGridPatterns)");
+	public void testNoGridPatterns() {
 		ItemStack[] dyes = {new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1)};
-		ItemStack[] banner = {null, ModBlocks.BANNER.newItemStack(1, 0), null};
-		assertEqual(null, onServer(() -> craft(dyes, banner, new ItemStack[3])), "a banner under three red dyes, by default");
-		McFlyConfig.bannerGridPatterns = true;
+		ItemStack[] banner = {null, McFlyBlocks.BANNER.newItemStack(1, 0), null};
+		assertEqual(null, onServer(() -> craft(dyes, banner, new ItemStack[3])), "a banner under three red dyes");
+		ItemStack[] withVine = {McFlyBlocks.BANNER.newItemStack(1, 0), new ItemStack(Blocks.vine), null};
+		assertEqual(null, onServer(() -> craft(withVine, new ItemStack[3], new ItemStack[3])), "a banner beside a vine");
+		boolean option = true;
 		try {
-			ItemStack made = onServer(() -> craft(dyes, banner, new ItemStack[3]));
-			assertTrue(made != null, "with the option on, the stripe is made");
-			assertEqual("ts", layer(made, 0), "the layer added");
-		} finally {
-			McFlyConfig.bannerGridPatterns = false;
+			McFlyConfig.class.getField("bannerGridPatterns");
+		} catch (NoSuchFieldException e) {
+			option = false;
 		}
+		assertFalse(option, "McFly still has the bannerGridPatterns option");
+	}
+
+	// ---------------------------------------------------------------- ours (spec §80): colours, patterns, the stored form
+
+	/** 26.3's `DyeColor`: id, name, texture colour, firework colour, text colour (RGB). */
+	static final Object[][] DYE_COLOURS = {
+		{0, "white", 0xF9FFFE, 0xF0F0F0, 0xFFFFFF}, {1, "orange", 0xF9801D, 0xEB8844, 0xFF681F}, {2, "magenta", 0xC74EBD, 0xC354CD, 0xFF00FF},
+		{3, "light_blue", 0x3AB3DA, 0x6689D3, 0x9AC0CD}, {4, "yellow", 0xFED83D, 0xDECF2A, 0xFFFF00}, {5, "lime", 0x80C71F, 0x41CD34, 0xBFFF00},
+		{6, "pink", 0xF38BAA, 0xD88198, 0xFF69B4}, {7, "gray", 0x474F52, 0x434343, 0x808080}, {8, "light_gray", 0x9D9D97, 0xABABAB, 0xD3D3D3},
+		{9, "cyan", 0x169C9C, 0x287697, 0x00FFFF}, {10, "purple", 0x8932B8, 0x7B2FBE, 0xA020F0}, {11, "blue", 0x3C44AA, 0x253192, 0x0000FF},
+		{12, "brown", 0x835432, 0x51301A, 0x8B4513}, {13, "green", 0x5E7C16, 0x3B511A, 0x00FF00}, {14, "red", 0xB02E26, 0xB3312C, 0xFF0000},
+		{15, "black", 0x1D1D21, 0x1E1B1B, 0x000000}
+	};
+
+	/** 26.3's 16 dye colours, ours (`io.github.asgerjon.mcfly.dye.DyeColor`), each as 26.3 has it, and 1.7.10's dye for it. */
+	public void testDyeColoursAre26_3s() throws Exception {
+		Class<?> dye = Class.forName("io.github.asgerjon.mcfly.dye.DyeColor");
+		Object[] values = dye.getEnumConstants();
+		List<String> wrong = new ArrayList<>();
+		for (Object[] want : DYE_COLOURS) {
+			Object colour = values[(Integer) want[0]];
+			Object[] got = {dye.getMethod("id").invoke(colour), dye.getMethod("getName").invoke(colour), dye.getMethod("textureColour").invoke(colour),
+				dye.getMethod("fireworkColour").invoke(colour), dye.getMethod("textColour").invoke(colour)};
+			int dyeDamage = (Integer) dye.getMethod("dyeDamage").invoke(colour);
+			if (!Arrays.equals(want, got) || dyeDamage != 15 - (Integer) want[0]) {
+				wrong.add(Arrays.toString(got) + " dye " + dyeDamage);
+			}
+		}
+		assertEqual("16 []", values.length + " " + wrong, "the dye colours");
+	}
+
+	/** 26.3's 43 patterns in its order, each with the short id it's stored by (1.8's; four of ours for the four it lacked). */
+	static final String[] PATTERNS = {"base b", "square_bottom_left bl", "square_bottom_right br", "square_top_left tl", "square_top_right tr",
+		"stripe_bottom bs", "stripe_top ts", "stripe_left ls", "stripe_right rs", "stripe_center cs", "stripe_middle ms", "stripe_downright drs",
+		"stripe_downleft dls", "small_stripes ss", "cross cr", "straight_cross sc", "triangle_bottom bt", "triangle_top tt", "triangles_bottom bts",
+		"triangles_top tts", "diagonal_left ld", "diagonal_up_right rd", "diagonal_up_left lud", "diagonal_right rud", "circle mc", "rhombus mr",
+		"half_vertical vh", "half_horizontal hh", "half_vertical_right vhr", "half_horizontal_bottom hhb", "border bo", "curly_border cbo",
+		"gradient gra", "gradient_up gru", "bricks bri", "globe glb", "creeper cre", "skull sku", "flower flo", "mojang moj", "piglin pig",
+		"flow flw", "guster gus"};
+
+	/** 26.3's patterns, ours (`io.github.asgerjon.mcfly.banner.BannerPatterns`), by name and short id, in 26.3's order. */
+	@SuppressWarnings("unchecked")
+	public void testPatternsBy26_3sNames() throws Exception {
+		Class<?> patterns = Class.forName("io.github.asgerjon.mcfly.banner.BannerPatterns");
+		List<String> got = new ArrayList<>();
+		for (Object pattern : (List<Object>) patterns.getMethod("modern").invoke(null)) {
+			got.add(pattern.getClass().getMethod("name").invoke(pattern) + " " + pattern.getClass().getMethod("shortId").invoke(pattern));
+		}
+		assertEqual(Arrays.asList(PATTERNS).toString(), got.toString(), "26.3's patterns");
+	}
+
+	/**
+	 * A banner stored in EFR's form (old saves, spec §80) comes back the same through ours: a wall banner and a standing
+	 * one, each layer by its short id (1.8's and the four new ones), written back as read.
+	 */
+	public void testStoredFormKept() {
+		String[] wrong = onServer(() -> {
+			List<String> found = new ArrayList<>();
+			for (boolean standing : new boolean[]{false, true}) {
+				int x = 5, y = 5, z = standing ? 5 : 7;
+				world().setBlock(x, y - 1, z, Blocks.stone);
+				world().setBlock(x, y, z, McFlyBlocks.BANNER.get(), standing ? 9 : 3, 3);
+				NBTTagCompound stored = new NBTTagCompound();
+				stored.setString("id", "etfuturum.banner");
+				stored.setInteger("x", x);
+				stored.setInteger("y", y);
+				stored.setInteger("z", z);
+				stored.setInteger("Base", 14);
+				stored.setBoolean("IsStanding", standing);
+				NBTTagList layers = new NBTTagList();
+				for (Object[] layer : new Object[][]{{"bs", 0}, {"glb", 11}, {"cre", 15}, {"gus", 4}}) {
+					NBTTagCompound one = new NBTTagCompound();
+					one.setString("Pattern", (String) layer[0]);
+					one.setInteger("Color", (Integer) layer[1]);
+					layers.appendTag(one);
+				}
+				stored.setTag("Patterns", layers);
+				net.minecraft.tileentity.TileEntity loaded = net.minecraft.tileentity.TileEntity.createAndLoadEntity(stored);
+				if (loaded == null) {
+					found.add("no tile entity from etfuturum.banner");
+					continue;
+				}
+				NBTTagCompound written = new NBTTagCompound();
+				loaded.writeToNBT(written);
+				if (!written.equals(stored)) {
+					found.add((standing ? "standing " : "wall ") + written + " from " + stored);
+				}
+				world().setBlockToAir(x, y, z);
+			}
+			return new String[]{found.toString()};
+		});
+		assertEqual("[]", wrong[0], "EFR's stored form through ours");
+	}
+
+	/** The classes EFR's banners were (spec §80): none of them is left. */
+	static final String[] EFR_BANNER_CLASSES = {"ganymedes01.etfuturum.blocks.BlockBanner", "ganymedes01.etfuturum.tileentities.TileEntityBanner",
+		"ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner", "ganymedes01.etfuturum.lib.EnumColor",
+		"ganymedes01.etfuturum.recipes.crafting.RecipeAddPattern", "ganymedes01.etfuturum.recipes.crafting.RecipeDuplicatePattern",
+		"ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer", "ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer",
+		"ganymedes01.etfuturum.client.LayeredColorMaskTexture", "ganymedes01.etfuturum.compat.nei.BannerPatternHandler",
+		"ganymedes01.etfuturum.client.model.ModelBanner", "ganymedes01.etfuturum.blocks.ModernBanners"};
+
+	/**
+	 * The banner is ours (spec §80): its block, tile entity and item McFly's, under the old ids (`etfuturum:banner`, the
+	 * tile entity `etfuturum.banner`), in McFly's list; none of EFR's banner classes left.
+	 */
+	@SuppressWarnings("unchecked")
+	public void testBannerIsOurs() throws Exception {
+		List<String> wrong = new ArrayList<>();
+		Object block = net.minecraft.block.Block.blockRegistry.getObject("etfuturum:banner");
+		Object item = Item.itemRegistry.getObject("etfuturum:banner");
+		java.lang.reflect.Field names = cpw.mods.fml.relauncher.ReflectionHelper.findField(net.minecraft.tileentity.TileEntity.class, "nameToClassMap", "field_145855_i");
+		Object tile = ((java.util.Map<String, Class<?>>) names.get(null)).get("etfuturum.banner");
+		for (Object thing : new Object[]{block, item, tile}) {
+			String type = thing == null ? "nothing" : thing instanceof Class ? ((Class<?>) thing).getName() : thing.getClass().getName();
+			if (!type.startsWith("io.github.asgerjon.mcfly.banner.")) {
+				wrong.add(type);
+			}
+		}
+		boolean listed = false;
+		for (Object entry : Class.forName("io.github.asgerjon.mcfly.registry.McFlyBlocks").getEnumConstants()) {
+			listed |= ((Enum<?>) entry).name().equals("BANNER");
+		}
+		if (!listed) {
+			wrong.add("BANNER not in McFlyBlocks");
+		}
+		for (String name : EFR_BANNER_CLASSES) {
+			if (net.minecraft.launchwrapper.Launch.classLoader.getClassBytes(name) != null) {
+				wrong.add(name.substring(name.lastIndexOf('.') + 1) + " still there");
+			}
+		}
+		assertEqual("[]", wrong.toString(), "the banner's classes");
 	}
 
 	/** Copying a banner's layers onto a plain banner of its colour stays (26.3's BannerDuplicateRecipe), the option off. */
 	public void testCopyingStays() {
-		ItemStack patterned = ModBlocks.BANNER.newItemStack(1, 0);
+		ItemStack patterned = McFlyBlocks.BANNER.newItemStack(1, 0);
 		NBTTagCompound tag = new NBTTagCompound();
 		NBTTagList layers = new NBTTagList();
 		NBTTagCompound layer = new NBTTagCompound();
@@ -91,7 +231,7 @@ public class BannerTests extends TasTestCase {
 		tag.setTag("Patterns", layers);
 		tag.setInteger("Base", 0);
 		patterned.setTagInfo("BlockEntityTag", tag);
-		ItemStack made = onServer(() -> craft(new ItemStack[] {patterned, ModBlocks.BANNER.newItemStack(1, 0), null}, new ItemStack[3], new ItemStack[3]));
+		ItemStack made = onServer(() -> craft(new ItemStack[] {patterned, McFlyBlocks.BANNER.newItemStack(1, 0), null}, new ItemStack[3], new ItemStack[3]));
 		assertTrue(made != null, "a patterned and a plain white banner made nothing");
 		assertEqual("bs", layer(made, 0), "the copy's layer");
 	}
@@ -152,14 +292,14 @@ public class BannerTests extends TasTestCase {
 
 	/** The canvas the renderer makes for that banner. */
 	static java.awt.image.BufferedImage canvas(IResourceManager resources, ItemStack banner) throws java.io.IOException {
-		TileEntityBanner entity = new TileEntityBanner();
+		BannerBlockEntity entity = new BannerBlockEntity();
 		entity.setItemValues(banner);
-		return ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer.canvasImage(resources, entity);
+		return BannerCanvas.imageOf(resources, entity);
 	}
 
 	/** A banner of that colour (white 0 to black 15) with layers (pattern id and colour, bottom first). */
 	static ItemStack bannerWith(int colour, Object... layers) {
-		ItemStack banner = ModBlocks.BANNER.newItemStack(1, colour);
+		ItemStack banner = McFlyBlocks.BANNER.newItemStack(1, colour);
 		if (layers.length > 0) {
 			NBTTagCompound entity = new NBTTagCompound();
 			NBTTagList list = new NBTTagList();
@@ -189,18 +329,15 @@ public class BannerTests extends TasTestCase {
 	public void testTheFourNewPatterns() {
 		List<String> wrong = new ArrayList<>();
 		for (String[] row : NEW_PATTERNS) {
-			TileEntityBanner.EnumBannerPattern pattern = ganymedes01.etfuturum.blocks.ModernBanners.byName(row[0]);
+			BannerPattern pattern = BannerPatterns.byName(row[0]);
 			if (pattern == null) {
 				wrong.add("no pattern " + row[0]);
 				continue;
 			}
-			if (!row[1].equals(pattern.getPatternID()) || TileEntityBanner.EnumBannerPattern.getPatternByID(row[1]) != pattern) {
-				wrong.add(row[0] + "'s id is " + pattern.getPatternID());
+			if (!row[1].equals(pattern.shortId()) || BannerPatterns.byShortId(row[1]) != pattern) {
+				wrong.add(row[0] + "'s id is " + pattern.shortId());
 			}
-			if (pattern.hasValidCrafting()) {
-				wrong.add(row[0] + " has a crafting-grid recipe");
-			}
-			if (ganymedes01.etfuturum.blocks.ModernBanners.NO_ITEM_REQUIRED.contains(pattern)) {
+			if (BannerPatterns.noItemRequired().contains(pattern)) {
 				wrong.add(row[0] + " is offered without its item");
 			}
 			boolean drawn = onClient(() -> {
@@ -268,13 +405,13 @@ public class BannerTests extends TasTestCase {
 	 * drawn from 26.3's textures; on a shield it's left off (it has no shield texture: the canvas would fail whole).
 	 */
 	public void testAnotherModsPattern() throws Exception {
-		if (TileEntityBanner.EnumBannerPattern.getPatternByID("etfuapi") == null) {
+		if (BannerPatterns.byShortId("etfuapi") == null) {
 			ganymedes01.etfuturum.api.BannerPatternHelper.addPattern("etfu_test_api", "etfuapi", "###", "# #", "###");
 		}
-		TileEntityBanner entity = new TileEntityBanner();
+		BannerBlockEntity entity = new BannerBlockEntity();
 		entity.setItemValues(bannerWith(0, "glb", 14, "etfuapi", 11));
 		assertEqual("[etfuturum:textures/entity/banner/base.png, etfuturum:textures/entity/banner/globe.png, textures/entity/banner/etfu_test_api.png]",
-			onClient(() -> ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer.layerTextures(entity)).toString(),
+			onClient(() -> BannerCanvas.layerTextures(entity)).toString(),
 			"the layers' textures");
 		if (io.github.asgerjon.mcfly.registry.McFlyItems.SHIELD.isEnabled()) {
 			ItemStack shield = new ItemStack(io.github.asgerjon.mcfly.registry.McFlyItems.SHIELD.get());
@@ -322,7 +459,7 @@ public class BannerTests extends TasTestCase {
 
 	/** A white banner with layers (bottom first) and maybe a name. */
 	private static ItemStack patterned(int count, String name, String... layers) {
-		ItemStack banner = ModBlocks.BANNER.newItemStack(count, 0);
+		ItemStack banner = McFlyBlocks.BANNER.newItemStack(count, 0);
 		NBTTagCompound entity = new NBTTagCompound();
 		NBTTagList list = new NBTTagList();
 		for (String id : layers) {
@@ -350,7 +487,7 @@ public class BannerTests extends TasTestCase {
 			int count = 0, layers = -1;
 			for (int slot = 1; slot < player().inventory.mainInventory.length; slot++) {
 				ItemStack stack = player().inventory.mainInventory[slot];
-				if (stack != null && stack.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get())) {
+				if (stack != null && stack.getItem() == Item.getItemFromBlock(McFlyBlocks.BANNER.get())) {
 					count += stack.stackSize;
 					if (layers < 0) {
 						layers = layers(stack);
@@ -395,7 +532,7 @@ public class BannerTests extends TasTestCase {
 
 	/** A plain banner takes no water: it's used as on any block (placed on top). */
 	public void testPlainBannerTakesNoWater() {
-		cauldronWith(3, ModBlocks.BANNER.newItemStack(1, 0), false);
+		cauldronWith(3, McFlyBlocks.BANNER.newItemStack(1, 0), false);
 		useOnCauldron();
 		assertEqual(3, cauldronLevel(), "the water left");
 	}

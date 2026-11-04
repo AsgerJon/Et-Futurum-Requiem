@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.compat.nei;
 
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.lib.Reference;
@@ -23,8 +24,7 @@ public class IMCSenderGTNH {
 			sendCatalyst("fuel", "etfuturum:blast_furnace");
 		}
 
-		if (ModBlocks.BANNER.isEnabled()) {
-			sendHandler("ganymedes01.etfuturum.compat.nei.BannerPatternHandler", "etfuturum:banner");
+		if (McFlyBlocks.BANNER.isEnabled()) {
 		}
 
 		if (ModBlocks.COMPOSTER.isEnabled()) {

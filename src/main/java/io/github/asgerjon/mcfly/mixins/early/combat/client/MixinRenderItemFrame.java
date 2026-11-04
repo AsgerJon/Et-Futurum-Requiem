@@ -1,7 +1,7 @@
 package io.github.asgerjon.mcfly.mixins.early.combat.client;
 
-import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
+import io.github.asgerjon.mcfly.banner.client.BannerItemRenderer;
+import io.github.asgerjon.mcfly.banner.Banners;
 import ganymedes01.etfuturum.client.renderer.item.ItemShieldRenderer;
 import ganymedes01.etfuturum.items.equipment.ItemShield;
 import net.minecraft.client.renderer.tileentity.RenderItemFrame;
@@ -31,7 +31,7 @@ public class MixinRenderItemFrame {
 		if (stack.getItem() instanceof ItemShield && renderer instanceof ItemShieldRenderer shield) {
 			shield.renderInFrame(frame);
 			ci.cancel();
-		} else if (ModernBanners.isBanner(stack) && renderer instanceof ItemBannerRenderer banner) {
+		} else if (Banners.isBanner(stack) && renderer instanceof BannerItemRenderer banner) {
 			// a banner too, by its fixed display (spec §66.10)
 			banner.renderInFrame(frame);
 			ci.cancel();

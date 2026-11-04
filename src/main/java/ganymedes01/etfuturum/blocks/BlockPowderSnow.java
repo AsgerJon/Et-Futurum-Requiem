@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.sound.McFlySoundType;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import io.github.asgerjon.mcfly.particle.McFlyParticles;
@@ -11,7 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.ducks.IFreezingEntity;
 import ganymedes01.etfuturum.entities.Freezing;
 import io.github.asgerjon.mcfly.mixins.early.powdersnow.AccessorEntityLivingBase;
@@ -53,7 +53,7 @@ public class BlockPowderSnow extends Block {
 		// 1.7.10 stores resistance * 3 and explodes with a fifth of it: 26.3's 0.25
 		setResistance(0.25F * 5.0F / 3.0F);
 		setLightOpacity(1);
-		setStepSound(ModSounds.soundPowderSnow);
+		setStepSound(McFlySoundType.POWDER_SNOW);
 		setBlockName(McFly.name("powder_snow"));
 		setBlockTextureName("powder_snow");
 	}

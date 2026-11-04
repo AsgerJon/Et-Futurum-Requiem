@@ -1,13 +1,15 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 
 /**
  * A banner pattern item, as 26.3's (SPEC-modern-movement.md §66.6): a stack of one, its rarity, its one pattern for the
- * loom (by 26.3's name; EFR's `EnumBannerPattern` looked up when needed, not while items are registered).
+ * loom (by 26.3's name; EFR's `BannerPattern` looked up when needed, not while items are registered).
  */
-public class ItemBannerPattern extends BaseItem {
+public class ItemBannerPattern extends McFlyItem {
 
 	private final String pattern;
 	private final EnumRarity rarity;

@@ -1,7 +1,8 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import io.github.asgerjon.mcfly.banner.Banners;
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import ganymedes01.etfuturum.combat.ICombatPlayer;
-import ganymedes01.etfuturum.items.BaseItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * The shield (spec §46.9): raised with right click, in either hand, it blocks hits from the front once up for 5
  * ticks (combat.ShieldBlocking). 336 durability, repaired with planks.
  */
-public class ItemShield extends BaseItem {
+public class ItemShield extends McFlyItem {
 
 	/** Modern raises it for as long as the button is held. */
 	public static final int USE_DURATION = 72000;
@@ -46,7 +47,7 @@ public class ItemShield extends BaseItem {
 	/** Named for its banner's colour ("Red Shield"), as 26.3's ShieldItem.getName (spec §66.9). */
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		int base = ganymedes01.etfuturum.blocks.ModernBanners.shieldBase(stack);
+		int base = Banners.shieldBase(stack);
 		if (base < 0) {
 			return super.getItemStackDisplayName(stack);
 		}
@@ -59,7 +60,7 @@ public class ItemShield extends BaseItem {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void addInformation(ItemStack stack, EntityPlayer player, java.util.List tooltip, boolean advanced) {
 		super.addInformation(stack, player, tooltip, advanced);
-		ganymedes01.etfuturum.blocks.ModernBanners.addLayerLines(stack, tooltip);
+		Banners.addLayerLines(stack, tooltip);
 	}
 
 	@Override
