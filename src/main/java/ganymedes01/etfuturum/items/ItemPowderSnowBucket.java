@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
@@ -15,7 +16,7 @@ import net.minecraft.world.World;
  * its block, then an empty bucket is left (in creative it stays). Picking powder snow up is the empty bucket's, through
  * Forge's {@code FillBucketEvent} ({@code PowderSnowEvents}).
  */
-public class ItemPowderSnowBucket extends BaseItem {
+public class ItemPowderSnowBucket extends McFlyItem {
 
 	public ItemPowderSnowBucket() {
 		super("powder_snow_bucket");

@@ -89,3 +89,7 @@ usernamecache.json
 
 /*.kate-swp
 addon.local.gradle
+/asger_accepts_all_eulas.txt
+/retard_rules.kwinrule
+/retardation.kwinrule
+/unitTAS-SPEC.md

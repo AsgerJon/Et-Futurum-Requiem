@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.command.modern.item;
 
+import io.github.asgerjon.mcfly.banner.BannerPatterns;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
 import ganymedes01.etfuturum.command.modern.arguments.EffectIds;
 import ganymedes01.etfuturum.command.modern.arguments.ItemData;
 import ganymedes01.etfuturum.command.modern.entity.LegacyEntityData;
@@ -9,7 +11,6 @@ import ganymedes01.etfuturum.potion.NamedPotion;
 import ganymedes01.etfuturum.potion.NamedPotions;
 import ganymedes01.etfuturum.potion.PotionContents;
 import ganymedes01.etfuturum.recipes.ModRecipes;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
@@ -306,9 +307,9 @@ final class ItemContents {
 		for (Object layer : LegacyEntityData.list(value)) {
 			Map<?, ?> map = LegacyEntityData.map(layer);
 			String patternId = ItemData.withNamespace(string(map.get("pattern"), "a pattern id"));
-			TileEntityBanner.EnumBannerPattern pattern = null;
-			for (TileEntityBanner.EnumBannerPattern candidate : TileEntityBanner.EnumBannerPattern.values()) {
-				if (patternId.equals("minecraft:" + candidate.getPatternName())) {
+			BannerPattern pattern = null;
+			for (BannerPattern candidate : BannerPatterns.all()) {
+				if (patternId.equals("minecraft:" + candidate.name())) {
 					pattern = candidate;
 				}
 			}
@@ -320,7 +321,7 @@ final class ItemContents {
 				throw new DecodeException("Unknown colour '" + map.get("color") + "'");
 			}
 			NBTTagCompound saved = new NBTTagCompound();
-			saved.setString("Pattern", pattern.getPatternID());
+			saved.setString("Pattern", pattern.shortId());
 			saved.setInteger("Color", color);
 			patterns.appendTag(saved);
 		}

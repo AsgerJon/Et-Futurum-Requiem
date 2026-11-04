@@ -1,13 +1,14 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
+import io.github.asgerjon.mcfly.dye.DyeColor;
+import io.github.asgerjon.mcfly.banner.client.BannerCanvas;
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.banner.Banners;
 import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
 import ganymedes01.etfuturum.inventory.ContainerLoom;
 import ganymedes01.etfuturum.recipes.ModRecipes;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -110,7 +111,7 @@ public class GuiLoom extends GuiContainer {
 		if (displayPatterns) {
 			int x = xo + 60;
 			int y = yo + 13;
-			List<EnumBannerPattern> patterns = container.selectable();
+			List<BannerPattern> patterns = container.selectable();
 			for (int row = 0; row < 4; row++) {
 				for (int column = 0; column < 4; column++) {
 					int index = (row + startRow) * 4 + column;
@@ -136,8 +137,8 @@ public class GuiLoom extends GuiContainer {
 		if (displayPatterns && mc.thePlayer.inventory.getItemStack() == null) {
 			int index = patternAt(mouseX, mouseY);
 			if (index >= 0) {
-				int colour = Math.max(0, ModernBanners.dyeColour(container.dyeSlot.getStack()));
-				String key = "item.banner." + container.selectable().get(index).getPatternName() + "." + ModRecipes.dye_names[colour];
+				int colour = Math.max(0, Banners.dyeColour(container.dyeSlot.getStack()));
+				String key = "item.banner." + container.selectable().get(index).name() + "." + ModRecipes.dye_names[colour];
 				func_146283_a(Collections.singletonList(StatCollector.translateToLocal(key)), mouseX, mouseY);
 			}
 		}
@@ -156,7 +157,7 @@ public class GuiLoom extends GuiContainer {
 	}
 
 	/** A pattern's front (26.3: 21 by 40 texels from (0, 1) of its 64 by 64 texture) in 5 by 10 pixels, on grey. */
-	private void drawPatternOnButton(EnumBannerPattern pattern, int posX, int posY) {
+	private void drawPatternOnButton(BannerPattern pattern, int posX, int posY) {
 		int x = posX + 4;
 		int y = posY + 2;
 		Gui.drawRect(x, y, x + 5, y + 10, BUTTON_GREY);
@@ -164,15 +165,15 @@ public class GuiLoom extends GuiContainer {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.getTextureManager().bindTexture(new ResourceLocation(ganymedes01.etfuturum.blocks.ModernBanners.bannerTexture(pattern)));
+		mc.getTextureManager().bindTexture(new ResourceLocation(pattern.texture()));
 		quad(x, y, 5, 10, 0.0, 1.0 / 64.0, 21.0 / 64.0, 41.0 / 64.0);
 	}
 
 	/** The result banner's front (its base and layers) in 20 by 40 pixels: the banner texture's face, 20 by 40 from (1, 1). */
 	private void drawBanner(ItemStack banner, int x, int y) {
-		TileEntityBanner preview = new TileEntityBanner();
+		BannerBlockEntity preview = new BannerBlockEntity();
 		preview.setItemValues(banner);
-		ResourceLocation canvas = TileEntityBannerRenderer.canvasOf(preview);
+		ResourceLocation canvas = BannerCanvas.of(preview);
 		if (canvas == null) {
 			return;
 		}
@@ -264,7 +265,7 @@ public class GuiLoom extends GuiContainer {
 	/** 26.3's `containerChanged`: what to show, from the slots. */
 	private void containerChanged() {
 		ItemStack banner = container.bannerSlot.getStack();
-		hasMaxPatterns = banner != null && ModernBanners.layers(banner) >= ModernBanners.MAX_LAYERS;
+		hasMaxPatterns = banner != null && Banners.count(banner) >= Banners.MAX_LAYERS;
 		displayPatterns = banner != null && container.dyeSlot.getHasStack() && !hasMaxPatterns && !container.selectable().isEmpty();
 		if (startRow >= totalRowCount()) {
 			startRow = 0;

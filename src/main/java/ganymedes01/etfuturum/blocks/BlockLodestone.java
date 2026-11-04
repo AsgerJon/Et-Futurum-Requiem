@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.registry.McFlyTab;
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.sound.McFlySoundType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.LodestoneRecord;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,10 +26,10 @@ public class BlockLodestone extends Block {
 		// 1.7.10's explosions read a fifth of three times this: 26.3's 3.5
 		setResistance(3.5F * 5.0F / 3.0F);
 		setHarvestLevel("pickaxe", 0);
-		setBlockName(Utils.getUnlocalisedName("lodestone"));
+		setBlockName(McFly.name("lodestone"));
 		setBlockTextureName("lodestone");
-		setCreativeTab(EtFuturum.creativeTabBlocks);
-		Utils.setBlockSound(this, ModSounds.soundLodestone);
+		setCreativeTab(McFlyTab.TAB);
+		setStepSound(McFlySoundType.LODESTONE);
 	}
 
 	/** Pistons can't move it. */

@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -28,8 +28,8 @@ public class CompatWaila {
 
 	public static void wailaCallback(IWailaRegistrar registrar) {
 		registrar.registerStackProvider(new ShulkerDataProvider(), BlockShulkerBox.class);
-		registrar.registerStackProvider(new BannerDataProvider(), BlockBanner.class);
-		registrar.registerBodyProvider(new BannerDataProvider(), BlockBanner.class);
+		registrar.registerStackProvider(new BannerDataProvider(), io.github.asgerjon.mcfly.banner.BannerBlock.class);
+		registrar.registerBodyProvider(new BannerDataProvider(), io.github.asgerjon.mcfly.banner.BannerBlock.class);
 		registrar.registerStackProvider(new PotionCauldronDataProvider(), BlockPotionCauldron.class);
 		registrar.registerBodyProvider(new PotionCauldronDataProvider(), BlockPotionCauldron.class);
 	}
@@ -42,7 +42,7 @@ public class CompatWaila {
 
 		@Override
 		public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-			TileEntityBanner banner = (TileEntityBanner) accessor.getTileEntity();
+			BannerBlockEntity banner = (BannerBlockEntity) accessor.getTileEntity();
 			return banner.createStack();
 		}
 
@@ -56,7 +56,7 @@ public class CompatWaila {
 		public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
 										 IWailaConfigHandler config) {
 			List<String> strings = new ArrayList<>();
-			Item.getItemFromBlock(ModBlocks.BANNER.get()).addInformation(itemStack, null, strings, false);
+			Item.getItemFromBlock(McFlyBlocks.BANNER.get()).addInformation(itemStack, null, strings, false);
 			return strings;
 		}
 

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.base.McFlyBlock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -9,7 +10,7 @@ import net.minecraft.util.IIcon;
 /**
  * Nine dried kelp (SPEC-modern-movement.md §29): a plain block that burns for 20 items (see ModFuels).
  */
-public class BlockDriedKelp extends BaseBlock {
+public class BlockDriedKelp extends McFlyBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;

@@ -1,13 +1,15 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.banner.client.BannerCanvas;
+import io.github.asgerjon.mcfly.dye.DyeColor;
+import io.github.asgerjon.mcfly.banner.Banners;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.client.LayeredColorMaskTexture;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.unittas.TasTestCase;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.enchantment.Enchantment;
@@ -32,7 +34,7 @@ public class ShieldPatternTests extends TasTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigBlocksItems.enableBanners || !McFlyItems.SHIELD.isEnabled()) {
+		if (!McFlyConfig.enableBanners || !McFlyItems.SHIELD.isEnabled()) {
 			skipTest("banners or the shield are off");
 		}
 	}
@@ -52,7 +54,7 @@ public class ShieldPatternTests extends TasTestCase {
 
 	/** A banner of that colour (white 0 to black 15) with layers (pattern id and colour, bottom first). */
 	private static ItemStack banner(int colour, Object... layers) {
-		ItemStack banner = ModBlocks.BANNER.newItemStack(1, colour);
+		ItemStack banner = McFlyBlocks.BANNER.newItemStack(1, colour);
 		if (layers.length > 0) {
 			NBTTagCompound entity = new NBTTagCompound();
 			NBTTagList list = new NBTTagList();
@@ -167,21 +169,21 @@ public class ShieldPatternTests extends TasTestCase {
 			IResourceManager resources = mc().getResourceManager();
 			ResourceLocation frame = new ResourceLocation(McFly.DOMAIN, "textures/entity/shield/base.png");
 			BufferedImage base = javax.imageio.ImageIO.read(resources.getResource(frame).getInputStream());
-			BufferedImage canvas = LayeredColorMaskTexture.compose(resources, frame,
-				Arrays.asList(ModernBanners.shieldMask("base"), ModernBanners.shieldMask("stripe_bottom")),
-				Arrays.asList(EnumColor.fromDamage(11), EnumColor.fromDamage(14)), true);
+			BufferedImage canvas = BannerCanvas.compose(resources, frame,
+				Arrays.asList(new BannerCanvas.Part(Banners.shieldMask("base"), DyeColor.byId(11).textureColour(), true),
+					new BannerCanvas.Part(Banners.shieldMask("stripe_bottom"), DyeColor.byId(14).textureColour(), true)));
 			// 26.3's rule: each layer is its own pattern texture's shading times the dye (not the frame's: a pack painting
 			// the frame mustn't tint the layers)
-			BufferedImage baseMask = javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(ModernBanners.shieldMask("base"))).getInputStream());
-			BufferedImage stripeMask = javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(ModernBanners.shieldMask("stripe_bottom"))).getInputStream());
+			BufferedImage baseMask = javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(Banners.shieldMask("base"))).getInputStream());
+			BufferedImage stripeMask = javax.imageio.ImageIO.read(resources.getResource(new ResourceLocation(Banners.shieldMask("stripe_bottom"))).getInputStream());
 			// the plate's front face is u 1 to 12, v 1 to 22: high up the base colour (blue), at the bottom the stripe (red)
 			int top = canvas.getRGB(6, 3) & 0xFFFFFF;
-			int wantTop = shaded(baseMask.getRGB(6, 3), ModernBanners.textureColour(EnumColor.fromDamage(11)));
+			int wantTop = shaded(baseMask.getRGB(6, 3), DyeColor.byId(11).textureColour());
 			if (top != wantTop) {
 				found.add(String.format("the face's top: %06X, 26.3's %06X", top, wantTop));
 			}
 			int bottom = canvas.getRGB(6, 21) & 0xFFFFFF;
-			int wantBottom = shaded(stripeMask.getRGB(6, 21), ModernBanners.textureColour(EnumColor.fromDamage(14)));
+			int wantBottom = shaded(stripeMask.getRGB(6, 21), DyeColor.byId(14).textureColour());
 			if (bottom != wantBottom) {
 				found.add(String.format("the face's bottom: %06X, 26.3's %06X", bottom, wantBottom));
 			}

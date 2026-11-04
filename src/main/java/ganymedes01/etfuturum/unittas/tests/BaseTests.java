@@ -37,11 +37,11 @@ public class BaseTests extends TasTestCase {
 	/** The options this fork added to EFR's config files (122, as of 2026-11-04; §79 B2). */
 	static final String[] OUR_OPTIONS = {
 		"aggressiveDataWatcherId", "arrowHarmingAfterTotemFix", "arrowsInheritMotion", "attackIndicator",
-		"bannerGridPatterns", "beaconBeamThroughTransparentBlocks", "buttonsOnFullFaces", "channeling",
+		"beaconBeamThroughTransparentBlocks", "buttonsOnFullFaces", "channeling",
 		"channelingID", "chatHistoryAcrossRestarts", "chatHistoryBetweenWorlds", "chatLogBetweenWorlds",
 		"chorusOnlyOnOuterIslands", "commandBlockCreativeOnly", "commandSuggestions", "connectionAcceptFix",
 		"coordinateSuggestions", "depthStrider", "depthStriderID", "dropVehiclesTogether", "effectPanelAlphaFix",
-		"enableBannerPatterns", "enableBreezeRod", "enableFloatingItems", "enableGlowInkSac", "enableGlowItemFrames",
+		"enableBannerPatterns", "enableBanners", "enableBreezeRod", "enableFloatingItems", "enableGlowInkSac", "enableGlowItemFrames",
 		"enableGlowSquidSpawns", "enableGlowSquids", "enableKelp", "enableLodestone", "enableLuck",
 		"enableModernBreathing", "enableModernSneaking", "enableModernSwimming", "enableOffhand",
 		"enablePhantomSpawns", "enablePhantoms", "enablePolarBearSpawns", "enablePolarBears", "enablePowderSnow",
@@ -223,7 +223,7 @@ public class BaseTests extends TasTestCase {
 	}
 
 	/**
-	 * B5: our sound events are McFly's own list (55, as of 2026-11-04), handed to MCLib's asset director, and each
+	 * B5: our sound events are McFly's own list (55, as of 2026-11-04; 67 with our blocks' 12 since B9), handed to MCLib's asset director, and each
 	 * resolves to a sound on the client (fetched from the launcher's assets).
 	 */
 	@SuppressWarnings("unchecked")
@@ -239,7 +239,7 @@ public class BaseTests extends TasTestCase {
 			}
 			return missing;
 		});
-		assertEqual("55 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
+		assertEqual("67 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
 	}
 
 	/** The blocks this fork added to EFR's list or rebuilt in it (13, as of 2026-11-04; §79 B6), by their entry names. */
@@ -354,7 +354,7 @@ public class BaseTests extends TasTestCase {
 
 	/**
 	 * B6: the spawn eggs' ids come out in EFR's old order, ours among EFR's (an egg's id is its damage in a save), and
-	 * the items tab still lists an egg for each.
+	 * a tab lists an egg for each (EFR's items tab, and McFly's own since B9).
 	 */
 	@SuppressWarnings("unchecked")
 	public void testSpawnEggsKeepTheirIds() {
@@ -382,6 +382,11 @@ public class BaseTests extends TasTestCase {
 		List<Integer> inTab = onClient(() -> {
 			List<net.minecraft.item.ItemStack> items = new ArrayList<>();
 			ganymedes01.etfuturum.EtFuturum.creativeTabItems.displayAllReleventItems(items);
+			// and McFly's own tab, once there is one (§79.4)
+			try {
+				((net.minecraft.creativetab.CreativeTabs) Class.forName(REGISTRY + "McFlyTab").getField("TAB").get(null)).displayAllReleventItems(items);
+			} catch (ClassNotFoundException ignored) {
+			}
 			List<Integer> eggs = new ArrayList<>();
 			for (net.minecraft.item.ItemStack stack : items) {
 				if (stack.getItem() == net.minecraft.init.Items.spawn_egg) {
@@ -481,7 +486,7 @@ public class BaseTests extends TasTestCase {
 		"ganymedes01.etfuturum.client.ChatHistoryFile", "ganymedes01.etfuturum.client.LodestoneNeedle",
 		"ganymedes01.etfuturum.client.options.OptionsTxt", "ganymedes01.etfuturum.offhand.Offhand", "ganymedes01.etfuturum.skins.OfflineSkins",
 		"ganymedes01.etfuturum.blocks.BlockKelp", "ganymedes01.etfuturum.blocks.BlockPowderSnowCauldron", "ganymedes01.etfuturum.blocks.BlockPowderSnow",
-		"ganymedes01.etfuturum.blocks.ModernBanners", "ganymedes01.etfuturum.client.gui.inventory.GuiLoom",
+		"io.github.asgerjon.mcfly.banner.Banners", "ganymedes01.etfuturum.client.gui.inventory.GuiLoom",
 		"ganymedes01.etfuturum.items.equipment.ItemTurtleShell", "io.github.asgerjon.mcfly.registry.McFlyEntities",
 		"ganymedes01.etfuturum.client.renderer.block.BlockKelpRenderer"
 	};
@@ -534,6 +539,160 @@ public class BaseTests extends TasTestCase {
 			}
 		}
 		assertEqual("[] etfuturum minecraft_1.21.10", wrong + names, "EFR's helpers in our classes, McFly's own names");
+	}
+
+	/** Our item, block and particle classes that stood on EFR's bases, sound types or tabs before B9 (§79.4). */
+	static final String[] OUR_BASE_USERS = {
+		"ganymedes01.etfuturum.blocks.BlockLightningRod", "ganymedes01.etfuturum.blocks.BlockLodestone", "ganymedes01.etfuturum.blocks.BlockPowderSnow",
+		"ganymedes01.etfuturum.blocks.BlockKelp", "ganymedes01.etfuturum.blocks.BlockDriedKelp", "ganymedes01.etfuturum.items.ItemDriedKelp",
+		"ganymedes01.etfuturum.items.ItemNetheriteUpgradeTemplate", "ganymedes01.etfuturum.items.equipment.ItemShield",
+		"ganymedes01.etfuturum.items.equipment.ItemTrident", "ganymedes01.etfuturum.items.ItemPowderSnowBucket", "ganymedes01.etfuturum.items.ItemSpyglass",
+		"ganymedes01.etfuturum.items.ItemBannerPattern", "ganymedes01.etfuturum.items.equipment.ItemTurtleShell",
+		"ganymedes01.etfuturum.items.ItemGlowItemFrame", "io.github.asgerjon.mcfly.registry.McFlyItems",
+		"ganymedes01.etfuturum.client.particle.ElectricSparkFX", "ganymedes01.etfuturum.client.particle.GlowFX",
+		"ganymedes01.etfuturum.client.particle.GlowSquidInkFX", "ganymedes01.etfuturum.client.particle.SweepAttackFX",
+		"ganymedes01.etfuturum.client.particle.TotemFX"
+	};
+
+	/** EFR's bases, sound types and tabs (§79.4), as class files name them. */
+	static final String[] EFR_BASES = {
+		"ganymedes01/etfuturum/items/BaseItem", "ganymedes01/etfuturum/items/BaseFood", "ganymedes01/etfuturum/blocks/BaseBlock",
+		"ganymedes01/etfuturum/client/particle/EtFuturumFXParticle", "ganymedes01/etfuturum/client/sound/ModSounds",
+		"creativeTabItems", "creativeTabBlocks"
+	};
+
+	/** What a class file and its inner classes name, of the names given. */
+	private static List<String> namedIn(String name, String[] names) {
+		List<String> found = new ArrayList<>();
+		List<String> classes = new ArrayList<>();
+		classes.add(name);
+		for (int i = 0; i < classes.size(); i++) {
+			byte[] bytes;
+			try {
+				bytes = net.minecraft.launchwrapper.Launch.classLoader.getClassBytes(classes.get(i));
+			} catch (IOException e) {
+				bytes = null;
+			}
+			String shortName = classes.get(i).substring(classes.get(i).lastIndexOf('.') + 1);
+			if (bytes == null) {
+				found.add("no class file for " + shortName);
+				continue;
+			}
+			String text = new String(bytes, StandardCharsets.ISO_8859_1);
+			for (String helper : names) {
+				if (text.contains(helper)) {
+					found.add(shortName + " uses " + helper.substring(helper.lastIndexOf('/') + 1));
+				}
+			}
+			Matcher inner = Pattern.compile(Pattern.quote(name.replace('.', '/')) + "\\$[A-Za-z0-9_$]+").matcher(text);
+			while (inner.find()) {
+				String innerName = inner.group().replace('/', '.');
+				if (!classes.contains(innerName)) {
+					classes.add(innerName);
+				}
+			}
+		}
+		return found;
+	}
+
+	/** B9: none of our item, block and particle classes stands on EFR's bases, sound types or creative tabs. */
+	public void testNoEfrBasesInOurs() {
+		List<String> wrong = new ArrayList<>();
+		for (String name : OUR_BASE_USERS) {
+			wrong.addAll(namedIn(name, EFR_BASES));
+		}
+		assertEqual("[]", wrong.toString(), "EFR's bases in our classes");
+	}
+
+	/**
+	 * B9: our blocks' and items' creative tab is McFly's own (or a vanilla one we chose), none of them in EFR's two;
+	 * McFly's tab lists our spawn eggs, EFR's items tab none of them; the tab is called McFly (its key translated as
+	 * 1.7.10's creative screen does: `getTranslatedTabLabel` is only the key).
+	 */
+	public void testOurThingsInOurTab() throws Exception {
+		Class<?> tabs = mcfly(REGISTRY + "McFlyTab");
+		Object ours = tabs.getField("TAB").get(null);
+		List<Object> efrs = Arrays.asList(ganymedes01.etfuturum.EtFuturum.creativeTabItems, ganymedes01.etfuturum.EtFuturum.creativeTabBlocks);
+		List<String> wrong = new ArrayList<>();
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks block : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (block.isEnabled() && block.getItem() != null) {
+				Object tab = block.get().getCreativeTabToDisplayOn();
+				if (tab != ours) {
+					wrong.add(block.name() + " in " + (tab == null ? "no tab" : ((net.minecraft.creativetab.CreativeTabs) tab).getTabLabel()));
+				}
+			}
+		}
+		for (io.github.asgerjon.mcfly.registry.McFlyItems item : io.github.asgerjon.mcfly.registry.McFlyItems.values()) {
+			if (item.isEnabled()) {
+				Object tab = item.get().getCreativeTab();
+				if (tab != ours && (tab == null || efrs.contains(tab))) {
+					wrong.add(item.name() + " in " + (tab == null ? "no tab" : ((net.minecraft.creativetab.CreativeTabs) tab).getTabLabel()));
+				}
+			}
+		}
+		List<Integer> eggs = io.github.asgerjon.mcfly.registry.McFlyEntities.eggIds();
+		String[] seen = onClient(() -> {
+			List<Integer> inOurs = new ArrayList<>();
+			List<Integer> inEfrs = new ArrayList<>();
+			List<net.minecraft.item.ItemStack> listed = new ArrayList<>();
+			((net.minecraft.creativetab.CreativeTabs) ours).displayAllReleventItems(listed);
+			for (net.minecraft.item.ItemStack stack : listed) {
+				if (stack.getItem() == net.minecraft.init.Items.spawn_egg) {
+					inOurs.add(stack.getItemDamage());
+				}
+			}
+			listed.clear();
+			ganymedes01.etfuturum.EtFuturum.creativeTabItems.displayAllReleventItems(listed);
+			for (net.minecraft.item.ItemStack stack : listed) {
+				if (stack.getItem() == net.minecraft.init.Items.spawn_egg && eggs.contains(stack.getItemDamage())) {
+					inEfrs.add(stack.getItemDamage());
+				}
+			}
+			return new String[]{inOurs.toString(), inEfrs.toString(), net.minecraft.client.resources.I18n.format(((net.minecraft.creativetab.CreativeTabs) ours).getTranslatedTabLabel())};
+		});
+		assertEqual("[] eggs " + eggs + ", in EFR's [], called McFly", wrong + " eggs " + seen[0] + ", in EFR's " + seen[1] + ", called " + seen[2],
+			"McFly's creative tab");
+	}
+
+	/** Our blocks with their 26.3 sound type's name (§79.4; 26.3's `SoundType`), and the dried kelp block's 1.7.10 grass. */
+	static final String[][] OUR_BLOCK_SOUNDS = {
+		{"LIGHTNING_ROD", "copper"}, {"WAXED_OXIDIZED_LIGHTNING_ROD", "copper"}, {"LODESTONE", "lodestone"}, {"POWDER_SNOW", "powder_snow"},
+		{"KELP", "wet_grass"}
+	};
+
+	/**
+	 * B9: each of our blocks sounds as 26.3's sound type for it: `block.<type>.break`, `.step` and `.place` from
+	 * MCLib's assets, each resolving to a sound on the client.
+	 */
+	public void testOurBlockSounds() throws Exception {
+		List<String> wrong = new ArrayList<>();
+		List<String> events = new ArrayList<>();
+		for (String[] entry : OUR_BLOCK_SOUNDS) {
+			io.github.asgerjon.mcfly.registry.McFlyBlocks block = io.github.asgerjon.mcfly.registry.McFlyBlocks.valueOf(entry[0]);
+			if (!block.isEnabled()) {
+				continue;
+			}
+			net.minecraft.block.Block.SoundType sound = block.get().stepSound;
+			String prefix = io.github.asgerjon.mcfly.McFly.MC_ASSETS + ":block." + entry[1] + ".";
+			String got = sound.getBreakSound() + " " + sound.getStepResourcePath() + " " + sound.func_150496_b();
+			String want = prefix + "break " + prefix + "step " + prefix + "place";
+			if (!want.equals(got)) {
+				wrong.add(entry[0] + ": " + got);
+			}
+			events.add("block." + entry[1] + ".break");
+			events.add("block." + entry[1] + ".step");
+			events.add("block." + entry[1] + ".place");
+		}
+		List<String> silent = onClient(() -> {
+			List<String> missing = new ArrayList<>();
+			for (String event : events) {
+				if (mc().getSoundHandler().getSound(new net.minecraft.util.ResourceLocation(io.github.asgerjon.mcfly.McFly.MC_ASSETS, event)) == null) {
+					missing.add(event);
+				}
+			}
+			return missing;
+		});
+		assertEqual("[] none silent []", wrong + " none silent " + silent, "our blocks' sounds");
 	}
 
 	/**

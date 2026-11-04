@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import io.github.asgerjon.mcfly.McFly;
 import com.google.common.collect.Multimap;
 import ganymedes01.etfuturum.combat.AttackCooldown;
 import ganymedes01.etfuturum.entities.EntityThrownTrident;
-import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.trident.Riptide;
 import net.minecraft.block.Block;
@@ -26,7 +26,7 @@ import net.minecraft.world.World;
  * ticks or more, or with Riptide (§58.2) launching its user instead. No recipe: until the drowned come it comes from
  * /give and /summon.
  */
-public class ItemTrident extends BaseItem {
+public class ItemTrident extends McFlyItem {
 
 	/** Ticks of charging before letting go throws it. */
 	public static final int THROW_THRESHOLD_TIME = 10;

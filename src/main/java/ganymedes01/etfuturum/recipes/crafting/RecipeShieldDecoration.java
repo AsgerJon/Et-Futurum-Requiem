@@ -1,10 +1,8 @@
 package ganymedes01.etfuturum.recipes.crafting;
 
+import io.github.asgerjon.mcfly.banner.Banners;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -30,12 +28,12 @@ public class RecipeShieldDecoration implements IRecipe {
 			if (stack == null) {
 				continue;
 			}
-			if (ModernBanners.isBanner(stack)) {
+			if (Banners.isBanner(stack)) {
 				if (banner) {
 					return false;
 				}
 				banner = true;
-			} else if (isShield(stack) && TileEntityBanner.getPatterns(stack) == 0) {
+			} else if (isShield(stack) && Banners.count(stack) == 0) {
 				if (shield) {
 					return false;
 				}
@@ -53,7 +51,7 @@ public class RecipeShieldDecoration implements IRecipe {
 		ItemStack banner = null;
 		for (int i = 0; i < grid.getSizeInventory(); i++) {
 			ItemStack stack = grid.getStackInSlot(i);
-			if (ModernBanners.isBanner(stack)) {
+			if (Banners.isBanner(stack)) {
 				banner = stack;
 			} else if (isShield(stack)) {
 				shield = stack;
@@ -64,9 +62,9 @@ public class RecipeShieldDecoration implements IRecipe {
 		}
 		ItemStack result = shield.copy();
 		result.stackSize = 1;
-		NBTTagCompound entity = ItemBlockBanner.getSubTag(result, "BlockEntityTag", true);
-		entity.setInteger("Base", TileEntityBanner.getBaseColor(banner));
-		NBTTagCompound bannerEntity = ItemBlockBanner.getSubTag(banner, "BlockEntityTag", false);
+		NBTTagCompound entity = Banners.entityTag(result, true);
+		entity.setInteger("Base", Banners.base(banner));
+		NBTTagCompound bannerEntity = Banners.entityTag(banner, false);
 		if (bannerEntity != null && bannerEntity.hasKey("Patterns", 9)) {
 			entity.setTag("Patterns", bannerEntity.getTagList("Patterns", 10).copy());
 		} else {

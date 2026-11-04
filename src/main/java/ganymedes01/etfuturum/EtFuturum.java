@@ -206,10 +206,8 @@ public class EtFuturum {
 				firework.setTagCompound(nbt);
 				p_78018_1_.add(firework);
 			}
-			// EFR's spawn eggs and ours (McFly's list, spec §79 B6), in their ids' order
-			java.util.TreeSet<Integer> eggs = new java.util.TreeSet<>(ModEntityList.eggIDs);
-			eggs.addAll(io.github.asgerjon.mcfly.registry.McFlyEntities.eggIds());
-			for (int i : eggs) {
+			// EFR's spawn eggs (ours are in McFly's tab, spec §79.4)
+			for (int i : ModEntityList.eggIDs) {
 				p_78018_1_.add(new ItemStack(Items.spawn_egg, 1, i));
 			}
 			super.displayAllReleventItems(p_78018_1_);

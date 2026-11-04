@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.inventory;
 
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.banner.Banners;
 import io.github.asgerjon.mcfly.McFly;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ModernBanners;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -43,7 +43,7 @@ public class ContainerLoom extends Container {
 	public final Slot dyeSlot;
 	public final Slot patternSlot;
 	public final Slot resultSlot;
-	private List<EnumBannerPattern> selectable = Collections.emptyList();
+	private List<BannerPattern> selectable = Collections.emptyList();
 	private int selected = -1;
 	private int sentSelected = -2;
 	private long lastSoundTime = -1;
@@ -59,19 +59,19 @@ public class ContainerLoom extends Container {
 		bannerSlot = addSlotToContainer(new Slot(input, 0, 13, 26) {
 			@Override
 			public boolean isItemValid(ItemStack stack) {
-				return ModernBanners.isBanner(stack);
+				return Banners.isBanner(stack);
 			}
 		});
 		dyeSlot = addSlotToContainer(new Slot(input, 1, 33, 26) {
 			@Override
 			public boolean isItemValid(ItemStack stack) {
-				return ModernBanners.isDye(stack);
+				return Banners.isDye(stack);
 			}
 		});
 		patternSlot = addSlotToContainer(new Slot(input, 2, 23, 45) {
 			@Override
 			public boolean isItemValid(ItemStack stack) {
-				return ModernBanners.isPatternItem(stack);
+				return Banners.isPatternItem(stack);
 			}
 		});
 		resultSlot = addSlotToContainer(new Slot(output, 0, 143, 57) {
@@ -109,7 +109,7 @@ public class ContainerLoom extends Container {
 	}
 
 	/** The patterns offered now. */
-	public List<EnumBannerPattern> selectable() {
+	public List<BannerPattern> selectable() {
 		return selectable;
 	}
 
@@ -145,9 +145,9 @@ public class ContainerLoom extends Container {
 		ItemStack dye = dyeSlot.getStack();
 		if (banner != null && dye != null) {
 			boolean valid = selected >= 0 && selected < selectable.size();
-			List<EnumBannerPattern> before = selectable;
-			selectable = ModernBanners.selectable(patternSlot.getStack());
-			EnumBannerPattern shown;
+			List<BannerPattern> before = selectable;
+			selectable = Banners.selectable(patternSlot.getStack());
+			BannerPattern shown;
 			if (selectable.size() == 1) {
 				selected = 0;
 				shown = selectable.get(0);
@@ -155,14 +155,14 @@ public class ContainerLoom extends Container {
 				selected = -1;
 				shown = null;
 			} else {
-				EnumBannerPattern was = before.get(selected);
+				BannerPattern was = before.get(selected);
 				int now = selectable.indexOf(was);
 				selected = now;
 				shown = now != -1 ? was : null;
 			}
 			if (shown == null) {
 				output.setInventorySlotContents(0, null);
-			} else if (ModernBanners.layers(banner) >= ModernBanners.MAX_LAYERS) {
+			} else if (Banners.count(banner) >= Banners.MAX_LAYERS) {
 				selected = -1;
 				output.setInventorySlotContents(0, null);
 			} else {
@@ -177,14 +177,14 @@ public class ContainerLoom extends Container {
 		listener.run();
 	}
 
-	private void setupResult(EnumBannerPattern pattern) {
+	private void setupResult(BannerPattern pattern) {
 		ItemStack banner = bannerSlot.getStack();
 		ItemStack dye = dyeSlot.getStack();
 		ItemStack result = null;
-		if (banner != null && dye != null && ModernBanners.layers(banner) < ModernBanners.MAX_LAYERS) {
-			int colour = ModernBanners.dyeColour(dye);
+		if (banner != null && dye != null && Banners.count(banner) < Banners.MAX_LAYERS) {
+			int colour = Banners.dyeColour(dye);
 			if (colour >= 0) {
-				result = ModernBanners.withLayer(banner, pattern, colour);
+				result = Banners.withLayer(banner, pattern, colour);
 			}
 		}
 		if (!ItemStack.areItemStacksEqual(result, output.getStackInSlot(0))) {
@@ -240,15 +240,15 @@ public class ContainerLoom extends Container {
 			}
 			slot.onSlotChange(stack, clicked);
 		} else if (index != dyeSlot.slotNumber && index != bannerSlot.slotNumber && index != patternSlot.slotNumber) {
-			if (ModernBanners.isBanner(stack)) {
+			if (Banners.isBanner(stack)) {
 				if (!mergeItemStack(stack, bannerSlot.slotNumber, bannerSlot.slotNumber + 1, false)) {
 					return null;
 				}
-			} else if (ModernBanners.isDye(stack)) {
+			} else if (Banners.isDye(stack)) {
 				if (!mergeItemStack(stack, dyeSlot.slotNumber, dyeSlot.slotNumber + 1, false)) {
 					return null;
 				}
-			} else if (ModernBanners.isPatternItem(stack)) {
+			} else if (Banners.isPatternItem(stack)) {
 				if (!mergeItemStack(stack, patternSlot.slotNumber, patternSlot.slotNumber + 1, false)) {
 					return null;
 				}

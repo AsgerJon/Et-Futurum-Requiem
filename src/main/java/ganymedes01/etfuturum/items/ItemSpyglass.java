@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items;
 
+import io.github.asgerjon.mcfly.base.McFlyItem;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import ganymedes01.etfuturum.ModItems;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
  * as it goes up and one as it comes down. Looking through it (the zoom, the scope, the slower mouse) is the client's
  * ({@code client.Spyglass}); the arm raised to the eye is the model's.
  */
-public class ItemSpyglass extends BaseItem {
+public class ItemSpyglass extends McFlyItem {
 
 	public static final int USE_DURATION = 1200;
 	public static final String USE_SOUND = McFly.MC_ASSETS + ":item.spyglass.use";

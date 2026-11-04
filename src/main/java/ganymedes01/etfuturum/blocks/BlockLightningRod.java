@@ -1,11 +1,13 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.McFly;
+import io.github.asgerjon.mcfly.sound.McFlySoundType;
+import io.github.asgerjon.mcfly.base.McFlyBlock;
 import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.trident.Lightning;
 import ganymedes01.etfuturum.world.LightningRodRecord;
@@ -26,7 +28,7 @@ import java.util.Random;
  * stages, waxed or not. Meta: the way it points (a ForgeDirection, away from the face it was put on), + 8 while
  * powered.
  */
-public class BlockLightningRod extends BaseBlock implements IDegradable {
+public class BlockLightningRod extends McFlyBlock implements IDegradable {
 
 	/** How long a struck rod's signal lasts. */
 	public static final int POWERED_TICKS = 8;
@@ -43,10 +45,10 @@ public class BlockLightningRod extends BaseBlock implements IDegradable {
 		setHardness(3.0F);
 		setResistance(6.0F * 5.0F / 3.0F);
 		setHarvestLevel("pickaxe", 1);
-		setBlockSound(ModSounds.soundCopper);
+		setStepSound(McFlySoundType.COPPER);
 		setTickRandomly(copperMeta < 3);
 		String name = STAGES[copperMeta % 4] + "lightning_rod";
-		setUnlocalizedNameWithPrefix(copperMeta < 8 ? name : "waxed_" + name);
+		setBlockName(McFly.name(copperMeta < 8 ? name : "waxed_" + name));
 		setBlockTextureName(name);
 	}
 

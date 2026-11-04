@@ -1,8 +1,11 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.Banners;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -18,14 +21,14 @@ public class BannerViewTests extends ComparisonTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigBlocksItems.enableBanners) {
+		if (!McFlyConfig.enableBanners) {
 			skipTest("banners are off");
 		}
 	}
 
 	/** The banner: white, a red bottom stripe, a blue cross (EFR's colours: white 0, red 14, blue 11). */
 	static ItemStack banner() {
-		ItemStack banner = ModBlocks.BANNER.newItemStack(1, 0);
+		ItemStack banner = McFlyBlocks.BANNER.newItemStack(1, 0);
 		NBTTagCompound entity = new NBTTagCompound();
 		NBTTagList layers = new NBTTagList();
 		for (String[] layer : new String[][] {{"bs", "14"}, {"cr", "11"}}) {
@@ -57,9 +60,9 @@ public class BannerViewTests extends ComparisonTestCase {
 			look(0.0F, 0.0F);
 			// standing, rotation 8: its front to the north, the player
 			onServer(() -> {
-				world().setBlock(0, 4, 3, ModBlocks.BANNER.get(), 8, 3);
-				TileEntityBanner placed = (TileEntityBanner) world().getTileEntity(0, 4, 3);
-				placed.isStanding = true;
+				world().setBlock(0, 4, 3, McFlyBlocks.BANNER.get(), 8, 3);
+				BannerBlockEntity placed = (BannerBlockEntity) world().getTileEntity(0, 4, 3);
+				placed.setStanding(true);
 				placed.setItemValues(banner());
 				world().markBlockForUpdate(0, 4, 3);
 			});
@@ -71,9 +74,9 @@ public class BannerViewTests extends ComparisonTestCase {
 			String[][] fourNew = {{"glb", "14"}, {"pig", "11"}, {"flw", "5"}, {"gus", "15"}};
 			onServer(() -> {
 				for (int i = 0; i < 4; i++) {
-					world().setBlock(i - 2, 4, 4, ModBlocks.BANNER.get(), 8, 3);
-					TileEntityBanner placed = (TileEntityBanner) world().getTileEntity(i - 2, 4, 4);
-					placed.isStanding = true;
+					world().setBlock(i - 2, 4, 4, McFlyBlocks.BANNER.get(), 8, 3);
+					BannerBlockEntity placed = (BannerBlockEntity) world().getTileEntity(i - 2, 4, 4);
+					placed.setStanding(true);
 					placed.setItemValues(BannerTests.bannerWith(0, fourNew[i][0], Integer.parseInt(fourNew[i][1])));
 					world().markBlockForUpdate(i - 2, 4, 4);
 				}

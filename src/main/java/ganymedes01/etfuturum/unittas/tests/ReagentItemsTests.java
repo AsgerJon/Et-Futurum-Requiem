@@ -36,7 +36,7 @@ public class ReagentItemsTests extends TasTestCase {
 		List<ItemStack> tab = onClient(() -> {
 			List<ItemStack> stacks = new ArrayList<>();
 			for (Object item : net.minecraft.item.Item.itemRegistry) {
-				((net.minecraft.item.Item) item).getSubItems((net.minecraft.item.Item) item, EtFuturum.creativeTabItems, stacks);
+				((net.minecraft.item.Item) item).getSubItems((net.minecraft.item.Item) item, io.github.asgerjon.mcfly.registry.McFlyTab.TAB, stacks);
 			}
 			return stacks;
 		});
@@ -45,9 +45,9 @@ public class ReagentItemsTests extends TasTestCase {
 			assertTrue(entry != null, "no item minecraft:" + id);
 			boolean listed = false;
 			for (ItemStack stack : tab) {
-				listed |= stack.getItem() == entry.item() && entry.item().getCreativeTab() == EtFuturum.creativeTabItems;
+				listed |= stack.getItem() == entry.item() && entry.item().getCreativeTab() == io.github.asgerjon.mcfly.registry.McFlyTab.TAB;
 			}
-			assertTrue(listed, id + " isn't in EFR's creative tab");
+			assertTrue(listed, id + " isn't in McFly's creative tab");
 		}
 		assertNoError(command("/give @s breeze_rod"));
 		assertNoError(command("/give @s turtle_helmet"));

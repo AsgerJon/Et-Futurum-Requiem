@@ -1,5 +1,9 @@
 package ganymedes01.etfuturum.unittas.tests;
 
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.banner.Banners;
+import io.github.asgerjon.mcfly.config.McFlyConfig;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -8,7 +12,6 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.GuiLoom;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.inventory.ContainerLoom;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
@@ -42,7 +45,7 @@ public class LoomTests extends ScreenTestCase {
 
 	@Override
 	protected void setUp() {
-		if (!ConfigBlocksItems.enableLoom || !ConfigBlocksItems.enableBanners) {
+		if (!ConfigBlocksItems.enableLoom || !McFlyConfig.enableBanners) {
 			skipTest("the loom or banners are off");
 		}
 		onServer(() -> {
@@ -113,7 +116,7 @@ public class LoomTests extends ScreenTestCase {
 		waitUntil("the pick on the server", () -> loom().selected() == 4, 40);
 		ItemStack result = onServer(() -> loom().resultSlot.getStack());
 		assertTrue(result != null && result.stackSize == 1, "the result " + result);
-		assertEqual(0, TileEntityBanner.getBaseColor(result), "its base colour (white)");
+		assertEqual(0, Banners.base(result), "its base colour (white)");
 		assertEqual("bs", BannerTests.layer(result, 0), "its layer (26.3's stripe_bottom)");
 		assertEqual(14, colour(result, 0), "the layer's colour (red)");
 		waitForSound(McFly.MC_ASSETS + ":ui.loom.select_pattern", 20);
@@ -230,7 +233,7 @@ public class LoomTests extends ScreenTestCase {
 		List<ItemStack> tab = onClient(() -> {
 			List<ItemStack> stacks = new ArrayList<>();
 			for (Object item : net.minecraft.item.Item.itemRegistry) {
-				((net.minecraft.item.Item) item).getSubItems((net.minecraft.item.Item) item, EtFuturum.creativeTabItems, stacks);
+				((net.minecraft.item.Item) item).getSubItems((net.minecraft.item.Item) item, io.github.asgerjon.mcfly.registry.McFlyTab.TAB, stacks);
 			}
 			return stacks;
 		});
@@ -251,7 +254,7 @@ public class LoomTests extends ScreenTestCase {
 				listed |= shown.getItem() == stack.getItem();
 			}
 			if (!listed) {
-				wrong.add(row[0] + " isn't in EFR's creative tab");
+				wrong.add(row[0] + " isn't in McFly's creative tab");
 			}
 		}
 		return wrong;
@@ -374,8 +377,8 @@ public class LoomTests extends ScreenTestCase {
 	private String offered() {
 		return onServer(() -> {
 			List<String> names = new ArrayList<>();
-			for (TileEntityBanner.EnumBannerPattern pattern : loom().selectable()) {
-				names.add(pattern.getPatternName());
+			for (BannerPattern pattern : loom().selectable()) {
+				names.add(pattern.name());
 			}
 			return names.toString();
 		});
@@ -414,7 +417,7 @@ public class LoomTests extends ScreenTestCase {
 	}
 
 	private static ItemStack banner(int colour, int count) {
-		return ModBlocks.BANNER.newItemStack(count, colour);
+		return McFlyBlocks.BANNER.newItemStack(count, colour);
 	}
 
 	private static void addLayer(ItemStack banner, String pattern, int colour) {

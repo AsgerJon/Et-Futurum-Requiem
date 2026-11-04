@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.particle;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticle;
 import net.minecraft.world.World;
 
 /**
@@ -7,7 +8,7 @@ import net.minecraft.world.World;
  * its body, half pale green (0.6, 1.0, 0.8), half dark teal (0.08, 0.4, 0.4), slowing by 0.96 a tick, going through
  * blocks, lighting itself up to full over its 4 to 40 ticks.
  */
-public class GlowFX extends EtFuturumFXParticle {
+public class GlowFX extends McFlyParticle {
 
 	public GlowFX(World world, double x, double y, double z) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D, (int) (4.0F / (particleRand.nextFloat() * 0.9F + 0.1F)),

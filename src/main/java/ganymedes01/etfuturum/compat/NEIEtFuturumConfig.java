@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.recipe.FurnaceRecipeHandler;
 import codechicken.nei.recipe.GuiCraftingRecipe;
 import codechicken.nei.recipe.GuiUsageRecipe;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.compat.nei.BannerPatternHandler;
 import ganymedes01.etfuturum.compat.nei.BlastFurnaceRecipeHandler;
 import ganymedes01.etfuturum.compat.nei.ComposterHandler;
 import ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler;
@@ -62,10 +62,6 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			}
 		}
 
-		if (ModBlocks.BANNER.isEnabled()) {
-			API.registerRecipeHandler(new BannerPatternHandler());
-			API.registerUsageHandler(new BannerPatternHandler());
-		}
 
 		if (ModBlocks.SMOKER.isEnabled()) {
 			// Smoker

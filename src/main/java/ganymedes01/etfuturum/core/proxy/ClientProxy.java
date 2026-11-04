@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import io.github.asgerjon.mcfly.banner.client.BannerItemRenderer;
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
 import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import io.github.asgerjon.mcfly.registry.McFlyItems;
 import io.github.asgerjon.mcfly.registry.McFlyBlocks;
@@ -70,14 +72,12 @@ import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.TechnobladeCrownRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.Item3DBedRenderer;
-import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemShieldRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemLightningRodRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemTridentRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemSkullRenderer;
-import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityGatewayRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityNewBeaconRenderer;
@@ -116,7 +116,6 @@ import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -210,7 +209,7 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void registerItemRenderers() {
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.BANNER.get()), new ItemBannerRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(McFlyBlocks.BANNER.get()), new BannerItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
 		MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
 		if (McFlyItems.SPYGLASS.isEnabled()) {
@@ -243,7 +242,7 @@ public class ClientProxy extends CommonProxy {
 
 	private void registerBlockRenderers() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(BannerBlockEntity.class, new io.github.asgerjon.mcfly.banner.client.BannerRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));

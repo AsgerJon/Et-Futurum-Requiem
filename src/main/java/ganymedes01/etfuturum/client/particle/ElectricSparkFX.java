@@ -1,10 +1,11 @@
 package ganymedes01.etfuturum.client.particle;
 
+import io.github.asgerjon.mcfly.particle.McFlyParticle;
 import io.github.asgerjon.mcfly.particle.McFlyParticlesClient;
 import net.minecraft.world.World;
 
 /** 26.3's electric spark: a glow particle, white with a touch of pink, gone in 2 or 3 ticks, its push a quarter of what it's given. */
-public class ElectricSparkFX extends EtFuturumFXParticle {
+public class ElectricSparkFX extends McFlyParticle {
 
 	public ElectricSparkFX(World world, double x, double y, double z, double mx, double my, double mz) {
 		super(world, x, y, z, 0, 0, 0, 2 + McFlyParticlesClient.RANDOM.nextInt(2),

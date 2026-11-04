@@ -1,10 +1,11 @@
 package ganymedes01.etfuturum.blocks;
 
+import io.github.asgerjon.mcfly.sound.McFlySoundType;
+import io.github.asgerjon.mcfly.base.McFlyBlock;
 import io.github.asgerjon.mcfly.registry.McFlyRenderIds;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -29,7 +30,7 @@ import java.util.Random;
  * The meta stays 8 or above on purpose: 1.7.10's water code reads such a cell as a full source, and the bucket only
  * takes meta 0.
  */
-public class BlockKelp extends BaseBlock implements IGrowable {
+public class BlockKelp extends McFlyBlock implements IGrowable {
 
 	public static final int STALK = 8;
 	private static final int TIP = 9;
@@ -45,9 +46,8 @@ public class BlockKelp extends BaseBlock implements IGrowable {
 		setHardness(0.0F);
 		setLightOpacity(Blocks.water.getLightOpacity());
 		setTickRandomly(true);
-		setMapColorBaseBlock(Blocks.water);
-		// EFR's wet grass sound, or plain grass with EFR's new block sounds off
-		setStepSound(ganymedes01.etfuturum.configuration.configs.ConfigSounds.newBlockSounds ? ModSounds.soundWetGrass : Block.soundTypeGrass);
+		// 26.3's wet grass (spec §79.4)
+		setStepSound(McFlySoundType.WET_GRASS);
 	}
 
 	public static boolean isTip(int meta) {
@@ -236,6 +236,12 @@ public class BlockKelp extends BaseBlock implements IGrowable {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+
+	/** On maps as the water it stands in. */
+	@Override
+	public net.minecraft.block.material.MapColor getMapColor(int meta) {
+		return Blocks.water.getMapColor(meta);
 	}
 
 	@Override

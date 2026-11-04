@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.world.structure.modern;
 
+import io.github.asgerjon.mcfly.banner.BannerBlockEntity;
+import io.github.asgerjon.mcfly.banner.BannerPatterns;
+import io.github.asgerjon.mcfly.banner.BannerPattern;
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ModernBanners;
 import ganymedes01.etfuturum.potion.NamedPotion;
 import ganymedes01.etfuturum.potion.NamedPotions;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -162,10 +164,10 @@ public final class ModernBlockStates {
 			return colour < 0 ? null : new Placed(Blocks.stained_glass, colour);
 		}
 		if (id.endsWith("_wall_banner")) {
-			return ModBlocks.BANNER.isEnabled() ? new Placed(ModBlocks.BANNER.get(), wallMeta(state.get("facing", "north"))) : null;
+			return McFlyBlocks.BANNER.isEnabled() ? new Placed(McFlyBlocks.BANNER.get(), wallMeta(state.get("facing", "north"))) : null;
 		}
 		if (id.endsWith("_banner")) {
-			return ModBlocks.BANNER.isEnabled() ? new Placed(ModBlocks.BANNER.get(), Integer.parseInt(state.get("rotation", "0"))) : null;
+			return McFlyBlocks.BANNER.isEnabled() ? new Placed(McFlyBlocks.BANNER.get(), Integer.parseInt(state.get("rotation", "0"))) : null;
 		}
 		return null;
 	}
@@ -223,7 +225,7 @@ public final class ModernBlockStates {
 	}
 
 	private static void loadBlockEntity(TileEntity entity, ModernState state, NBTTagCompound nbt) {
-		if (entity instanceof TileEntityBanner banner) {
+		if (entity instanceof BannerBlockEntity banner) {
 			NBTTagCompound tag = new NBTTagCompound();
 			banner.writeToNBT(tag);
 			String colour = state.id.substring("minecraft:".length(), state.id.indexOf(state.id.endsWith("_wall_banner") ? "_wall_banner" : "_banner"));
@@ -234,10 +236,10 @@ public final class ModernBlockStates {
 			for (int i = 0; i < modern.tagCount(); i++) {
 				NBTTagCompound layer = modern.getCompoundTagAt(i);
 				String name = layer.getString("pattern");
-				TileEntityBanner.EnumBannerPattern pattern = ModernBanners.byName(name.contains(":") ? name.substring(name.indexOf(':') + 1) : name);
+				BannerPattern pattern = BannerPatterns.byName(name.contains(":") ? name.substring(name.indexOf(':') + 1) : name);
 				if (pattern != null) {
 					NBTTagCompound old = new NBTTagCompound();
-					old.setString("Pattern", pattern.getPatternID());
+					old.setString("Pattern", pattern.shortId());
 					old.setInteger("Color", 15 - Math.max(0, woolMeta(layer.getString("color"))));
 					patterns.appendTag(old);
 				}

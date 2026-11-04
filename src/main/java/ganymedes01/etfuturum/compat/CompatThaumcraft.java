@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.compat;
 
+import io.github.asgerjon.mcfly.registry.McFlyBlocks;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import net.minecraft.init.Blocks;
@@ -180,7 +181,7 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModBlocks.BARREL.newItemStack(), new AspectList(new ItemStack(Blocks.chest)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.COMPOSTER.newItemStack(), new AspectList().add(Aspect.TREE, 5).add(Aspect.EXCHANGE, 2));
 		ThaumcraftApi.registerObjectTag(ModBlocks.SMITHING_TABLE.newItemStack(), new AspectList().add(Aspect.CRAFT, 4).add(Aspect.METAL, 2).add(Aspect.TREE, 4));
-		ThaumcraftApi.registerObjectTag(ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.CRAFT, 4).add(Aspect.SENSES, 2));
+		ThaumcraftApi.registerObjectTag(McFlyBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.CRAFT, 4).add(Aspect.SENSES, 2));
 		ThaumcraftApi.registerObjectTag(ModBlocks.PURPUR_BLOCK.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.EARTH, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.PURPUR_PILLAR.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.EARTH, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.END_ROD.newItemStack(), new AspectList().add(Aspect.LIGHT, 2).add(Aspect.FIRE, 1));
