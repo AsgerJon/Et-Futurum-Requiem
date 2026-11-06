@@ -812,8 +812,9 @@ public class GameEventTests extends TasTestCase {
 	 */
 	public void testPlacingEntities() {
 		String got = onServer(() -> {
-			// looking at the floor a block ahead (south): 1.7.10 puts no boat where it would overlap the player
-			player().playerNetServerHandler.setPlayerLocation(NEAR_X + 0.5D, Y, NEAR_Z - 1.5D, 0.0F, 60.0F);
+			// looking at the floor 1.6 ahead (south): a boat goes where the look meets the floor (26.3's `BoatItem`), and
+			// none where it would overlap the player, so not a block ahead (where 1.7.10's went to the block's middle)
+			player().playerNetServerHandler.setPlayerLocation(NEAR_X + 0.5D, Y, NEAR_Z - 1.5D, 0.0F, 45.0F);
 			StringBuilder result = new StringBuilder();
 			ItemStack egg = new ItemStack(Items.spawn_egg, 4, 90);
 			result.append("spawn egg ").append(only(heardDuring(() -> egg.getItem().onItemUse(egg, player(), world(), NEAR_X - 3, Y - 1, NEAR_Z + 1, 1, 0.5F, 1.0F,

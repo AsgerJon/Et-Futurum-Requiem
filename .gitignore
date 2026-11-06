@@ -81,6 +81,8 @@ logos
 .mixin.out/
 asm/
 config/
+# a source package of that name is code (McFly's `mcfly/config`)
+!src/**/config/
 crash-reports/
 logs/
 saves/
