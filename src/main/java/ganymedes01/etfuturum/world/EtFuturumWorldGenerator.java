@@ -4,7 +4,6 @@ import io.github.asgerjon.mcfly.config.McFlyConfig;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -51,12 +50,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
 
-	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
+	protected final WorldGenMinable copperGen = new WorldGenMinable(io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
 
 	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.MAGMA.get(), ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
-	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.NETHER_GOLD_ORE.get(), ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
-	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.debrisMax, Blocks.netherrack);
-	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.smallDebrisMax, Blocks.netherrack);
+	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_GOLD_ORE.get(), ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
+	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(io.github.asgerjon.mcfly.registry.McFlyBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.debrisMax, Blocks.netherrack);
+	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(io.github.asgerjon.mcfly.registry.McFlyBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.smallDebrisMax, Blocks.netherrack);
 	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
 
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
@@ -85,14 +84,14 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	private List<BiomeGenBase> cherryBiomes;
 
 	protected EtFuturumWorldGenerator() {
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 	}
 
 	public void postInit() {
-		if (ConfigWorld.enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()
-				&& ModBlocks.BUDDING_AMETHYST.isEnabled() && ConfigWorld.amethystOuterBlock != null && ConfigWorld.amethystMiddleBlock != null) {
+		if (ConfigWorld.enableAmethystGeodes && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_BLOCK.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.isEnabled()
+				&& io.github.asgerjon.mcfly.registry.McFlyBlocks.BUDDING_AMETHYST.isEnabled() && ConfigWorld.amethystOuterBlock != null && ConfigWorld.amethystMiddleBlock != null) {
 			amethystGen = new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
 		}
 
@@ -135,7 +134,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.BAMBOO.isEnabled() && ConfigWorld.bambooWorldgen) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.BAMBOO.isEnabled() && ConfigWorld.bambooWorldgen) {
 			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla jungles with a BoP version but forgets to tag them
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(21), Type.JUNGLE); //Gets biomes by ID so we get the BOP version
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(22), Type.JUNGLE);
@@ -143,21 +142,21 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(149), Type.JUNGLE);
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(151), Type.JUNGLE);
 			}
-			bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
+			bambooGen = new WorldGenBamboo(io.github.asgerjon.mcfly.registry.McFlyBlocks.BAMBOO.get());
 			bambooBiomes = Arrays.asList(Utils.excludeBiomesFromTypesWithDefaults(BiomeDictionary.getBiomesForType(Type.JUNGLE)));
 		}
 
-		if (ModBlocks.GLOW_LICHEN.isEnabled())
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.GLOW_LICHEN.isEnabled())
 		{
-			glowLichenGen = new WorldGenGlowLichen(ModBlocks.GLOW_LICHEN.get());
+			glowLichenGen = new WorldGenGlowLichen(io.github.asgerjon.mcfly.registry.McFlyBlocks.GLOW_LICHEN.get());
 		}
 
-		if (ModBlocks.CAVE_VINE.isEnabled())
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.CAVE_VINE.isEnabled())
 		{
-			caveVineGen = new WorldGenCaveVines(ModBlocks.CAVE_VINE.get());
+			caveVineGen = new WorldGenCaveVines(io.github.asgerjon.mcfly.registry.McFlyBlocks.CAVE_VINE.get());
 		}
         
-		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.isEnabled() && io.github.asgerjon.mcfly.config.McFlyConfig.enableCherryTrees) {
 			BiomeGenBase[] cherryBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 			cherryBiomeArray = Utils.excludeBiomesFromTypesWithDefaults(cherryBiomeArray, Type.SNOWY, Type.HOT, Type.SANDY, Type.MESA, Type.SPARSE, Type.JUNGLE);
 			cherryBiomes = Arrays.asList(cherryBiomeArray);
@@ -174,9 +173,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.MUD.isEnabled()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.MUD.isEnabled()) {
 			mudGen = new WorldGenClay(4);
-			((WorldGenClay) mudGen).field_150546_a/*block*/ = ModBlocks.MUD.get();
+			((WorldGenClay) mudGen).field_150546_a/*block*/ = io.github.asgerjon.mcfly.registry.McFlyBlocks.MUD.get();
 
 			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla swamps with a BoP version but forgets to tag them
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(6), Type.SWAMP); //Gets biomes by ID so we get the BOP version
@@ -202,7 +201,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			if (ModBlocks.COPPER_ORE.isEnabled()) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_ORE.isEnabled()) {
 				generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
 			}
 
@@ -281,7 +280,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				int y = world.getHeightValue(x, z);
 				Block block = world.getBlock(x, y - 1, z);
-				if (y > 0 && block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) ModBlocks.SAPLING.get())) {
+				if (y > 0 && block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.get())) {
 					BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 					int rng = cherryBiomes.contains(biome) ? ConfigWorld.cherryTreeRarity : 0;
 					if (rng > 0 && rand.nextInt(rng) == 0) {
@@ -336,25 +335,25 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 //          if(ConfigurationHandler.enableBlackstone)
 //              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 
-			if (ModBlocks.NETHER_GOLD_ORE.isEnabled()) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_GOLD_ORE.isEnabled()) {
 				this.generateOre(netherGoldGen, world, rand, chunkX, chunkZ, 10, 10, 117);
 			}
 
-			if (ModBlocks.ANCIENT_DEBRIS.isEnabled()) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.ANCIENT_DEBRIS.isEnabled()) {
 				this.generateOre(debrisGen, world, rand, chunkX, chunkZ, 1, 8, 22);
 				this.generateOre(smallDebrisGen, world, rand, chunkX, chunkZ, 1, 8, 119);
 			}
 		}
 
-		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && !(world.provider instanceof ganymedes01.etfuturum.world.end.modern.WorldProviderModernEnd) && world.provider instanceof WorldProviderEnd
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && !(world.provider instanceof ganymedes01.etfuturum.world.end.modern.WorldProviderModernEnd) && world.provider instanceof WorldProviderEnd
 				&& !(McFlyConfig.chorusOnlyOnOuterIslands && isMainEndIsland(chunkX, chunkZ))) {
 			int x = (chunkX << 4) + rand.nextInt(16) + 8;
 			int y = world.getActualHeight();
 			int z = (chunkZ << 4) + rand.nextInt(16) + 8;
 			for (; y > 0; y--) {
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
-					if (BlockChorusFlower.canPlantStay(world, x, y + 1, z)) {
-						BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
+					if (io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.get().canPlaceBlockAt(world, x, y + 1, z)) {
+						ganymedes01.etfuturum.world.end.modern.EndDecoration.generateChorus(world, x, y + 1, z, rand, 8);
 						break;
 					}
 				}

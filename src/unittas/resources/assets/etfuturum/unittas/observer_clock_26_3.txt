@@ -1,0 +1,3 @@
+# 26.3's observer clock: '#' powered at a tick's end, from the tick after both were placed
+first:  _##____##____##____##____##____##____##_
+second: ___##____##____##____##____##____##____#

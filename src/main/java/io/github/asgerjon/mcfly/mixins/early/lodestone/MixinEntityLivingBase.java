@@ -1,6 +1,6 @@
 package io.github.asgerjon.mcfly.mixins.early.lodestone;
 
-import ganymedes01.etfuturum.items.LodestoneCompass;
+import io.github.asgerjon.mcfly.lodestone.LodestoneCompass;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

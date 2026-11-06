@@ -65,6 +65,78 @@ public final class McFly {
 
 	public static void init(FMLInitializationEvent event) {
 		phase = "init";
+		// the observer's recipe (spec §86: 26.3's, cobblestone round two redstone and a quartz)
+		if (McFlyConfig.enableObservers) {
+			cpw.mods.fml.common.registry.GameRegistry.addShapedRecipe(io.github.asgerjon.mcfly.registry.McFlyBlocks.OBSERVER.newItemStack(), "###", "RRQ", "###",
+				'#', net.minecraft.init.Blocks.cobblestone, 'R', net.minecraft.init.Items.redstone, 'Q', net.minecraft.init.Items.quartz);
+		}
+		// the end crystal's recipe (spec §85)
+		io.github.asgerjon.mcfly.end.EndCrystalItem.registerRecipe(io.github.asgerjon.mcfly.registry.McFlyItems.END_CRYSTAL.newItemStack());
+		// our shaped recipes sorted before vanilla's (spec §89, step D)
+		io.github.asgerjon.mcfly.registry.McFlyRecipes.register();
+		// copper (spec §87): its recipes, the wax and the axe by hand and dispenser, iron and gold ores' raw drops
+		io.github.asgerjon.mcfly.copper.CopperRecipes.register();
+		io.github.asgerjon.mcfly.nether.NetherStoneRecipes.register();
+		io.github.asgerjon.mcfly.nether.NetheriteRecipes.register();
+		io.github.asgerjon.mcfly.smithing.SmithingRecipes.register();
+		io.github.asgerjon.mcfly.nether.NetherLightRecipes.register();
+		io.github.asgerjon.mcfly.stone.DeepslateRecipes.register();
+		// the old stones (spec §89, step D): their recipes, 1.7.10's seamless double slabs dropping the smooth blocks
+		io.github.asgerjon.mcfly.stone.StoneRecipes.register();
+		io.github.asgerjon.mcfly.stone.StoneEvents.register();
+		// the caves (spec §90): amethyst's recipes
+		io.github.asgerjon.mcfly.caves.CaveRecipes.register();
+		io.github.asgerjon.mcfly.caves.MudBlocks.register();
+		io.github.asgerjon.mcfly.gameevent.GameEventHooks.register();
+		io.github.asgerjon.mcfly.caves.MossBlocks.register();
+		io.github.asgerjon.mcfly.nether.TargetRecipes.register();
+		io.github.asgerjon.mcfly.nether.NetherPlantRecipes.register();
+		io.github.asgerjon.mcfly.copper.CopperEvents.register();
+		// the wood sets (spec §91): the logs' recipes, charcoal and ore names; stripping by the axe
+		io.github.asgerjon.mcfly.wood.WoodLogs.register();
+		io.github.asgerjon.mcfly.wood.WoodPlanks.register();
+		io.github.asgerjon.mcfly.wood.WoodFences.register();
+		io.github.asgerjon.mcfly.wood.WoodDoors.register();
+		io.github.asgerjon.mcfly.wood.WoodRedstone.register();
+		io.github.asgerjon.mcfly.wood.WoodFuel.register();
+		io.github.asgerjon.mcfly.wood.Stripping.register();
+		// after the stripping table: the hanging signs' recipes take their stripped logs from it
+		io.github.asgerjon.mcfly.wood.WoodSigns.register();
+		io.github.asgerjon.mcfly.wood.WoodShelves.register();
+		io.github.asgerjon.mcfly.wood.Bamboo.register();
+		// the boats (spec 91.12): their recipes, ore names, dispensers, vanilla's boat as oak's
+		io.github.asgerjon.mcfly.boat.BoatTypes.register();
+		// the End's blocks' recipes (spec §84)
+		if (McFlyConfig.enableChorusBlocks) {
+			io.github.asgerjon.mcfly.end.EndBlocks.registerRecipes();
+		}
+		if (event.getSide().isClient()) {
+			// blocks drawn from 26.3's models (spec §84)
+			io.github.asgerjon.mcfly.model.client.ModelBlockRenderer.register();
+			// the outline of a multiface block's faces (spec §90.3)
+			net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.model.client.ShapeOutline.INSTANCE);
+			if (io.github.asgerjon.mcfly.stone.client.StoneTextures.needed()) {
+				net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.stone.client.StoneTextures.INSTANCE);
+			}
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.END_GATEWAY.isEnabled()) {
+				io.github.asgerjon.mcfly.end.client.EndGatewayRenderer.register();
+			}
+			// every sign's text, both sides (spec 91.8): in place of vanilla's sign renderer
+			io.github.asgerjon.mcfly.wood.client.SignRenderer.register();
+			// the shelves' items (spec 91.10)
+			io.github.asgerjon.mcfly.wood.client.ShelfRenderer.register();
+			// the boats (spec 91.12): 26.3's models, a chest boat's inventory key
+			if (io.github.asgerjon.mcfly.config.McFlyConfig.enableNewBoats) {
+				io.github.asgerjon.mcfly.boat.client.BoatClient.register();
+			}
+		}
+		// the elytra's firework boost and game rule (spec §85)
+		if (McFlyConfig.enableElytra) {
+			net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.elytra.ElytraEvents.INSTANCE);
+			if (event.getSide().isClient()) {
+				net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.elytra.client.ElytraWings.INSTANCE);
+			}
+		}
 		// tipped arrows from bows, a creeper's lingering cloud (spec §82)
 		net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(io.github.asgerjon.mcfly.potion.PotionEvents.INSTANCE);
 		// spectator mode's rules (spec §83)

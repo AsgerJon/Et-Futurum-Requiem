@@ -24,12 +24,9 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean hoeTilling;
 	public static boolean blockHopperInteraction;
 	public static boolean avoidDroppingItemsWhenClosing;
-	public static boolean enableElytra;
-	public static boolean enableNewElytraTakeoffLogic;
 	public static boolean enableDoWeatherCycle;
 	public static boolean enableRandomTickSpeed;
 	public static float creativeFlightSpeedModifier;
-	public static boolean enableObservers;
 	public static boolean arrowFallingFix;
 	public static boolean adjustedAttenuation;
 	public static boolean dustUnderFallingBlocks;
@@ -84,10 +81,8 @@ public class ConfigMixins extends ConfigBase {
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
 		fenceWallConnectFix = getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code.\nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
 		avoidDroppingItemsWhenClosing = getBoolean("avoidDroppingItemsWhenClosing", catBackport, false, "Experimental: avoid dropping items when closing an inventory, like in modern versions.\nModified Classes: net.minecraft.entity.player.EntityPlayerMP");
-		enableObservers = getBoolean("enableObservers", catBackport, true, "Modified Classes: net.minecraft.world.World net.minecraft.world.WorldServer");
 		blockHopperInteraction = getBoolean("blockHopperInteraction", catBackport, true, "Allows some blocks without tile entities (e.g. composters) to interact with hoppers. May still not interact with modded pipes.\nModified Classes: net.minecraft.tileentity.TileEntityHopper");
 
-		enableNewElytraTakeoffLogic = getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
 		enableDoWeatherCycle = getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		enableRandomTickSpeed = getBoolean("enableRandomTickSpeed", catBackport, true, "Add the randomTickSpeed game rule from 1.8+");
 		creativeFlightSpeedModifier = getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 5, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
@@ -103,10 +98,6 @@ public class ConfigMixins extends ConfigBase {
 		dustUnderFallingBlocks = getBoolean("dustUnderFallingBlocks", catBackport, true, "Spawns a particle under falling blocks like sand or gravel that are suspended mid-air.\nModified Classes: net.minecraft.block.BlockFalling");
 		postTreeGenEvent = getBoolean("postTreeGenEvent", catBackport, true, "Fires an event after a tree generates, mainly for beehives to accurately know where most trees are. For now this option is disabled if bees are disabled.\nModified Classes: net.minecraft.world.gen.feature.WorldGenAbstractTree");
 		ladderTrapdoors = getBoolean("ladderTrapdoors", catBackport, true, "Trapdoors that are clapped open against a block with a ladder below them can be climbed up as if they themselves were a ladder. Also expands the ladder hitbox to match the width of trapdoors.\nModified Classes: net.minecraft.block.BlockLadder net.minecraft.block.BlockTrapdoor");
-		enableElytra = getBoolean("enableElytra", catBackport, true, "The elytra, based on a port of Backlytra (original author unascribed: https://legacy.curseforge.com/minecraft/mc-mods/backlytra), with modern (1.21) gliding: a 0.6 block tall hitbox and low eyes while gliding, modern takeoff rules, flight, wings, camera and firework boosting.\nIf you're getting crash related to the DataWatcher, try changing \"elytraDataWatcherFlag\" or \"poseDataWatcherId\" in functions.cfg and don't open an issue if changing that value fixes it." +
-				"\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer net.minecraft.item.ItemFirework" +
-				"\nModified Client Classes: net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.EntityRenderer net.minecraft.client.renderer.entity.RenderManager net.minecraft.client.renderer.entity.RenderPlayer net.minecraft.client.renderer.ItemRenderer net.minecraft.util.MovementInputFromOptions" +
-				"\nModified Mod Classes: thaumcraft.common.lib.events.EventHandlerEntity");
 		betterPistons = getBoolean("betterPistons", catBackport, true, "A port of Back in Slime, similar to how the elytra is a port of Backlytra. Allows pistons to interact with slime blocks. The original author of this is DonBruce64: https://legacy.curseforge.com/minecraft/mc-mods/back-in-slime-slime-blocks-for-1-7.\nModified Classes: net.minecraft.block.BlockPistonBase");
 		soulFire = getBoolean("soulFire", catBackport, true, "Is not a new block, but rather a mixin for fire. Allows fire to stay ignited on soul soil. Does double damage when standing in it, and does not spread to other blocks.\nEven if this is off fire can still stay ignited on soul soil, but do be mindful that fire will spread from soul soil if this option is disabled.\nModified Classes: net.minecraft.block.BlockFire net.minecraft.entity.Entity\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		fireproofItems = getBoolean("fireproofItems", catBackport, true, "Some items such as Netherite will not burn in fire and will float to the surface of lava.");

@@ -66,11 +66,11 @@ public class WorldGenBasaltColumns extends WorldGenerator {
 
 					for (; j >= 0; --j) {
 						if (isAirOrLavaOcean(world, seaLevel, offX, offY, offZ)) {
-							setBlockAndNotifyAdequately(world, offX, offY, offZ, ModBlocks.BASALT.get(), 0);
+							setBlockAndNotifyAdequately(world, offX, offY, offZ, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get(), 0);
 							offY++;
 							flag = true;
 						} else {
-							if (world.getBlock(offX, offY, offZ) != ModBlocks.BASALT.get()) {
+							if (world.getBlock(offX, offY, offZ) != io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get()) {
 								break;
 							}
 
@@ -99,8 +99,8 @@ public class WorldGenBasaltColumns extends WorldGenerator {
 
 	//	private static final ImmutableList<Block> CANNOT_PLACE_ON = ImmutableList.of(
 //			Blocks.lava, Blocks.flowing_lava, Blocks.bedrock, ModBlocks.MAGMA.get(), Blocks.soul_sand, Blocks.nether_brick, Blocks.nether_brick_fence,
-//			Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
-	private static final ImmutableList<Block> CAN_PLACE_ON = ImmutableList.of(ModBlocks.BLACKSTONE.get(), ModBlocks.BASALT.get());
+//			Blocks.nether_brick_stairs, io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+	private static final ImmutableList<Block> CAN_PLACE_ON = ImmutableList.of(io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get());
 
 	private static boolean canPlaceAt(World world, int seaLevel, int x, int y, int z) {
 		if (!isAirOrLavaOcean(world, seaLevel, x, y, z)) {

@@ -17,7 +17,8 @@ public class ShulkerBoxMenu extends Container {
 
 	public ShulkerBoxMenu(InventoryPlayer player, IInventory box) {
 		this.box = box;
-		box.openInventory();
+		// by the player, for the box's `container_open` (§90.9, step H1)
+		io.github.asgerjon.mcfly.gameevent.GameEventHooks.byPlayer(player.player, box::openInventory);
 		for (int row = 0; row < 3; row++) {
 			for (int column = 0; column < 9; column++) {
 				addSlotToContainer(new Slot(box, column + row * 9, 8 + column * 18, 18 + row * 18) {
@@ -73,6 +74,6 @@ public class ShulkerBoxMenu extends Container {
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
-		box.closeInventory();
+		io.github.asgerjon.mcfly.gameevent.GameEventHooks.byPlayer(player, box::closeInventory);
 	}
 }

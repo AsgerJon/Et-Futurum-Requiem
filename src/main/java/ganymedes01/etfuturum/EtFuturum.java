@@ -51,10 +51,7 @@ import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
-import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
-import ganymedes01.etfuturum.blocks.BlockSculk;
-import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.blocks.BlockSponge;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
@@ -65,7 +62,6 @@ import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.command.modern.ModernCommands;
 import ganymedes01.etfuturum.command.modern.ModernExceptions;
 
-import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.compat.CompatRPLEEventHandler;
 import ganymedes01.etfuturum.compat.CompatTinkersConstruct;
@@ -88,7 +84,6 @@ import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourWitherSpawning;
 import ganymedes01.etfuturum.entities.ModEntityList;
-import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.lib.Reference;
 
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
@@ -97,14 +92,6 @@ import ganymedes01.etfuturum.network.AttackYawHandler;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.BoatMoveHandler;
-import ganymedes01.etfuturum.network.BoatMoveMessage;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
-import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
-import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
-import ganymedes01.etfuturum.network.WoodSignOpenHandler;
-import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.offhand.Offhand;
 import io.github.asgerjon.mcfly.network.UseOffhandHandler;
 import io.github.asgerjon.mcfly.network.UseOffhandMessage;
@@ -114,7 +101,6 @@ import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.potion.ModernPotionColors;
 import ganymedes01.etfuturum.recipes.ModFuels;
 import ganymedes01.etfuturum.recipes.ModRecipes;
-import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
@@ -158,7 +144,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -188,8 +173,8 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabItems = new CreativeTabs(MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
-			return  ModItems.RAW_ORE.isEnabled() ? ModItems.RAW_ORE.get()
-					: ModItems.NETHERITE_SCRAP.isEnabled() ? ModItems.NETHERITE_SCRAP.get()
+			return  McFlyItems.RAW_ORE.isEnabled() ? McFlyItems.RAW_ORE.get()
+					: io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_SCRAP.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_SCRAP.get()
 					: ModItems.PRISMARINE_SHARD.isEnabled() ? ModItems.PRISMARINE_SHARD.get()
 					: Items.magma_cream;
 		}
@@ -216,10 +201,10 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabBlocks = new CreativeTabs(MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
-			return ModBlocks.COPPER_BLOCK.isEnabled() ? ModBlocks.COPPER_BLOCK.getItem()
-					: ModBlocks.CHERRY_LOG.isEnabled() ? ModBlocks.CHERRY_LOG.getItem()
+			return io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_BLOCK.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_BLOCK.getItem()
+					: io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.getItem()
 					: ModBlocks.SMOKER.isEnabled() ? ModBlocks.SMOKER.getItem()
-					: ModBlocks.CHORUS_FLOWER.isEnabled() ? ModBlocks.CHORUS_FLOWER.getItem()
+					: io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.getItem()
 					: Item.getItemFromBlock(Blocks.ender_chest);
 		}
 
@@ -227,28 +212,6 @@ public class EtFuturum {
 		public void displayAllReleventItems(List<ItemStack> list) {
 			list.add(new ItemStack(Blocks.mob_spawner));
 			super.displayAllReleventItems(list);
-
-			//Remove the sign items from the list; we'll add them back in a moment
-			Iterator<ItemStack> iterator = list.iterator();
-			while (iterator.hasNext()) {
-				ItemStack stack = iterator.next();
-				for (ModItems sign : ModItems.OLD_SIGN_ITEMS) {
-					if (stack.getItem() == sign.get()) {
-						iterator.remove();
-					}
-				}
-			}
-
-			//Add the sign items back but in a way so they are sorted by their block ID instead of their item ID.
-			//This allows them to be in the correct place instead of always at the bottom of the block ID list, since item IDs are always above block IDs
-			for (ModItems sign : ModItems.OLD_SIGN_ITEMS) {
-				for (ItemStack stack : list) {
-					if (Item.getIdFromItem(stack.getItem()) > Block.getIdFromBlock(((ItemWoodSign) sign.get()).getSignBlock())) {
-						list.add(list.indexOf(stack), sign.newItemStack());
-						break;
-					}
-				}
-			}
 		}
 	};
 
@@ -339,10 +302,7 @@ public class EtFuturum {
 		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID);
 		networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
 		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
-		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);
-		networkWrapper.registerMessage(BoatMoveHandler.class, BoatMoveMessage.class, 4, Side.SERVER);
-		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
-		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
+		// 4, 5: the boats' (McFly's now, spec 91.12)
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
 		// named effects (spec §70): the server's effect numbers, at join
 		if (McFlyConfig.modernCombat) {
@@ -429,7 +389,7 @@ public class EtFuturum {
 			Blocks.piston_head.setHardness(1.5F).setHarvestLevel("pickaxe", 0);
 		}
 
-		if (ConfigFunctions.enableFloatingTrapDoors) {
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.enableFloatingTrapDoors) {
 			BlockTrapDoor.disableValidation = true;
 		}
 
@@ -502,17 +462,11 @@ public class EtFuturum {
 			}
 		}
 
-		if (ConfigModCompat.elytraBaublesExpandedCompat > 0 && ModsList.BAUBLES_EXPANDED.isLoaded()) {
-			CompatBaublesExpanded.postInit();
-		}
-
 		EtFuturumLootTables.init();
 
 		ModRecipes.postInit();
 		DeepslateOreRegistry.init();
-		StrippedLogRegistry.init();
 		RawOreRegistry.init();
-		SmithingTableRecipes.init();
 		CompostingRegistry.init();
 		ModFuels.init();
 		ModernPotionColors.apply();
@@ -575,10 +529,11 @@ public class EtFuturum {
 		for (Block block : (Iterable<Block>) Block.blockRegistry) {
 			if (ConfigFunctions.enableHoeMining) {
 				if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
-						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
+						|| block instanceof io.github.asgerjon.mcfly.sculk.SculkBlock || block instanceof io.github.asgerjon.mcfly.sculk.SculkCatalystBlock
+						|| block instanceof io.github.asgerjon.mcfly.sculk.SculkSensorBlock) {
 					HoeRegistry.addToHoeArray(block);
 				}
-				HoeRegistry.addToHoeArray(ModBlocks.SHROOMLIGHT.get());
+				HoeRegistry.addToHoeArray(io.github.asgerjon.mcfly.registry.McFlyBlocks.SHROOMLIGHT.get());
 				HoeRegistry.addToHoeArray(ModBlocks.SPONGE.get());
 			}
 
@@ -622,43 +577,53 @@ public class EtFuturum {
 		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK_FANCY.get(), ModSounds.soundNetherrack, 2);
 		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK_FANCY.get(), ModSounds.soundBoneBlock, 9);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICK_WALL.get(), ModSounds.soundDeepslateTiles, 1);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICKS.get(), ModSounds.soundDeepslateTiles, 2, 3);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICK_SLAB.get(), ModSounds.soundDeepslateTiles, 1, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICK_WALL.get(), ModSounds.soundDeepslateTiles, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICKS.get(), ModSounds.soundDeepslateTiles, 2, 3);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICKS.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.DEEPSLATE, 4);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_DEEPSLATE_BRICK_SLAB.get(), ModSounds.soundDeepslateTiles, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_DEEPSLATE, 1, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_DEEPSLATE_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_DEEPSLATE, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_WALL.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_DEEPSLATE, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.COBBLED_DEEPSLATE_STAIRS.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.DEEPSLATE, 0, 1, 2, 3, 4, 5, 6, 7);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICK_SLAB.get(), ModSounds.soundDeepslateTiles, 1, 9);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF.get(), ModSounds.soundPolishedTuff, 1);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF.get(), ModSounds.soundTuffBricks, 2, 4);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_WALL.get(), ModSounds.soundPolishedTuff, 1);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_WALL.get(), ModSounds.soundTuffBricks, 2);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_SLAB.get(), ModSounds.soundPolishedTuff, 1, 9);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_SLAB.get(), ModSounds.soundTuffBricks, 2, 10);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_TUFF_SLAB.get(), ModSounds.soundPolishedTuff, 1, 9);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_TUFF_SLAB.get(), ModSounds.soundTuffBricks, 2, 10);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_TUFF, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.TUFF_BRICKS, 2, 4);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF_WALL.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_TUFF, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF_WALL.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.TUFF_BRICKS, 2);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_TUFF, 1, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.TUFF_BRICKS, 2, 10);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_TUFF_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.POLISHED_TUFF, 1, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_TUFF_SLAB.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.TUFF_BRICKS, 2, 10);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.AMETHYST_CLUSTER_1.get(), ModSounds.soundAmethystBudSmall, 0, 1, 2, 3, 4, 5, 6);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.AMETHYST_CLUSTER_2.get(), ModSounds.soundAmethystBudLrg, 0, 1, 2, 3, 4, 5, 6);
+		// McFly's clusters (spec §90.4): each id's own sound its second size's, the first's (metas 0 to 5) here; 26.3 swaps
+		// the medium and large buds' sounds
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.SMALL_AMETHYST_BUD, 0, 1, 2, 3, 4, 5);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.MEDIUM_AMETHYST_BUD, 0, 1, 2, 3, 4, 5);
 
 		MultiBlockSoundRegistry.addBasic(ModBlocks.SPONGE.get(), ModSounds.soundWetSponge, 1);
 		MultiBlockSoundRegistry.addBasic(Blocks.sponge, ModSounds.soundWetSponge, 1);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.SAPLING.get(), ModSounds.soundCherrySapling, 1, 9);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.LEAVES.get(), ModSounds.soundCherryLeaves, 1, 5, 9, 13);
+		// McFly's sapling and leaves (spec §90.6): cherry's own sounds on its metas, by EFR's per-variant table
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.CHERRY_SAPLING, 1, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.CHERRY_LEAVES, 1, 5, 9, 13);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundNetherWood, 0, 1);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundCherryWood, 3);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundBambooWood, 4);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundNetherWood, 0, 1);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundCherryWood, 3);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundBambooWood, 4);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_PLANKS.get(), ModSounds.soundNetherWood, 0, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_PLANKS.get(), ModSounds.soundCherryWood, 3);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_PLANKS.get(), ModSounds.soundBambooWood, 4);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_FENCE.get(), ModSounds.soundNetherWood, 0, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_FENCE.get(), ModSounds.soundCherryWood, 3);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_FENCE.get(), ModSounds.soundBambooWood, 4);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
-		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
 
-		MultiBlockSoundRegistry.addBasic(ModBlocks.PACKED_MUD.get(), ModSounds.soundMudBricks, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.FLOWERING_AZALEA, 1);
+		MultiBlockSoundRegistry.addBasic(io.github.asgerjon.mcfly.registry.McFlyBlocks.PACKED_MUD.get(), io.github.asgerjon.mcfly.sound.McFlySoundType.MUD_BRICKS, 1);
 
 		if(ModsList.IRON_CHEST.isLoaded() && ModsList.IRON_CHEST.isVersionNewerOrEqual("6.0.78")) { // Version netherite chests were added in
 			MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.IRON_CHEST.get(), ModSounds.soundNetherite, 8);
@@ -947,8 +912,6 @@ public class EtFuturum {
 
 		config.addSoundEvent(ver, "item.elytra.flying", "player");
 		config.addSoundEvent(ver, "enchant.thorns.hit", "player");
-		config.addSoundEvent(ver, "entity.boat.paddle_land", "player");
-		config.addSoundEvent(ver, "entity.boat.paddle_water", "player");
 		config.addSoundEvent(ver, "entity.rabbit.ambient", "neutral");
 		config.addSoundEvent(ver, "entity.rabbit.jump", "neutral");
 		config.addSoundEvent(ver, "entity.rabbit.attack", "neutral");
@@ -1038,11 +1001,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
 		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
 
-		config.addSoundEvent(ver, "item.axe.scrape", "player");
-		config.addSoundEvent(ver, "item.axe.wax_off", "player");
 		config.addSoundEvent(ver, "item.axe.strip", "player");
 		config.addSoundEvent(ver, "item.hoe.till", "player");
-		config.addSoundEvent(ver, "item.honeycomb.wax_on", "player");
 		config.addSoundEvent(ver, "item.totem.use", "player");
 		config.addSoundEvent(ver, "item.shovel.flatten", "player");
 		config.addSoundEvent(ver, "item.chorus_fruit.teleport", "player");
@@ -1116,8 +1076,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beehive.work", "neutral");
 		config.addSoundEvent(ver, "block.beehive.shear", "player");
 		config.addSoundEvent(ver, "block.sponge.absorb", "block");
-		config.addSoundEvent(ver, "block.copper_bulb.turn_on", "block");
-		config.addSoundEvent(ver, "block.copper_bulb.turn_off", "block");
 		config.addSoundEvent(ver, "block.bubble_column.bubble_pop", "block");
 		config.addSoundEvent(ver, "block.bubble_column.upwards_ambient", "block");
 		config.addSoundEvent(ver, "block.bubble_column.upwards_inside", "neutral");
@@ -1143,8 +1101,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.bamboo_wood_door.close", "block");
 		config.addSoundEvent(ver, "block.iron_door.open", "block");
 		config.addSoundEvent(ver, "block.iron_door.close", "block");
-		config.addSoundEvent(ver, "block.copper_door.open", "block");
-		config.addSoundEvent(ver, "block.copper_door.close", "block");
 
 		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
@@ -1156,8 +1112,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.close", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
-		config.addSoundEvent(ver, "block.copper_trapdoor.open", "block");
-		config.addSoundEvent(ver, "block.copper_trapdoor.close", "block");
 
 		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
 		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");

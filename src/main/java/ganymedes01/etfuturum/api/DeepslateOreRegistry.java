@@ -215,8 +215,11 @@ public class DeepslateOreRegistry {
 //					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
 //				}
 
-				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
-					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b/*getSmeltingExperience*/(stackNorm));
+				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stackNorm);
+				if (result != null) {
+					// the experience is the result's (it was asked of the ore, 0, and the result's own entry of 0 then
+					// shadowed every other for that result: iron, gold and copper ingots smelted for nothing; spec §87)
+					GameRegistry.addSmelting(stackDeep, result, FurnaceRecipes.smelting().func_151398_b/*getSmeltingExperience*/(result));
 				}
 			}
 		}

@@ -252,6 +252,8 @@ public class ShulkerBoxBlockEntity extends TileEntity implements ISidedInventory
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, getBlockType(), 1, openCount);
 		if (openCount == 1) {
 			worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, McFly.MC_ASSETS + ":block.shulker_box.open", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			// 26.3's `container_open`, by the player opening it (§90.9, step H1)
+			io.github.asgerjon.mcfly.gameevent.GameEventHooks.container(worldObj, xCoord, yCoord, zCoord, true);
 		}
 	}
 
@@ -260,10 +262,15 @@ public class ShulkerBoxBlockEntity extends TileEntity implements ISidedInventory
 		if (worldObj == null || worldObj.isRemote) {
 			return;
 		}
+		boolean wasOpen = openCount > 0;
 		openCount--;
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, getBlockType(), 1, Math.max(0, openCount));
 		if (openCount <= 0) {
 			worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, McFly.MC_ASSETS + ":block.shulker_box.close", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			if (wasOpen) {
+				// 26.3's `container_close`, by the player closing it (§90.9, step H1)
+				io.github.asgerjon.mcfly.gameevent.GameEventHooks.container(worldObj, xCoord, yCoord, zCoord, false);
+			}
 		}
 	}
 

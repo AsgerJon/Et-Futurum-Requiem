@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
-import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 
@@ -66,7 +65,7 @@ public class BeePlantRegistry {
 	public static void init() {
 		if (ConfigEntities.enableBees) {
 			for (Block block : (Iterable<Block>) Block.blockRegistry) {
-				if (block instanceof BlockFlower || block instanceof BlockChorusFlower) {
+				if (block instanceof BlockFlower || block instanceof io.github.asgerjon.mcfly.end.ChorusFlowerBlock) {
 					addFlower(block, OreDictionary.WILDCARD_VALUE);
 				}
 				if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
@@ -79,20 +78,20 @@ public class BeePlantRegistry {
 			addFlower(Blocks.double_plant, 4);
 			addFlower(Blocks.double_plant, 5);
 
-			addFlower(ModBlocks.AZALEA.get(), 1);
-			addFlower(ModBlocks.AZALEA.get(), 9);
-			addFlower(ModBlocks.AZALEA_LEAVES.get(), 1);
-			addFlower(ModBlocks.AZALEA_LEAVES.get(), 5);
-			addFlower(ModBlocks.AZALEA_LEAVES.get(), 9);
-			addFlower(ModBlocks.AZALEA_LEAVES.get(), 13);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.get(), 1);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.get(), 9);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.get(), 1);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.get(), 5);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.get(), 9);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.get(), 13);
 
-			addFlower(ModBlocks.SAPLING.get(), 0); //Mangrove propagule
-			addFlower(ModBlocks.SAPLING.get(), 8);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.get(), 0); //Mangrove propagule
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.get(), 8);
 
-			addFlower(ModBlocks.LEAVES.get(), 1); //Cherry leaves
-			addFlower(ModBlocks.LEAVES.get(), 5);
-			addFlower(ModBlocks.LEAVES.get(), 9);
-			addFlower(ModBlocks.LEAVES.get(), 13);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), 1); //Cherry leaves
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), 5);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), 9);
+			addFlower(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), 13);
 
 			//TODO: This should have pink petals, and spore blossoms as flowers, when added
 		}

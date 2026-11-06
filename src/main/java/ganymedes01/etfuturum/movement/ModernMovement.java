@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.movement;
 import io.github.asgerjon.mcfly.spectator.Spectator;
 import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.elytra.FallFlying;
+import io.github.asgerjon.mcfly.elytra.FallFlying;
 import ganymedes01.etfuturum.trident.Riptide;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ public final class ModernMovement {
 	 * The elytra's hitbox and eyes come from the pose system too (§16).
 	 */
 	public static boolean isPoseSystemEnabled() {
-		return McFlyConfig.enableModernSneaking || McFlyConfig.enableModernSwimming || ConfigMixins.enableElytra;
+		return McFlyConfig.enableModernSneaking || McFlyConfig.enableModernSwimming || io.github.asgerjon.mcfly.config.McFlyConfig.enableElytra;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class ModernMovement {
 		if (McFlyConfig.enableModernSwimming && ((IPosePlayer) player).etfu$isSwimming()) {
 			return PlayerPose.SWIMMING;
 		}
-		if (ConfigMixins.enableElytra && isElytraFlying(player)) {
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.enableElytra && isElytraFlying(player)) {
 			return PlayerPose.FALL_FLYING;
 		}
 		if (Riptide.isSpinning(player)) {

@@ -397,6 +397,11 @@ public class EntityThrownTrident extends Entity implements IProjectile, IEntityA
 		zTile = hit.blockZ;
 		inTile = worldObj.getBlock(xTile, yTile, zTile);
 		inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+		// 26.3's `SpeleothemBlock.onProjectileHit`: a trident faster than 0.6 breaks pointed dripstone (spec §90.7)
+		if (!worldObj.isRemote && inTile instanceof io.github.asgerjon.mcfly.caves.DripstoneBlocks.Pointed
+			&& Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ) > 0.6D) {
+			worldObj.func_147480_a(xTile, yTile, zTile, true);
+		}
 		posX = hit.hitVec.xCoord - Math.signum(motionX) * 0.05D;
 		posY = hit.hitVec.yCoord - Math.signum(motionY) * 0.05D;
 		posZ = hit.hitVec.zCoord - Math.signum(motionZ) * 0.05D;

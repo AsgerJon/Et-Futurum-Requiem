@@ -27,7 +27,7 @@ public class WorldGenEndGateway extends WorldGenerator {
 					boolean flag3 = Math.abs(geny - y) == 2;
 
 					if (flag && flag1 && flag2) {
-						worldIn.setBlock(genx, geny, genz, ModBlocks.END_GATEWAY.get());
+						worldIn.setBlock(genx, geny, genz, io.github.asgerjon.mcfly.registry.McFlyBlocks.END_GATEWAY.get());
 					} else if (flag1) {
 						worldIn.setBlock(genx, geny, genz, Blocks.air);
 					} else if (flag3 && flag && flag2) {

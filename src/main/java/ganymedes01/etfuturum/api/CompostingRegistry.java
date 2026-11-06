@@ -40,14 +40,17 @@ public class CompostingRegistry {
 				ModItems.SWEET_BERRIES.newItemStack(),
 				McFlyBlocks.KELP.newItemStack(),
 				McFlyItems.DRIED_KELP.newItemStack(),
-				ModBlocks.MOSS_CARPET.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.MOSS_CARPET.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.HANGING_ROOTS.newItemStack(),
 				ModBlocks.PINK_PETALS.newItemStack(),
-				ModBlocks.MANGROVE_ROOTS.newItemStack(),
-				ModBlocks.AZALEA_LEAVES.newItemStack(1, 0)
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.MANGROVE_ROOTS.newItemStack(),
+				McFlyItems.GLOW_BERRIES_ITEM.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.newItemStack(1, 0),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.SMALL_DRIPLEAF.newItemStack()
 		), 30);
 
-		remove(ModBlocks.AZALEA.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-		remove(ModBlocks.AZALEA_LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		remove(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		remove(io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 		registerCompostable(ImmutableList.of(
 				new ItemStack(Blocks.cactus),
@@ -55,12 +58,13 @@ public class CompostingRegistry {
 				new ItemStack(Items.reeds),
 				new ItemStack(Blocks.double_plant, 1, 2),
 				new ItemStack(Blocks.vine),
-				ModBlocks.NETHER_ROOTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
-				ModBlocks.NETHER_SPROUTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
-				ModBlocks.TWISTING_VINES.newItemStack(),
-				ModBlocks.WEEPING_VINES.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_ROOTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_SPROUTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.TWISTING_VINES.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.WEEPING_VINES.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.GLOW_LICHEN.newItemStack(),
 				McFlyBlocks.DRIED_KELP_BLOCK.newItemStack(),
-				ModBlocks.AZALEA_LEAVES.newItemStack(1, 1)
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA_LEAVES.newItemStack(1, 1)
 		), 50);
 
 		registerCompostable(ImmutableList.of(
@@ -88,10 +92,12 @@ public class CompostingRegistry {
 				ModBlocks.CORNFLOWER.newItemStack(),
 				ModBlocks.LILY_OF_THE_VALLEY.newItemStack(),
 				ModBlocks.WITHER_ROSE.newItemStack(),
-				ModBlocks.NETHER_FUNGUS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
-				ModBlocks.SHROOMLIGHT.newItemStack(),
-				ModBlocks.AZALEA.newItemStack(1, 0),
-				ModBlocks.MOSS_BLOCK.newItemStack()
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_FUNGUS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.SHROOMLIGHT.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.newItemStack(1, 0),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.MOSS_BLOCK.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.SPORE_BLOSSOM.newItemStack(),
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.BIG_DRIPLEAF.newItemStack()
 		), 65);
 
 		registerCompostable(ImmutableList.of(
@@ -103,7 +109,7 @@ public class CompostingRegistry {
 				new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
 				ModBlocks.RED_MUSHROOM.newItemStack(1, OreDictionary.WILDCARD_VALUE),
 				ModBlocks.BROWN_MUSHROOM.newItemStack(1, OreDictionary.WILDCARD_VALUE),
-				ModBlocks.AZALEA.newItemStack(1, 1)
+				io.github.asgerjon.mcfly.registry.McFlyBlocks.AZALEA.newItemStack(1, 1)
 		), 85);
 
 		registerCompostable(ImmutableList.of(

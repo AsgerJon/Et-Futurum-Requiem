@@ -1,0 +1,2 @@
+# 26.3's recipe for dripstone (SPEC-modern-movement.md §90.7, step F; unittas_mcfly-sims/recipes_26_3.py).
+dripstone_block shaped ##/## #=pointed_dripstone -> 1 dripstone_block

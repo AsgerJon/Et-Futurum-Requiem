@@ -100,13 +100,7 @@ public class RawOreRegistry {
 	}
 
 	public static void init() {
-		if (ModItems.RAW_ORE.isEnabled()) {
-			if (ConfigBlocksItems.enableCopper || OreDictionary.doesOreNameExist("ingotCopper")) {
-				addOre("oreCopper", ModItems.RAW_ORE.get());
-			}
-			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
-			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
-		}
+		// copper, iron and gold are McFly's (spec §87: their ores drop 26.3's counts, `CopperEvents`): other mods' ores only
 		if (Utils.enableModdedRawOres()) {
 			for (ItemGeneralModdedRawOre oreItem : ItemGeneralModdedRawOre.loaded) {
 				for (int i = 0; i < oreItem.ores.length; i++) {

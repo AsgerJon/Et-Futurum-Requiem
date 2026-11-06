@@ -208,18 +208,18 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 					ignoredKeys.add("item.bed.name");
 					ignoredKeys.add("tile.bed.name");
 				}
-				if (!ConfigBlocksItems.enableVanillaSigns) {
+				if (!io.github.asgerjon.mcfly.config.McFlyConfig.enableVanillaSigns) {
 					ignoredKeys.add("item.sign.name");
 					ignoredKeys.add("tile.sign.name");
 				}
-				if (!ConfigBlocksItems.enableVanillaDoors) {
+				if (!io.github.asgerjon.mcfly.config.McFlyConfig.enableVanillaDoors) {
 					ignoredKeys.add("item.doorWood.name");
 					ignoredKeys.add("tile.doorWood.name");
 				}
-				if (!ConfigBlocksItems.enableVanillaTrapdoors) {
+				if (!io.github.asgerjon.mcfly.config.McFlyConfig.enableVanillaTrapdoors) {
 					ignoredKeys.add("tile.trapdoor.name");
 				}
-				if (!ConfigBlocksItems.enableVanillaFences) {
+				if (!io.github.asgerjon.mcfly.config.McFlyConfig.enableVanillaFences) {
 					ignoredKeys.add("tile.fence.name");
 					ignoredKeys.add("tile.fenceGate.name");
 				}

@@ -1,0 +1,13 @@
+# 26.3's recipes for the signs (SPEC-modern-movement.md 91.8, step F; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py). Vanilla's oak sign too.
+acacia_sign shaped ###/###/.X. #=acacia_planks X=stick -> 3 acacia_sign
+bamboo_sign shaped ###/###/.X. #=bamboo_planks X=stick -> 3 bamboo_sign
+birch_sign shaped ###/###/.X. #=birch_planks X=stick -> 3 birch_sign
+cherry_sign shaped ###/###/.X. #=cherry_planks X=stick -> 3 cherry_sign
+crimson_sign shaped ###/###/.X. #=crimson_planks X=stick -> 3 crimson_sign
+dark_oak_sign shaped ###/###/.X. #=dark_oak_planks X=stick -> 3 dark_oak_sign
+jungle_sign shaped ###/###/.X. #=jungle_planks X=stick -> 3 jungle_sign
+mangrove_sign shaped ###/###/.X. #=mangrove_planks X=stick -> 3 mangrove_sign
+oak_sign shaped ###/###/.X. #=oak_planks X=stick -> 3 oak_sign
+spruce_sign shaped ###/###/.X. #=spruce_planks X=stick -> 3 spruce_sign
+warped_sign shaped ###/###/.X. #=warped_planks X=stick -> 3 warped_sign

@@ -1,0 +1,10 @@
+# 26.3's recipes for the Nether plants and stems (SPEC-modern-movement.md §88.7, step F; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py), one a line: name, kind, pattern rows ('.' empty) and keys or ingredients, ->
+# count result. The planks are EFR's (wood_planks) till the wood sets' item.
+crimson_hyphae shaped ##/## #=crimson_stem -> 3 crimson_hyphae
+crimson_planks shapeless crimson_stem|stripped_crimson_stem|crimson_hyphae|stripped_crimson_hyphae -> 4 crimson_planks
+nether_wart_block shapeless nether_wart nether_wart nether_wart nether_wart nether_wart nether_wart nether_wart nether_wart nether_wart -> 1 nether_wart_block
+stripped_crimson_hyphae shaped ##/## #=stripped_crimson_stem -> 3 stripped_crimson_hyphae
+stripped_warped_hyphae shaped ##/## #=stripped_warped_stem -> 3 stripped_warped_hyphae
+warped_hyphae shaped ##/## #=warped_stem -> 3 warped_hyphae
+warped_planks shapeless warped_stem|stripped_warped_stem|warped_hyphae|stripped_warped_hyphae -> 4 warped_planks

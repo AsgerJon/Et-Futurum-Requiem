@@ -1,0 +1,36 @@
+# 26.3's recipes for the Nether stones (SPEC-modern-movement.md §88.3; its data/minecraft/recipe/*.json, stonecutting and
+# blasting aside; unittas_mcfly-sims/recipes_26_3.py), one a line: name, kind, pattern rows ('.' empty) and keys or
+# ingredients, -> count result [experience]. The furnace, brewing stand and stone tools with blackstone alone: 26.3's
+# #stone_crafting_materials and #stone_tool_materials (cobblestone and cobbled deepslate are other families').
+blackstone_slab shaped ### #=blackstone -> 6 blackstone_slab
+blackstone_stairs shaped #../##./### #=blackstone -> 4 blackstone_stairs
+blackstone_wall shaped ###/### #=blackstone -> 6 blackstone_wall
+brewing_stand shaped .B./### #=blackstone B=blaze_rod -> 1 brewing_stand
+chiseled_nether_bricks shaped #/# #=nether_brick_slab -> 1 chiseled_nether_bricks
+chiseled_polished_blackstone shaped #/# #=polished_blackstone_slab -> 1 chiseled_polished_blackstone
+cracked_nether_bricks smelting nether_bricks -> 1 cracked_nether_bricks 0.1
+cracked_polished_blackstone_bricks smelting polished_blackstone_bricks -> 1 cracked_polished_blackstone_bricks 0.1
+furnace shaped ###/#.#/### #=blackstone -> 1 furnace
+gold_ingot_from_smelting_nether_gold_ore smelting nether_gold_ore -> 1 gold_ingot 1.0
+polished_basalt shaped SS/SS S=basalt -> 4 polished_basalt
+polished_blackstone shaped SS/SS S=blackstone -> 4 polished_blackstone
+polished_blackstone_brick_slab shaped ### #=polished_blackstone_bricks -> 6 polished_blackstone_brick_slab
+polished_blackstone_brick_stairs shaped #../##./### #=polished_blackstone_bricks -> 4 polished_blackstone_brick_stairs
+polished_blackstone_brick_wall shaped ###/### #=polished_blackstone_bricks -> 6 polished_blackstone_brick_wall
+polished_blackstone_bricks shaped ##/## #=polished_blackstone -> 4 polished_blackstone_bricks
+polished_blackstone_button shapeless polished_blackstone -> 1 polished_blackstone_button
+polished_blackstone_pressure_plate shaped ## #=polished_blackstone -> 1 polished_blackstone_pressure_plate
+polished_blackstone_slab shaped ### #=polished_blackstone -> 6 polished_blackstone_slab
+polished_blackstone_stairs shaped #../##./### #=polished_blackstone -> 4 polished_blackstone_stairs
+polished_blackstone_wall shaped ###/### #=polished_blackstone -> 6 polished_blackstone_wall
+quartz_bricks shaped ##/## #=quartz_block -> 4 quartz_bricks
+red_nether_brick_slab shaped ### #=red_nether_bricks -> 6 red_nether_brick_slab
+red_nether_brick_stairs shaped #../##./### #=red_nether_bricks -> 4 red_nether_brick_stairs
+red_nether_brick_wall shaped ###/### #=red_nether_bricks -> 6 red_nether_brick_wall
+red_nether_bricks shaped NW/WN N=nether_brick W=nether_wart -> 1 red_nether_bricks
+smooth_basalt smelting basalt -> 1 smooth_basalt 0.1
+stone_axe shaped XX/X#/.# #=stick X=blackstone -> 1 stone_axe
+stone_hoe shaped XX/.#/.# #=stick X=blackstone -> 1 stone_hoe
+stone_pickaxe shaped XXX/.#./.#. #=stick X=blackstone -> 1 stone_pickaxe
+stone_shovel shaped X/#/# #=stick X=blackstone -> 1 stone_shovel
+stone_sword shaped X/X/# #=stick X=blackstone -> 1 stone_sword

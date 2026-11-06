@@ -36,5 +36,15 @@ public final class McFlyNetwork {
 		CHANNEL.registerMessage(LevelEventHandler.class, LevelEventMessage.class, 17, Side.CLIENT);
 		// 26.3's level particles packet (spec §79 B7), in place of the sweep's and snowflakes' own (9, 12)
 		CHANNEL.registerMessage(ParticleHandler.class, ParticleMessage.class, 18, Side.CLIENT);
+		// starting a glide (spec §85; EFR's own channel had it as its 6)
+		CHANNEL.registerMessage(io.github.asgerjon.mcfly.elytra.StartGlidingMessage.Handler.class, io.github.asgerjon.mcfly.elytra.StartGlidingMessage.class, 19, Side.SERVER);
+		// 26.3's sign editor packets (spec 91.8), in place of EFR's channel's 3
+		CHANNEL.registerMessage(OpenSignEditorMessage.Handler.class, OpenSignEditorMessage.class, 20, Side.CLIENT);
+		CHANNEL.registerMessage(SignUpdateMessage.Handler.class, SignUpdateMessage.class, 21, Side.SERVER);
+		// the boats (spec 91.12): a steered boat's place and paddles, the server's correction, a chest boat's inventory key
+		// (in place of EFR's channel's 4 and 5)
+		CHANNEL.registerMessage(io.github.asgerjon.mcfly.boat.BoatMoveMessage.Handler.class, io.github.asgerjon.mcfly.boat.BoatMoveMessage.class, 22, Side.SERVER);
+		CHANNEL.registerMessage(io.github.asgerjon.mcfly.boat.BoatMovedBackMessage.Handler.class, io.github.asgerjon.mcfly.boat.BoatMovedBackMessage.class, 23, Side.CLIENT);
+		CHANNEL.registerMessage(io.github.asgerjon.mcfly.boat.OpenBoatInventoryMessage.Handler.class, io.github.asgerjon.mcfly.boat.OpenBoatInventoryMessage.class, 24, Side.SERVER);
 	}
 }

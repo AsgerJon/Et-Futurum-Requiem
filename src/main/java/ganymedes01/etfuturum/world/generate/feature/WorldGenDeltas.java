@@ -52,7 +52,7 @@ public class WorldGenDeltas extends WorldGenerator {
 						if (ModBlocks.MAGMA.isEnabled()) {
 							setBlockAndNotifyAdequately(world, xOff, y, zOff, ModBlocks.MAGMA.get(), 0);
 						} else {
-							setBlockAndNotifyAdequately(world, xOff, y, zOff, ModBlocks.BASALT.get(), 0);
+							setBlockAndNotifyAdequately(world, xOff, y, zOff, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get(), 0);
 						}
 					}
 
@@ -68,8 +68,8 @@ public class WorldGenDeltas extends WorldGenerator {
 	}
 
 	//	private static final ImmutableList<Block> CANNOT_REPLACE = ImmutableList.of(
-//			Blocks.bedrock, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
-	private static final ImmutableList<Block> CAN_REPLACE = ImmutableList.of(ModBlocks.BLACKSTONE.get(), ModBlocks.BASALT.get());
+//			Blocks.bedrock, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs, io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+	private static final ImmutableList<Block> CAN_REPLACE = ImmutableList.of(io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get());
 
 	private static boolean isClear(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);

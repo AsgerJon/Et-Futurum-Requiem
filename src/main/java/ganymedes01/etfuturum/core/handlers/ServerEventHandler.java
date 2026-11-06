@@ -22,9 +22,7 @@ import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
-import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -43,16 +41,13 @@ import ganymedes01.etfuturum.core.utils.EntityEvents;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.elytra.FallFlying;
 
 import ganymedes01.etfuturum.entities.EntityArmourStand;
-import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
 import ganymedes01.etfuturum.offhand.Offhand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityFox;
 import ganymedes01.etfuturum.entities.EntityHusk;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityShulker;
@@ -424,11 +419,14 @@ public class ServerEventHandler {
 		if (event.world.isRemote) return;
 
 		String sound = "";
-		if (ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityItemFrame) {
+		// placing sounds for a new one only: a spawn tells the mods before the chunk takes it (`addedToChunk` false),
+		// a chunk's load tells them of entities already in it (an area of frames played them all as it loaded)
+		boolean placed = !event.entity.addedToChunk;
+		if (placed && ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityItemFrame) {
 			sound = ganymedes01.etfuturum.entities.ModernFrames.soundName(event.entity);
-		} else if (ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityPainting) {
+		} else if (placed && ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityPainting) {
 			sound = "painting";
-		} else if (ConfigSounds.leashSounds && event.entity instanceof EntityLeashKnot) {
+		} else if (placed && ConfigSounds.leashSounds && event.entity instanceof EntityLeashKnot) {
 			// 26.3's knot plays the lead's sound (`LeashFenceKnotEntity.playPlacementSound`); entity.leash_knot.place
 			// isn't in 1.21.10's sound list (the assets EFR plays), so it played nothing (SPEC-modern-movement.md §64.6)
 			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":item.lead.tied", 1.0F, 1.0F);
@@ -440,12 +438,13 @@ public class ServerEventHandler {
 		}
 
 
-		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
+		// vanilla's boats become McFly's oak boat (spec 91.12); 1.7.10's boat faces a quarter turn off
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.enableNewBoats && io.github.asgerjon.mcfly.config.McFlyConfig.replaceOldBoats) {
 			if (event.entity.getClass() == EntityBoat.class) {
-				EntityNewBoat boat = new EntityNewBoat(event.world);
+				io.github.asgerjon.mcfly.boat.McFlyBoat boat = new io.github.asgerjon.mcfly.boat.McFlyBoat(event.world);
 				event.entity.rotationYaw += 90;
 				replaceEntity(event.entity, boat, event.world, event);
-				boat.setBoatType("minecraft", "oak");
+				boat.setType(io.github.asgerjon.mcfly.boat.BoatTypes.OAK);
 				return;
 			}
 		}
@@ -715,7 +714,7 @@ public class ServerEventHandler {
 	public void captureLastSideHit(PlayerInteractEvent event) {
 		//I need this because onPlaceBlock doesn't tell us what side we hit.
 		//Using a MovingObjectPosition doesn't work either because that event fires AFTER the trapdoor is placed, so the MOP hits the trapdoor.
-		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !Spectator.isSpectator(event.entityPlayer)) {
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !Spectator.isSpectator(event.entityPlayer)) {
 			sideHit.set(event.face);
 		}
 	}
@@ -724,7 +723,9 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if (ConfigFunctions.enableFloatingTrapDoors && event.placedBlock instanceof BlockTrapDoor && (sideHit.get() == 0 || sideHit.get() == 1)) {
+		// McFly's trapdoors place themselves (spec §91.6); vanilla's still by this
+		if (io.github.asgerjon.mcfly.config.McFlyConfig.enableFloatingTrapDoors && event.placedBlock instanceof BlockTrapDoor
+			&& !(event.placedBlock instanceof io.github.asgerjon.mcfly.base.McFlyTrapdoor) && (sideHit.get() == 0 || sideHit.get() == 1)) {
 			int l = (MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) + 1) & 3;
 			if (l == 0) {
 				l = 2;
@@ -739,29 +740,6 @@ public class ServerEventHandler {
 				l += 8;
 			}
 			event.world.setBlockMetadataWithNotify(event.x, event.y, event.z, l, 2);
-		}
-	}
-
-	@SubscribeEvent
-	public void onPlayerInteractNonVanilla(PlayerInteractEvent event) {
-		if (event.action == Action.RIGHT_CLICK_AIR) {
-			EntityPlayer player = event.entityPlayer;
-			ItemStack heldStack = player.getHeldItem();
-			World world = event.world;
-			//Firework boosting
-			if (ConfigMixins.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && FallFlying.isFallFlying(player)) {
-				player.swingItem();
-				if (!world.isRemote) {
-					EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
-					world.spawnEntityInWorld(entityfireworkrocket);
-
-					if (!player.capabilities.isCreativeMode) {
-						--heldStack.stackSize;
-					}
-					player.addStat(StatList.objectUseStats[Item.getIdFromItem(Items.fireworks)], 1);
-					event.useItem = Result.ALLOW;
-				}
-			}
 		}
 	}
 
@@ -873,8 +851,6 @@ public class ServerEventHandler {
 
 							if (item == Items.redstone) {
 								block = Blocks.redstone_wire;
-							} else if (item == Items.sign) {
-								block = side < 2 ? Blocks.standing_sign : Blocks.wall_sign;
 							} else if (item == Items.wooden_door && side == 1) {
 								block = Blocks.wooden_door;
 							} else if (item == Items.iron_door && side == 1) {
@@ -1083,9 +1059,7 @@ public class ServerEventHandler {
 							}
 						}
 
-						if (heldStack != null) {
-							doMudConversion(world, x, y, z, player, oldBlock, meta, heldStack);
-						}
+						// a water bottle on dirt is McFly's (spec §90, step C): `MudBlocks`
 
 						if (ConfigFunctions.mobSpawnerEgging && oldBlock == Blocks.mob_spawner && heldStack != null && heldStack.getItem() == Items.spawn_egg) {
 							TileEntityMobSpawner tileEntityMobSpawner = (TileEntityMobSpawner) world.getTileEntity(x, y, z);
@@ -1120,85 +1094,14 @@ public class ServerEventHandler {
 										heldStack.damageItem(1, player);
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);
 									}
-								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									RegistryMapping<Block> newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
-									if (newBlock != null) {
-										player.swingItem();
-										if (!world.isRemote) {
-											world.setBlock(x, y, z, newBlock.getObject(), newBlock.getMeta() + ((meta / 4) * 4), 2);
-											heldStack.damageItem(1, player);
-											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.axe.strip", 1.0F, 0.8F);
-										}
-									}
 								}
+								// an axe's stripping is McFly's (spec §91.3: wood/Stripping)
 							}
 						}
 					}
 				}
 			}
 		}
-	}
-
-	private boolean doMudConversion(World world, int x, int y, int z, EntityPlayer player, Block oldBlock, int meta, ItemStack heldStack) {
-		boolean isValid = heldStack.getItem() == Items.potionitem && heldStack.getItemDamage() == 0 && Items.potionitem.getEffects(heldStack) == null;
-		if (!isValid && ModsList.EXTRA_UTILITIES.isLoaded()) {
-			int itemDamage = heldStack.getItemDamage();
-			isValid = heldStack.getItem() == ExternalContent.Items.EXTRAUTILS_WATERING_CAN.get() && (itemDamage == 0 || itemDamage == 3);
-		}
-		if (ModBlocks.MUD.isEnabled() && isValid && ((oldBlock == Blocks.dirt && meta != 2) || oldBlock == ModBlocks.COARSE_DIRT.get())) { //TODO: Rooted dirt
-			world.setBlock(x, y, z, ModBlocks.MUD.get());
-			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.bottle.empty", 1.0F, 1.0F);
-			player.swingItem();
-			if (world.isRemote) {
-				double d0 = 0.0625D;
-				for (int l = 0; l < 10; ++l) {
-					double d1 = x + world.rand.nextFloat();
-					double d2 = y + world.rand.nextFloat();
-					double d3 = z + world.rand.nextFloat();
-
-					if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube()) {
-						d2 = y + 1 + d0;
-					}
-
-					if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube()) {
-						d2 = y - d0;
-					}
-
-					if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube()) {
-						d3 = z + 1 + d0;
-					}
-
-					if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube()) {
-						d3 = z - d0;
-					}
-
-					if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube()) {
-						d1 = x + 1 + d0;
-					}
-
-					if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube()) {
-						d1 = x - d0;
-					}
-
-					if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1) {
-						world.spawnParticle("splash", d1, d2, d3, 0, 0, 0);
-					}
-				}
-			}
-			if (!player.capabilities.isCreativeMode && heldStack.getItem() == Items.potionitem) {
-				final ItemStack bottle = new ItemStack(Items.glass_bottle);
-				if (heldStack.stackSize <= 1) {
-					player.setCurrentItemOrArmor(0, bottle);
-				} else {
-					player.inventory.decrStackSize(player.inventory.currentItem, 1);
-					if (!player.inventory.addItemStackToInventory(bottle)) {
-						player.dropPlayerItemWithRandomChoice(bottle, false);
-					}
-				}
-			}
-			return true;
-		}
-		return false;
 	}
 
 	@SubscribeEvent
@@ -1343,7 +1246,7 @@ public class ServerEventHandler {
 					entityendermite.aggroEndermen(64);
 				}
 			}
-			// a pearl goes through an end gateway itself now (26.3's, TileEntityGateway): EFR's sending its thrower through
+			// a pearl goes through an end gateway itself now (26.3's, EndGatewayBlockEntity): EFR's sending its thrower through
 			// when it landed beside one is gone
 		}
 	}
@@ -1480,7 +1383,7 @@ public class ServerEventHandler {
 			int z = MathHelper.floor_double(event.z);
 
 			if (event.world.provider instanceof WorldProviderHell) {
-				if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
+				if (world.getBlock(x, y - 1, z) == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
 					if (!(event.entity instanceof EntityFlying)) {
 						event.setResult(Result.DENY);
 					}
@@ -1966,18 +1869,6 @@ public class ServerEventHandler {
 		if (event.block == Blocks.bedrock && ganymedes01.etfuturum.world.end.modern.ModernEnd.isActive()) {
 			event.drops.clear();
 		}
-		if (event.block == Blocks.double_stone_slab) {
-			if (ModBlocks.SMOOTH_STONE.isEnabled() && event.blockMetadata == 8) {
-				event.drops.clear();
-				event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
-			} else if (ModBlocks.SMOOTH_SANDSTONE.isEnabled() && event.blockMetadata == 9) {
-				event.drops.clear();
-				event.drops.add(ModBlocks.SMOOTH_SANDSTONE.newItemStack(1));
-			} else if (ModBlocks.SMOOTH_QUARTZ.isEnabled() && event.blockMetadata == 15) {
-				event.drops.clear();
-				event.drops.add(ModBlocks.SMOOTH_QUARTZ.newItemStack(1));
-			}
-		}
 	}
 
 	@SubscribeEvent
@@ -1991,6 +1882,10 @@ public class ServerEventHandler {
 		// phantoms over the sleepless (spec §68.3)
 		if (ganymedes01.etfuturum.entities.PhantomSpawning.isOn()) {
 			DoInsomnia.registerGamerule(event.world);
+		}
+		// wardens from shriekers (spec §90.9, step H4): 26.3's `spawn_wardens`
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.SCULK_SHRIEKER.isEnabled()) {
+			io.github.asgerjon.mcfly.sculk.SpawnWardens.registerGamerule(event.world);
 		}
 
 		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
@@ -2134,37 +2029,9 @@ public class ServerEventHandler {
 
 	private void initFurnaceModifiers() {
 		if (!initNoBurnItems.getAndSet(true)) {
-			noBurnItems.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
-			noBurnItems.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
-			noBurnItems.add(ModBlocks.WOOD_FENCE.newItemStack(1, 0));
-			noBurnItems.add(ModBlocks.WOOD_FENCE.newItemStack(1, 1));
 
-			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 0));
-			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 1));
-			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 8));
-			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 9));
 
-			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 0));
-			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 1));
-			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 8));
-			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 9));
 
-			noBurnItems.add(ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.CRIMSON_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			noBurnItems.add(ModBlocks.WARPED_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 			for (ModBlocks bed : ModBlocks.BEDS) {
 				if (bed.isEnabled()) {
@@ -2174,15 +2041,7 @@ public class ServerEventHandler {
 		}
 
 		if (!initBurnTimeRemappings.getAndSet(true)) {
-			burnTimeRemappings.put(ModItems.BAMBOO.newItemStack(1, OreDictionary.WILDCARD_VALUE), 50);
 		}
-	}
-
-	@SubscribeEvent
-	public void onWorldLoad(WorldEvent.Load e) {
-		// Only add the rule when the world doesn't have it yet, so a saved value isn't reset on every load.
-		if (ConfigMixins.enableElytra && !e.world.getGameRules().hasRule("disableElytraMovementCheck"))
-			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 
 	static MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {

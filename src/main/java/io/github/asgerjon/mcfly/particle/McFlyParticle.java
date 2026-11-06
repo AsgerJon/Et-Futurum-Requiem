@@ -33,6 +33,9 @@ public class McFlyParticle extends EntityFX {
 	protected boolean fadeAway;
 	/** The light where it is, as of its last tick. */
 	protected float lightLevel;
+	/** Its turn about the line of sight, in radians (26.3's `SingleQuadParticle.roll`), and the last tick's. */
+	protected float roll;
+	protected float prevRoll;
 
 	private final boolean sheet;
 	private final ResourceLocation[] frames;
@@ -111,13 +114,25 @@ public class McFlyParticle extends EntityFX {
 			v1 = v0 + 0.0624375D;
 		}
 		double size = 0.1D * particleScale;
+		// the square's across (rx, 0, rz) and up (ryz, rxz, rxy) on the screen, turned by its roll
+		double ax = rx, ay = 0.0D, az = rz, bx = ryz, by = rxz, bz = rxy;
+		float turn = prevRoll + (roll - prevRoll) * partialTicks;
+		if (turn != 0.0F) {
+			double cos = Math.cos(turn), sin = Math.sin(turn);
+			ax = rx * cos + ryz * sin;
+			ay = rxz * sin;
+			az = rz * cos + rxy * sin;
+			bx = ryz * cos - rx * sin;
+			by = rxz * cos;
+			bz = rxy * cos - rz * sin;
+		}
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(getBrightnessForRender(lightLevel));
 		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, particleAlpha);
-		tessellator.addVertexWithUV(x - rx * size - ryz * size, y - rxz * size, z - rz * size - rxy * size, u1, v1);
-		tessellator.addVertexWithUV(x - rx * size + ryz * size, y + rxz * size, z - rz * size + rxy * size, u1, v0);
-		tessellator.addVertexWithUV(x + rx * size + ryz * size, y + rxz * size, z + rz * size + rxy * size, u0, v0);
-		tessellator.addVertexWithUV(x + rx * size - ryz * size, y - rxz * size, z + rz * size - rxy * size, u0, v1);
+		tessellator.addVertexWithUV(x - (ax + bx) * size, y - (ay + by) * size, z - (az + bz) * size, u1, v1);
+		tessellator.addVertexWithUV(x - (ax - bx) * size, y - (ay - by) * size, z - (az - bz) * size, u1, v0);
+		tessellator.addVertexWithUV(x + (ax + bx) * size, y + (ay + by) * size, z + (az + bz) * size, u0, v0);
+		tessellator.addVertexWithUV(x + (ax - bx) * size, y + (ay - by) * size, z + (az - bz) * size, u0, v1);
 		tessellator.draw();
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, bound);

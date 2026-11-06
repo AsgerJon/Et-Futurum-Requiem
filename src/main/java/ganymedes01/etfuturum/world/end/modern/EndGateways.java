@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.world.end.modern;
 
 import ganymedes01.etfuturum.ModBlocks;
 import io.github.asgerjon.mcfly.network.LevelEventMessage;
-import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -46,7 +45,7 @@ public final class EndGateways {
 	 * below it and in the cross off its level (its column, row and line), the rest air. Its exit if given.
 	 */
 	public static void placeShell(World world, int x, int y, int z, int[] exit, boolean exact) {
-		Block gateway = ModBlocks.END_GATEWAY.get();
+		Block gateway = io.github.asgerjon.mcfly.registry.McFlyBlocks.END_GATEWAY.get();
 		for (int dz = -1; dz <= 1; dz++) {
 			for (int dy = -2; dy <= 2; dy++) {
 				for (int dx = -1; dx <= 1; dx++) {
@@ -56,7 +55,7 @@ public final class EndGateways {
 					boolean end = Math.abs(dy) == 2;
 					if (sameX && sameY && sameZ) {
 						world.setBlock(x, y, z, gateway, 0, 3);
-						if (exit != null && world.getTileEntity(x, y, z) instanceof TileEntityGateway exitGateway) {
+						if (exit != null && world.getTileEntity(x, y, z) instanceof io.github.asgerjon.mcfly.end.EndGatewayBlockEntity exitGateway) {
 							exitGateway.setExitPosition(exit, exact);
 						}
 					} else if (sameY) {

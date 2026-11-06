@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.wither;
 
-import ganymedes01.etfuturum.blocks.BlockSoulSoil;
 import static net.minecraft.block.Block.getBlockById;
 
 
@@ -97,7 +96,7 @@ public class WitherSpawnHelper {
     }
 
     private static boolean isSoulSand(World w, int x, int y, int z) {
-        return w.getBlock(x, y, z) == Blocks.soul_sand || w.getBlock(x, y, z) instanceof BlockSoulSoil;
+        return w.getBlock(x, y, z) == Blocks.soul_sand || w.getBlock(x, y, z) == io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get();
     }
 
     private static void summon(World w, int ox, int oy, int oz, int[] u, int[] f) {

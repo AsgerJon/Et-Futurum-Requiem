@@ -20,7 +20,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable {
 	private final int numberOfBlocks;
 
 	public WorldGenDeepslateLayerBlob(int numberOfBlocks, boolean tuff) {
-		super(tuff ? ModBlocks.TUFF.get() : ModBlocks.DEEPSLATE.get(), numberOfBlocks);
+		super(tuff ? io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.get() : io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get(), numberOfBlocks);
 		this.numberOfBlocks = numberOfBlocks;
 	}
 
@@ -65,7 +65,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable {
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
 									block = world.getBlock(x, y, z);
 
-									if ((ConfigWorld.deepslateReplacesStones || block != ModBlocks.STONE.get()) && block.getMaterial() != Material.air && block != ModBlocks.TUFF.get()) {
+									if ((ConfigWorld.deepslateReplacesStones || block != io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.get()) && block.getMaterial() != Material.air && block != io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.get()) {
 										if (block.isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
 											world.setBlock(x, y, z, field_150519_a);
 											continue;

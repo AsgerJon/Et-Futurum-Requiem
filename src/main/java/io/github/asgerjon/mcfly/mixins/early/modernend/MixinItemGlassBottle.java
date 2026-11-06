@@ -24,7 +24,7 @@ public class MixinItemGlassBottle {
 
 	@Inject(method = "onItemRightClick", at = @At("HEAD"), cancellable = true)
 	private void etfu$dragonBreath(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> cir) {
-		if (!ModItems.DRAGON_BREATH.isEnabled()) {
+		if (!io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.isEnabled()) {
 			return;
 		}
 		@SuppressWarnings("unchecked")
@@ -33,7 +33,7 @@ public class MixinItemGlassBottle {
 			if (!cloud.isDead && cloud.byDragon()) {
 				cloud.setRadius(cloud.getRadius() - 0.5F);
 				world.playSoundAtEntity(player, McFly.MC_ASSETS + ":item.bottle.fill_dragonbreath", 1.0F, 1.0F);
-				ItemStack breath = new ItemStack(ModItems.DRAGON_BREATH.get());
+				ItemStack breath = new ItemStack(io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.get());
 				if (!player.capabilities.isCreativeMode) {
 					stack.stackSize--;
 				}

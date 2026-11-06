@@ -19,7 +19,7 @@ public class WorldGenBasaltPillars extends WorldGenerator {
 			boolean flag3 = true;
 
 			while (world.isAirBlock(x, mutableY1, z)) {
-				world.setBlock(x, mutableY1, z, ModBlocks.BASALT.get());
+				world.setBlock(x, mutableY1, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get());
 				mutableX2 = x - 1;
 				mutableY2 = mutableY1;
 				mutableZ2 = z;
@@ -75,7 +75,7 @@ public class WorldGenBasaltPillars extends WorldGenerator {
 
 						mutableY2 = mutableY3 - 1;
 						if (!world.isAirBlock(mutableX2, mutableY2, mutableZ2)) {
-							world.setBlock(mutableX3, mutableY3, mutableZ3, ModBlocks.BASALT.get(), 0, 2);
+							world.setBlock(mutableX3, mutableY3, mutableZ3, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get(), 0, 2);
 						}
 					}
 				}
@@ -89,13 +89,13 @@ public class WorldGenBasaltPillars extends WorldGenerator {
 
 	private void placeBaseHangOff(World world, Random rand, int x, int y, int z) {
 		if (rand.nextBoolean()) {
-			world.setBlock(x, y, z, ModBlocks.BASALT.get(), 0, 2);
+			world.setBlock(x, y, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get(), 0, 2);
 		}
 	}
 
 	private boolean placeHangOff(World world, Random rand, int x, int y, int z) {
 		if (rand.nextInt(10) != 0) {
-			world.setBlock(x, y, z, ModBlocks.BASALT.get(), 0, 2);
+			world.setBlock(x, y, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get(), 0, 2);
 			return true;
 		} else {
 			return false;

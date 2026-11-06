@@ -2,8 +2,8 @@ package ganymedes01.etfuturum.trident;
 
 import io.github.asgerjon.mcfly.McFly;
 import ganymedes01.etfuturum.ModEnchantments;
-import ganymedes01.etfuturum.blocks.BlockLightningRod;
-import ganymedes01.etfuturum.blocks.IDegradable;
+import io.github.asgerjon.mcfly.copper.LightningRodBlock;
+import io.github.asgerjon.mcfly.copper.WeatheringCopper;
 import ganymedes01.etfuturum.world.LightningRodRecord;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -53,7 +53,7 @@ public final class Lightning {
 
 	/** A thrown trident hit this block: with Channeling, a lightning rod under the open sky, in a thunderstorm: a bolt. */
 	public static void channelAtBlock(ItemStack trident, World world, int x, int y, int z, double hitX, double hitY, double hitZ) {
-		if (hasChanneling(trident) && world.isThundering() && world.getBlock(x, y, z) instanceof BlockLightningRod
+		if (hasChanneling(trident) && world.isThundering() && world.getBlock(x, y, z) instanceof LightningRodBlock
 			&& world.canBlockSeeTheSky(x, y + 1, z)) {
 			strike(world, hitX, hitY, hitZ);
 		}
@@ -82,15 +82,14 @@ public final class Lightning {
 		int y = MathHelper.floor_double(bolt.posY - 1.0E-6D);
 		int z = MathHelper.floor_double(bolt.posZ);
 		Block block = world.getBlock(x, y, z);
-		if (block instanceof BlockLightningRod rod) {
+		if (block instanceof LightningRodBlock rod) {
 			rod.struck(world, x, y, z);
 		}
-		if (!(block instanceof IDegradable copper)) {
+		if (!(block instanceof WeatheringCopper copper) || copper.stage(world, x, y, z) < 0) {
 			return;
 		}
-		int meta = copper.getCopperMeta(world, x, y, z, world.getBlockMetadata(x, y, z));
-		if (meta < 8 && meta % 4 != 0) {
-			setStage(copper, world, x, y, z, meta - meta % 4);
+		if (!copper.waxed(world, x, y, z) && copper.stage(world, x, y, z) != 0) {
+			copper.become(world, x, y, z, 0, false);
 		}
 		Random random = world.rand;
 		int walks = random.nextInt(3) + 3;
@@ -112,11 +111,11 @@ public final class Lightning {
 			int y = at[1] + random.nextInt(3) - 1;
 			int z = at[2] + random.nextInt(3) - 1;
 			Block block = world.getBlock(x, y, z);
-			if (block instanceof IDegradable copper) {
-				int meta = copper.getCopperMeta(world, x, y, z, world.getBlockMetadata(x, y, z));
-				if (meta < 8) {
-					if (meta % 4 != 0) {
-						setStage(copper, world, x, y, z, meta - 1);
+			if (block instanceof WeatheringCopper copper && copper.stage(world, x, y, z) >= 0) {
+				if (!copper.waxed(world, x, y, z)) {
+					int stage = copper.stage(world, x, y, z);
+					if (stage != 0) {
+						copper.become(world, x, y, z, stage - 1, false);
 					}
 					world.playAuxSFX(SPARKS_EVENT, x, y, z, -1);
 					at[0] = x;
@@ -127,11 +126,6 @@ public final class Lightning {
 			}
 		}
 		return false;
-	}
-
-	private static void setStage(IDegradable copper, World world, int x, int y, int z, int copperMeta) {
-		Block block = copper.getCopperBlockFromMeta(copperMeta);
-		copper.setCopperBlock(block, copper.getFinalCopperMeta(world, x, y, z, copperMeta, world.getBlockMetadata(x, y, z)), world, x, y, z);
 	}
 
 	/** Whether there is nothing but air above x y z: the block is the highest of its column (26.3's world-surface height). */
@@ -186,7 +180,7 @@ public final class Lightning {
 		}
 		boolean trap = world.getGameRules().getGameRuleBooleanValue("doMobSpawning")
 			&& world.rand.nextDouble() < effectiveDifficulty(world, at[0], at[1], at[2]) * 0.01D
-			&& !(world.getBlock(at[0], at[1] - 1, at[2]) instanceof BlockLightningRod);
+			&& !(world.getBlock(at[0], at[1] - 1, at[2]) instanceof LightningRodBlock);
 		if (trap) {
 			EntityHorse horse = new EntityHorse(world);
 			horse.setHorseType(4);

@@ -1,6 +1,6 @@
 package io.github.asgerjon.mcfly.mixins.early.elytraequip;
 
-import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
+import io.github.asgerjon.mcfly.elytra.ElytraItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerPlayer;
@@ -28,7 +28,7 @@ public abstract class MixinContainerPlayer extends Container {
 			return;
 		}
 		Slot slot = (Slot) inventorySlots.get(index);
-		if (slot == null || !slot.getHasStack() || !(slot.getStack().getItem() instanceof ItemArmorElytra)) {
+		if (slot == null || !slot.getHasStack() || !(slot.getStack().getItem() instanceof io.github.asgerjon.mcfly.elytra.ElytraItem)) {
 			return;
 		}
 		Slot chest = (Slot) inventorySlots.get(CHEST_SLOT);

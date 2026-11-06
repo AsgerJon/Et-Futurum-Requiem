@@ -1,0 +1,7 @@
+# 26.3's recipes for mud (SPEC-modern-movement.md §90, step C; unittas_mcfly-sims/recipes_26_3.py). Muddy mangrove roots
+# are mangrove's (step E).
+mud_brick_slab shaped ### #=mud_bricks -> 6 mud_brick_slab
+mud_brick_stairs shaped #../##./### #=mud_bricks -> 4 mud_brick_stairs
+mud_brick_wall shaped ###/### #=mud_bricks -> 6 mud_brick_wall
+mud_bricks shaped ##/## #=packed_mud -> 4 mud_bricks
+packed_mud shapeless mud wheat -> 1 packed_mud

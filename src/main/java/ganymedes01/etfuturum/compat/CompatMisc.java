@@ -54,9 +54,6 @@ public class CompatMisc {
 	}
 
 	public static void runModHooksPreInit() {
-		if (ConfigModCompat.elytraBaublesExpandedCompat > 0 && ModsList.BAUBLES_EXPANDED.isLoaded()) {
-			CompatBaublesExpanded.preInit();
-		}
 	}
 
 	public static void runModHooksInit() {
@@ -97,7 +94,7 @@ public class CompatMisc {
 			CompatCraftTweaker.onPostInit();
 		}
 
-		if (ConfigBlocksItems.enableSmoothStone && ModsList.BLUEPOWER.isLoaded()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_STONE.isEnabled() && ModsList.BLUEPOWER.isLoaded()) {
 			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
 			if (stoneTile != null) {
 				Item stoneItem = Item.getItemFromBlock(Blocks.stone);

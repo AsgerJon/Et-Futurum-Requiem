@@ -31,12 +31,12 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
 	protected EtFuturumLateWorldGenerator() {
 		super();
-		if (ModBlocks.DEEPSLATE.isEnabled()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.isEnabled()) {
 			if (ConfigWorld.deepslateReplacesDirt) {
-				DeepslateOreRegistry.addOre(Blocks.dirt, ModBlocks.DEEPSLATE.get());
+				DeepslateOreRegistry.addOre(Blocks.dirt, io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get());
 			}
 			if (ConfigTweaks.deepslateReplacesCobblestone) {
-				DeepslateOreRegistry.addOre(Blocks.cobblestone, ModBlocks.COBBLED_DEEPSLATE.get());
+				DeepslateOreRegistry.addOre(Blocks.cobblestone, io.github.asgerjon.mcfly.registry.McFlyBlocks.COBBLED_DEEPSLATE.get());
 			}
 		}
 	}
@@ -90,13 +90,13 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		}
 
 		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") && world.provider instanceof WorldProviderSurface) {
-			if (ModBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1) {
 				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
-			if (ModBlocks.TUFF.isEnabled()) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.isEnabled()) {
 				generateOre(tuffGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
-			if (ModBlocks.STONE.isEnabled() && ConfigWorld.maxStonesPerCluster > 0) {
+			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.isEnabled() && ConfigWorld.maxStonesPerCluster > 0) {
 				for (WorldGenMinable stoneGenerator : stoneGen) {
 					for (int i = 0; i < 10; i++) {
 						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
@@ -149,9 +149,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	}
 
 	private void replaceBlockInChunk(World world, Block block, int x, int z, int worldX, int worldY, int worldZ, ExtendedBlockStorage array) {
-		if ((ConfigWorld.deepslateReplacesStones || block != ModBlocks.STONE.get()) && block.getMaterial() != Material.air && block != ModBlocks.TUFF.get()) {
+		if ((ConfigWorld.deepslateReplacesStones || block != io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.get()) && block.getMaterial() != Material.air && block != io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.get()) {
 			if (block.isReplaceableOreGen(world, worldX, worldY, worldZ, Blocks.stone)) {
-				array.func_150818_a/*setExtBlockID*/(x, worldY & 15, z, ModBlocks.DEEPSLATE.get());
+				array.func_150818_a/*setExtBlockID*/(x, worldY & 15, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get());
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
 				return;
 			}
@@ -166,7 +166,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	public static boolean stopRecording;
 
 	private boolean doesChunkSupportLayerDeepslate(IChunkProvider provider, int dimId) {
-		if (ModBlocks.DEEPSLATE.isEnabled()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.isEnabled()) {
 			if (ConfigWorld.deepslateGenerationMode == 0 && ConfigWorld.deepslateMaxY > 0) {
 				return !isFlatWorld(provider) && ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId) == ConfigWorld.deepslateLayerDimensionBlacklistAsWhitelist;
 			}

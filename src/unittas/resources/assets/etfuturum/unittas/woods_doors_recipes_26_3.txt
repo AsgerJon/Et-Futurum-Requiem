@@ -1,0 +1,25 @@
+# 26.3's recipes for the doors and trapdoors (SPEC-modern-movement.md §91.6, step D; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py). Iron's trapdoor too (EFR's iron_trapdoor).
+acacia_door shaped ##/##/## #=acacia_planks -> 3 acacia_door
+acacia_trapdoor shaped ###/### #=acacia_planks -> 2 acacia_trapdoor
+bamboo_door shaped ##/##/## #=bamboo_planks -> 3 bamboo_door
+bamboo_trapdoor shaped ###/### #=bamboo_planks -> 2 bamboo_trapdoor
+birch_door shaped ##/##/## #=birch_planks -> 3 birch_door
+birch_trapdoor shaped ###/### #=birch_planks -> 2 birch_trapdoor
+cherry_door shaped ##/##/## #=cherry_planks -> 3 cherry_door
+cherry_trapdoor shaped ###/### #=cherry_planks -> 2 cherry_trapdoor
+crimson_door shaped ##/##/## #=crimson_planks -> 3 crimson_door
+crimson_trapdoor shaped ###/### #=crimson_planks -> 2 crimson_trapdoor
+dark_oak_door shaped ##/##/## #=dark_oak_planks -> 3 dark_oak_door
+dark_oak_trapdoor shaped ###/### #=dark_oak_planks -> 2 dark_oak_trapdoor
+iron_trapdoor shaped ##/## #=iron_ingot -> 1 iron_trapdoor
+jungle_door shaped ##/##/## #=jungle_planks -> 3 jungle_door
+jungle_trapdoor shaped ###/### #=jungle_planks -> 2 jungle_trapdoor
+mangrove_door shaped ##/##/## #=mangrove_planks -> 3 mangrove_door
+mangrove_trapdoor shaped ###/### #=mangrove_planks -> 2 mangrove_trapdoor
+oak_door shaped ##/##/## #=oak_planks -> 3 oak_door
+oak_trapdoor shaped ###/### #=oak_planks -> 2 oak_trapdoor
+spruce_door shaped ##/##/## #=spruce_planks -> 3 spruce_door
+spruce_trapdoor shaped ###/### #=spruce_planks -> 2 spruce_trapdoor
+warped_door shaped ##/##/## #=warped_planks -> 3 warped_door
+warped_trapdoor shaped ###/### #=warped_planks -> 2 warped_trapdoor

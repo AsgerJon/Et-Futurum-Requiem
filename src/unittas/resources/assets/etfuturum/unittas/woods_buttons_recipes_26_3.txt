@@ -1,0 +1,24 @@
+# 26.3's recipes for the wooden buttons and pressure plates (SPEC-modern-movement.md §91.7, step E; its
+# data/minecraft/recipe/*.json; unittas_mcfly-sims/recipes_26_3.py).
+acacia_button shapeless acacia_planks -> 1 acacia_button
+acacia_pressure_plate shaped ## #=acacia_planks -> 1 acacia_pressure_plate
+bamboo_button shapeless bamboo_planks -> 1 bamboo_button
+bamboo_pressure_plate shaped ## #=bamboo_planks -> 1 bamboo_pressure_plate
+birch_button shapeless birch_planks -> 1 birch_button
+birch_pressure_plate shaped ## #=birch_planks -> 1 birch_pressure_plate
+cherry_button shapeless cherry_planks -> 1 cherry_button
+cherry_pressure_plate shaped ## #=cherry_planks -> 1 cherry_pressure_plate
+crimson_button shapeless crimson_planks -> 1 crimson_button
+crimson_pressure_plate shaped ## #=crimson_planks -> 1 crimson_pressure_plate
+dark_oak_button shapeless dark_oak_planks -> 1 dark_oak_button
+dark_oak_pressure_plate shaped ## #=dark_oak_planks -> 1 dark_oak_pressure_plate
+jungle_button shapeless jungle_planks -> 1 jungle_button
+jungle_pressure_plate shaped ## #=jungle_planks -> 1 jungle_pressure_plate
+mangrove_button shapeless mangrove_planks -> 1 mangrove_button
+mangrove_pressure_plate shaped ## #=mangrove_planks -> 1 mangrove_pressure_plate
+oak_button shapeless oak_planks -> 1 oak_button
+oak_pressure_plate shaped ## #=oak_planks -> 1 oak_pressure_plate
+spruce_button shapeless spruce_planks -> 1 spruce_button
+spruce_pressure_plate shaped ## #=spruce_planks -> 1 spruce_pressure_plate
+warped_button shapeless warped_planks -> 1 warped_button
+warped_pressure_plate shaped ## #=warped_planks -> 1 warped_pressure_plate

@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.combat;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import ganymedes01.etfuturum.ModMaterials;
 import io.github.asgerjon.mcfly.mixins.early.combat.AccessorItemSword;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -76,7 +75,7 @@ public final class WeaponStats {
 			} else if (material == Item.ToolMaterial.GOLD) {
 				base = 6.0D;
 				speed = -3.0D;
-			} else if (material == Item.ToolMaterial.EMERALD || material == ModMaterials.NETHERITE_TOOL) {
+			} else if (material == Item.ToolMaterial.EMERALD || material == io.github.asgerjon.mcfly.nether.NetheriteMaterials.TOOL) {
 				base = 5.0D;
 				speed = -3.0D;
 			} else {
@@ -99,7 +98,7 @@ public final class WeaponStats {
 				speed = -3.0D;
 			} else if (material == Item.ToolMaterial.STONE) {
 				speed = -2.0D;
-			} else if (material == Item.ToolMaterial.EMERALD || material == ModMaterials.NETHERITE_TOOL) {
+			} else if (material == Item.ToolMaterial.EMERALD || material == io.github.asgerjon.mcfly.nether.NetheriteMaterials.TOOL) {
 				speed = 0.0D;
 			} else {
 				speed = -1.0D;

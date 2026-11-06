@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.combat;
 
-import ganymedes01.etfuturum.ModMaterials;
-import ganymedes01.etfuturum.items.equipment.ItemEFRArmour;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -49,12 +47,12 @@ public final class DamageRules {
 		if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.DIAMOND) {
 			return 2.0F;
 		}
-		return armor.getArmorMaterial() == ModMaterials.NETHERITE_ARMOUR ? 3.0F : 0.0F;
+		return armor.getArmorMaterial() == io.github.asgerjon.mcfly.nether.NetheriteMaterials.ARMOR ? 3.0F : 0.0F;
 	}
 
 	/** A piece's knockback resistance: netherite 0.1. */
 	public static double knockbackResistance(ItemStack stack) {
-		return stack != null && stack.getItem() instanceof ItemArmor armor && armor.getArmorMaterial() == ModMaterials.NETHERITE_ARMOUR ? 0.1D : 0.0D;
+		return stack != null && stack.getItem() instanceof ItemArmor armor && armor.getArmorMaterial() == io.github.asgerjon.mcfly.nether.NetheriteMaterials.ARMOR ? 0.1D : 0.0D;
 	}
 
 	/** The toughness of the armour worn (equipment slots 1 to 4). */
@@ -75,9 +73,9 @@ public final class DamageRules {
 		return damage * (1.0F - counted / 25.0F);
 	}
 
-	/** Armour the modern formula covers: vanilla's, and EFR's netherite (an ISpecialArmor only to copy vanilla's). */
+	/** Armour the modern formula covers: vanilla's and McFly's (netherite, spec §88.4), not other mods' ISpecialArmor. */
 	private static boolean isModernArmour(Item item) {
-		return item instanceof ItemArmor && (!(item instanceof ISpecialArmor) || item instanceof ItemEFRArmour);
+		return item instanceof ItemArmor && !(item instanceof ISpecialArmor);
 	}
 
 	/**
@@ -110,7 +108,7 @@ public final class DamageRules {
 			int wear = (int) Math.max(1.0F, damage / 4.0F);
 			for (int slot = 0; slot < armour.length; slot++) {
 				ItemStack stack = armour[slot];
-				if (stack == null || !isModernArmour(stack.getItem()) || source.isFireDamage() && stack.getItem() instanceof ItemEFRArmour) {
+				if (stack == null || !isModernArmour(stack.getItem()) || source.isFireDamage() && io.github.asgerjon.mcfly.base.FireResistant.is(stack)) {
 					continue;
 				}
 				stack.damageItem(wear, player);

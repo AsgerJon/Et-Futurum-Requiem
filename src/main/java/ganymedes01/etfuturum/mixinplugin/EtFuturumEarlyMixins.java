@@ -83,16 +83,8 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("endportal.MixinBlockEndPortal");
 		}
 
-		if (ConfigBlocksItems.enableNewBoats) {
-			mixins.add("boatstat.MixinEntityPlayer");
-			if (side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("boatcamera.client.MixinEntity");
-			}
-		}
-
 		if (ConfigMixins.fenceWallConnectFix) {
 			mixins.add("fencewallconnect.MixinBlockWall");
-			mixins.add("fencewallconnect.MixinBlockFence");
 		}
 
 		if (ConfigMixins.stepHeightFix) {
@@ -101,6 +93,113 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 
 		if (McFlyConfig.thinBlockStepSoundFix || McFlyConfig.modernStepSounds) {
 			McFlyMixins.EARLY.add("stepsounds.MixinEntity");
+		}
+		if (McFlyConfig.enableAmethyst) {
+			// the crystal chime on amethyst (spec §90.4)
+			McFlyMixins.EARLY.add("caves.MixinEntity");
+		}
+		if (McFlyConfig.enableMud) {
+			// a water bottle on dirt makes mud (spec §90, step C)
+			McFlyMixins.EARLY.add("caves.MixinItemPotion");
+		}
+
+		// McFly's base (spec §84): 26.3's random tick apart from the scheduled one; a chunk cache's world
+		McFlyMixins.EARLY.add("base.MixinWorldServerRandomTick");
+		McFlyMixins.EARLY.add("base.AccessorChunkCache");
+		// no entity id 0, as 26.3 (the counter's first id 1; 0 reads as "no entity" in vanilla's spawn packets and ours)
+		McFlyMixins.EARLY.add("base.MixinEntityIds");
+		// McFly's plants in 1.7.10's flower pot, drawn as 26.3's potted models (spec §90, step D2)
+		McFlyMixins.EARLY.add("base.MixinBlockFlowerPot");
+		// McFly's game events (spec §90.9, step H1): what Forge has no event for
+		McFlyMixins.EARLY.add("gameevent.MixinBlockDoor");
+		McFlyMixins.EARLY.add("gameevent.MixinTileEntityNote");
+		McFlyMixins.EARLY.add("gameevent.MixinItemShears");
+		McFlyMixins.EARLY.add("gameevent.MixinEntity");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityLivingBase");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityPlayer");
+		McFlyMixins.EARLY.add("gameevent.MixinItemStack");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockLever");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockButton");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockBasePressurePlate");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockTripWireHook");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockTripWire");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockTrapDoor");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockFenceGate");
+		// the wood sets' fences (spec §91.5, step C): 26.3's joining for vanilla's fences too
+		McFlyMixins.EARLY.add("wood.MixinBlockFence");
+		// doors and trapdoors (spec §91.6, step D): vanilla's by 26.3's rules, sounds by state; trapdoors over ladders
+		McFlyMixins.EARLY.add("wood.MixinBlockDoor");
+		McFlyMixins.EARLY.add("wood.MixinBlockTrapDoor");
+		McFlyMixins.EARLY.add("wood.MixinBlockFenceGateSound");
+		McFlyMixins.EARLY.add("wood.MixinBlockLadder");
+		// buttons and plates (spec §91.7, step E): every button's floor and ceiling facings, the set types' clicks
+		McFlyMixins.EARLY.add("wood.MixinBlockButton");
+		McFlyMixins.EARLY.add("wood.MixinBlockBasePressurePlate");
+		// 26.3's signs for every sign (spec 91.8): two sides, the editor, placing, drawn as models (the applicators by modernSignText)
+		McFlyMixins.EARLY.add("wood.MixinTileEntitySign");
+		McFlyMixins.EARLY.add("wood.MixinBlockSign");
+		McFlyMixins.EARLY.add("wood.MixinItemSign");
+		McFlyMixins.EARLY.add("wood.MixinNetHandlerPlayServerSign");
+		// the boats (spec 91.12, step J)
+		if (McFlyConfig.enableNewBoats) {
+			McFlyMixins.EARLY.add("boat.MixinBlockLilyPad");
+			McFlyMixins.EARLY.add("boat.MixinBoatDismount");
+			McFlyMixins.EARLY.add("boat.MixinBoatMobDismount");
+			McFlyMixins.EARLY.add("boat.MixinBoatStat");
+			McFlyMixins.EARLY.add("boat.MixinItemBoat");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				McFlyMixins.EARLY.add("boat.client.MixinEntityTurn");
+			}
+		}
+		if (side == MixinEnvironment.Side.CLIENT) {
+			McFlyMixins.EARLY.add("wood.client.MixinRenderBlocksFence");
+			McFlyMixins.EARLY.add("wood.client.MixinBlockSignIcon");
+			McFlyMixins.EARLY.add("wood.client.MixinMinecraftSignSwing");
+		}
+		McFlyMixins.EARLY.add("gameevent.MixinContainerChest");
+		McFlyMixins.EARLY.add("gameevent.MixinTileEntityChest");
+		McFlyMixins.EARLY.add("gameevent.MixinTileEntityEnderChest");
+		McFlyMixins.EARLY.add("gameevent.MixinItemBucket");
+		McFlyMixins.EARLY.add("gameevent.MixinItemGlassBottle");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockTNT");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityCreeper");
+		McFlyMixins.EARLY.add("gameevent.MixinExplosion");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityLightningBolt");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityArrow");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityThrowable");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityFireball");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityFishHook");
+		McFlyMixins.EARLY.add("gameevent.MixinItemFishingRod");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityEnderman");
+		McFlyMixins.EARLY.add("gameevent.MixinItemMonsterPlacer");
+		McFlyMixins.EARLY.add("gameevent.MixinItemMinecart");
+		McFlyMixins.EARLY.add("gameevent.MixinItemBoat");
+		McFlyMixins.EARLY.add("gameevent.MixinItemHangingEntity");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityChicken");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityLiving");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityPlayerInteract");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockCauldron");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockFarmland");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockCake");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockFlowerPotEvent");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityItemFrame");
+		McFlyMixins.EARLY.add("gameevent.MixinItemLead");
+		McFlyMixins.EARLY.add("gameevent.MixinItemDye");
+		McFlyMixins.EARLY.add("gameevent.MixinMobSpawnerBaseLogic");
+		McFlyMixins.EARLY.add("gameevent.MixinItemRecord");
+		McFlyMixins.EARLY.add("gameevent.MixinBlockJukebox");
+		McFlyMixins.EARLY.add("gameevent.MixinEntityBat");
+		// sculk (spec §90.9, step H3): a death's experience taken by a catalyst drops no orbs
+		McFlyMixins.EARLY.add("sculk.MixinEntityLivingBase");
+		// the shrieker's warning on the player, Darkness's blend and look (step H4)
+		McFlyMixins.EARLY.add("sculk.MixinEntityPlayer");
+		McFlyMixins.EARLY.add("sculk.MixinEntityPlayerMP");
+		McFlyMixins.EARLY.add("sculk.MixinEntityLivingBaseBlend");
+		if (side == MixinEnvironment.Side.CLIENT) {
+			McFlyMixins.EARLY.add("sculk.client.MixinEntityRendererDarkness");
+		}
+		if (side == MixinEnvironment.Side.CLIENT) {
+			McFlyMixins.EARLY.add("base.client.MixinRenderBlocksFlowerPot");
 		}
 
 		// spectator mode (spec §83): ours, from McFly's mixin config
@@ -120,24 +219,20 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("closedrops.MixinEntityPlayerMP");
 		}
 
-		if (ConfigMixins.enableElytra) {
-			mixins.add("backlytra.MixinEntityPlayer");
-			McFlyMixins.EARLY.add("backlytra.MixinItemFirework");
-			mixins.add("backlytra.MixinEntityLivingBase");
-			mixins.add("backlytra.MixinNetHandlerPlayServer");
-			mixins.add("backlytra.MixinEntityTrackerEntry");
-			if (loadedCoreMods.stream().anyMatch(name -> name.contains("thaumcraft"))) {
-				mixins.add("backlytra.thaumcraft.MixinEventHandlerEntity");
+		// the elytra (spec §85): ours, from McFly's mixin config
+		if (McFlyConfig.enableElytra) {
+			for (String mixin : new String[]{"MixinEntityPlayer", "MixinItemFirework", "MixinEntityLivingBase", "MixinNetHandlerPlayServer", "MixinEntityTrackerEntry"}) {
+				McFlyMixins.EARLY.add("elytra." + mixin);
 			}
 			if (side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("backlytra.client.MixinEntityPlayerSP");
-				mixins.add("backlytra.client.MixinRenderPlayer");
-				mixins.add("backlytra.client.MixinModelBiped");
+				McFlyMixins.EARLY.add("elytra.client.MixinEntityPlayerSP");
+				McFlyMixins.EARLY.add("elytra.client.MixinRenderPlayer");
+				McFlyMixins.EARLY.add("elytra.client.MixinModelBiped");
 			}
 		}
 
 		// The pose system; the elytra's hitbox and eye height come from it too (ModernMovement.isPoseSystemEnabled).
-		if (McFlyConfig.enableModernSneaking || McFlyConfig.enableModernSwimming || ConfigMixins.enableElytra) {
+		if (McFlyConfig.enableModernSneaking || McFlyConfig.enableModernSwimming || McFlyConfig.enableElytra) {
 			McFlyMixins.EARLY.add("modernmovement.MixinEntityPlayer");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				McFlyMixins.EARLY.add("modernmovement.client.MixinEntityRenderer");
@@ -255,15 +350,6 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			if (McFlyConfig.modernItemFrames || McFlyConfig.enableGlowItemFrames) {
 				McFlyMixins.EARLY.add("frames.client.MixinRenderItemFrame");
 				McFlyMixins.EARLY.add("frames.client.AccessorRenderItemFrame");
-			}
-		}
-
-		// signs take dyes, glow ink, ink sacs and honeycomb (spec §67.2)
-		if (McFlyConfig.modernSignText) {
-			McFlyMixins.EARLY.add("signs.MixinTileEntitySign");
-			McFlyMixins.EARLY.add("signs.MixinBlockSign");
-			if (side == MixinEnvironment.Side.CLIENT) {
-				McFlyMixins.EARLY.add("signs.client.MixinTileEntitySignRenderer");
 			}
 		}
 
@@ -705,10 +791,6 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("sounds.MixinEntityWitch");
 		}
 
-		if (ConfigMixins.floorCeilingButtons) {
-			mixins.add("floorceilbutton.MixinBlockButton");
-		}
-
 		if (ConfigMixins.newEnderEyeSounds) {
 			mixins.add("sounds.MixinItemEnderEye");
 			mixins.add("sounds.MixinEntityEnderEye");
@@ -730,10 +812,11 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("sounds.MixinItemHoe");
 		}
 
-		if (ConfigMixins.enableObservers) {
-			mixins.add("observer.MixinWorld");
-			mixins.add("observer.MixinWorldServer");
-			mixins.add("observer.MixinChunk");
+		// the observer (spec §86): ours, from McFly's mixin config
+		if (McFlyConfig.enableObservers) {
+			McFlyMixins.EARLY.add("redstone.MixinWorldObserverUpdates");
+			McFlyMixins.EARLY.add("redstone.MixinChunkPopulating");
+			McFlyMixins.EARLY.add("redstone.AccessorWorldServerTicks");
 		}
 
 		if (ConfigMixins.arrowFallingFix) {
@@ -757,32 +840,27 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("posttreegen.MixinWorldGenAbstractTree");
 		}
 
-		if (ConfigMixins.ladderTrapdoors) {
-			mixins.add("laddertrapdoors.MixinBlockLadder");
-			mixins.add("laddertrapdoors.MixinBlockTrapdoor");
-		}
-
 		if (ConfigMixins.betterPistons) {
 			mixins.add("backinslime.MixinBlockPistonBase");
 		}
 
-		if (ConfigMixins.soulFire) {
-			mixins.add("soulfire.MixinBlockFire");
-			if(loadedCoreMods.stream().anyMatch(name -> name.contains("rple"))) { //RPLE compat
-				mixins.add("soulfire.MixinBlockFireRPLE");
-			}
-			mixins.add("soulfire.MixinEntity");
-			if (side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("soulfire.MixinRenderBlocks");
-			}
+		// soul fire (spec §88.6): fire on a soul base is McFly's soul fire; basalt from lava
+		if (McFlyConfig.enableSoulSoil || McFlyConfig.enableSoulLighting) {
+			McFlyMixins.EARLY.add("soulfire.MixinBlockFire");
+			McFlyMixins.EARLY.add("soulfire.MixinBlockLiquid");
+		}
+		// netherrack takes bonemeal next to nylium (spec §88.7)
+		if (McFlyConfig.enableNetherPlants) {
+			McFlyMixins.EARLY.add("nether.MixinBlockNetherrack");
 		}
 
 		if (ConfigMixins.hideSingleLevelEnchants) {
 			mixins.add("singlelevel.MixinEnchantment");
 		}
 
-		if (ConfigMixins.fireproofItems) {
-			mixins.add("uninflammableitem.MixinEntityItem");
+		// fire-resistant items (spec §88.4): 26.3's set, by McFly's marker, not EFR's name rule
+		if (McFlyConfig.enableNetherite) {
+			McFlyMixins.EARLY.add("fireresistant.MixinEntityItem");
 		}
 
         if (ConfigMixins.enableJumpClimbing)
@@ -890,19 +968,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
             mixins.add("wither.MixinBlockSkull_OnPlacingWitherSkull");
         }
 
-		// unitTAS, the in-game test runner: they do nothing unless a run was asked for (UNITTAS.md)
-		if (side == MixinEnvironment.Side.CLIENT) {
-			mixins.add("unittas.client.MixinMinecraft");
-			mixins.add("unittas.client.MixinMouseHelper");
-			mixins.add("unittas.client.MixinSoundHandler");
-			// the loading trace (handoff upcoming 39): records only while a run loads its world, never required
-			mixins.add("unittas.client.MixinNetworkManagerTrace");
-			mixins.add("unittas.client.MixinNetworkSystemTrace");
-			mixins.add("unittas.client.MixinHandshakeTrace");
-			mixins.add("unittas.client.MixinLoginServerTrace");
-			mixins.add("unittas.client.MixinLoginClientTrace");
-			mixins.add("unittas.client.MixinPlayClientTrace");
-		}
+		// unitTAS is a development dependency of its own now (its own mod and mixin config)
 
 		// ours, chosen above into McFly's list, applied from our own mixin config (spec §79 B3)
 		if (!mcflyConfigAdded) {

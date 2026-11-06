@@ -1,0 +1,32 @@
+// unitTAS's tests (src/unittas/java): a source set of their own, in no jar, on the dev client's class path
+sourceSets {
+    unittas {
+        // lazily: the buildscript sets main's class paths (Minecraft on them) after this file is read
+        compileClasspath += sourceSets.main.output + files({ sourceSets.main.compileClasspath })
+        runtimeClasspath += sourceSets.main.output + files({ sourceSets.main.runtimeClasspath })
+    }
+}
+configurations.unittasAnnotationProcessor.extendsFrom(configurations.annotationProcessor)
+tasks.named('runClient', JavaExec).configure {
+    classpath(sourceSets.unittas.output)
+}
+
+// The tests as a jar of their own in Searge names, as the release jar is, for a real game (the old saves, spec §75):
+// unitTAS finds their @TasSuite classes in mods/ as it does in a development run. In no published artifact.
+def unittasDevJar = tasks.register('unittasDevJar', Jar) {
+    from sourceSets.unittas.output
+    archiveClassifier.set('unittas-dev')
+}
+tasks.register('unittasJar', com.gtnewhorizons.retrofuturagradle.mcp.ReobfuscatedJar) {
+    def reobf = tasks.named('reobfJar', com.gtnewhorizons.retrofuturagradle.mcp.ReobfuscatedJar)
+    setInputJarFromTask(unittasDevJar)
+    mcVersion.set(reobf.flatMap { it.mcVersion })
+    srg.set(reobf.flatMap { it.srg })
+    fieldCsv.set(reobf.flatMap { it.fieldCsv })
+    methodCsv.set(reobf.flatMap { it.methodCsv })
+    exceptorCfg.set(reobf.flatMap { it.exceptorCfg })
+    recompMcJar.set(reobf.flatMap { it.recompMcJar })
+    referenceClasspath.from(reobf.map { it.referenceClasspath })
+    referenceClasspath.from(sourceSets.main.output)
+    archiveClassifier.set('unittas')
+}

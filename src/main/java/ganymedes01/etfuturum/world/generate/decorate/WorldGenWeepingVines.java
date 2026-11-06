@@ -17,7 +17,7 @@ public class WorldGenWeepingVines extends WorldGenerator {
 			return false;
 		} else {
 			Block block = world.getBlock(x, y + 1, z);
-			if (!(block instanceof BlockNetherrack) && !(block == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
+			if (!(block instanceof BlockNetherrack) && !(block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
 				return false;
 			} else {
 				this.placeRoofNetherWart(world, rand, x, y, z);
@@ -28,7 +28,7 @@ public class WorldGenWeepingVines extends WorldGenerator {
 	}
 
 	private void placeRoofNetherWart(World world, Random rand, int x, int y, int z) {
-		world.setBlock(x, y, z, ModBlocks.NETHER_WART.get());
+		world.setBlock(x, y, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get());
 
 		for (int i = 0; i < 200; ++i) {
 			int xOff = x + (rand.nextInt(6) - rand.nextInt(6));
@@ -39,7 +39,7 @@ public class WorldGenWeepingVines extends WorldGenerator {
 
 				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 					Block block = world.getBlock(xOff + dir.offsetX, yOff + dir.offsetY, zOff + dir.offsetZ);
-					if (block instanceof BlockNetherrack || (block == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
+					if (block instanceof BlockNetherrack || (block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
 						++j;
 					}
 
@@ -49,7 +49,7 @@ public class WorldGenWeepingVines extends WorldGenerator {
 				}
 
 				if (j == 1) {
-					world.setBlock(xOff, yOff, zOff, ModBlocks.NETHER_WART.get());
+					world.setBlock(xOff, yOff, zOff, io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get());
 				}
 			}
 		}
@@ -63,7 +63,7 @@ public class WorldGenWeepingVines extends WorldGenerator {
 			int zOff = z + (rand.nextInt(8) - rand.nextInt(8));
 			if (world.isAirBlock(xOff, yOff, zOff)) {
 				Block block = world.getBlock(xOff, yOff + 1, zOff);
-				if (block instanceof BlockNetherrack || (block == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
+				if (block instanceof BlockNetherrack || (block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y + 1, z) == 0)) {
 					int j = MathHelper.getRandomIntegerInRange(rand, 1, 8);
 					if (rand.nextInt(6) == 0) {
 						j *= 2;
@@ -84,10 +84,10 @@ public class WorldGenWeepingVines extends WorldGenerator {
 				if (i == size || !world.isAirBlock(x, y - i - 1, z)) {
 					//My weeping vines don't have an age value. However 1 is no-grow weeping vines, so we use that instead if the age is 25 (max age)
 					//So at the end of natural vine growth we'll just set them all to not grow any more. Not exactly vanilla but whatever
-					world.setBlock(x, y - i, z, ModBlocks.WEEPING_VINES.get(), 1, 2);
+					world.setBlock(x, y - i, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.WEEPING_VINES.get(), 1, 2);
 					break;
 				} else {
-					world.setBlock(x, y - i, z, ModBlocks.WEEPING_VINES.get());
+					world.setBlock(x, y - i, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.WEEPING_VINES.get());
 				}
 			}
 		}

@@ -1,0 +1,5 @@
+# 26.3's smithing table and template recipes (SPEC-modern-movement.md §88.4, step C2; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py), one a line: name, kind, pattern rows ('.' empty) and keys or ingredients, ->
+# count result. #planks cut to 1.7.10's six woods (the others are the wood sets' item's).
+netherite_upgrade_smithing_template shaped #S#/#C#/### #=diamond C=netherrack S=netherite_upgrade_smithing_template -> 2 netherite_upgrade_smithing_template
+smithing_table shaped @@/##/## #=oak_planks|spruce_planks|birch_planks|jungle_planks|acacia_planks|dark_oak_planks @=iron_ingot -> 1 smithing_table

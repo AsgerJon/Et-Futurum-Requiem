@@ -29,7 +29,7 @@ public class NetherBiomeManager {
 		if (ConfigWorld.soulSandValleyID != -1) {
 			soulSandValley = new BiomeSoulSandValley(ConfigWorld.soulSandValleyID).setBiomeName("Soul Sand Valley");
 		}
-		if (ConfigWorld.basaltDeltasID != -1 && ModBlocks.BASALT.isEnabled() && ModBlocks.BLACKSTONE.isEnabled()) {
+		if (ConfigWorld.basaltDeltasID != -1 && io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.isEnabled()) {
 			basaltDeltas = new BiomeBasaltDeltas(ConfigWorld.basaltDeltasID).setBiomeName("Basalt Deltas");
 		}
 

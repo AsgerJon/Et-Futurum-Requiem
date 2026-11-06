@@ -1,0 +1,20 @@
+# 26.3's recipes for the boats and rafts (SPEC-modern-movement.md 91.12, step J; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py).
+acacia_boat shaped #.#/### #=acacia_planks -> 1 acacia_boat
+acacia_chest_boat shapeless chest acacia_boat -> 1 acacia_chest_boat
+bamboo_chest_raft shapeless chest bamboo_raft -> 1 bamboo_chest_raft
+bamboo_raft shaped #.#/### #=bamboo_planks -> 1 bamboo_raft
+birch_boat shaped #.#/### #=birch_planks -> 1 birch_boat
+birch_chest_boat shapeless chest birch_boat -> 1 birch_chest_boat
+cherry_boat shaped #.#/### #=cherry_planks -> 1 cherry_boat
+cherry_chest_boat shapeless chest cherry_boat -> 1 cherry_chest_boat
+dark_oak_boat shaped #.#/### #=dark_oak_planks -> 1 dark_oak_boat
+dark_oak_chest_boat shapeless chest dark_oak_boat -> 1 dark_oak_chest_boat
+jungle_boat shaped #.#/### #=jungle_planks -> 1 jungle_boat
+jungle_chest_boat shapeless chest jungle_boat -> 1 jungle_chest_boat
+mangrove_boat shaped #.#/### #=mangrove_planks -> 1 mangrove_boat
+mangrove_chest_boat shapeless chest mangrove_boat -> 1 mangrove_chest_boat
+oak_boat shaped #.#/### #=oak_planks -> 1 oak_boat
+oak_chest_boat shapeless chest oak_boat -> 1 oak_chest_boat
+spruce_boat shaped #.#/### #=spruce_planks -> 1 spruce_boat
+spruce_chest_boat shapeless chest spruce_boat -> 1 spruce_chest_boat

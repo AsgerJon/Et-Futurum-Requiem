@@ -1,0 +1,24 @@
+# 26.3's recipes for the fences and gates (SPEC-modern-movement.md §91.5, step C; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py).
+acacia_fence shaped W#W/W#W #=stick W=acacia_planks -> 3 acacia_fence
+acacia_fence_gate shaped #W#/#W# #=stick W=acacia_planks -> 1 acacia_fence_gate
+bamboo_fence shaped W#W/W#W #=stick W=bamboo_planks -> 3 bamboo_fence
+bamboo_fence_gate shaped #W#/#W# #=stick W=bamboo_planks -> 1 bamboo_fence_gate
+birch_fence shaped W#W/W#W #=stick W=birch_planks -> 3 birch_fence
+birch_fence_gate shaped #W#/#W# #=stick W=birch_planks -> 1 birch_fence_gate
+cherry_fence shaped W#W/W#W #=stick W=cherry_planks -> 3 cherry_fence
+cherry_fence_gate shaped #W#/#W# #=stick W=cherry_planks -> 1 cherry_fence_gate
+crimson_fence shaped W#W/W#W #=stick W=crimson_planks -> 3 crimson_fence
+crimson_fence_gate shaped #W#/#W# #=stick W=crimson_planks -> 1 crimson_fence_gate
+dark_oak_fence shaped W#W/W#W #=stick W=dark_oak_planks -> 3 dark_oak_fence
+dark_oak_fence_gate shaped #W#/#W# #=stick W=dark_oak_planks -> 1 dark_oak_fence_gate
+jungle_fence shaped W#W/W#W #=stick W=jungle_planks -> 3 jungle_fence
+jungle_fence_gate shaped #W#/#W# #=stick W=jungle_planks -> 1 jungle_fence_gate
+mangrove_fence shaped W#W/W#W #=stick W=mangrove_planks -> 3 mangrove_fence
+mangrove_fence_gate shaped #W#/#W# #=stick W=mangrove_planks -> 1 mangrove_fence_gate
+oak_fence shaped W#W/W#W #=stick W=oak_planks -> 3 oak_fence
+oak_fence_gate shaped #W#/#W# #=stick W=oak_planks -> 1 oak_fence_gate
+spruce_fence shaped W#W/W#W #=stick W=spruce_planks -> 3 spruce_fence
+spruce_fence_gate shaped #W#/#W# #=stick W=spruce_planks -> 1 spruce_fence_gate
+warped_fence shaped W#W/W#W #=stick W=warped_planks -> 3 warped_fence
+warped_fence_gate shaped #W#/#W# #=stick W=warped_planks -> 1 warped_fence_gate

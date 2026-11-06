@@ -32,7 +32,6 @@ import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.client.particle.DeferredBubbleFX;
-import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import ganymedes01.etfuturum.client.sound.AmbienceLoop;
 import ganymedes01.etfuturum.client.sound.BeeFlySound;
 import ganymedes01.etfuturum.client.sound.EndFlashSound;
@@ -49,11 +48,8 @@ import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityBee;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.items.ItemHoneyBottle;
-import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
 import net.minecraft.block.Block;
@@ -111,7 +107,6 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -122,7 +117,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.WeakHashMap;
 
 
 import static io.github.asgerjon.mcfly.spectator.Spectator.isSpectator;
@@ -136,12 +130,6 @@ public class ClientEventHandler {
 	private boolean wasInEnd;
 	private boolean showedDebugWarning;
 	private int currPage;
-	/**
-	 * Represents the two values that govern the last chime age in 1.17 and up.
-	 * Left = field_26997 (Seems to be related to pitch)
-	 * Right = lastChimeAge
-	 */
-	private static final Map<Entity, MutablePair<Float, Integer>> AMETHYST_CHIME_CACHE = new WeakHashMap<>();
 	/**
 	 * Used by sound events to get the unlocalized name for the specific state of a block. This is handled on the item's end of things.
 	 * So I use this "storage" stack to store the block I want the meta-name for, so I don't create new ItemStack instances constantly.
@@ -207,15 +195,6 @@ public class ClientEventHandler {
 					Logger.warn(I18n.format("efr.log.experimental.bugs"));
 				}
 				showedDebugWarning = true;
-			}
-			if (ModItems.ELYTRA.isEnabled() && Utils.badBetterFPSAlgorithm()) {
-				ChatComponentText text = new ChatComponentText(I18n.format("efr.critical.badbetterfpsalgorithm1") +
-						I18n.format("efr.critical.badbetterfpsalgorithm2") +
-						I18n.format("efr.critical.badbetterfpsalgorithm3"));
-				player.addChatComponentMessage(text);
-				text = new ChatComponentText(I18n.format("efr.elytra.flight.disabled"));
-				text.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true));
-				player.addChatComponentMessage(text);
 			}
 		}
 
@@ -448,24 +427,6 @@ public class ClientEventHandler {
 		}
 	}
 
-	/**
-	 * The cape isn't drawn while an elytra is worn; the wings use the cape texture instead (§21.2).
-	 */
-	@SubscribeEvent
-	public void renderPlayerSpecialsPre(RenderPlayerEvent.Specials.Pre event) {
-		if (ConfigMixins.enableElytra && ItemArmorElytra.getElytra(event.entityPlayer) != null) {
-			event.renderCape = false;
-		}
-	}
-
-	@SubscribeEvent
-	public void renderPlayerSpecialsPost(RenderPlayerEvent.Specials.Post event) {
-		if (ConfigMixins.enableElytra && !isSpectator(event.entityPlayer)) {
-			EntityPlayer player = event.entityPlayer;
-			LayerBetterElytra.doRenderLayer(player, player.limbSwing, player.limbSwingAmount, event.partialRenderTick, player.ticksExisted + event.partialRenderTick, 0.0625F);
-		}
-	}
-
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
 		if (isSpectator(event.entityPlayer)) {
@@ -522,12 +483,7 @@ public class ClientEventHandler {
 			}
 
 
-			//Opening and closing doors/chests
-			if (ConfigSounds.doorOpenClose && event.name.contains("random.door")) {
-				event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
-						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				return;
-			}
+			// doors, trapdoors and gates sound by their set type and new state, McFly's (spec §91.6); chests:
 			if (ConfigSounds.chestOpenClose && event.name.contains("random.chest")) {
 				String s = event.name;
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
@@ -544,47 +500,7 @@ public class ClientEventHandler {
 				}
 			}
 
-			//We check what sound event to use by the pitch. These blocks fire 0.6F when turning on, and 0.5F when turning off. We use > 0.5F instead of == 0.6F to account for floating point precision.w
-			if (ConfigSounds.pressurePlateButton) {
-				// --- Wooden Button --- //
-				if (block instanceof BlockButton && event.name.equals("random.click")) {
-					String s = null;
-					if (block.stepSound == Block.soundTypeWood) {
-						s = Reference.MCAssetVer + ":block.wooden_button.click";
-					} else if (block.stepSound == ModSounds.soundNetherWood) {
-						s = Reference.MCAssetVer + ":block.nether_wood_button.click";
-					} else if (block.stepSound == ModSounds.soundCherryWood) {
-						s = Reference.MCAssetVer + ":block.cherry_wood_button.click";
-					} else if (block.stepSound == ModSounds.soundBambooWood) {
-						s = Reference.MCAssetVer + ":block.bamboo_wood_button.click";
-					}
-					if (s != null) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
-					}
-					return;
-				}
-
-				// --- Wooden/Metal Pressure plate --- //
-				if (block instanceof BlockBasePressurePlate && event.name.equals("random.click")) {
-					String s = null;
-					if (block.stepSound == Block.soundTypeMetal) {
-						s = Reference.MCAssetVer + ":block.metal_pressure_plate.click";
-					} else if (block.stepSound == Block.soundTypeWood) {
-						s = Reference.MCAssetVer + ":block.wooden_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundNetherWood) {
-						s = Reference.MCAssetVer + ":block.nether_wood_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundCherryWood) {
-						s = Reference.MCAssetVer + ":block.cherry_wood_pressure_plate.click";
-					} else if (block.stepSound == ModSounds.soundBambooWood) {
-						s = Reference.MCAssetVer + ":block.bamboo_wood_pressure_plate.click";
-					}
-
-					if (s != null) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
-					}
-					return;
-				}
-			}
+			// buttons' and pressure plates' clicks are their set types', McFly's (spec §91.7)
 
 			// --- Note Blocks --- //
 			if (ConfigSounds.noteBlockNotes && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
@@ -677,67 +593,6 @@ public class ClientEventHandler {
 		}
 	}
 
-	private String getReplacementDoorSound(Block block, String string) {
-		Random random = new Random();
-		String closeOrOpen = random.nextBoolean() ? "open" : "close";
-		if (block instanceof BlockDoor) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Reference.MCAssetVer + ":block.nether_wood_door." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Reference.MCAssetVer + ":block.cherry_wood_door." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Reference.MCAssetVer + ":block.bamboo_wood_door." + closeOrOpen;
-				}
-				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
-			} else if (block.getMaterial() == Material.iron) {
-				if (block.stepSound == ModSounds.soundCopper) {
-					return Reference.MCAssetVer + ":block.copper_door." + closeOrOpen;
-				}
-				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
-			}
-		}
-
-		if (block instanceof BlockTrapDoor) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Reference.MCAssetVer + ":block.nether_wood_trapdoor." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Reference.MCAssetVer + ":block.cherry_wood_trapdoor." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Reference.MCAssetVer + ":block.bamboo_wood_trapdoor." + closeOrOpen;
-				}
-				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
-			} else if (block.getMaterial() == Material.iron) {
-				if (block.stepSound == ModSounds.soundCopper) {
-					return Reference.MCAssetVer + ":block.copper_trapdoor." + closeOrOpen;
-				}
-				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
-			}
-		}
-
-		if (block instanceof BlockFenceGate) {
-			if (block.getMaterial() == Material.wood) {
-				if (block.stepSound == ModSounds.soundNetherWood) {
-					return Reference.MCAssetVer + ":block.nether_wood_fence_gate." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundCherryWood) {
-					return Reference.MCAssetVer + ":block.cherry_wood_fence_gate." + closeOrOpen;
-				}
-				if (block.stepSound == ModSounds.soundBambooWood) {
-					return Reference.MCAssetVer + ":block.bamboo_wood_fence_gate." + closeOrOpen;
-				}
-				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
-			}
-		}
-
-		return string;
-	}
-
 	private static final String ignore_suffix = "$etfuturum:ignore";
 
 	@SubscribeEvent
@@ -808,24 +663,6 @@ public class ClientEventHandler {
 				entity.playSound(newSoundString + ignore_suffix, volume, pitch);
 				event.setCanceled(true);
 			}
-		} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(entity);
-			if (pair == null) {
-				pair = new MutablePair<>(0.0F, 0);
-			}
-			float field_26997 = pair.getLeft();
-			int lastChimeAge = pair.getRight();
-			if (entity.ticksExisted >= lastChimeAge + 20) {
-				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, entity.ticksExisted - lastChimeAge));
-				field_26997 = Math.min(1.0F, field_26997 + 0.07F);
-				float f = 0.5F + field_26997 * entity.worldObj.rand.nextFloat() * 1.2F;
-				float g = 0.1F + field_26997 * 1.2F;
-				entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
-				lastChimeAge = entity.ticksExisted;
-				pair.setLeft(field_26997);
-				pair.setRight(lastChimeAge);
-				AMETHYST_CHIME_CACHE.put(entity, pair);
-			}
 		}
 	}
 
@@ -888,11 +725,6 @@ public class ClientEventHandler {
 				}
 				oldConfig.getCategory("warned").get("configWarningShown").comment = "";
 				oldConfig.save();
-			}
-		} else if (ConfigBlocksItems.enableNewBoats && event.gui instanceof GuiInventory) {
-			if (mc.thePlayer.ridingEntity instanceof EntityNewBoatWithChest) {
-				event.setCanceled(true);
-				EtFuturum.networkWrapper.sendToServer(new ChestBoatOpenInventoryMessage());
 			}
 		}
 	}

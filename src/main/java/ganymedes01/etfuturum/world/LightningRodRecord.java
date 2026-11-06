@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.world;
 
 import io.github.asgerjon.mcfly.McFly;
-import ganymedes01.etfuturum.blocks.BlockLightningRod;
+import io.github.asgerjon.mcfly.copper.LightningRodBlock;
 import ganymedes01.etfuturum.trident.Lightning;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
@@ -83,7 +83,7 @@ public class LightningRodRecord extends WorldSavedData {
 		for (ChunkCoordinates pos : positions) {
 			float distance = pos.getDistanceSquared(x, y, z);
 			if (distance <= closestDistance && world.blockExists(pos.posX, pos.posY, pos.posZ)
-				&& world.getBlock(pos.posX, pos.posY, pos.posZ) instanceof BlockLightningRod
+				&& world.getBlock(pos.posX, pos.posY, pos.posZ) instanceof LightningRodBlock
 				&& Lightning.isHighestInColumn(world, pos.posX, pos.posY, pos.posZ)) {
 				closest = pos;
 				closestDistance = distance;

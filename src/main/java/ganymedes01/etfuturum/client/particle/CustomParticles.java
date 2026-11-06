@@ -38,11 +38,6 @@ public class CustomParticles {
 		return spawnParticle(world, particle);
 	}
 
-	public static EntityFX spawnEndRodParticle(World world, double x, double y, double z) {
-		EntityFX particle = new EndRodFX(world, x, y, z);
-		return spawnParticle(world, particle);
-	}
-
 	public static EntityFX spawnFallingDustParticle(World world, double x, double y, double z, int color) {
 		EntityFX particle = new FallingDustFX(world, x, y, z, color);
 		return spawnParticle(world, particle);
@@ -93,20 +88,8 @@ public class CustomParticles {
 		return spawnParticle(world, particle);
 	}
 
-	public static EntityFX spawnCherryLeaf(World world, double x, double y, double z) {
-		EntityFX particle = new CherryLeafFX(world, x, y, z);
-		return spawnParticle(world, particle);
-	}
 
-	public static EntityFX spawnSoulFlame(World world, double x, double y, double z, double mX, double mY, double mZ) {
-		EntityFX particle = new SoulFlameFX(world, x, y, z, mX, mY, mZ);
-		return spawnParticle(world, particle);
-	}
 
-	public static EntityFX spawnSoulFlame(World world, double x, double y, double z) {
-		EntityFX particle = new SoulFlameFX(world, x, y, z);
-		return spawnParticle(world, particle);
-	}
 
 	public static EntityFX spawnBubbleColumnUp(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		EntityFX particle = new BubbleColumnFX(world, x, y, z, xSpeed, ySpeed, zSpeed);

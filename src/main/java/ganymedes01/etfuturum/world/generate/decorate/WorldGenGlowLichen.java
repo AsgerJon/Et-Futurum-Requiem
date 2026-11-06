@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.generate.decorate;
 
-import ganymedes01.etfuturum.blocks.BlockGlowLichen;
-import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -35,17 +33,13 @@ public class WorldGenGlowLichen extends WorldGenerator {
                     int meta = 1 << side;
                     world.setBlock(x, y, z, glowLichen);
 
-                    Block block = world.getBlock(x,y,z);
-                    if (block instanceof BlockGlowLichen lichen)
+                    // McFly's lichen (spec §90.3): its faces and bonemeal spread
+                    if (world.getBlock(x, y, z) instanceof io.github.asgerjon.mcfly.caves.GlowLichenBlock lichen)
                     {
-                        TileEntity te = world.getTileEntity(x,y,z);
-                        if (te instanceof TileEntityGlowLichen teLichen)
+                        lichen.setFaces(world, x, y, z, meta);
+                        for (int i = 0; i < rand.nextInt(7); i++)
                         {
-                            ((TileEntityGlowLichen) te).setSideMap(meta);
-                            for (int i = 0; i < rand.nextInt(7); i++)
-                            {
-                                lichen.func_149853_b(world, rand, x,y,z);
-                            }
+                            lichen.func_149853_b(world, rand, x, y, z);
                         }
                     }
                     return true;

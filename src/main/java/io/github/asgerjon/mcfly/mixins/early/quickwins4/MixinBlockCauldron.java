@@ -59,12 +59,16 @@ public abstract class MixinBlockCauldron {
 				world.func_147453_f(x, y, z, Blocks.cauldron);
 				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.fill", 1.0F, 1.0F);
 				FilledResult.fill(player, held, new ItemStack(Items.water_bucket));
+				// 26.3's `CauldronInteractions.fillBucket` (§90.9, step H1)
+				io.github.asgerjon.mcfly.gameevent.GameEventHooks.atBlock(world, "fluid_pickup", x, y, z, player);
 			}
 			cir.setReturnValue(true);
 		} else if (McFlyConfig.modernCauldrons && held.getItem() == Items.lava_bucket && level > 0 && ModBlocks.LAVA_CAULDRON.isEnabled()) {
 			if (!world.isRemote) {
 				world.setBlock(x, y, z, ModBlocks.LAVA_CAULDRON.get(), 0, 3);
 				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, McFly.MC_ASSETS + ":item.bucket.empty_lava", 1.0F, 1.0F);
+				// 26.3's `CauldronInteractions.emptyBucket`
+				io.github.asgerjon.mcfly.gameevent.GameEventHooks.atBlock(world, "fluid_place", x, y, z, player);
 				if (!player.capabilities.isCreativeMode) {
 					held.func_150996_a(Items.bucket);
 				}
@@ -76,6 +80,9 @@ public abstract class MixinBlockCauldron {
 				FilledResult.fill(player, held, new ItemStack(Items.potionitem, 1, 0));
 				world.setBlockMetadataWithNotify(x, y, z, level - 1, 2);
 				world.func_147453_f(x, y, z, Blocks.cauldron);
+				// 26.3's `lowerFillLevel`, then the bottle's pickup by no one
+				io.github.asgerjon.mcfly.gameevent.GameEvents.postAtBlock(world, "block_change", x, y, z, null, Blocks.cauldron, level - 1);
+				io.github.asgerjon.mcfly.gameevent.GameEventHooks.atBlock(world, "fluid_pickup", x, y, z, null);
 			}
 			cir.setReturnValue(true);
 		}

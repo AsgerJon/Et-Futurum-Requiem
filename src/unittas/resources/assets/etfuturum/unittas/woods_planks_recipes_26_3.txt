@@ -1,0 +1,15 @@
+# 26.3's recipes for the planks' slabs and stairs and the mosaic (SPEC-modern-movement.md §91.4, step B; its
+# data/minecraft/recipe/*.json; unittas_mcfly-sims/recipes_26_3.py).
+bamboo_mosaic shaped #/# #=bamboo_slab -> 1 bamboo_mosaic
+bamboo_mosaic_slab shaped ### #=bamboo_mosaic -> 6 bamboo_mosaic_slab
+bamboo_mosaic_stairs shaped #../##./### #=bamboo_mosaic -> 4 bamboo_mosaic_stairs
+bamboo_slab shaped ### #=bamboo_planks -> 6 bamboo_slab
+bamboo_stairs shaped #../##./### #=bamboo_planks -> 4 bamboo_stairs
+cherry_slab shaped ### #=cherry_planks -> 6 cherry_slab
+cherry_stairs shaped #../##./### #=cherry_planks -> 4 cherry_stairs
+crimson_slab shaped ### #=crimson_planks -> 6 crimson_slab
+crimson_stairs shaped #../##./### #=crimson_planks -> 4 crimson_stairs
+mangrove_slab shaped ### #=mangrove_planks -> 6 mangrove_slab
+mangrove_stairs shaped #../##./### #=mangrove_planks -> 4 mangrove_stairs
+warped_slab shaped ### #=warped_planks -> 6 warped_slab
+warped_stairs shaped #../##./### #=warped_planks -> 4 warped_stairs

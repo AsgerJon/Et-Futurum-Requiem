@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.offhand;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.elytra.FallFlying;
+import io.github.asgerjon.mcfly.elytra.FallFlying;
 import io.github.asgerjon.mcfly.network.UseOffhandMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,7 +59,7 @@ public final class OffhandUse {
 	 */
 	public static boolean consumesClickWithoutChange(EntityPlayer player) {
 		ItemStack held = player.getHeldItem();
-		return ConfigMixins.enableElytra && held != null && held.getItem() == Items.fireworks && FallFlying.isFallFlying(player);
+		return io.github.asgerjon.mcfly.config.McFlyConfig.enableElytra && held != null && held.getItem() == Items.fireworks && FallFlying.isFallFlying(player);
 	}
 
 	/** The server's side of a message: vanilla's checks, then vanilla's use code with the hands swapped. */

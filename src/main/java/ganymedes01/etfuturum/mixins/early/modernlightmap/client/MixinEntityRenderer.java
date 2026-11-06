@@ -44,7 +44,17 @@ public class MixinEntityRenderer {
 	private float etfu$modernGamma(float gamma,
 								   @Local(name = "f8") LocalFloatRef red,
 								   @Local(name = "f9") LocalFloatRef green,
-								   @Local(name = "f10") LocalFloatRef blue) {
+								   @Local(name = "f10") LocalFloatRef blue,
+								   @Local(argsOnly = true) float partialTicks) {
+		// 26.3's Darkness (McFly, spec §90.9, step H4): the brightness less its blend, its pulsing scale off the colour
+		float darkness = io.github.asgerjon.mcfly.potion.DarknessView.brightnessModifier(partialTicks);
+		if (darkness > 0.0F) {
+			float scale = io.github.asgerjon.mcfly.potion.DarknessView.darknessScale(darkness, partialTicks);
+			red.set(etfu$clamp(red.get() - scale));
+			green.set(etfu$clamp(green.get() - scale));
+			blue.set(etfu$clamp(blue.get() - scale));
+			gamma = Math.max(0.0F, gamma - darkness);
+		}
 		if (!this.etfu$hasModernCounterpart) {
 			return gamma;
 		}

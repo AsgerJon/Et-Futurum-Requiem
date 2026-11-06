@@ -1,0 +1,3 @@
+# 26.3's shulker pushed east by a piston: 30 ticks later, from its first block, and its face
+along: moved 1 0 0, face down, alive true
+edge: moved 4 0 -7, face down, alive true

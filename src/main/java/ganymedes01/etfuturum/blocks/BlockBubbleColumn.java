@@ -41,6 +41,9 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 		for (Block b : downBlocks) supportBlockMeta.put(b, 8);
 		setLightOpacity(Blocks.water.getLightOpacity());
 		setBlockName("bubble_column");
+		// 26.3's bubble column has water's sprite for its particles; without a name 1.7.10 asked for
+		// MISSING_ICON_BLOCK_<id>_bubble_column (nothing draws it, but WAILA, NEI or a mod's particles would show it)
+		setBlockTextureName("water_still");
 		setBlockBounds(0, 0, 0, 0, 0, 0);
 	}
 
@@ -90,7 +93,10 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
 		boolean drag = !isUp(worldIn.getBlockMetadata(x, y, z));
 		boolean above = BubbleColumns.isOpenAbove(worldIn, x, y, z);
-		if (entityIn instanceof IBubbleColumnEntity) {
+		if (entityIn instanceof io.github.asgerjon.mcfly.boat.McFlyBoat boat && above) {
+			// 26.3's boats over a column's top: their own timer (spec 91.12); in a column they're pushed as anything is
+			boat.onAboveBubbleColumn(drag);
+		} else if (entityIn instanceof IBubbleColumnEntity) {
 			((IBubbleColumnEntity) entityIn).etfu$queueBubbleColumn(drag, above);
 		} else if (above) {
 			BubbleColumns.pushAbove(entityIn, drag);

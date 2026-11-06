@@ -105,8 +105,8 @@ public final class BrewingTable {
 		}
 		ItemStack gunpowder = new ItemStack(Items.gunpowder);
 		CHANGES.add(new Change(Container.POTION, gunpowder, Container.SPLASH));
-		if (lingeringItem() != null && ModItems.DRAGON_BREATH.isEnabled()) {
-			CHANGES.add(new Change(Container.SPLASH, ModItems.DRAGON_BREATH.newItemStack(), Container.LINGERING));
+		if (lingeringItem() != null && io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.isEnabled()) {
+			CHANGES.add(new Change(Container.SPLASH, io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.newItemStack(), Container.LINGERING));
 		}
 	}
 
@@ -220,7 +220,7 @@ public final class BrewingTable {
 	/** 1.7.10's brewing stand's rule for one slot (EFR's stand's, with its dragon's breath), unchanged. */
 	@SuppressWarnings("rawtypes")
 	private static ItemStack byBits(ItemStack potion, ItemStack reagent) {
-		if (reagent.getItem() == ModItems.DRAGON_BREATH.get()) {
+		if (reagent.getItem() == io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.get()) {
 			Item lingering = lingeringItem();
 			if (lingering != null && potion.getItem() == Items.potionitem && ItemPotion.isSplash(potion.getItemDamage())) {
 				ItemStack made = new ItemStack(lingering, potion.stackSize, potion.getItemDamage());

@@ -9,8 +9,8 @@ public class BiomeBasaltDeltas extends NetherBiomeBase {
 	public BiomeBasaltDeltas(int id) {
 		super(id, new BasaltDeltasDecorator());
 		fogSkyColor = 0x534868;
-		topBlock = ModBlocks.BLACKSTONE.get();
-		fillerBlock = ModBlocks.BASALT.get();
+		topBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.get();
+		fillerBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get();
 
 		spawnableMonsterList.clear();
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityGhast.class, 40, 1, 1));

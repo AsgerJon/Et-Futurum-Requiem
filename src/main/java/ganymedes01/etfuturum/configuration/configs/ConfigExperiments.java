@@ -11,12 +11,9 @@ public class ConfigExperiments extends ConfigBase {
 
 	private static final String catExperiments = "EXPERIMENTAL FEATURES -- TREAD CAREFULLY";
 	private static final List<String> enabledFeatures = Lists.newLinkedList();
-	public static boolean enableSculk;
 	public static boolean enableCrimsonBlocks;
 	public static boolean enableWarpedBlocks;
 	public static boolean enableMangroveBlocks;
-	public static boolean enableMossAzalea;
-	public static boolean enableDripstone;
 
 	public static boolean netherDimensionProvider;
 	public static boolean endDimensionProvider;
@@ -42,9 +39,6 @@ public class ConfigExperiments extends ConfigBase {
 		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catExperiments, false, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");
 		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catExperiments, false, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed. Requires newNether to be enabled without Netherlicious.");
 		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catExperiments, false, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
-		enableSculk = getBoolean("enableSculk", catExperiments, false, "Enables sculk-related blocks.");
-		enableDripstone = getBoolean("enableDripstone", catExperiments, false, "Partially functional. Does not naturally generate.");
-		enableMossAzalea = getBoolean("enableMossAzalea", catExperiments, false, "Enables moss and azalea. Currently azalea saplings do not grow.");
 
 		netherDimensionProvider = getBoolean("netherDimensionProvider", catExperiments, false, "Enables the Nether dimension provider override needed for supplying custom biomes. This is partially ignored if Netherlicious is installed. Netherlicious has compat to generate Et Futurum Requiem biomes with Netherlicious blocks.\nThis is so you can have vanilla-style biomes in Netherlicious while Requiem is installed. Turning this off or setting each individual biome ID to -1 will prevent my version of Nether biomes from generating. Don't forget to turn off my Nether blocks in blocksitems.cfg since my biomes will generate with Netherlicious blocks if available. [not implemented yet]");
 		endDimensionProvider = getBoolean("endDimensionProvider", catExperiments, false, "Enables outer end island generation from 1.9. Gateways are implemented but currently don't generate, but they work. The new dragon fight is currently not implemented and it does not spawn any gateways.");

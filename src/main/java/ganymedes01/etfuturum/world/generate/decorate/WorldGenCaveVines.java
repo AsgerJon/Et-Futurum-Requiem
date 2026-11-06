@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.generate.decorate;
 
 
-import ganymedes01.etfuturum.blocks.BlockCaveVines;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -26,9 +25,9 @@ public class WorldGenCaveVines extends WorldGenerator {
 
             for (int i = 1; i < rand.nextInt(6) + 1; i++)
             {
-                if (world.isAirBlock(x, y - i, z) && world.getBlock(x, y - i + 1, z) instanceof BlockCaveVines vine)
+                if (world.isAirBlock(x, y - i, z) && world.getBlock(x, y - i + 1, z) instanceof io.github.asgerjon.mcfly.caves.CaveVines.Head vine)
                 {
-                    vine.growVine(world, x, y - i + 1, z, false);
+                    vine.growOn(world, x, y - i + 1, z, rand);
                 }
             }
             return true;

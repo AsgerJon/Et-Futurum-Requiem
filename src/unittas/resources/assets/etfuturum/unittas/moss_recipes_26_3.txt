@@ -1,0 +1,4 @@
+# 26.3's recipes for moss (SPEC-modern-movement.md §90.5, step D; unittas_mcfly-sims/recipes_26_3.py).
+moss_carpet shaped ## #=moss_block -> 3 moss_carpet
+mossy_cobblestone_from_moss_block shapeless cobblestone moss_block -> 1 mossy_cobblestone
+mossy_stone_bricks_from_moss_block shapeless stone_bricks moss_block -> 1 mossy_stone_bricks

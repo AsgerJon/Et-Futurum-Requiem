@@ -219,7 +219,7 @@ public class EntityShulkerBullet extends Entity {
 		}
 		rotateTowardsMovement();
 		if (worldObj.isRemote) {
-			CustomParticles.spawnEndRodParticle(worldObj, posX - mx, posY - my + 0.15, posZ - mz);
+			io.github.asgerjon.mcfly.particle.McFlyParticlesClient.add(io.github.asgerjon.mcfly.particle.McFlyParticles.END_ROD, posX - mx, posY - my + 0.15, posZ - mz, 0.0, 0.0, 0.0);
 		} else if (finalTarget != null && !isDead) {
 			if (flightSteps > 0) {
 				flightSteps--;

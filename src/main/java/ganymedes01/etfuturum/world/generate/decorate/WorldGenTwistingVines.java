@@ -72,10 +72,10 @@ public class WorldGenTwistingVines extends WorldGenerator {
 				if (i == size || !world.isAirBlock(x, y + i + 1, z)) {
 					//My twisting vines don't have an age value. However 1 is no-grow weeping vines, so we use that instead if the age is 25 (max age)
 					//So at the end of natural vine growth we'll just set them all to not grow any more. Not exactly vanilla but whatever
-					world.setBlock(x, y + i, z, ModBlocks.TWISTING_VINES.get(), 1, 2);
+					world.setBlock(x, y + i, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.TWISTING_VINES.get(), 1, 2);
 					break;
 				} else {
-					world.setBlock(x, y + i, z, ModBlocks.TWISTING_VINES.get());
+					world.setBlock(x, y + i, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.TWISTING_VINES.get());
 				}
 			}
 		}
@@ -87,7 +87,7 @@ public class WorldGenTwistingVines extends WorldGenerator {
 		} else {
 			Block block = world.getBlock(x, y - 1, z);
 			int meta = world.getBlockMetadata(x, y - 1, z);
-			return !(block instanceof BlockNetherrack || (block == ModBlocks.NYLIUM.get() && meta == 1) || (block == ModBlocks.NETHER_WART.get() && meta == 1));
+			return !(block instanceof BlockNetherrack || (block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get() && meta == 1) || (block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_WART.get() && meta == 1));
 		}
 	}
 }

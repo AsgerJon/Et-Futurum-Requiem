@@ -197,9 +197,9 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 				return drop;
 			}
 		} else if (droppedBlock == Blocks.stone) {
-			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem()); // setItem
+			drop.func_150996_a(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.getItem()); // setItem
 		} else if (droppedBlock == Blocks.cobblestone) {
-			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
+			drop.func_150996_a(io.github.asgerjon.mcfly.registry.McFlyBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
 		}
 		return drop;
 	}

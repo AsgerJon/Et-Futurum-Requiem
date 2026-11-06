@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.command.modern.arguments.EnchantmentIds;
 import ganymedes01.etfuturum.command.modern.arguments.ResourceIds;
 import ganymedes01.etfuturum.command.modern.nbt.Snbt;
 import ganymedes01.etfuturum.command.modern.nbt.SnbtReader;
-import ganymedes01.etfuturum.items.LodestoneCompass;
+import io.github.asgerjon.mcfly.lodestone.LodestoneCompass;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;

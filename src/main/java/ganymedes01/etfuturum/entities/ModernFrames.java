@@ -103,6 +103,8 @@ public final class ModernFrames {
 		if (frame.onValidSurface()) {
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(frame);
+				// 26.3's `entity_place` at it, by the player (§90.9, step H1)
+				io.github.asgerjon.mcfly.gameevent.GameEvents.post(world, io.github.asgerjon.mcfly.gameevent.GameEvent.get("entity_place"), frame.posX, frame.posY, frame.posZ, player, null, 0);
 			}
 			--stack.stackSize;
 		}

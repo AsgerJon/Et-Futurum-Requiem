@@ -42,10 +42,26 @@ public final class McFlyParticlesClient {
 		FACTORIES.put(McFlyParticles.DRAGON_BREATH, DragonBreathFX::new);
 		FACTORIES.put(McFlyParticles.SWEEP_ATTACK, (world, x, y, z, xd, yd, zd) -> new SweepAttackFX(world, x, y, z));
 		FACTORIES.put(McFlyParticles.TOTEM_OF_UNDYING, TotemFX::new);
+		FACTORIES.put(McFlyParticles.END_ROD, EndRodParticle::new);
 		FACTORIES.put(McFlyParticles.SNOWFLAKE, SnowflakeFX::new);
 		FACTORIES.put(McFlyParticles.GLOW_SQUID_INK, GlowSquidInkFX::new);
 		FACTORIES.put(McFlyParticles.GLOW, (world, x, y, z, xd, yd, zd) -> new GlowFX(world, x, y, z));
+		for (String kind : new String[]{io.github.asgerjon.mcfly.copper.Weathering.WAX_ON, io.github.asgerjon.mcfly.copper.Weathering.WAX_OFF,
+			io.github.asgerjon.mcfly.copper.Weathering.SCRAPE}) {
+			FACTORIES.put(kind, (world, x, y, z, xd, yd, zd) -> new io.github.asgerjon.mcfly.copper.client.CopperGlowParticle(world, x, y, z, xd, yd, zd, kind));
+		}
 		FACTORIES.put(McFlyParticles.ELECTRIC_SPARK, ElectricSparkFX::new);
+		FACTORIES.put(io.github.asgerjon.mcfly.nether.CryingObsidianBlock.TEAR,
+			(world, x, y, z, xd, yd, zd) -> new io.github.asgerjon.mcfly.nether.client.ObsidianTearParticle(world, x, y, z));
+		FACTORIES.put(io.github.asgerjon.mcfly.nether.SoulTorchBlock.FLAME, io.github.asgerjon.mcfly.nether.client.SoulFireFlameParticle::new);
+		FACTORIES.put(McFlyParticles.TINTED_LEAVES, FallingLeavesParticle::tinted);
+		FACTORIES.put(McFlyParticles.CHERRY_LEAVES, FallingLeavesParticle::cherry);
+		FACTORIES.put(McFlyParticles.DRIPPING_DRIPSTONE_WATER, io.github.asgerjon.mcfly.caves.client.DripstoneDripParticle::water);
+		FACTORIES.put(McFlyParticles.DRIPPING_DRIPSTONE_LAVA, io.github.asgerjon.mcfly.caves.client.DripstoneDripParticle::lava);
+		FACTORIES.put(McFlyParticles.FALLING_SPORE_BLOSSOM, io.github.asgerjon.mcfly.caves.client.SporeParticle::falling);
+		FACTORIES.put(McFlyParticles.SPORE_BLOSSOM_AIR, io.github.asgerjon.mcfly.caves.client.SporeParticle::air);
+		FACTORIES.put(McFlyParticles.VIBRATION, io.github.asgerjon.mcfly.gameevent.client.VibrationParticle::new);
+		FACTORIES.put(io.github.asgerjon.mcfly.sculk.SculkParticles.SCULK_SOUL, io.github.asgerjon.mcfly.sculk.client.SculkParticle::soul);
 	}
 
 	private McFlyParticlesClient() {

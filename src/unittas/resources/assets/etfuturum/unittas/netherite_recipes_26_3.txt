@@ -1,0 +1,7 @@
+# 26.3's netherite recipes (SPEC-modern-movement.md §88.4; its data/minecraft/recipe/*.json, blasting and smithing aside;
+# unittas_mcfly-sims/recipes_26_3.py), one a line: name, kind, pattern rows ('.' empty) and keys or ingredients, ->
+# count result [experience].
+netherite_block shaped ###/###/### #=netherite_ingot -> 1 netherite_block
+netherite_ingot shapeless netherite_scrap netherite_scrap netherite_scrap netherite_scrap gold_ingot gold_ingot gold_ingot gold_ingot -> 1 netherite_ingot
+netherite_ingot_from_netherite_block shapeless netherite_block -> 9 netherite_ingot
+netherite_scrap smelting ancient_debris -> 1 netherite_scrap 2.0

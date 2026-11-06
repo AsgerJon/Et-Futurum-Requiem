@@ -1,0 +1,15 @@
+# 26.3's recipes for tuff (SPEC-modern-movement.md §89, step E; its data/minecraft/recipe/*.json, stonecutting aside;
+# unittas_mcfly-sims/recipes_26_3.py). Calcite has none.
+chiseled_tuff shaped #/# #=tuff_slab -> 1 chiseled_tuff
+chiseled_tuff_bricks shaped #/# #=tuff_brick_slab -> 1 chiseled_tuff_bricks
+polished_tuff shaped SS/SS S=tuff -> 4 polished_tuff
+polished_tuff_slab shaped ### #=polished_tuff -> 6 polished_tuff_slab
+polished_tuff_stairs shaped #../##./### #=polished_tuff -> 4 polished_tuff_stairs
+polished_tuff_wall shaped ###/### #=polished_tuff -> 6 polished_tuff_wall
+tuff_brick_slab shaped ### #=tuff_bricks -> 6 tuff_brick_slab
+tuff_brick_stairs shaped #../##./### #=tuff_bricks -> 4 tuff_brick_stairs
+tuff_brick_wall shaped ###/### #=tuff_bricks -> 6 tuff_brick_wall
+tuff_bricks shaped ##/## #=polished_tuff -> 4 tuff_bricks
+tuff_slab shaped ### #=tuff -> 6 tuff_slab
+tuff_stairs shaped #../##./### #=tuff -> 4 tuff_stairs
+tuff_wall shaped ###/### #=tuff -> 6 tuff_wall

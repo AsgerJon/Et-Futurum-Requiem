@@ -131,13 +131,13 @@ public abstract class MixinEntity {
 
 	/** 26.3's combination_step_sound_blocks, as far as EFR has them. */
 	private static boolean etfu$combinationStepSound(Block block) {
-		return block == Blocks.carpet || block == Blocks.snow_layer || block == ModBlocks.MOSS_CARPET.get()
-				|| block == ModBlocks.NETHER_SPROUTS.get() || block == ModBlocks.NETHER_ROOTS.get();
+		return block == Blocks.carpet || block == Blocks.snow_layer || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.MOSS_CARPET.get()
+				|| block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_SPROUTS.get() || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_ROOTS.get();
 	}
 
 	/** 26.3's inside_step_sound_blocks, as far as EFR has them; the small amethyst bud is cluster 1's meta 0 to 5. */
 	private static boolean etfu$insideStepSound(Block block, int meta) {
-		return block == Blocks.waterlily || block == ModBlocks.GLOW_LICHEN.get() || block == ModBlocks.PINK_PETALS.get()
-				|| block == ModBlocks.AMETHYST_CLUSTER_1.get() && meta < 6 || ganymedes01.etfuturum.entities.Freezing.isPowderSnow(block);
+		return block == Blocks.waterlily || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.GLOW_LICHEN.get() || block == ModBlocks.PINK_PETALS.get()
+				|| block == io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.get() && meta < 6 || ganymedes01.etfuturum.entities.Freezing.isPowderSnow(block);
 	}
 }

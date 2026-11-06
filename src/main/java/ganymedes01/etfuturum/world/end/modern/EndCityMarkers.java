@@ -47,8 +47,8 @@ public final class EndCityMarkers {
 				// 1.7.10's frame is made from the block it hangs on, behind it
 				int[] step = step(facing);
 				EntityItemFrame frame = new EntityItemFrame(world, marker.x - step[0], marker.y, marker.z - step[1], direction);
-				if (ModItems.ELYTRA.isEnabled()) {
-					frame.setDisplayedItem(new ItemStack(ModItems.ELYTRA.get()));
+				if (io.github.asgerjon.mcfly.registry.McFlyItems.ELYTRA.isEnabled()) {
+					frame.setDisplayedItem(new ItemStack(io.github.asgerjon.mcfly.registry.McFlyItems.ELYTRA.get()));
 				}
 				world.spawnEntityInWorld(frame);
 			}

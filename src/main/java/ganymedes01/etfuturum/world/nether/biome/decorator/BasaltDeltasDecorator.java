@@ -60,7 +60,7 @@ public class BasaltDeltasDecorator extends NetherBiomeDecorator {
 						|| world.getBiomeGenForCoords(x, z - 16) != NetherBiomeManager.basaltDeltas
 						|| world.getBiomeGenForCoords(x - 16, z - 16) != NetherBiomeManager.basaltDeltas;
 
-				if (world.getBlock(x, y - 1, z) != ModBlocks.BASALT.get()) {
+				if (world.getBlock(x, y - 1, z) != io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get()) {
 					(useSmallGen ? smallBasaltColumnGenerator : largeBasaltColumnGenerator).generate(world, rand, x, y, z);
 				}
 			}

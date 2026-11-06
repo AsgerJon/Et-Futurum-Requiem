@@ -104,7 +104,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 			if (!itemstack.getItem().isPotionIngredient(itemstack))
 				return false;
-			else if (itemstack.getItem() == ModItems.DRAGON_BREATH.get()) {
+			else if (itemstack.getItem() == io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.get()) {
 				for (int i = 0; i < 3; i++)
 					if (inventory[i] != null && inventory[i].getItem() == Items.potionitem)
 						if (ItemPotion.isSplash(inventory[i].getItemDamage()))
@@ -152,7 +152,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			} else for (int i = 0; i < 3; i++)
 				if (inventory[i] != null && inventory[i].getItem() instanceof ItemPotion) {
 					int j = inventory[i].getItemDamage();
-					if (ItemPotion.isSplash(j) && inventory[3].getItem() == ModItems.DRAGON_BREATH.get())
+					if (ItemPotion.isSplash(j) && inventory[3].getItem() == io.github.asgerjon.mcfly.registry.McFlyItems.DRAGON_BREATH.get())
 						inventory[i] = McFlyItems.LINGERING_POTION.newItemStack(inventory[i].stackSize, inventory[i].getItemDamage());
 					else {
 						int k = applyIngredient(j, inventory[3]);

@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ConfigModCompat extends ConfigBase {
 
-	public static int elytraBaublesExpandedCompat;
 	public static boolean baublesMending;
 	public static boolean barrelIronChest;
 
@@ -17,7 +16,6 @@ public class ConfigModCompat extends ConfigBase {
 	public static boolean moddedDeepslateOres;
 	public static List<String> moddedDeepslateOresBlacklist;
 
-	public static boolean disableBaseBountifulStonesOnly;
 	public static boolean disableCopperOreAndIngotOnly;
 
 	public static short soulFireColor;
@@ -44,12 +42,6 @@ public class ConfigModCompat extends ConfigBase {
 	@Override
 	protected void syncConfigOptions() {
 		barrelIronChest = getBoolean("barrelIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Barrels to be crafted having all the same tiers as Iron Chests except for crystal. This option does nothing if Iron Chests is not installed.");
-		elytraBaublesExpandedCompat = getInt("elytraBaublesExpandedCompat", catMisc, 1, 0, 2, """
-				Adds compat for Baubles Expanded. Does nothing for standard baubles, this REQUIRES Baubles Expanded! It uses the new "wings" slot added by the expanded version. https://modrinth.com/mod/baubles-expanded\
-				When enabled, this allows the player to equip an elytra with a chestplate, by placing the elytra in a "wings" slot instead of the chestplate slot. Note that the player can only equip one elytra at a time.\
-				0 = No compat, do not allow the elytra to be placed in a wings slot.\
-				1 = Elytra will be placeable in a wings slot. Will enable the slot, if it isn't there.\
-				2 = The elytra can ONLY go in the wings slots, not the chestplate slot.""");
 		baublesMending = getBoolean("baublesMending", catMisc, true, "If Baubles (or Baubles Expanded) is installed, allows the Mending enchantment to repair items that are worn in bauble slots when experience is collected.\nThis option does nothing if Baubles (or BE) is not installed or if the Mending enchantment is disabled.");
 		soulFireColor = (short) getInt("soulFireColor", catRPLE, 0x49A, 0x000, 0xFFF, """
 						The color of soul fire. Needs to be a separate option because it's a mixin for fire and not a meta state.
@@ -64,8 +56,6 @@ public class ConfigModCompat extends ConfigBase {
 				List of modded deepslate ores to disable. Add a ModID or ore dictionary tag. For example adding "oreTin" disables deepslate tin, and adding "SimpleOres" would disable deepslate adamantium ore. CaSe-SeNsItIvE!\
 				Each entry is separated by a new line. This only disables deepslate ores added from Et Futurum's end and will not affect deepslate ores from other mods."""));
 
-		disableBaseBountifulStonesOnly = getBoolean("disableBaseBountifulStonesOnly", catMisc, false, "Disables just the andesite, granite, and diorite full blocks, but leaves their stairs and slabs, etc enabled." +
-				"\nUseful if you have mods like Chisel or Botania which feature these same stones but not the stairs and other variants.");
 		disableCopperOreAndIngotOnly = getBoolean("disableCopperOreAndIngotOnly", catMisc, false, "Disables copper ingots and ores, but leaves the blocks and other stuff." +
 				"\nUseful if you prefer another mod's copper, but want to use the oxidizing copper building blocks.");
 	}

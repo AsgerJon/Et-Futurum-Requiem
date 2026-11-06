@@ -1,0 +1,65 @@
+# 26.3's recipes for the old stones (SPEC-modern-movement.md §89, step D; its data/minecraft/recipe/*.json, stonecutting and
+# the moss block's aside; unittas_mcfly-sims/recipes_26_3.py), with the vanilla slabs and stairs whose 1.7.10 recipes take
+# any meta (sandstone, stone bricks) and red sand's sandstone, and the blast furnace's smooth stone.
+andesite shapeless diorite cobblestone -> 2 andesite
+andesite_slab shaped ### #=andesite -> 6 andesite_slab
+andesite_stairs shaped #../##./### #=andesite -> 4 andesite_stairs
+andesite_wall shaped ###/### #=andesite -> 6 andesite_wall
+blast_furnace shaped III/IXI/### #=smooth_stone I=iron_ingot X=furnace -> 1 blast_furnace
+brick_wall shaped ###/### #=bricks -> 6 brick_wall
+chiseled_red_sandstone shaped #/# #=red_sandstone_slab -> 1 chiseled_red_sandstone
+chiseled_stone_bricks shaped #/# #=stone_brick_slab -> 1 chiseled_stone_bricks
+cracked_stone_bricks smelting stone_bricks -> 1 cracked_stone_bricks 0.1
+cut_red_sandstone shaped ##/## #=red_sandstone -> 4 cut_red_sandstone
+cut_red_sandstone_slab shaped ### #=cut_red_sandstone -> 6 cut_red_sandstone_slab
+cut_sandstone_slab shaped ### #=cut_sandstone -> 6 cut_sandstone_slab
+diorite shaped CQ/QC C=cobblestone Q=quartz -> 2 diorite
+diorite_slab shaped ### #=diorite -> 6 diorite_slab
+diorite_stairs shaped #../##./### #=diorite -> 4 diorite_stairs
+diorite_wall shaped ###/### #=diorite -> 6 diorite_wall
+granite shapeless diorite quartz -> 1 granite
+granite_slab shaped ### #=granite -> 6 granite_slab
+granite_stairs shaped #../##./### #=granite -> 4 granite_stairs
+granite_wall shaped ###/### #=granite -> 6 granite_wall
+mossy_cobblestone_from_vine shapeless cobblestone vine -> 1 mossy_cobblestone
+mossy_cobblestone_slab shaped ### #=mossy_cobblestone -> 6 mossy_cobblestone_slab
+mossy_cobblestone_stairs shaped #../##./### #=mossy_cobblestone -> 4 mossy_cobblestone_stairs
+mossy_cobblestone_wall shaped ###/### #=mossy_cobblestone -> 6 mossy_cobblestone_wall
+mossy_stone_brick_slab shaped ### #=mossy_stone_bricks -> 6 mossy_stone_brick_slab
+mossy_stone_brick_stairs shaped #../##./### #=mossy_stone_bricks -> 4 mossy_stone_brick_stairs
+mossy_stone_brick_wall shaped ###/### #=mossy_stone_bricks -> 6 mossy_stone_brick_wall
+mossy_stone_bricks_from_vine shapeless stone_bricks vine -> 1 mossy_stone_bricks
+nether_brick_wall shaped ###/### #=nether_bricks -> 6 nether_brick_wall
+polished_andesite shaped SS/SS S=andesite -> 4 polished_andesite
+polished_andesite_slab shaped ### #=polished_andesite -> 6 polished_andesite_slab
+polished_andesite_stairs shaped #../##./### #=polished_andesite -> 4 polished_andesite_stairs
+polished_diorite shaped SS/SS S=diorite -> 4 polished_diorite
+polished_diorite_slab shaped ### #=polished_diorite -> 6 polished_diorite_slab
+polished_diorite_stairs shaped #../##./### #=polished_diorite -> 4 polished_diorite_stairs
+polished_granite shaped SS/SS S=granite -> 4 polished_granite
+polished_granite_slab shaped ### #=polished_granite -> 6 polished_granite_slab
+polished_granite_stairs shaped #../##./### #=polished_granite -> 4 polished_granite_stairs
+red_sandstone shaped ##/## #=red_sand -> 1 red_sandstone
+red_sandstone_slab shaped ### #=red_sandstone|chiseled_red_sandstone -> 6 red_sandstone_slab
+red_sandstone_stairs shaped #../##./### #=red_sandstone|chiseled_red_sandstone|cut_red_sandstone -> 4 red_sandstone_stairs
+red_sandstone_wall shaped ###/### #=red_sandstone -> 6 red_sandstone_wall
+sandstone shaped ##/## #=sand -> 1 sandstone
+sandstone_slab shaped ### #=sandstone|chiseled_sandstone -> 6 sandstone_slab
+sandstone_stairs shaped #../##./### #=sandstone|chiseled_sandstone|cut_sandstone -> 4 sandstone_stairs
+sandstone_wall shaped ###/### #=sandstone -> 6 sandstone_wall
+smooth_quartz smelting quartz_block -> 1 smooth_quartz 0.1
+smooth_quartz_slab shaped ### #=smooth_quartz -> 6 smooth_quartz_slab
+smooth_quartz_stairs shaped #../##./### #=smooth_quartz -> 4 smooth_quartz_stairs
+smooth_red_sandstone smelting red_sandstone -> 1 smooth_red_sandstone 0.1
+smooth_red_sandstone_slab shaped ### #=smooth_red_sandstone -> 6 smooth_red_sandstone_slab
+smooth_red_sandstone_stairs shaped #../##./### #=smooth_red_sandstone -> 4 smooth_red_sandstone_stairs
+smooth_sandstone smelting sandstone -> 1 smooth_sandstone 0.1
+smooth_sandstone_slab shaped ### #=smooth_sandstone -> 6 smooth_sandstone_slab
+smooth_sandstone_stairs shaped #../##./### #=smooth_sandstone -> 4 smooth_sandstone_stairs
+smooth_stone smelting stone -> 1 smooth_stone 0.1
+smooth_stone_slab shaped ### #=smooth_stone -> 6 smooth_stone_slab
+stone_brick_slab shaped ### #=stone_bricks -> 6 stone_brick_slab
+stone_brick_stairs shaped #../##./### #=stone_bricks -> 4 stone_brick_stairs
+stone_brick_wall shaped ###/### #=stone_bricks -> 6 stone_brick_wall
+stone_slab shaped ### #=stone -> 6 stone_slab
+stone_stairs shaped #../##./### #=stone -> 4 stone_stairs

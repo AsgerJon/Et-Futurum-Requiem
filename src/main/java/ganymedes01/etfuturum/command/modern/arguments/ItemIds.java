@@ -124,7 +124,9 @@ public final class ItemIds {
 		boolean named = false;
 		for (int pass = 0; pass < 2; pass++) {
 			for (int meta = 0; meta < metas; meta++) {
-				if (pass == 0 && (types == null || meta >= types.length || types[meta].isEmpty())) {
+				boolean own = types != null ? meta < types.length && !types[meta].isEmpty()
+					: block instanceof io.github.asgerjon.mcfly.base.NamedMetas namedBlock && namedBlock.isVariant(meta);
+				if (pass == 0 && !own) {
 					continue;
 				}
 				named |= addEfrName(ids, new ItemStack(item, 1, meta), modern, efrNames);

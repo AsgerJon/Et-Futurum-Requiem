@@ -45,7 +45,7 @@ public class WorldGenGeode extends WorldGenerator {
 	}
 
 	public WorldGenGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
-		this(outerBlock, middleBlock, ModBlocks.AMETHYST_BLOCK.get(), ModBlocks.BUDDING_AMETHYST.get(), ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
+		this(outerBlock, middleBlock, io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_BLOCK.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.BUDDING_AMETHYST.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.get());
 	}
 
 	private WorldGenGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance,

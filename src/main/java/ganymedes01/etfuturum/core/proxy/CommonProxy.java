@@ -17,7 +17,6 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiBarrel;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
 import ganymedes01.etfuturum.client.gui.inventory.GuiNewBrewingStand;
-import ganymedes01.etfuturum.client.gui.inventory.GuiSmithingTable;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -25,7 +24,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.handlers.EntityEventHandler;
-import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -33,17 +31,12 @@ import ganymedes01.etfuturum.core.utils.Utils;
 
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBee;
-import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityFox;
 import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewBoatSeat;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
-import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
 import ganymedes01.etfuturum.entities.EntityShulker;
@@ -56,7 +49,6 @@ import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
-import ganymedes01.etfuturum.inventory.ContainerSmithingTable;
 import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIIDs;
 
@@ -64,14 +56,9 @@ import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
-import ganymedes01.etfuturum.tileentities.TileEntityCaveVines;
-import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.tileentities.TileEntityGlowLichen;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
-import ganymedes01.etfuturum.tileentities.TileEntitySculkCatalyst;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
-import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMagmaCube;
@@ -105,10 +92,6 @@ public class CommonProxy implements IGuiHandler {
 		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
 
 
-		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
-			FMLCommonHandler.instance().bus().register(SculkEventHandler.INSTANCE);
-			MinecraftForge.EVENT_BUS.register(SculkEventHandler.INSTANCE);
-		}
 
 		if (ModItems.DEBUGGING_TOOL.isEnabled()) {
 			MinecraftForge.EVENT_BUS.register(ModItems.DEBUGGING_TOOL.get());
@@ -131,15 +114,6 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
 		}
-		if (ConfigBlocksItems.enableVanillaSigns) {
-			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
-		}
-		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, Utils.getUnlocalisedName("sculk_catalyst"));
-		}
-		if (ModBlocks.END_GATEWAY.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
-		}
 		if (ModBlocks.POTION_CAULDRON.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
 		}
@@ -147,12 +121,6 @@ public class CommonProxy implements IGuiHandler {
 			GameRegistry.registerTileEntity(TileEntityBeeHive.class, Utils.getUnlocalisedName("hive"));
 		}
 		
-		if (ModBlocks.GLOW_LICHEN.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityGlowLichen.class, Utils.getUnlocalisedName("glow_lichen"));
-		}
-		if (ModBlocks.CAVE_VINE.isEnabled()) {
-			GameRegistry.registerTileEntity(TileEntityCaveVines.class, Utils.getUnlocalisedName("cave_vines"));
-		}
 		if (ConfigEntities.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
 
@@ -232,8 +200,8 @@ public class CommonProxy implements IGuiHandler {
 
 		if (ConfigEntities.enableNetherEndermen) {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
-//			if (ModBlocks.NYLIUM.isEnabled()) {
-//				EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
+//			if (io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.isEnabled()) {
+//				EntityEnderman.setCarriable(io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get(), true);
 //			}
 		}
 
@@ -242,7 +210,6 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", 8, EtFuturum.instance, 80, 3, true, 0x00AFAF, 0x799C65);
 
 		if (ConfigEntities.enableDragonRespawn) {
-			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", 9, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
 			ModEntityList.registerEntity(EntityRespawnedDragon.class, "ender_dragon", 10, EtFuturum.instance, 160, 3, true);
 		}
 
@@ -265,18 +232,10 @@ public class CommonProxy implements IGuiHandler {
 		}
 
 //      {
-//          ModEntityList.registerEntity(EntityFallingDripstone.class, "falling_dripstone", 18, EtFuturum.instance, 64, 1, true);
 //      }
 
-		if (ConfigBlocksItems.enableNewBoats) {
-			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", 13, EtFuturum.instance, 64, 1, true);
-			ModEntityList.registerEntity(EntityNewBoatWithChest.class, "chest_boat", 19, EtFuturum.instance, 64, 1, true);
-			ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", 14, EtFuturum.instance, 64, 1, false);
-		}
+		// the boats (13, 19, 14) are McFly's now (McFlyEntities, spec 91.12)
 
-		if (ConfigMixins.enableElytra) {
-			ModEntityList.registerEntity(EntityBoostingFireworkRocket.class, "boosting_firework_rocket", 20, EtFuturum.instance, 64, 1, true);
-		}
 
 		if (ConfigEntities.enableBees) {
 			ModEntityList.registerEntity(EntityBee.class, "bee", 21, EtFuturum.instance, 80, 1, true, 0xEDC343, 0x43241B);
@@ -318,7 +277,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.BLAST_FURNACE ->
 					new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
 			case GUIIDs.SHULKER_BOX -> new io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxMenu(player.inventory, shulkerBoxAt(world, x, y, z));
-			case GUIIDs.SMITHING_TABLE -> new ContainerSmithingTable(player.inventory, world);
+			case GUIIDs.SMITHING_TABLE -> new io.github.asgerjon.mcfly.smithing.SmithingMenu(player.inventory, world, x, y, z);
 			case GUIIDs.LOOM -> new ganymedes01.etfuturum.inventory.ContainerLoom(player.inventory, world, x, y, z);
 			default -> null;
 		};
@@ -336,7 +295,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIIDs.BLAST_FURNACE ->
 					new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
 			case GUIIDs.SHULKER_BOX -> new io.github.asgerjon.mcfly.shulkerbox.client.ShulkerBoxScreen(player.inventory, shulkerBoxAt(world, x, y, z));
-			case GUIIDs.SMITHING_TABLE -> new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
+			case GUIIDs.SMITHING_TABLE -> new io.github.asgerjon.mcfly.smithing.client.SmithingScreen(new io.github.asgerjon.mcfly.smithing.SmithingMenu(player.inventory, world, x, y, z));
 			case GUIIDs.LOOM -> new ganymedes01.etfuturum.client.gui.inventory.GuiLoom(new ganymedes01.etfuturum.inventory.ContainerLoom(player.inventory, world, x, y, z));
 			default -> null;
 		};

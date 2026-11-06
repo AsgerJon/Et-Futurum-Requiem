@@ -25,6 +25,19 @@ public final class McFlyParticles {
 	public static final String GLOW = "minecraft:glow";
 	public static final String ELECTRIC_SPARK = "minecraft:electric_spark";
 	public static final String DRAGON_BREATH = "minecraft:dragon_breath";
+	public static final String END_ROD = "minecraft:end_rod";
+	/** 26.3's falling leaves of a colour (`ColorParticleOption` on `tinted_leaves`): azalea's (spec §90, step D2). */
+	public static final String TINTED_LEAVES = "minecraft:tinted_leaves";
+	/** Cherry's falling petals (spec §90.6). */
+	public static final String CHERRY_LEAVES = "minecraft:cherry_leaves";
+	/** Pointed dripstone's drips (spec §90.7): hanging, then falling and landing, as one particle. */
+	public static final String DRIPPING_DRIPSTONE_WATER = "minecraft:dripping_dripstone_water";
+	public static final String DRIPPING_DRIPSTONE_LAVA = "minecraft:dripping_dripstone_lava";
+	/** The spore blossom's (spec §90.8). */
+	public static final String FALLING_SPORE_BLOSSOM = "minecraft:falling_spore_blossom";
+	public static final String SPORE_BLOSSOM_AIR = "minecraft:spore_blossom_air";
+	/** A vibration on its way (spec §90.9). */
+	public static final String VIBRATION = "minecraft:vibration";
 
 	/** 26.3's randomization kinds of the packet's spread (`ClientboundLevelParticlesPacket.RandomizationType`). */
 	public static final int DEFAULT = 0;
@@ -42,6 +55,25 @@ public final class McFlyParticles {
 		TYPES.put(GLOW_SQUID_INK, true);
 		TYPES.put(GLOW, true);
 		TYPES.put(ELECTRIC_SPARK, true);
+		// copper's (spec §87): honeycomb's wax, the axe's wax off and scrape
+		TYPES.put(io.github.asgerjon.mcfly.copper.Weathering.WAX_ON, false);
+		TYPES.put(io.github.asgerjon.mcfly.copper.Weathering.WAX_OFF, false);
+		TYPES.put(io.github.asgerjon.mcfly.copper.Weathering.SCRAPE, false);
+		// crying obsidian's tear (spec §88.3): its hanging stage, which falls and lands by itself
+		TYPES.put(io.github.asgerjon.mcfly.nether.CryingObsidianBlock.TEAR, false);
+		// the soul torch's flame (spec §88.5)
+		TYPES.put(io.github.asgerjon.mcfly.nether.SoulTorchBlock.FLAME, false);
+		// falling leaves (spec §90, step D2)
+		TYPES.put(TINTED_LEAVES, false);
+		TYPES.put(CHERRY_LEAVES, false);
+		TYPES.put(DRIPPING_DRIPSTONE_WATER, false);
+		TYPES.put(DRIPPING_DRIPSTONE_LAVA, false);
+		TYPES.put(FALLING_SPORE_BLOSSOM, false);
+		TYPES.put(SPORE_BLOSSOM_AIR, false);
+		// 26.3's vibration overrides the limiter
+		TYPES.put(VIBRATION, true);
+		// a blooming sculk catalyst's souls (spec §90.9, step H3c)
+		TYPES.put(io.github.asgerjon.mcfly.sculk.SculkParticles.SCULK_SOUL, false);
 	}
 
 	private McFlyParticles() {

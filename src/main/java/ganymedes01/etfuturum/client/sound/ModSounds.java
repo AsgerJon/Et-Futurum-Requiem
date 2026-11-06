@@ -21,17 +21,16 @@ public class ModSounds {
 			return this;
 		}
 	};
-	public static final SoundType soundLantern = new CustomSound("lantern", true).setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundSoulSand = new CustomSound("soul_sand").setDisabledSound(Block.soundTypeSand);
-	public static final SoundType soundSoulSoil = new CustomSound("soul_soil").setDisabledSound(Block.soundTypeGravel);
-	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks");
+	// McFly's (spec §88.6): its events registered once, by McFly
+	public static final SoundType soundSoulSoil = io.github.asgerjon.mcfly.sound.McFlySoundType.SOUL_SOIL;
+	// McFly's (spec §88.3): its events registered once, by McFly
+	public static final SoundType soundNetherBricks = io.github.asgerjon.mcfly.sound.McFlySoundType.NETHER_BRICKS;
 	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
 	public static final SoundType soundNetherOre = new CustomSound("nether_ore");
-	public static final SoundType soundGildedBlackstone = new CustomSound("gilded_blackstone");
-	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
-	public static final SoundType soundBasalt = new CustomSound("basalt");
-	public static final SoundType soundNetherite = new CustomSound("netherite_block").setDisabledSound(Block.soundTypeMetal);
+	// McFly's (spec §88.4): its events registered once, by McFly (Iron Chest's netherite chest still takes it)
+	public static final SoundType soundNetherite = io.github.asgerjon.mcfly.sound.McFlySoundType.NETHERITE_BLOCK;
 	public static final SoundType soundCrops = new CustomSound("crop") {
 		@Override
 		public String getStepResourcePath() {
@@ -64,8 +63,8 @@ public class ModSounds {
 		}
 	}.setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
-	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
-	public static final SoundType soundDeepslateTiles = new CustomSound("deepslate_tiles");
+	public static final SoundType soundDeepslateBricks = io.github.asgerjon.mcfly.sound.McFlySoundType.DEEPSLATE_BRICKS;
+	public static final SoundType soundDeepslateTiles = io.github.asgerjon.mcfly.sound.McFlySoundType.DEEPSLATE_TILES;
 	public static final SoundType soundTuff = new CustomSound("tuff");
 	public static final SoundType soundPolishedTuff = new CustomSound("polished_tuff");
 	public static final SoundType soundTuffBricks = new CustomSound("tuff_bricks");
@@ -99,18 +98,18 @@ public class ModSounds {
 	public static final SoundType soundWetGrass = new CustomSound("wet_grass", true).setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundHoneyBlock = new CustomSound("honey_block").setDisabledSound(soundSlime);
 	public static final SoundType soundCoralBlock = new CustomSound("coral_block").setDisabledSound(soundSlime);
-	public static final SoundType soundChain = new CustomSound("chain").setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundSponge = new CustomSound("sponge").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundWetSponge = new CustomSound("wet_sponge").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundNylium = new CustomSound("nylium");
-	public static final SoundType soundNetherRoots = new CustomSound("roots").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundNetherSprouts = new CustomSound("nether_sprouts").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundWartBlock = new CustomSound("wart_block").setDisabledSound(Block.soundTypeWood);
-	public static final SoundType soundShroomlight = new CustomSound("shroomlight").setDisabledSound(Block.soundTypeWood);
-	public static final SoundType soundWeepingVines = new CustomSound("weeping_vines").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundStem = new CustomSound("stem").setDisabledSound(Block.soundTypeWood);
-	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundNylium = io.github.asgerjon.mcfly.sound.McFlySoundType.NYLIUM;
+	public static final SoundType soundNetherRoots = io.github.asgerjon.mcfly.sound.McFlySoundType.ROOTS;
+	public static final SoundType soundNetherSprouts = io.github.asgerjon.mcfly.sound.McFlySoundType.NETHER_SPROUTS;
+	public static final SoundType soundWartBlock = io.github.asgerjon.mcfly.sound.McFlySoundType.WART_BLOCK;
+	public static final SoundType soundShroomlight = io.github.asgerjon.mcfly.sound.McFlySoundType.SHROOMLIGHT;
+	public static final SoundType soundWeepingVines = io.github.asgerjon.mcfly.sound.McFlySoundType.WEEPING_VINES;
+	public static final SoundType soundStem = io.github.asgerjon.mcfly.sound.McFlySoundType.STEM;
+	public static final SoundType soundFungus = io.github.asgerjon.mcfly.sound.McFlySoundType.FUNGUS;
+	// McFly's (spec §91.4): its events registered once, by McFly
+	public static final SoundType soundNetherWood = io.github.asgerjon.mcfly.sound.McFlySoundType.NETHER_WOOD;
 
 	public static final SoundType soundMud = new CustomSound("mud").setDisabledSound(Block.soundTypeGravel);
 	public static final SoundType soundMangroveRoots = new CustomSound("mangrove_roots").setDisabledSound(Block.soundTypeGrass);
@@ -127,10 +126,12 @@ public class ModSounds {
 
 	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundCherryWood = new CustomSound("cherry_wood").setDisabledSound(Block.soundTypeWood);
+	// McFly's (spec §91.3): its events registered once, by McFly
+	public static final SoundType soundCherryWood = io.github.asgerjon.mcfly.sound.McFlySoundType.CHERRY_WOOD;
 	public static final SoundType soundPinkPetals = new CustomSound("pink_petals").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundBamboo = new CustomSound("bamboo").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundBambooWood = new CustomSound("bamboo_wood").setDisabledSound(Block.soundTypeWood);
+	// McFly's (spec §91.3): its events registered once, by McFly
+	public static final SoundType soundBambooWood = io.github.asgerjon.mcfly.sound.McFlySoundType.BAMBOO_WOOD;
 	public static final SoundType soundBambooSapling = new CustomSound("bamboo_sapling") {
 		@Override
 		public String getStepResourcePath() {

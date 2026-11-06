@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.generate.decorate;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockBamboo;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
@@ -21,7 +20,7 @@ public class WorldGenBamboo extends WorldGenerator {
 	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z) {
 		int height = MathHelper.getRandomIntegerInRange(rand, 6, 16);
-		if (!ModBlocks.BAMBOO.get().canBlockStay(world, x, y + 1, z)) {
+		if (!bamboo.canBlockStay(world, x, y + 1, z)) {
 			return false;
 		}
 
@@ -32,16 +31,10 @@ public class WorldGenBamboo extends WorldGenerator {
 		}
 
 		for (int i = 1; i <= height; i++) {
-			int meta = 1;
-			if (i == height) {
-				meta = BlockBamboo.setStage(meta, true);
-			}
-
-			if (i >= height - 1) {
-				meta = BlockBamboo.setLeavesSize(meta, 2);
-			} else if (i >= height - 2) {
-				meta = BlockBamboo.setLeavesSize(meta, 1);
-			}
+			// thick, the top two with large leaves, small below them, done growing at the top (spec 91.11: McFly's metas)
+			int leaves = i >= height - 1 ? io.github.asgerjon.mcfly.wood.Bamboo.LARGE : i >= height - 2 ? io.github.asgerjon.mcfly.wood.Bamboo.SMALL
+				: io.github.asgerjon.mcfly.wood.Bamboo.NONE;
+			int meta = io.github.asgerjon.mcfly.wood.Bamboo.meta(1, leaves, i == height ? 1 : 0);
 			world.setBlock(x, y + i, z, bamboo, meta, 2);
 		}
 		return true;

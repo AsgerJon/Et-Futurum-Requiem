@@ -55,7 +55,6 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableMesaMineshaft;
 	public static boolean enableCoarseDirtReplacement;
 	public static boolean enableAmethystGeodes;
-	public static int buddingAmethystMode;
 	public static int amethystRarity;
 	public static int amethystMaxY;
 	public static int[] amethystDimensionBlacklist;
@@ -176,7 +175,6 @@ public class ConfigWorld extends ConfigBase {
 		enableMesaMineshaft = getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
 		enableCoarseDirtReplacement = getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
 		enableAmethystGeodes = getBoolean("enableAmethystGeodes", catGeneration, true, "");
-		buddingAmethystMode = getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
 		Property amethystBlacklistProp = get(catGeneration, "amethystDimensionBlacklist", new int[]{-1, 1});
 		amethystBlacklistProp.comment = "What dimensions should we ban amethyst geodes from generating in?";
 		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
@@ -231,7 +229,7 @@ public class ConfigWorld extends ConfigBase {
 			}
 		}
 
-		if (enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
+		if (enableAmethystGeodes && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_BLOCK.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
 			String[] amethystOuterBlockArray = amethystOuterBlockID.split(":");
 			if ((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
 				int meta = 0;

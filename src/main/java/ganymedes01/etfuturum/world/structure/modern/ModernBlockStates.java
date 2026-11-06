@@ -110,25 +110,25 @@ public final class ModernBlockStates {
 		}
 		switch (id) {
 			case "minecraft:purpur_block":
-				return enabled(ModBlocks.PURPUR_BLOCK.get(), ModBlocks.PURPUR_BLOCK.isEnabled(), 0);
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_BLOCK.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_BLOCK.isEnabled(), 0);
 			case "minecraft:purpur_pillar":
-				return enabled(ModBlocks.PURPUR_PILLAR.get(), ModBlocks.PURPUR_PILLAR.isEnabled(), axisMeta(state));
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_PILLAR.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_PILLAR.isEnabled(), axisMeta(state));
 			case "minecraft:purpur_stairs":
-				return enabled(ModBlocks.PURPUR_STAIRS.get(), ModBlocks.PURPUR_STAIRS.isEnabled(), stairsMeta(state));
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_STAIRS.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_STAIRS.isEnabled(), stairsMeta(state));
 			case "minecraft:purpur_slab":
-				return enabled(ModBlocks.PURPUR_SLAB.get(), ModBlocks.PURPUR_SLAB.isEnabled(), "top".equals(state.get("type")) ? 8 : 0);
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_SLAB.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.PURPUR_SLAB.isEnabled(), "top".equals(state.get("type")) ? 8 : 0);
 			case "minecraft:end_stone_bricks":
-				return enabled(ModBlocks.END_BRICKS.get(), ModBlocks.END_BRICKS.isEnabled(), 0);
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.END_BRICKS.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.END_BRICKS.isEnabled(), 0);
 			case "minecraft:end_rod":
-				return enabled(ModBlocks.END_ROD.get(), ModBlocks.END_ROD.isEnabled(), directionMeta(state.get("facing", "up")));
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.END_ROD.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.END_ROD.isEnabled(), directionMeta(state.get("facing", "up")));
 			case "minecraft:end_stone":
 				return new Placed(Blocks.end_stone, 0);
 			case "minecraft:chorus_plant":
-				return enabled(ModBlocks.CHORUS_PLANT.get(), ModBlocks.CHORUS_PLANT.isEnabled(), 0);
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.isEnabled(), 0);
 			case "minecraft:chorus_flower":
-				return enabled(ModBlocks.CHORUS_FLOWER.get(), ModBlocks.CHORUS_FLOWER.isEnabled(), Integer.parseInt(state.get("age", "0")));
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.isEnabled(), Integer.parseInt(state.get("age", "0")));
 			case "minecraft:end_gateway":
-				return enabled(ModBlocks.END_GATEWAY.get(), ModBlocks.END_GATEWAY.isEnabled(), 0);
+				return enabled(io.github.asgerjon.mcfly.registry.McFlyBlocks.END_GATEWAY.get(), io.github.asgerjon.mcfly.registry.McFlyBlocks.END_GATEWAY.isEnabled(), 0);
 			case "minecraft:obsidian":
 				return new Placed(Blocks.obsidian, 0);
 			case "minecraft:bedrock":

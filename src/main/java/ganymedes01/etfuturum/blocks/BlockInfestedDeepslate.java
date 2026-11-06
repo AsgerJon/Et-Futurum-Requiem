@@ -25,11 +25,11 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return ModBlocks.DEEPSLATE.get().getBlockTextureFromSide(side);
+		return io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get().getBlockTextureFromSide(side);
 	}
 
 	public static boolean func_150196_a(Block p_150196_0_) {
-		return p_150196_0_ == ModBlocks.DEEPSLATE.get();
+		return p_150196_0_ == io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get();
 	}
 
 	public static int func_150195_a(Block p_150195_0_, int p_150195_1_) {
@@ -38,7 +38,7 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 
 	@Override
 	protected ItemStack createStackedBlock(int meta) {
-		return ModBlocks.DEEPSLATE.newItemStack();
+		return io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.newItemStack();
 	}
 
 	@Override

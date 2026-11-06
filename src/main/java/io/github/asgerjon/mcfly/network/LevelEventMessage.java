@@ -11,9 +11,21 @@ import net.minecraft.world.WorldServer;
 /**
  * One of 26.3's level events the server tells clients near it of (`ClientboundLevelEventPacket`): what happens is the
  * client's (LevelEventHandler). SPEC-modern-movement.md §76.10: 3000, a kill's end gateway appearing; §76.13: 2016, a
- * shulker's teleport.
+ * shulker's teleport; §84: 2017, an eaten chorus fruit's teleport, and {@link #ENTITY_TELEPORT}.
  */
 public class LevelEventMessage implements IMessage {
+
+	/**
+	 * Not a level event but 26.3's entity event 46 (an entity's teleport: 128 portal particles from where it was to where
+	 * it is), sent the same way: x, y, z its old place in 32nds of a block, data its entity id.
+	 */
+	public static final int ENTITY_TELEPORT = -46;
+
+	/** 26.3's level event 3006, a sculk charge (spec §90.9, step H3): data its particles' count << 6 and its faces; 0 its pop. */
+	public static final int SCULK_CHARGE = 3006;
+
+	/** 26.3's level event 3007, a sculk shrieker's shriek (spec §90.9, step H4): its particles and sound. */
+	public static final int SCULK_SHRIEK = 3007;
 
 	public int event;
 	public int x;

@@ -23,21 +23,20 @@ public class CompatThaumcraft {
 			for (int i = 0; i < ModBlocks.BEDS.length; i++) {
 				ThaumcraftApi.registerObjectTag(ModBlocks.BEDS[i].newItemStack(), new AspectList());
 			}
-			ThaumcraftApi.registerObjectTag(ModBlocks.OBSERVER.newItemStack(), new AspectList().add(Aspect.MECHANISM, 4).add(Aspect.EARTH, 4).add(Aspect.ENTROPY, 4).add(Aspect.SENSES, 2));
 
-			ThaumcraftApi.registerObjectTag(ModBlocks.RED_NETHERBRICK.newItemStack(1, 0), new AspectList(new ItemStack(Blocks.nether_brick)));
-			ThaumcraftApi.registerObjectTag(ModBlocks.RED_NETHERBRICK.newItemStack(1, 1), new AspectList(new ItemStack(Blocks.nether_brick)).add(Aspect.ENTROPY, 1));
-			ThaumcraftApi.registerObjectTag(ModBlocks.RED_NETHERBRICK.newItemStack(1, 2), new AspectList(new ItemStack(Blocks.nether_brick)).add(Aspect.MAGIC, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_NETHERBRICK.newItemStack(1, 0), new AspectList(new ItemStack(Blocks.nether_brick)));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_NETHERBRICK.newItemStack(1, 1), new AspectList(new ItemStack(Blocks.nether_brick)).add(Aspect.ENTROPY, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_NETHERBRICK.newItemStack(1, 2), new AspectList(new ItemStack(Blocks.nether_brick)).add(Aspect.MAGIC, 1));
 
-			ThaumcraftApi.registerObjectTag(ModBlocks.BLACKSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.DARKNESS, 1));
-			ThaumcraftApi.registerObjectTag(ModBlocks.BLACKSTONE.newItemStack(1, 4), new AspectList().add(Aspect.EARTH, 1).add(Aspect.DARKNESS, 1).add(Aspect.BEAST, 1));
-			ThaumcraftApi.registerObjectTag(ModBlocks.GILDED_BLACKSTONE.newItemStack(), new AspectList().add(Aspect.GREED, 1).add(Aspect.DARKNESS, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.DARKNESS, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.newItemStack(1, 4), new AspectList().add(Aspect.EARTH, 1).add(Aspect.DARKNESS, 1).add(Aspect.BEAST, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.GILDED_BLACKSTONE.newItemStack(), new AspectList().add(Aspect.GREED, 1).add(Aspect.DARKNESS, 1));
 
-			ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_INGOT.newItemStack(), new AspectList().add(Aspect.METAL, 8).add(Aspect.GREED, 4).add(Aspect.ARMOR, 2));
-			ThaumcraftApi.registerObjectTag(ModBlocks.ANCIENT_DEBRIS.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.ARMOR, 2).add(Aspect.EARTH, 1));
-			ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_SCRAP.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.ARMOR, 2).add(Aspect.FIRE, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack(), new AspectList().add(Aspect.METAL, 8).add(Aspect.GREED, 4).add(Aspect.ARMOR, 2));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.ANCIENT_DEBRIS.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.ARMOR, 2).add(Aspect.EARTH, 1));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_SCRAP.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.ARMOR, 2).add(Aspect.FIRE, 1));
 
-			ThaumcraftApi.registerObjectTag(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.gold_ore)));
+			ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_GOLD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.gold_ore)));
 		}
 
 		// Entities
@@ -67,12 +66,7 @@ public class CompatThaumcraft {
 		// ThaumcraftApi.registerObjectTag(ModItems.ITEMNAME.newItemStack(), new AspectList() );
 		ThaumcraftApi.registerObjectTag(ModItems.BEETROOT.newItemStack(), new AspectList().add(Aspect.CROP, 1).add(Aspect.HUNGER, 1).add(Aspect.GREED, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.BEETROOT_SEEDS.newItemStack(), new AspectList().add(Aspect.PLANT, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.CHORUS_FRUIT.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.PLANT, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.CHORUS_FRUIT_POPPED.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.PLANT, 1).add(Aspect.FIRE, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.DRAGON_BREATH.newItemStack(), new AspectList().add(Aspect.DARKNESS, 2).add(Aspect.AIR, 2).add(Aspect.FIRE, 2).add(Aspect.MAGIC, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.END_CRYSTAL.newItemStack(), new AspectList().add(Aspect.MAGIC, 3).add(Aspect.ELDRITCH, 3).add(Aspect.HEAL, 3)); // Matches entity
 		ThaumcraftApi.registerObjectTag(McFlyItems.SHULKER_SHELL.newItemStack(), new AspectList().add(Aspect.ARMOR, 2).add(Aspect.ELDRITCH, 2));
-		ThaumcraftApi.registerObjectTag(ModItems.ELYTRA.newItemStack(), new AspectList().add(Aspect.FLIGHT, 4).add(Aspect.MOTION, 3).add(Aspect.TRAVEL, 3));
 		ThaumcraftApi.registerObjectTag(ModItems.PRISMARINE_CRYSTALS.newItemStack(), new AspectList().add(Aspect.WATER, 1).add(Aspect.CRYSTAL, 1).add(Aspect.LIGHT, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.PRISMARINE_SHARD.newItemStack(), new AspectList().add(Aspect.WATER, 1).add(Aspect.EARTH, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.TOTEM_OF_UNDYING.newItemStack(), new AspectList().add(Aspect.HEAL, 5).add(Aspect.ARMOR, 5).add(Aspect.LIFE, 5).add(Aspect.UNDEAD, 5));
@@ -143,28 +137,24 @@ public class CompatThaumcraft {
 
 		ThaumcraftApi.registerObjectTag(ModItems.DYE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Items.dye)));
 		ThaumcraftApi.registerObjectTag(ModItems.NUGGET_IRON.newItemStack(), new AspectList().add(Aspect.METAL, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.AMETHYST_SHARD.newItemStack(), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.SENSES, 1).add(Aspect.GREED, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.AMETHYST_SHARD.newItemStack(), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.SENSES, 1).add(Aspect.GREED, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.WOODEN_ARMORSTAND.newItemStack(), new AspectList().add(Aspect.TREE, 4).add(Aspect.ARMOR, 1));
 
-		ThaumcraftApi.registerObjectTag(ModItems.BAMBOO.newItemStack(), new AspectList().add(Aspect.PLANT, 1).add(Aspect.TREE, 1).add(Aspect.AIR, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.BAMBOO.newItemStack(), new AspectList().add(Aspect.PLANT, 1).add(Aspect.TREE, 1).add(Aspect.AIR, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.SWEET_BERRIES.newItemStack(), new AspectList().add(Aspect.PLANT, 1).add(Aspect.HUNGER, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.SUSPICIOUS_STEW.newItemStack(), new AspectList(new ItemStack(Items.mushroom_stew)));
 
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_HELMET.newItemStack(), new AspectList(new ItemStack(Items.diamond_helmet)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_CHESTPLATE.newItemStack(), new AspectList(new ItemStack(Items.diamond_chestplate)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_LEGGINGS.newItemStack(), new AspectList(new ItemStack(Items.diamond_leggings)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_BOOTS.newItemStack(), new AspectList(new ItemStack(Items.diamond_boots)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_HELMET.newItemStack(), new AspectList(new ItemStack(Items.diamond_helmet)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_CHESTPLATE.newItemStack(), new AspectList(new ItemStack(Items.diamond_chestplate)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_LEGGINGS.newItemStack(), new AspectList(new ItemStack(Items.diamond_leggings)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_BOOTS.newItemStack(), new AspectList(new ItemStack(Items.diamond_boots)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
 
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_SWORD.newItemStack(), new AspectList(new ItemStack(Items.diamond_sword)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_SPADE.newItemStack(), new AspectList(new ItemStack(Items.diamond_shovel)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_PICKAXE.newItemStack(), new AspectList(new ItemStack(Items.diamond_pickaxe)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_AXE.newItemStack(), new AspectList(new ItemStack(Items.diamond_axe)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
-		ThaumcraftApi.registerObjectTag(ModItems.NETHERITE_HOE.newItemStack(), new AspectList(new ItemStack(Items.diamond_hoe)).add(new AspectList(ModItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_SWORD.newItemStack(), new AspectList(new ItemStack(Items.diamond_sword)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_SPADE.newItemStack(), new AspectList(new ItemStack(Items.diamond_shovel)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_PICKAXE.newItemStack(), new AspectList(new ItemStack(Items.diamond_pickaxe)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_AXE.newItemStack(), new AspectList(new ItemStack(Items.diamond_axe)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_HOE.newItemStack(), new AspectList(new ItemStack(Items.diamond_hoe)).add(new AspectList(io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.newItemStack())));
 
-		ThaumcraftApi.registerObjectTag(ModItems.COPPER_INGOT.newItemStack(1, 0), new AspectList().add(Aspect.METAL, 3).add(Aspect.EXCHANGE, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.RAW_ORE.newItemStack(1, 0), new AspectList().add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(Aspect.EXCHANGE, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.RAW_ORE.newItemStack(1, 1), new AspectList().add(Aspect.METAL, 3).add(Aspect.ENTROPY, 1));
-		ThaumcraftApi.registerObjectTag(ModItems.RAW_ORE.newItemStack(1, 2), new AspectList().add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(Aspect.GREED, 1));
 
 		ThaumcraftApi.registerObjectTag(ModItems.HONEY_BOTTLE.newItemStack(), new AspectList().add(Aspect.HUNGER, 2).add(Aspect.TRAP, 1).add(Aspect.HEAL, 1));
 		ThaumcraftApi.registerObjectTag(ModItems.HONEYCOMB.newItemStack(), new AspectList().add(Aspect.ORDER, 2).add(Aspect.HUNGER, 1));
@@ -174,38 +164,33 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModBlocks.BEACON.newItemStack(), new AspectList(new ItemStack(Blocks.beacon)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.BEETROOTS.newItemStack(), new AspectList().add(Aspect.PLANT, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.BREWING_STAND.newItemStack(), new AspectList(new ItemStack(Blocks.brewing_stand)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CHORUS_FLOWER.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.PLANT, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CHORUS_PLANT.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.PLANT, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.DAYLIGHT_DETECTOR.newItemStack(), new AspectList(new ItemStack(Blocks.daylight_detector)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.ENCHANTMENT_TABLE.newItemStack(), new AspectList(new ItemStack(Blocks.enchanting_table)));ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.ANVIL.get()), new AspectList(new ItemStack(Blocks.anvil)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.IRON_TRAPDOOR.newItemStack(), new AspectList().add(Aspect.METAL, 12).add(Aspect.MECHANISM, 2).add(Aspect.MOTION, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.IRON_TRAPDOOR.newItemStack(), new AspectList().add(Aspect.METAL, 12).add(Aspect.MECHANISM, 2).add(Aspect.MOTION, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.BARREL.newItemStack(), new AspectList(new ItemStack(Blocks.chest)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.COMPOSTER.newItemStack(), new AspectList().add(Aspect.TREE, 5).add(Aspect.EXCHANGE, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMITHING_TABLE.newItemStack(), new AspectList().add(Aspect.CRAFT, 4).add(Aspect.METAL, 2).add(Aspect.TREE, 4));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMITHING_TABLE.newItemStack(), new AspectList().add(Aspect.CRAFT, 4).add(Aspect.METAL, 2).add(Aspect.TREE, 4));
 		ThaumcraftApi.registerObjectTag(McFlyBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.CRAFT, 4).add(Aspect.SENSES, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.PURPUR_BLOCK.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.EARTH, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.PURPUR_PILLAR.newItemStack(), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.EARTH, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.END_ROD.newItemStack(), new AspectList().add(Aspect.LIGHT, 2).add(Aspect.FIRE, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.GRASS_PATH.newItemStack(), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.ORDER, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.FROSTED_ICE.newItemStack(), new AspectList(new ItemStack(Blocks.ice)).add(Aspect.ENTROPY, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.BEE_NEST.newItemStack(), new AspectList().add(Aspect.BEAST, 1).add(Aspect.FLIGHT, 1).add(Aspect.ORDER, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.BEEHIVE.newItemStack(), new AspectList().add(Aspect.BEAST, 2).add(Aspect.FLIGHT, 2).add(Aspect.CRAFT, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.TARGET.newItemStack(), new AspectList().add(Aspect.CROP, 9).add(Aspect.MECHANISM, 4).add(Aspect.WEAPON, 2));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.TARGET.newItemStack(), new AspectList().add(Aspect.CROP, 9).add(Aspect.MECHANISM, 4).add(Aspect.WEAPON, 2));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.LOG_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.LOG2_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log2)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CHERRY_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.BAMBOO_BLOCK.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.WOOD_PLANKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.planks)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.sapling)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.leaves)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.LOG_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.LOG2_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log2)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BAMBOO_BLOCK.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.WOOD_PLANKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.planks)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.sapling)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.leaves)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.PINK_PETALS.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.tallgrass)));
 
 		ThaumcraftApi.registerObjectTag(ModBlocks.MAGMA.newItemStack(), new AspectList().add(Aspect.FIRE, 2).add(Aspect.EARTH, 1));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.LANTERN.newItemStack(),new AspectList().add(Aspect.METAL, 6).add(Aspect.LIGHT, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SOUL_LANTERN.newItemStack(), new AspectList(new ItemStack(ModBlocks.LANTERN.get())).add(Aspect.SOUL, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SOUL_TORCH.newItemStack(), new AspectList(new ItemStack(Blocks.torch)).add(Aspect.SOUL, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.LANTERN.newItemStack(),new AspectList().add(Aspect.METAL, 6).add(Aspect.LIGHT, 2));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_LANTERN.newItemStack(), new AspectList(new ItemStack(io.github.asgerjon.mcfly.registry.McFlyBlocks.LANTERN.get())).add(Aspect.SOUL, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_TORCH.newItemStack(), new AspectList(new ItemStack(Blocks.torch)).add(Aspect.SOUL, 1));
 
 		ThaumcraftApi.registerObjectTag(ModBlocks.ROSE.newItemStack(), new AspectList(new ItemStack(Blocks.red_flower)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.CORNFLOWER.newItemStack(), new AspectList(new ItemStack(Blocks.red_flower)));
@@ -215,103 +200,103 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModBlocks.BROWN_MUSHROOM.newItemStack(), new AspectList(new ItemStack(Blocks.brown_mushroom)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.RED_MUSHROOM.newItemStack(), new AspectList(new ItemStack(Blocks.red_mushroom)));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.RED_SANDSTONE.newItemStack(1, 0), new AspectList(new ItemStack(Blocks.sandstone)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.RED_SANDSTONE.newItemStack(1, 1), new AspectList(new ItemStack(Blocks.sandstone,1,1)) );
-		ThaumcraftApi.registerObjectTag(ModBlocks.RED_SANDSTONE.newItemStack( 1, 2), new AspectList(new ItemStack(Blocks.sandstone,1,2)) );
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMOOTH_SANDSTONE.newItemStack(), new AspectList(new ItemStack(Blocks.sandstone, 1, 2)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(), new AspectList(new ItemStack(Blocks.sandstone, 1, 2)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_SANDSTONE.newItemStack(1, 0), new AspectList(new ItemStack(Blocks.sandstone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_SANDSTONE.newItemStack(1, 1), new AspectList(new ItemStack(Blocks.sandstone,1,1)) );
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_SANDSTONE.newItemStack( 1, 2), new AspectList(new ItemStack(Blocks.sandstone,1,2)) );
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_SANDSTONE.newItemStack(), new AspectList(new ItemStack(Blocks.sandstone, 1, 2)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_RED_SANDSTONE.newItemStack(), new AspectList(new ItemStack(Blocks.sandstone, 1, 2)));
 
 		ThaumcraftApi.registerObjectTag(ModBlocks.SPONGE.newItemStack(1, 0), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.VOID, 1));
 		ThaumcraftApi.registerObjectTag(ModBlocks.SPONGE.newItemStack(1, 1), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.WATER, 1));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.STONE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stone)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stone)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.cobblestone)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stonebrick)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4), new AspectList(new ItemStack(Blocks.stonebrick, 1, 3)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.TUFF.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stonebrick)).add(Aspect.FIRE, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.TUFF.newItemStack(1, 4), new AspectList(new ItemStack(Blocks.stonebrick, 1, 3)).add(Aspect.FIRE, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CALCITE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.CRYSTAL, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.BASALT.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMOOTH_BASALT.newItemStack(), new AspectList(ModBlocks.BASALT.newItemStack()));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMOOTH_STONE.newItemStack(), new AspectList(new ItemStack(Blocks.stone)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SMOOTH_QUARTZ.newItemStack(), new AspectList(new ItemStack(Blocks.quartz_block)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.STONE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.COBBLED_DEEPSLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.cobblestone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stonebrick)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4), new AspectList(new ItemStack(Blocks.stonebrick, 1, 3)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stonebrick)).add(Aspect.FIRE, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.TUFF.newItemStack(1, 4), new AspectList(new ItemStack(Blocks.stonebrick, 1, 3)).add(Aspect.FIRE, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.CALCITE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.CRYSTAL, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_BASALT.newItemStack(), new AspectList(io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.newItemStack()));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_STONE.newItemStack(), new AspectList(new ItemStack(Blocks.stone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_QUARTZ.newItemStack(), new AspectList(new ItemStack(Blocks.quartz_block)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.COARSE_DIRT.newItemStack(), new AspectList(new ItemStack(Blocks.dirt)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.OLD_GRAVEL.newItemStack(), new AspectList(new ItemStack(Blocks.gravel)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.MUD.newItemStack(), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.WATER, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.PACKED_MUD.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.ORDER, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.SOUL_SOIL.newItemStack(), new AspectList(new ItemStack(Blocks.soul_sand)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.TINTED_GLASS.newItemStack(), new AspectList(new ItemStack(Blocks.glass)).add(Aspect.DARKNESS, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CRYING_OBSIDIAN.newItemStack(), new AspectList(new ItemStack(Blocks.obsidian)).add(Aspect.WATER, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.END_BRICKS.newItemStack(), new AspectList(new ItemStack(Blocks.end_stone)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.MUD.newItemStack(), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.WATER, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.PACKED_MUD.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.ORDER, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.newItemStack(), new AspectList(new ItemStack(Blocks.soul_sand)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.TINTED_GLASS.newItemStack(), new AspectList(new ItemStack(Blocks.glass)).add(Aspect.DARKNESS, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.CRYING_OBSIDIAN.newItemStack(), new AspectList(new ItemStack(Blocks.obsidian)).add(Aspect.WATER, 1));
 
 		// Copies
-		for (int i = 0; i < ModBlocks.TRAPDOORS.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModBlocks.TRAPDOORS[i].newItemStack(), new AspectList(new ItemStack(Blocks.trapdoor)));
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks trapdoor : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (trapdoor.isEnabled() && trapdoor.get() instanceof io.github.asgerjon.mcfly.base.McFlyTrapdoor && trapdoor.get().getMaterial() == net.minecraft.block.material.Material.wood) {
+				ThaumcraftApi.registerObjectTag(trapdoor.newItemStack(), new AspectList(new ItemStack(Blocks.trapdoor)));
+			}
 		}
 
-		for (int i = 0; i < ModBlocks.FENCE_GATES.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModBlocks.FENCE_GATES[i].newItemStack(), new AspectList(new ItemStack(Blocks.fence_gate)));
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks gate : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (gate.isEnabled() && gate.get() instanceof io.github.asgerjon.mcfly.base.McFlyFenceGate) {
+				ThaumcraftApi.registerObjectTag(gate.newItemStack(), new AspectList(new ItemStack(Blocks.fence_gate)));
+			}
 		}
 
-		for (int i = 0; i < ModBlocks.DOORS.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModBlocks.DOORS[i].newItemStack(), new AspectList(new ItemStack(Items.wooden_door)));
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks door : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (door.isEnabled() && door.get() instanceof io.github.asgerjon.mcfly.base.McFlyDoor) {
+				ThaumcraftApi.registerObjectTag(door.newItemStack(), new AspectList(new ItemStack(Items.wooden_door)));
+			}
 		}
 
-		for (int i = 0; i < ModBlocks.BUTTONS.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModBlocks.BUTTONS[i].newItemStack(), new AspectList(new ItemStack(Blocks.wooden_button)));
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks entry : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (entry.isEnabled() && entry.get() instanceof io.github.asgerjon.mcfly.base.McFlyButton && entry.get().getMaterial() == net.minecraft.block.material.Material.wood) {
+				ThaumcraftApi.registerObjectTag(entry.newItemStack(), new AspectList(new ItemStack(Blocks.wooden_button)));
+			}
 		}
-		ThaumcraftApi.registerObjectTag(ModBlocks.POLISHED_BLACKSTONE_BUTTON.newItemStack(), new AspectList(new ItemStack(Blocks.stone_button)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.POLISHED_BLACKSTONE_BUTTON.newItemStack(), new AspectList(new ItemStack(Blocks.stone_button)));
 
-		for (int i = 0; i < ModBlocks.PRESSURE_PLATES.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModBlocks.PRESSURE_PLATES[i].newItemStack(), new AspectList(new ItemStack(Blocks.wooden_pressure_plate)));
+		for (io.github.asgerjon.mcfly.registry.McFlyBlocks entry : io.github.asgerjon.mcfly.registry.McFlyBlocks.values()) {
+			if (entry.isEnabled() && entry.get() instanceof io.github.asgerjon.mcfly.base.McFlyPressurePlate && entry.get().getMaterial() == net.minecraft.block.material.Material.wood) {
+				ThaumcraftApi.registerObjectTag(entry.newItemStack(), new AspectList(new ItemStack(Blocks.wooden_pressure_plate)));
+			}
 		}
-		ThaumcraftApi.registerObjectTag(ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.newItemStack(), new AspectList(new ItemStack(Blocks.stone_pressure_plate)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.newItemStack(), new AspectList(new ItemStack(Blocks.stone_pressure_plate)));
 
-		for (int i = 0; i < ModItems.BOATS.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModItems.BOATS[i].newItemStack(), new AspectList(new ItemStack(Items.boat)));
-		}
-
-		for (int i = 0; i < ModItems.CHEST_BOATS.length; i++) {
-			ThaumcraftApi.registerObjectTag(ModItems.CHEST_BOATS[i].newItemStack(), new AspectList(new ItemStack(Items.boat)).add(Aspect.VOID, 4).add(Aspect.TREE, 3));
+		// McFly's boats (spec 91.12)
+		for (io.github.asgerjon.mcfly.boat.BoatTypes.Type type : io.github.asgerjon.mcfly.boat.BoatTypes.all()) {
+			if (!type.isEnabled()) {
+				continue;
+			}
+			if (type.boatItem() != null && type.boatItem() != Items.boat) {
+				ThaumcraftApi.registerObjectTag(new ItemStack(type.boatItem()), new AspectList(new ItemStack(Items.boat)));
+			}
+			if (type.chestBoatItem() != null) {
+				ThaumcraftApi.registerObjectTag(new ItemStack(type.chestBoatItem()), new AspectList(new ItemStack(Items.boat)).add(Aspect.VOID, 4).add(Aspect.TREE, 3));
+			}
 		}
 
 		for (int i = 0; i < ModBlocks.TERRACOTTA.length; i++) {
 			ThaumcraftApi.registerObjectTag(ModBlocks.TERRACOTTA[i].newItemStack(), new AspectList(new ItemStack(Blocks.stained_hardened_clay)));
 		}
 
-		for (ModBlocks door : new ModBlocks[]{ModBlocks.COPPER_DOOR, ModBlocks.EXPOSED_COPPER_DOOR, ModBlocks.WEATHERED_COPPER_DOOR, ModBlocks.OXIDIZED_COPPER_DOOR, ModBlocks.WAXED_COPPER_DOOR, ModBlocks.WAXED_EXPOSED_COPPER_DOOR, ModBlocks.WAXED_WEATHERED_COPPER_DOOR, ModBlocks.WAXED_OXIDIZED_COPPER_DOOR}) {
-			ThaumcraftApi.registerObjectTag(door.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.EXCHANGE, 1).add(Aspect.MECHANISM, 1).add(Aspect.MOTION, 1));
-		}
-
-		for (ModBlocks trapdoor : new ModBlocks[]{ModBlocks.COPPER_TRAPDOOR, ModBlocks.EXPOSED_COPPER_TRAPDOOR, ModBlocks.WEATHERED_COPPER_TRAPDOOR, ModBlocks.OXIDIZED_COPPER_TRAPDOOR, ModBlocks.WAXED_COPPER_TRAPDOOR, ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR, ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR, ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR}) {
-			ThaumcraftApi.registerObjectTag(trapdoor.newItemStack(), new AspectList().add(Aspect.METAL, 4).add(Aspect.EXCHANGE, 1).add(Aspect.MECHANISM, 1).add(Aspect.MOTION, 1));
-		}
-
 		ThaumcraftApi.registerObjectTag(ModBlocks.CONCRETE_POWDER.newItemStack(8, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.EARTH, 3).add(Aspect.ENTROPY, 2));
 		ThaumcraftApi.registerObjectTag(ModBlocks.CONCRETE.newItemStack(8, OreDictionary.WILDCARD_VALUE), new AspectList(ModBlocks.CONCRETE_POWDER.newItemStack(8, 0)).add(Aspect.WATER, 1).add(Aspect.ORDER, 1));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.COPPER_BLOCK.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.METAL, 20).add(Aspect.EXCHANGE, 6));
-		ThaumcraftApi.registerObjectTag(ModBlocks.CHISELED_COPPER.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(ModBlocks.COPPER_BLOCK.newItemStack()));
-		ThaumcraftApi.registerObjectTag(ModBlocks.COPPER_GRATE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(ModBlocks.COPPER_BLOCK.newItemStack()));
-		ThaumcraftApi.registerObjectTag(ModBlocks.COPPER_BULB.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(ModBlocks.COPPER_BLOCK.newItemStack()).add(Aspect.LIGHT, 4).add(Aspect.MECHANISM, 3));
 
-		ThaumcraftApi.registerObjectTag(ModBlocks.BUDDING_AMETHYST.newItemStack(), new AspectList().add(Aspect.CRYSTAL, 4).add(Aspect.SENSES, 4).add(Aspect.GREED, 4));
-		ThaumcraftApi.registerObjectTag(ModBlocks.AMETHYST_CLUSTER_1.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.SENSES, 1).add(Aspect.GREED, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.AMETHYST_CLUSTER_1.newItemStack(1, 6), new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.SENSES, 2).add(Aspect.GREED, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.AMETHYST_CLUSTER_2.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.SENSES, 2).add(Aspect.GREED, 2));
-		ThaumcraftApi.registerObjectTag(ModBlocks.AMETHYST_CLUSTER_2.newItemStack(1, 6), new AspectList().add(Aspect.CRYSTAL, 3).add(Aspect.SENSES, 3).add(Aspect.GREED, 3));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BUDDING_AMETHYST.newItemStack(), new AspectList().add(Aspect.CRYSTAL, 4).add(Aspect.SENSES, 4).add(Aspect.GREED, 4));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.SENSES, 1).add(Aspect.GREED, 1));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_1.newItemStack(1, 6), new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.SENSES, 2).add(Aspect.GREED, 2));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 2).add(Aspect.SENSES, 2).add(Aspect.GREED, 2));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.AMETHYST_CLUSTER_2.newItemStack(1, 6), new AspectList().add(Aspect.CRYSTAL, 3).add(Aspect.SENSES, 3).add(Aspect.GREED, 3));
 
 		// Ores
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_COAL_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.coal_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_IRON_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.iron_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.gold_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_REDSTONE_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.redstone_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_LAPIS_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.lapis_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_DIAMOND_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.diamond_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_EMERALD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.emerald_ore)));
-		ThaumcraftApi.registerObjectTag(ModBlocks.COPPER_ORE.newItemStack(), new AspectList().add(Aspect.METAL, 2).add(Aspect.EARTH, 1).add(Aspect.EXCHANGE, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack(), new AspectList(new ItemStack(ModBlocks.COPPER_ORE.get())));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_COAL_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.coal_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_IRON_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.iron_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_GOLD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.gold_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_REDSTONE_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.redstone_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_LAPIS_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.lapis_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_DIAMOND_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.diamond_ore)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE_EMERALD_ORE.newItemStack(), new AspectList(new ItemStack(Blocks.emerald_ore)));
 		for (int i = 0; i < 8; i++) {
 			ThaumcraftApi.registerObjectTag(ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, i), new AspectList(new ItemStack(ConfigBlocks.blockCustomOre, 1, i)));
 		}

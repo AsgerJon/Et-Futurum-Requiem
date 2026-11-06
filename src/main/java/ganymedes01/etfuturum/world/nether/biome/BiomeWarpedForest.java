@@ -11,7 +11,7 @@ public class BiomeWarpedForest extends NetherBiomeBase {
 		super(id, NetherForestDecorator.newWarpedForestDecorator());
 		this.setColor(0x49907B);
 		fogSkyColor = 0x5700AF;
-		this.topBlock = ModBlocks.NYLIUM.get();
+		this.topBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get();
 		this.field_150604_aj = 1; // topBlockMetadata
 		this.fillerBlock = Blocks.netherrack;
 

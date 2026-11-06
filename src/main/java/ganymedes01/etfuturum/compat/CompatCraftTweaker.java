@@ -9,7 +9,6 @@ import ganymedes01.etfuturum.compat.cthandlers.CTBlastFurnace;
 import ganymedes01.etfuturum.compat.cthandlers.CTBrewingFuels;
 import ganymedes01.etfuturum.compat.cthandlers.CTComposting;
 import ganymedes01.etfuturum.compat.cthandlers.CTEnchantingFuels;
-import ganymedes01.etfuturum.compat.cthandlers.CTSmithingTable;
 import ganymedes01.etfuturum.compat.cthandlers.CTSmoker;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -34,7 +33,6 @@ public class CompatCraftTweaker {
 	public static void onPostInit() {
 		MineTweakerAPI.registerClass(CTBlastFurnace.class);
 		MineTweakerAPI.registerClass(CTSmoker.class);
-		MineTweakerAPI.registerClass(CTSmithingTable.class);
 		MineTweakerAPI.registerClass(CTBrewingFuels.class);
 		MineTweakerAPI.registerClass(CTEnchantingFuels.class);
 		MineTweakerAPI.registerClass(CTComposting.class);

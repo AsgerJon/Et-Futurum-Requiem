@@ -1,0 +1,7 @@
+# 26.3's recipes for the chain and the lights (SPEC-modern-movement.md §88.5, step D; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py), one a line: name, kind, pattern rows ('.' empty) and keys or ingredients, ->
+# count result. '|' a tag's members, each tried.
+iron_chain shaped N/I/N I=iron_ingot N=iron_nugget -> 1 iron_chain
+lantern shaped XXX/X#X/XXX #=torch X=iron_nugget -> 1 lantern
+soul_lantern shaped XXX/X#X/XXX #=soul_torch X=iron_nugget -> 1 soul_lantern
+soul_torch shaped X/#/S #=stick S=soul_sand|soul_soil X=coal|charcoal -> 4 soul_torch

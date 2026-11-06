@@ -69,7 +69,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 			}
 
 			for (int i1 = 0; i1 < treeHeight; ++i1) {
-				world.setBlock(x, y + i1, z, ModBlocks.CHERRY_LOG.get());
+				world.setBlock(x, y + i1, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.get());
 			}
 
 			if (flag) {
@@ -104,7 +104,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 		for (int l = 0; l < k; ++l) {
 			mutableX += dir.offsetX;
 			mutableZ += dir.offsetZ;
-			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, ModBlocks.CHERRY_LOG.get(), dir.offsetX != 0 ? 4 : dir.offsetZ != 0 ? 8 : 0);
+			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.get(), dir.offsetX != 0 ? 4 : dir.offsetZ != 0 ? 8 : 0);
 		}
 
 		ForgeDirection branchDir = branchEndY > mutableY ? ForgeDirection.UP : ForgeDirection.DOWN;
@@ -122,7 +122,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 			mutableX += logDir.offsetX;
 			mutableY += logDir.offsetY;
 			mutableZ += logDir.offsetZ;
-			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, ModBlocks.CHERRY_LOG.get(), logDir.offsetX != 0 ? 4 : logDir.offsetZ != 0 ? 8 : 0);
+			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.get(), logDir.offsetX != 0 ? 4 : logDir.offsetZ != 0 ? 8 : 0);
 		}
 	}
 
@@ -176,7 +176,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 							return;
 						}
 						if (world.getBlock(mx, my + offset, mz).isReplaceable(world, mx, my + offset, mz)
-								&& world.getBlock(mx, my + offset + 1, mz) == ModBlocks.LEAVES.get() && world.getBlockMetadata(mx, my + offset + 1, mz) == 1) {
+								&& world.getBlock(mx, my + offset + 1, mz) == io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get() && world.getBlockMetadata(mx, my + offset + 1, mz) == 1) {
 							break;
 						}
 					}
@@ -224,7 +224,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 
 	private void placeLeaves(World world, int x, int y, int z) {
 		if (!(world.getBlock(x, y, z) instanceof BlockLog)) {
-			setBlockAndNotifyAdequately(world, x, y, z, ModBlocks.LEAVES.get(), 1);
+			setBlockAndNotifyAdequately(world, x, y, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.LEAVES.get(), 1);
 		}
 	}
 

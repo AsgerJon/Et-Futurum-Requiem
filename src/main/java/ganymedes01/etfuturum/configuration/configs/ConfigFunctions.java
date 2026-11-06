@@ -140,10 +140,8 @@ public class ConfigFunctions extends ConfigBase {
 	};
 	public static boolean enableSilkTouchingMushrooms;
 	public static boolean enableSticksFromDeadBushes;
-	public static boolean enableStoneBrickRecipes;
 	public static boolean enableShearableCobwebs;
 	public static boolean registerRawItemAsOre;
-	public static boolean enableFloatingTrapDoors;
 	public static boolean enableHoeMining;
 	public static boolean enableHayBaleFalls;
 	public static int hayBaleReducePercent;
@@ -158,9 +156,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdateChecker;
 	public static boolean enableAttackedAtYawFix = true; //Servers should always send the packet, it's up to the client to disable handling of this feature
 	public static boolean enableSubtitles;
-	public static byte elytraDataWatcherFlag;
 	public static boolean useStoneHardnessForDeepslate;
-	public static boolean enableDoorRecipeBuffs;
 	public static boolean inventoryBedModels;
 	public static boolean mobSpawnerEgging;
 	public static boolean fireworkRecipeFixes;
@@ -200,12 +196,9 @@ public class ConfigFunctions extends ConfigBase {
 		enableSkullDrop = getBoolean("enableSkullDrop", catChanges, true, "Skulls drop from charged creeper kills");
 		enableUpdatedFoodValues = getBoolean("enableUpdatedFood", catChanges, true, "Use updated food values");
 		enableShearableCobwebs = getBoolean("enableShearableCobwebs", catChanges, true, "");
-		enableStoneBrickRecipes = getBoolean("enableStoneBrickRecipes", catChanges, true, "Makes mossy, cracked and chiseled stone brick craftable");
-		enableFloatingTrapDoors = getBoolean("enableFloatingTrapDoors", catChanges, true, "");
 		enableHayBaleFalls = getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
 		enableHoeMining = getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-		enableDoorRecipeBuffs = getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
 		mobSpawnerEgging = getBoolean("mobSpawnerEgging", catChanges, true, "Click a mob spawner with a vanilla or EFR egg, and it'll change the mob inside. Doesn't support modded eggs.");
 		fireworkRecipeFixes = getBoolean("fireworkRecipeFixes", catChanges, true, "Fixes fireworks not being able to have an extra duration without a star, and they'll output 3 instead of 1. Note: This currently does NOT update NEI, it'll still show the old recipe outputs.");
         petDeathMessages = getBoolean("petDeathMessages", catChanges, true, "Sends a death message to the owner of a tamed mob when the mob dies while the player is online.");
@@ -221,7 +214,6 @@ public class ConfigFunctions extends ConfigBase {
 		totemHealPercent = getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
 		registerRawItemAsOre = getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
 		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[]{"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
-		elytraDataWatcherFlag = (byte) getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
 		useStoneHardnessForDeepslate = getBoolean("useStoneHardnessForDeepslate", catSettings, false, "Whether deepslate blocks should have the same hardness as their stone counterparts. This allows the asthetics of deepslate without the added hardness.");
 
 		//client

@@ -224,7 +224,7 @@ public class NetherChunkProvider implements IChunkProvider {
 				boolean soulSandFlag = biomegenbase == BiomeGenBase.hell && slowsandNoise[k + l * 16] + hellRNG.nextDouble() * 0.2D > 0.0D;
 				boolean gravelFlag = biomegenbase == BiomeGenBase.hell && gravelNoise[k + l * 16] + hellRNG.nextDouble() * 0.2D > 0.0D;
 				boolean soulSoilFlag;
-				if (biomegenbase == NetherBiomeManager.soulSandValley && ModBlocks.SOUL_SOIL.isEnabled()) {
+				if (biomegenbase == NetherBiomeManager.soulSandValley && io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.isEnabled()) {
 					double n = soulSoilNoise[k + l * 16] + hellRNG.nextDouble() * 0.05D;
 					soulSoilFlag = n > 1.5D || n < -0.5D;
 				} else {
@@ -234,7 +234,7 @@ public class NetherChunkProvider implements IChunkProvider {
 				int j1 = -1;
 				Block topBlock, fillerBlock;
 				if (soulSoilFlag) {
-					topBlock = fillerBlock = ModBlocks.SOUL_SOIL.get();
+					topBlock = fillerBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get();
 				} else {
 					topBlock = biomegenbase.topBlock;
 					fillerBlock = biomegenbase.fillerBlock;
@@ -257,17 +257,17 @@ public class NetherChunkProvider implements IChunkProvider {
 							j1 = -1;
 
 							if (blocks[l1 + 1] == Blocks.netherrack) {
-								blocks[l1 + 1] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
+								blocks[l1 + 1] = soulSoilFlag ? io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
 								metas[l1 + 1] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 2] == Blocks.netherrack) {
-								blocks[l1 + 2] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
+								blocks[l1 + 2] = soulSoilFlag ? io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
 								metas[l1 + 2] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 3] == Blocks.netherrack) {
-								blocks[l1 + 3] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
+								blocks[l1 + 3] = soulSoilFlag ? io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
 								metas[l1 + 3] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 						}
@@ -281,7 +281,7 @@ public class NetherChunkProvider implements IChunkProvider {
 									topMeta = fillerMeta = 0;
 								} else if (k1 >= a0 - 4 && k1 <= a0 + 1) {
 									if (soulSoilFlag) {
-										fillerBlock = topBlock = ModBlocks.SOUL_SOIL.get();
+										fillerBlock = topBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get();
 									} else {
 										topBlock = biomegenbase.topBlock;
 										fillerBlock = biomegenbase.fillerBlock;

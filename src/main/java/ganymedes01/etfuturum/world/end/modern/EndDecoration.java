@@ -74,7 +74,7 @@ public final class EndDecoration {
 			}
 		}
 		// chorus_plant: 0 to 4; on the surface; on end stone in the air
-		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled()) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.isEnabled() && io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.isEnabled()) {
 			random.setFeatureSeed(decorationSeed, CHORUS_INDEX, CHORUS_STEP);
 			int count = random.nextInt(4 - 0 + 1);
 			for (int i = 0; i < count; i++) {
@@ -104,12 +104,12 @@ public final class EndDecoration {
 	}
 
 	private static boolean forcedNotSolid(Block block) {
-		return block == ModBlocks.CHORUS_PLANT.get() || block == ModBlocks.CHORUS_FLOWER.get() || block == ModBlocks.END_ROD.get();
+		return block == io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.get() || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.get() || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.END_ROD.get();
 	}
 
 	/** 26.3's ChorusFlowerBlock.generatePlant: a plant at the place, grown up to 4 branchings, a dead flower on each tip. */
 	public static void generateChorus(World world, int x, int y, int z, java.util.Random random, int maxHorizontalSpread) {
-		world.setBlock(x, y, z, ModBlocks.CHORUS_PLANT.get(), 0, 2);
+		world.setBlock(x, y, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.get(), 0, 2);
 		growChorus(world, x, y, z, random, x, z, maxHorizontalSpread, 0);
 	}
 
@@ -117,7 +117,7 @@ public final class EndDecoration {
 	private static final ForgeDirection[] HORIZONTAL = {ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH, ForgeDirection.WEST};
 
 	private static void growChorus(World world, int x, int y, int z, java.util.Random random, int startX, int startZ, int maxHorizontalSpread, int depth) {
-		Block plant = ModBlocks.CHORUS_PLANT.get();
+		Block plant = io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_PLANT.get();
 		int height = random.nextInt(4) + 1;
 		if (depth == 0) {
 			height++;
@@ -150,7 +150,7 @@ public final class EndDecoration {
 			}
 		}
 		if (!placedStem) {
-			world.setBlock(x, y + height, z, ModBlocks.CHORUS_FLOWER.get(), 5, 2);
+			world.setBlock(x, y + height, z, io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.get(), 5, 2);
 		}
 	}
 

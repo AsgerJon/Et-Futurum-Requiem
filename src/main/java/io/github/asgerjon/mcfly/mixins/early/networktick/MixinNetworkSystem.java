@@ -33,11 +33,9 @@ public class MixinNetworkSystem {
 
 	@WrapOperation(method = "networkTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/NetworkManager;processReceivedPackets()V"))
 	private void etfu$readOnlyOnceActive(NetworkManager manager, Operation<Void> original) {
+		// a connection without a channel yet is left for the next tick (the 2026-10-27 fix)
 		if (((AccessorNetworkManager) manager).etfu$getChannel() != null) {
 			original.call(manager);
-		} else if (ganymedes01.etfuturum.unittas.TasTrace.recording()) {
-			ganymedes01.etfuturum.unittas.TasTrace.noteOnce("no channel " + System.identityHashCode(manager),
-					"the server's tick met a connection without a channel yet (left for the next tick: the 2026-10-27 fix)");
 		}
 	}
 }

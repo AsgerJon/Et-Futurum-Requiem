@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -115,7 +114,7 @@ public class BlockHoney extends BaseBlock {
 
 	private static boolean doesEntityDoHoneyBlockSlideEffects(Entity p_54013_) {
 		return p_54013_ instanceof EntityLivingBase || p_54013_ instanceof EntityMinecart || p_54013_ instanceof EntityTNTPrimed
-				|| p_54013_ instanceof EntityBoat || p_54013_ instanceof EntityNewBoat;
+				|| p_54013_ instanceof EntityBoat || p_54013_ instanceof io.github.asgerjon.mcfly.boat.McFlyBoat;
 	}
 
 	@Override

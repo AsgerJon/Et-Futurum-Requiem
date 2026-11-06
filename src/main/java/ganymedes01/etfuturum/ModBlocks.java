@@ -5,168 +5,61 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 
 import ganymedes01.etfuturum.blocks.BaseBlock;
-import ganymedes01.etfuturum.blocks.BaseDoor;
 import ganymedes01.etfuturum.blocks.BaseFlower;
 import ganymedes01.etfuturum.blocks.BaseLeaves;
-import ganymedes01.etfuturum.blocks.BaseLog;
 import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.BaseStairs;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
-import ganymedes01.etfuturum.blocks.BaseTrapdoor;
 import ganymedes01.etfuturum.blocks.BaseWall;
-import ganymedes01.etfuturum.blocks.BlockAmethystBlock;
-import ganymedes01.etfuturum.blocks.BlockAmethystCluster;
-import ganymedes01.etfuturum.blocks.BlockAncientDebris;
-import ganymedes01.etfuturum.blocks.BlockAzalea;
-import ganymedes01.etfuturum.blocks.BlockAzaleaLeaves;
-import ganymedes01.etfuturum.blocks.BlockBamboo;
-import ganymedes01.etfuturum.blocks.BlockBambooBlock;
-import ganymedes01.etfuturum.blocks.BlockBambooMosaic;
-import ganymedes01.etfuturum.blocks.BlockBambooShoot;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBarrier;
-import ganymedes01.etfuturum.blocks.BlockBasalt;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
-import ganymedes01.etfuturum.blocks.BlockBlackstone;
-import ganymedes01.etfuturum.blocks.BlockBlackstoneSlab;
-import ganymedes01.etfuturum.blocks.BlockBlackstoneWall;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockBone;
-import ganymedes01.etfuturum.blocks.BlockBountifulStone;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
-import ganymedes01.etfuturum.blocks.BlockBuddingAmethyst;
 import ganymedes01.etfuturum.blocks.BlockCartographyTable;
-import ganymedes01.etfuturum.blocks.BlockCaveVines;
-import ganymedes01.etfuturum.blocks.BlockCaveVinesPlant;
-import ganymedes01.etfuturum.blocks.BlockChain;
-import ganymedes01.etfuturum.blocks.BlockChiseledCopper;
-import ganymedes01.etfuturum.blocks.BlockChorusFlower;
-import ganymedes01.etfuturum.blocks.BlockChorusPlant;
 import ganymedes01.etfuturum.blocks.BlockCoarseDirt;
 import ganymedes01.etfuturum.blocks.BlockComposter;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
-import ganymedes01.etfuturum.blocks.BlockCopper;
-import ganymedes01.etfuturum.blocks.BlockCopperBulb;
-import ganymedes01.etfuturum.blocks.BlockCopperDoor;
-import ganymedes01.etfuturum.blocks.BlockCopperGrate;
-import ganymedes01.etfuturum.blocks.BlockCopperTrapdoor;
-import ganymedes01.etfuturum.blocks.BlockCutCopperSlab;
-import ganymedes01.etfuturum.blocks.BlockCutCopperStairs;
-import ganymedes01.etfuturum.blocks.BlockDeepslate;
 import ganymedes01.etfuturum.blocks.BlockDirtPath;
 import ganymedes01.etfuturum.blocks.BlockDyedBed;
-import ganymedes01.etfuturum.blocks.BlockEndBricks;
-import ganymedes01.etfuturum.blocks.BlockEndGateway;
-import ganymedes01.etfuturum.blocks.BlockEndRod;
 import ganymedes01.etfuturum.blocks.BlockFletchingTable;
 import ganymedes01.etfuturum.blocks.BlockFrostedIce;
-import ganymedes01.etfuturum.blocks.BlockGildedBlackstone;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
-import ganymedes01.etfuturum.blocks.BlockGlowLichen;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockInvertedDaylightDetector;
-import ganymedes01.etfuturum.blocks.BlockIronTrapdoor;
-import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockLavaCauldron;
 import ganymedes01.etfuturum.blocks.BlockLight;
 import ganymedes01.etfuturum.blocks.BlockLoom;
 import ganymedes01.etfuturum.blocks.BlockMagma;
-import ganymedes01.etfuturum.blocks.BlockMangroveRoots;
-import ganymedes01.etfuturum.blocks.BlockModernLeaves;
-import ganymedes01.etfuturum.blocks.BlockModernSapling;
-import ganymedes01.etfuturum.blocks.BlockModernWoodFence;
-import ganymedes01.etfuturum.blocks.BlockModernWoodFenceCompat;
-import ganymedes01.etfuturum.blocks.BlockModernWoodPlanks;
-import ganymedes01.etfuturum.blocks.BlockModernWoodSlab;
-import ganymedes01.etfuturum.blocks.BlockMoss;
-import ganymedes01.etfuturum.blocks.BlockMossCarpet;
-import ganymedes01.etfuturum.blocks.BlockMud;
-import ganymedes01.etfuturum.blocks.BlockMuddyMangroveRoots;
-import ganymedes01.etfuturum.blocks.BlockNetherFungus;
-import ganymedes01.etfuturum.blocks.BlockNetherRoots;
-import ganymedes01.etfuturum.blocks.BlockNetherSprouts;
-import ganymedes01.etfuturum.blocks.BlockNetherStem;
-import ganymedes01.etfuturum.blocks.BlockNetherite;
-import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
-import ganymedes01.etfuturum.blocks.BlockNetherwart;
 import ganymedes01.etfuturum.blocks.BlockNewAnvil;
 import ganymedes01.etfuturum.blocks.BlockNewBeacon;
 import ganymedes01.etfuturum.blocks.BlockNewBrewingStand;
 import ganymedes01.etfuturum.blocks.BlockNewDaylightSensor;
 import ganymedes01.etfuturum.blocks.BlockNewEnchantmentTable;
-import ganymedes01.etfuturum.blocks.BlockNewNetherBrick;
-import ganymedes01.etfuturum.blocks.BlockNylium;
-import ganymedes01.etfuturum.blocks.BlockObserver;
 import ganymedes01.etfuturum.blocks.BlockOldGravel;
 import ganymedes01.etfuturum.blocks.BlockOldRose;
-import ganymedes01.etfuturum.blocks.BlockPackedMud;
 import ganymedes01.etfuturum.blocks.BlockPinkPetals;
-import ganymedes01.etfuturum.blocks.BlockPointedDripstone;
-import ganymedes01.etfuturum.blocks.BlockPolishedBlackstoneButton;
-import ganymedes01.etfuturum.blocks.BlockPolishedBlackstonePressurePlate;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
-import ganymedes01.etfuturum.blocks.BlockPurpur;
-import ganymedes01.etfuturum.blocks.BlockPurpurPillar;
-import ganymedes01.etfuturum.blocks.BlockPurpurSlab;
-import ganymedes01.etfuturum.blocks.BlockRedSandstone;
-import ganymedes01.etfuturum.blocks.BlockRedSandstoneSlab;
-import ganymedes01.etfuturum.blocks.BlockSculk;
-import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.blocks.BlockSeaLantern;
-import ganymedes01.etfuturum.blocks.BlockShroomlight;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSlime;
-import ganymedes01.etfuturum.blocks.BlockSmithingTable;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
-import ganymedes01.etfuturum.blocks.BlockSmoothQuartzSlab;
-import ganymedes01.etfuturum.blocks.BlockSmoothSandstoneSlab;
-import ganymedes01.etfuturum.blocks.BlockSoulSoil;
-import ganymedes01.etfuturum.blocks.BlockSoulTorch;
 import ganymedes01.etfuturum.blocks.BlockSponge;
-import ganymedes01.etfuturum.blocks.BlockStoneSlab1;
-import ganymedes01.etfuturum.blocks.BlockStoneWall;
 import ganymedes01.etfuturum.blocks.BlockStonecutter;
-import ganymedes01.etfuturum.blocks.BlockStrippedLogCompat;
-import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
-import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
-import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
-import ganymedes01.etfuturum.blocks.BlockStrippedOldWood;
-import ganymedes01.etfuturum.blocks.BlockTarget;
-import ganymedes01.etfuturum.blocks.BlockTintedGlass;
-import ganymedes01.etfuturum.blocks.BlockTuff;
-import ganymedes01.etfuturum.blocks.BlockTwistingVines;
-import ganymedes01.etfuturum.blocks.BlockWeepingVines;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
-import ganymedes01.etfuturum.blocks.BlockWoodBarkNew;
-import ganymedes01.etfuturum.blocks.BlockWoodBarkOld;
-import ganymedes01.etfuturum.blocks.BlockWoodButton;
-import ganymedes01.etfuturum.blocks.BlockWoodFence;
-import ganymedes01.etfuturum.blocks.BlockWoodFenceGate;
-import ganymedes01.etfuturum.blocks.BlockWoodPressurePlate;
-import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseLeavesItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BasePotableItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSlabItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSubtypesPotableItemBlock;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockAmethystCluster;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBarrel;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDyedBed;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockLantern;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGlowLichen;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockNewDoor;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockRedSandstone;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockSign;
-import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateCopperOre;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
-import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateAdamantiumOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateArsMagicaOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateBiomesOPlentyOre;
@@ -178,7 +71,6 @@ import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateDragonQuestOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateProjectRedOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateThaumcraftOre;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockGeneralModdedDeepslateOre;
-import ganymedes01.etfuturum.blocks.rawore.BlockRawOre;
 import ganymedes01.etfuturum.blocks.rawore.modded.BlockGeneralModdedRawOre;
 import ganymedes01.etfuturum.blocks.rawore.modded.BlockRawAdamantium;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -194,7 +86,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
-import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -204,69 +95,24 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public enum ModBlocks {
-	STONE(ConfigBlocksItems.enableStones && !ConfigModCompat.disableBaseBountifulStonesOnly, new BlockBountifulStone()),
 	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(10.0F)),
 	SEA_LANTERN(ConfigBlocksItems.enablePrismarine, new BlockSeaLantern()),
 	DAYLIGHT_DETECTOR_INVERTED(ConfigBlocksItems.enableInvertedDaylightSensor, new BlockInvertedDaylightDetector(), null),
-	RED_SANDSTONE(ConfigBlocksItems.enableRedSandstone, new BlockRedSandstone(), ItemBlockRedSandstone.class),
 	BROWN_MUSHROOM(ConfigFunctions.enableSilkTouchingMushrooms, new BlockSilkedMushroom(Blocks.brown_mushroom_block, "brown")),
 	RED_MUSHROOM(ConfigFunctions.enableSilkTouchingMushrooms, new BlockSilkedMushroom(Blocks.red_mushroom_block, "red")),
 	COARSE_DIRT(ConfigBlocksItems.enableCoarseDirt, new BlockCoarseDirt()),
 	SLIME(ConfigBlocksItems.enableSlimeBlock, new BlockSlime()),
 	SPONGE(ConfigBlocksItems.enableSponge, new BlockSponge()),
 	BEETROOTS(ConfigBlocksItems.enableBeetroot, new BlockBeetroot(), null),
-	PURPUR_BLOCK(ConfigBlocksItems.enableChorusFruit, new BlockPurpur()),
-	PURPUR_PILLAR(ConfigBlocksItems.enableChorusFruit, new BlockPurpurPillar()),
-	END_BRICKS(ConfigBlocksItems.enableChorusFruit, new BlockEndBricks()),
 	GRASS_PATH(ConfigBlocksItems.enableGrassPath, new BlockDirtPath()),
-	END_ROD(ConfigBlocksItems.enableChorusFruit, new BlockEndRod()),
-	CHORUS_PLANT(ConfigBlocksItems.enableChorusFruit, new BlockChorusPlant()),
-	CHORUS_FLOWER(ConfigBlocksItems.enableChorusFruit, new BlockChorusFlower()),
 	BONE(ConfigBlocksItems.enableBoneBlock, new BlockBone()),
-	RED_NETHERBRICK(ConfigBlocksItems.enableNewNetherBricks, new BlockNewNetherBrick()), //Also contains chiseled and cracked nether bricks
-	ANCIENT_DEBRIS(ConfigBlocksItems.enableNetherite, new BlockAncientDebris()),
-	NETHERITE_BLOCK(ConfigBlocksItems.enableNetherite, new BlockNetherite()),
-	NETHER_GOLD_ORE(ConfigBlocksItems.enableNetherGold, new BlockOreNetherGold()),
 	BLUE_ICE(ConfigBlocksItems.enableBlueIce, new BlockBlueIce()),
-	SMOOTH_STONE(ConfigBlocksItems.enableSmoothStone, new BaseBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_stone")
-			.setBlockTextureName("stone_slab_top").setHardness(2F).setResistance(6F)),
-	SMOOTH_SANDSTONE(ConfigBlocksItems.enableSmoothSandstone, new BaseBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_sandstone")
-			.setBlockTextureName("sandstone_top").setHardness(2F).setResistance(6F)),
-	SMOOTH_RED_SANDSTONE(ConfigBlocksItems.enableRedSandstone, new BaseBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_red_sandstone")
-			.setBlockTextureName("red_sandstone_top").setHardness(2F).setResistance(6F)),
-	SMOOTH_QUARTZ(ConfigBlocksItems.enableSmoothQuartz, new BaseBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_quartz")
-			.setBlockTextureName("quartz_block_bottom").setHardness(2F).setResistance(6F)),
-	QUARTZ_BRICKS(ConfigBlocksItems.enableQuartzBricks, new BaseBlock(Material.rock).setNames("quartz_bricks")
-			.setHardness(.8F).setResistance(.8F)),
-	LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs, new BlockStrippedOldLog()),
-	LOG2_STRIPPED(ConfigBlocksItems.enableStrippedLogs, new BlockStrippedNewLog()),
-	BARK(ConfigBlocksItems.enableBarkLogs, new BlockWoodBarkOld()),
-	BARK2(ConfigBlocksItems.enableBarkLogs, new BlockWoodBarkNew()),
-	WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedOldWood()),
-	WOOD2_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedNewWood()),
-	BOP_LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log", false, true, "sacredoak", "cherry", "dark", "fir")),
-	BOP_LOG_STRIPPED2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log2", false, true, "ethereal", "magic", "mangrove", "palm")),
-	BOP_LOG_STRIPPED3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log3", false, true, "redwood", "willow", "dead", "bigflowerstem")),
-	BOP_LOG_STRIPPED4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_log4", false, true, "pine", "hellbark", "jacaranda", "mahogany")),
-	BOP_WOOD(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood", true, false, "sacredoak", "cherry", "dark", "fir")),
-	BOP_WOOD2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood2", true, false, "ethereal", "magic", "mangrove", "palm")),
-	BOP_WOOD3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood3", true, false, "redwood", "willow", "dead", "bigflowerstem")),
-	BOP_WOOD4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_wood4", true, false, "pine", "hellbark", "jacaranda", "mahogany")),
-	BOP_WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood", true, true, "sacredoak", "cherry", "dark", "fir")),
-	BOP_WOOD_STRIPPED2(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood2", true, true, "ethereal", "magic", "mangrove", "palm")),
-	BOP_WOOD_STRIPPED3(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood3", true, true, "redwood", "willow", "dead", "bigflowerstem")),
-	BOP_WOOD_STRIPPED4(ConfigBlocksItems.enableStrippedLogs && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockStrippedLogCompat("bop", "bop_stripped_wood4", true, true, "pine", "hellbark", "jacaranda", "mahogany")),
-	WITCHERY_LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_stripped_log", false, true, "rowan", "alder", "hawthorn")),
-	WITCHERY_WOOD(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_wood", true, false, "rowan", "alder", "hawthorn")),
-	WITCHERY_WOOD_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ModsList.WITCHERY.isLoaded(), new BlockStrippedLogCompat("witchery", "witchery_stripped_wood", true, true, "rowan", "alder", "hawthorn")),
 	CONCRETE(ConfigBlocksItems.enableConcrete, new BaseSubtypesBlock(Material.rock, "white_concrete", "orange_concrete", "magenta_concrete", "light_blue_concrete", "yellow_concrete", "lime_concrete", "pink_concrete",
 			"gray_concrete", "light_gray_concrete", "cyan_concrete", "purple_concrete", "blue_concrete", "brown_concrete", "green_concrete", "red_concrete", "black_concrete").setNames("concrete")
 			.setMapColorBaseBlock(Blocks.wool).setHardness(1.8F).setResistance(1.8F),
 			BaseItemBlock.class),
 	CONCRETE_POWDER(ConfigBlocksItems.enableConcrete, new BlockConcretePowder()),
-	COPPER_ORE(ConfigBlocksItems.enableCopper && !ConfigModCompat.disableCopperOreAndIngotOnly, new BlockCopperOre()),
-	DEEPSLATE_COPPER_ORE((ConfigBlocksItems.enableCopper || ConfigModCompat.moddedDeepslateOres) && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateCopperOre()),
 	CORNFLOWER(ConfigBlocksItems.enableCornflower, new BaseFlower().setNames("cornflower")),
 	LILY_OF_THE_VALLEY(ConfigBlocksItems.enableLilyOfTheValley, new BaseFlower().setNames("lily_of_the_valley")),
 	WITHER_ROSE(ConfigBlocksItems.enableWitherRose, new BlockWitherRose()),
@@ -287,213 +133,42 @@ public enum ModBlocks {
 	GREEN_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(13)),
 	RED_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(14)),
 	BLACK_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(15)),
-	COPPER_BLOCK(ConfigBlocksItems.enableCopper, new BlockCopper()),
-	CHISELED_COPPER(ConfigBlocksItems.enableCopper, new BlockChiseledCopper()),
-	COPPER_GRATE(ConfigBlocksItems.enableCopper, new BlockCopperGrate()),
-	COPPER_BULB(ConfigBlocksItems.enableCopper, new BlockCopperBulb(false)),
-	POWERED_COPPER_BULB(ConfigBlocksItems.enableCopper, new BlockCopperBulb(true), null),
-	DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BlockDeepslate()),
-	COBBLED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("cobbled_deepslate")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
-	POLISHED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("polished_deepslate")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
-	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BaseSubtypesBlock(Material.rock,
-			"deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate").setNames("deepslate_bricks")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 3.0f : 3.5f).setResistance(6)),
-	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
-	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BlockRawOre()),
-	BASALT(ConfigBlocksItems.enableBasalt, new BlockBasalt()),
-	SMOOTH_BASALT(ConfigBlocksItems.enableBasalt, new BaseBlock(Material.rock).setNames("smooth_basalt")
-			.setBlockSound(ModSounds.soundBasalt).setHardness(1.25F).setResistance(4.2F)),
-	CALCITE(ConfigBlocksItems.enableCalcite, new BaseBlock(Material.rock).setNames("calcite")
-			.setBlockSound(ModSounds.soundCalcite).setHardness(0.75F).setResistance(0.75F)),
-	AMETHYST_BLOCK(ConfigBlocksItems.enableAmethyst, new BlockAmethystBlock()),
-	BUDDING_AMETHYST(ConfigBlocksItems.enableAmethyst, new BlockBuddingAmethyst()),
-	AMETHYST_CLUSTER_1(ConfigBlocksItems.enableAmethyst, new BlockAmethystCluster(0), ItemBlockAmethystCluster.class),
-	AMETHYST_CLUSTER_2(ConfigBlocksItems.enableAmethyst, new BlockAmethystCluster(1), ItemBlockAmethystCluster.class),
-	TINTED_GLASS(ConfigBlocksItems.enableAmethyst, new BlockTintedGlass()),
 
-	MUD(ConfigBlocksItems.enableMud, new BlockMud()),
-	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
-	MANGROVE_ROOTS(ConfigExperiments.enableMangroveBlocks, new BlockMangroveRoots()),
-	MUDDY_MANGROVE_ROOTS(ConfigExperiments.enableMangroveBlocks, new BlockMuddyMangroveRoots()),
 
-	MOSS_BLOCK(ConfigExperiments.enableMossAzalea, new BlockMoss()),
-	MOSS_CARPET(ConfigExperiments.enableMossAzalea, new BlockMossCarpet()),
-	AZALEA(ConfigExperiments.enableMossAzalea, new BlockAzalea()),
-	AZALEA_LEAVES(ConfigExperiments.enableMossAzalea, new BlockAzaleaLeaves()),
 
-	DEEPSLATE_COAL_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.coal_ore)),
-	DEEPSLATE_IRON_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.iron_ore)),
-	DEEPSLATE_GOLD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.gold_ore)),
-	DEEPSLATE_REDSTONE_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateRedstoneOre(false)),
-	DEEPSLATE_LIT_REDSTONE_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateRedstoneOre(true), null),
-	DEEPSLATE_LAPIS_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.lapis_ore)),
-	DEEPSLATE_DIAMOND_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.diamond_ore)),
-	DEEPSLATE_EMERALD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.emerald_ore)),
-	OBSERVER(ConfigMixins.enableObservers, new BlockObserver()),
-	TARGET(ConfigBlocksItems.enableTarget, new BlockTarget()),
 
-	RED_SANDSTONE_SLAB(ConfigBlocksItems.enableRedSandstone, new BlockRedSandstoneSlab(false)),
-	DOUBLE_RED_SANDSTONE_SLAB(ConfigBlocksItems.enableRedSandstone, new BlockRedSandstoneSlab(true)),
-	PURPUR_SLAB(ConfigBlocksItems.enableChorusFruit, new BlockPurpurSlab(false)),
-	DOUBLE_PURPUR_SLAB(ConfigBlocksItems.enableChorusFruit, new BlockPurpurSlab(true)),
-	STONE_SLAB(ConfigBlocksItems.enableExtraVanillaSlabs, new BlockStoneSlab1(false)),
-	DOUBLE_STONE_SLAB(ConfigBlocksItems.enableExtraVanillaSlabs, new BlockStoneSlab1(true)),
-	STONE_SLAB_2(ConfigBlocksItems.enableStones, new BaseSlab(false, Material.rock,
-			"granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite").setUnlocalizedNameWithPrefix("stone_slab_2")
-			.setHardness(2F).setResistance(6F)),
-	DOUBLE_STONE_SLAB_2(ConfigBlocksItems.enableStones, new BaseSlab(true, Material.rock,
-			"granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite").setUnlocalizedNameWithPrefix("stone_slab_2")
-			.setHardness(2F).setResistance(6F)),
-	SMOOTH_SANDSTONE_SLAB(ConfigBlocksItems.enableSmoothSandstone, new BlockSmoothSandstoneSlab(0, false)),
-	DOUBLE_SMOOTH_SANDSTONE_SLAB(ConfigBlocksItems.enableSmoothSandstone, new BlockSmoothSandstoneSlab(0, true)),
-	SMOOTH_RED_SANDSTONE_SLAB(ConfigBlocksItems.enableRedSandstone, new BlockSmoothSandstoneSlab(1, false)),
-	DOUBLE_SMOOTH_RED_SANDSTONE_SLAB(ConfigBlocksItems.enableSmoothSandstone, new BlockSmoothSandstoneSlab(1, true)),
 	PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BaseSlab(false, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(6.0F),
 			BaseSlabItemBlock.class),
 	DOUBLE_PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BaseSlab(true, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(6.0F),
 			BaseSlabItemBlock.class),
-	SMOOTH_QUARTZ_SLAB(ConfigBlocksItems.enableSmoothQuartz, new BlockSmoothQuartzSlab(false)),
-	DOUBLE_SMOOTH_QUARTZ_SLAB(ConfigBlocksItems.enableSmoothQuartz, new BlockSmoothQuartzSlab(true)),
-	RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BaseSlab(false, Material.rock, "red_nether_bricks")
-			.setResistance(6).setHardness(2.0F),
-			BaseSlabItemBlock.class),
-	DOUBLE_RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BaseSlab(true, Material.rock, "red_nether_bricks")
-			.setResistance(6).setHardness(2.0F),
-			BaseSlabItemBlock.class),
-	END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BaseSlab(false, Material.rock, "end_bricks")
-			.setResistance(9).setHardness(3.0F),
-			BaseSlabItemBlock.class),
-	DOUBLE_END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BaseSlab(true, Material.rock, "end_bricks")
-			.setResistance(9).setHardness(3.0F),
-			BaseSlabItemBlock.class),
-	DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	DOUBLE_DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6)),
-	TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6)),
-	DOUBLE_TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6)),
-	MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(false, Material.rock, "mud_bricks")
-			.setBlockSound(ModSounds.soundMudBricks).setHardness(3).setResistance(6)),
-	DOUBLE_MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(true, Material.rock, "mud_bricks")
-			.setBlockSound(ModSounds.soundMudBricks).setHardness(3).setResistance(6)),
-	CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(false)),
-	DOUBLE_CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(true)),
 
 	PRISMARINE_STAIRS(ConfigBlocksItems.enablePrismarine, new BaseStairs(PRISMARINE_BLOCK.get(), 0).setUnlocalizedNameWithPrefix("prismarine")),
 	PRISMARINE_STAIRS_BRICK(ConfigBlocksItems.enablePrismarine, new BaseStairs(PRISMARINE_BLOCK.get(), 1).setUnlocalizedNameWithPrefix("prismarine_brick")),
 	PRISMARINE_STAIRS_DARK(ConfigBlocksItems.enablePrismarine, new BaseStairs(PRISMARINE_BLOCK.get(), 2).setUnlocalizedNameWithPrefix("dark_prismarine")),
-	SMOOTH_SANDSTONE_STAIRS(ConfigBlocksItems.enableSmoothSandstone, new BaseStairs(SMOOTH_SANDSTONE.get(), 0)),
-	SMOOTH_RED_SANDSTONE_STAIRS(ConfigBlocksItems.enableRedSandstone, new BaseStairs(SMOOTH_RED_SANDSTONE.get(), 0)),
-	SMOOTH_QUARTZ_STAIRS(ConfigBlocksItems.enableSmoothQuartz, new BaseStairs(SMOOTH_QUARTZ.get(), 0)),
-	RED_NETHERBRICK_STAIRS(ConfigBlocksItems.enableNewNetherBricks, new BaseStairs(RED_NETHERBRICK.get(), 0).setUnlocalizedNameWithPrefix("red_nether_brick")),
-	GRANITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 1).setUnlocalizedNameWithPrefix("granite")),
-	POLISHED_GRANITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 2).setUnlocalizedNameWithPrefix("polished_granite")),
-	DIORITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 3).setUnlocalizedNameWithPrefix("diorite")),
-	POLISHED_DIORITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 4).setUnlocalizedNameWithPrefix("polished_diorite")),
-	ANDESITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 5).setUnlocalizedNameWithPrefix("andesite")),
-	POLISHED_ANDESITE_STAIRS(ConfigBlocksItems.enableStones, new BaseStairs(STONE.get(), 6).setUnlocalizedNameWithPrefix("polished_andesite")),
-	MOSSY_STONE_BRICK_STAIRS(ConfigBlocksItems.enableExtraVanillaStairs, new BaseStairs(Blocks.stonebrick, 1).setUnlocalizedNameWithPrefix("mossy_stone_brick")),
-	MOSSY_COBBLESTONE_STAIRS(ConfigBlocksItems.enableExtraVanillaStairs, new BaseStairs(Blocks.mossy_cobblestone, 0).setUnlocalizedNameWithPrefix("mossy_cobblestone")),
-	STONE_STAIRS(ConfigBlocksItems.enableExtraVanillaStairs, new BaseStairs(Blocks.stone, 0)),
-	END_BRICK_STAIRS(ConfigBlocksItems.enableChorusFruit, new BaseStairs(END_BRICKS.get(), 0)),
-	RED_SANDSTONE_STAIRS(ConfigBlocksItems.enableRedSandstone, new BaseStairs(RED_SANDSTONE.get(), 0)),
-	PURPUR_STAIRS(ConfigBlocksItems.enableChorusFruit, new BaseStairs(PURPUR_BLOCK.get(), 0).setUnlocalizedNameWithPrefix("purpur")),
-	COBBLED_DEEPSLATE_STAIRS(ConfigBlocksItems.enableDeepslate, new BaseStairs(COBBLED_DEEPSLATE.get(), 0)),
-	POLISHED_DEEPSLATE_STAIRS(ConfigBlocksItems.enableDeepslate, new BaseStairs(POLISHED_DEEPSLATE.get(), 0)),
-	DEEPSLATE_BRICK_STAIRS(ConfigBlocksItems.enableDeepslate, new BaseStairs(DEEPSLATE_BRICKS.get(), 0)),
-	DEEPSLATE_TILE_STAIRS(ConfigBlocksItems.enableDeepslate, new BaseStairs(DEEPSLATE_BRICKS.get(), 2).setUnlocalizedNameWithPrefix("deepslate_tile")
-			.setBlockSound(ModSounds.soundDeepslateTiles)),
-	TUFF_STAIRS(ConfigBlocksItems.enableTuff, new BaseStairs(TUFF.get(), 0).setBlockSound(ModSounds.soundTuff)),
-	POLISHED_TUFF_STAIRS(ConfigBlocksItems.enableTuff, new BaseStairs(TUFF.get(), 1).setUnlocalizedNameWithPrefix("polished_tuff")
-			.setBlockSound(ModSounds.soundPolishedTuff)),
-	TUFF_BRICK_STAIRS(ConfigBlocksItems.enableTuff, new BaseStairs(TUFF.get(), 2).setUnlocalizedNameWithPrefix("tuff_bricks")
-			.setBlockSound(ModSounds.soundTuffBricks)),
-	MUD_BRICK_STAIRS(ConfigBlocksItems.enableMud, new BaseStairs(PACKED_MUD.get(), 1).setUnlocalizedNameWithPrefix("mud_brick")
-			.setBlockSound(ModSounds.soundMudBricks)),
-	CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(4)),
-	EXPOSED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(5)),
-	WEATHERED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(6)),
-	OXIDIZED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(7)),
-	WAXED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(12)),
-	WAXED_EXPOSED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(13)),
-	WAXED_WEATHERED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(14)),
-	WAXED_OXIDIZED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(15)),
 
 
-	STONE_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BlockStoneWall()),
-	NETHER_BRICK_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall(Material.rock, "nether_brick")
-			.setBlockSound(ModSounds.soundNetherBricks).setHardness(2F).setResistance(6F)),
-	STONE_WALL_2(ConfigBlocksItems.enableStones, new BaseWall(Material.rock, "granite", "diorite", "andesite")
-			.setHardness(1.5F).setResistance(6.0F)),
-	RED_SANDSTONE_WALL(ConfigBlocksItems.enableRedSandstone, new BaseWall(Material.rock, "red_sandstone")
-			.setHardness(0.8F)),
 	PRISMARINE_WALL(ConfigBlocksItems.enablePrismarine, new BaseWall(Material.rock, "prismarine")
 			.setHardness(1.5F).setResistance(10.0F)),
-	RED_NETHER_BRICK_WALL(ConfigBlocksItems.enableNewNetherBricks, new BaseWall( Material.rock, "red_nether_bricks")
-			.setBlockSound(ModSounds.soundNetherBricks).setHardness(2F).setResistance(6F)),
-	END_BRICK_WALL(ConfigBlocksItems.enableChorusFruit, new BaseWall(Material.rock, "end_bricks")
-			.setHardness(3.0F).setResistance(9.0F)),
-	DEEPSLATE_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "cobbled_deepslate", "polished_deepslate")
-			.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 2.0f : 3.5f).setResistance(6.0F)),
-	DEEPSLATE_BRICK_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 1.5f : 3.5f).setResistance(6.0F)),
-	TUFF_WALL(ConfigBlocksItems.enableTuff, new BaseWall(Material.rock, "tuff", "polished_tuff", "tuff_bricks")
-			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6.0F)),
-	MUD_BRICK_WALL(ConfigBlocksItems.enableMud, new BaseWall(Material.rock, "mud_bricks").setBlockSound(ModSounds.soundMudBricks)
-			.setHardness(1.5F).setResistance(3.0F)),
 	
-	COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(0)),
-	EXPOSED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(1)),
-	WEATHERED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(2)),
-	OXIDIZED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(3)),
-	WAXED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(8)),
-	WAXED_EXPOSED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(9)),
-	WAXED_WEATHERED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(10)),
-	WAXED_OXIDIZED_COPPER_DOOR(ConfigBlocksItems.enableCopper, new BlockCopperDoor(11)),
 
-	COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(0)),
-	EXPOSED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(1)),
-	WEATHERED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(2)),
-	OXIDIZED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(3)),
-	WAXED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(8)),
-	WAXED_EXPOSED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(9)),
-	WAXED_WEATHERED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(10)),
-	WAXED_OXIDIZED_COPPER_TRAPDOOR(ConfigBlocksItems.enableCopper, new BlockCopperTrapdoor(11)),
 
-	IRON_TRAPDOOR(ConfigBlocksItems.enableIronTrapdoor, new BlockIronTrapdoor()),
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
-	LANTERN(ConfigBlocksItems.enableLantern, new BlockLantern("lantern", 15), ItemBlockLantern.class),
-	SOUL_LANTERN(ConfigBlocksItems.enableLantern && ConfigBlocksItems.enableSoulLighting, new BlockLantern("soul_lantern", 10), ItemBlockLantern.class),
-	SOUL_TORCH(ConfigBlocksItems.enableSoulLighting, new BlockSoulTorch()),
 	SMOKER(ConfigBlocksItems.enableSmoker, new BlockSmoker(false)),
 	LIT_SMOKER(ConfigBlocksItems.enableSmoker, new BlockSmoker(true), null),
 	BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(false)),
 	LIT_BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(true), null),
-	SMITHING_TABLE(ConfigBlocksItems.enableSmithingTable, new BlockSmithingTable()),
 	COMPOSTER(ConfigBlocksItems.enableComposter, new BlockComposter()),
 	STONECUTTER(ConfigBlocksItems.enableStonecutter, new BlockStonecutter(), ItemBlockDecorationWorkbench.class),
 	FLETCHING_TABLE(ConfigBlocksItems.enableFletchingTable, new BlockFletchingTable(), ItemBlockDecorationWorkbench.class),
 	CARTOGRAPHY_TABLE(ConfigBlocksItems.enableCartographyTable, new BlockCartographyTable(), ItemBlockDecorationWorkbench.class),
 	LOOM(ConfigBlocksItems.enableLoom, new BlockLoom(), ItemBlockDecorationWorkbench.class),
-	DRIPSTONE_BLOCK(ConfigExperiments.enableDripstone, new BaseBlock(Material.rock).setNames("dripstone_block")
-			.setBlockSound(ModSounds.soundDripstoneBlock).setHardness(1.5F).setResistance(1F)),
-	POINTED_DRIPSTONE(ConfigExperiments.enableDripstone, new BlockPointedDripstone()),
 	HONEY_BLOCK(ConfigBlocksItems.enableHoney, new BlockHoney()),
 	HONEYCOMB_BLOCK(ConfigBlocksItems.enableHoney, new BaseBlock(Material.clay).setNames("honeycomb_block")
 			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),
 	BEEHIVE(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("beehive", true)),
 	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
-	CHAIN(ConfigBlocksItems.enableChain, new BlockChain()),
 	BREWING_STAND(ConfigBlocksItems.enableBrewingStands, new BlockNewBrewingStand()),
 	BEACON(ConfigBlocksItems.enableColourfulBeacons, new BlockNewBeacon()),
 	ENCHANTMENT_TABLE(ConfigBlocksItems.enableEnchantingTable, new BlockNewEnchantmentTable()),
@@ -516,319 +191,60 @@ public enum ModBlocks {
 	DARKSTEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL), ItemBlockBarrel.class),
 	NETHERITE_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE), ItemBlockBarrel.class),
 
-	BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockBlackstone()),
-	GILDED_BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockGildedBlackstone()),
-	BLACKSTONE_SLAB(ConfigBlocksItems.enableBlackstone, new BlockBlackstoneSlab(false)),
-	DOUBLE_BLACKSTONE_SLAB(ConfigBlocksItems.enableBlackstone, new BlockBlackstoneSlab(true)),
 
-	BLACKSTONE_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 0)),
-	POLISHED_BLACKSTONE_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 1).setUnlocalizedNameWithPrefix("polished_blackstone")),
-	POLISHED_BLACKSTONE_BRICK_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 2).setUnlocalizedNameWithPrefix("polished_blackstone_brick")),
-
-	BLACKSTONE_WALL(ConfigBlocksItems.enableBlackstone, new BlockBlackstoneWall()),
-	POLISHED_BLACKSTONE_PRESSURE_PLATE(ConfigBlocksItems.enableBlackstone, new BlockPolishedBlackstonePressurePlate()),
-	POLISHED_BLACKSTONE_BUTTON(ConfigBlocksItems.enableBlackstone, new BlockPolishedBlackstoneButton()),
-
-	SOUL_SOIL(ConfigBlocksItems.enableSoulSoil, new BlockSoulSoil()),
-	SHROOMLIGHT(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockShroomlight()),
-	NETHER_ROOTS(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNetherRoots(), BaseSubtypesPotableItemBlock.class),
-	NETHER_FUNGUS(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNetherFungus(), BaseSubtypesPotableItemBlock.class),
-	NETHER_SPROUTS(ConfigExperiments.enableWarpedBlocks, new BlockNetherSprouts()),
-	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock || ConfigExperiments.enableWarpedBlocks, new BlockNetherwart()),
-	NYLIUM(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNylium()),
-	WEEPING_VINES(ConfigExperiments.enableCrimsonBlocks, new BlockWeepingVines()),
-	TWISTING_VINES(ConfigExperiments.enableWarpedBlocks, new BlockTwistingVines()),
-
-	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
-	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigExperiments.enableMangroveBlocks, new BlockModernSapling()),
-	BAMBOO_SAPLING(ConfigBlocksItems.enableBambooBlocks, new BlockBambooShoot(), null),
-	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigExperiments.enableMangroveBlocks, new BlockModernLeaves()),
-	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
-	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
-	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(true)),
-
+	PINK_PETALS(io.github.asgerjon.mcfly.config.McFlyConfig.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
 	//new wood logs
-	CRIMSON_STEM(ConfigExperiments.enableCrimsonBlocks, new BlockNetherStem("crimson")),
-	WARPED_STEM(ConfigExperiments.enableWarpedBlocks, new BlockNetherStem("warped")),
-	MANGROVE_LOG(ConfigExperiments.enableMangroveBlocks, new BaseLog("mangrove")),
-	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BaseLog("cherry").setBlockSound(ModSounds.soundCherryWood)),
-	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo").setBlockSound(ModSounds.soundBambooWood)),
-	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new BlockBamboo(), null),
 
-	//new wood stairs
-	CRIMSON_STAIRS(ConfigExperiments.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
-	WARPED_STAIRS(ConfigExperiments.enableWarpedBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
-	MANGROVE_STAIRS(ConfigExperiments.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
-	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
-	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
-
-	//Not plank, but like plank
-	BAMBOO_MOSAIC(ConfigBlocksItems.enableBambooBlocks, new BlockBambooMosaic()),
-	BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.enableBambooBlocks, new BaseSlab(false, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
-			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
-	DOUBLE_BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.enableBambooBlocks, new BaseSlab(true, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
-			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
-	BAMBOO_MOSAIC_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(BAMBOO_MOSAIC.get(), 0).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo_mosaic")),
+	// the planks, slabs, stairs and the mosaic are McFly's (spec §91.4)
 
 	//legacy fences
 	//This is left as-is because fences should really be meta states anyways, so new fences use a different class, so why touch this int-based constructor?
 	//Gany, did you waste 4 ID slots just because 1.8 did?
-	FENCE_SPRUCE(ConfigBlocksItems.enableVanillaFences, new BlockWoodFence(1)),
-	FENCE_BIRCH(ConfigBlocksItems.enableVanillaFences, new BlockWoodFence(2)),
-	FENCE_JUNGLE(ConfigBlocksItems.enableVanillaFences, new BlockWoodFence(3)),
-	FENCE_ACACIA(ConfigBlocksItems.enableVanillaFences, new BlockWoodFence(4)),
-	FENCE_DARK_OAK(ConfigBlocksItems.enableVanillaFences, new BlockWoodFence(5)),
 
 	//new fence, this can just be one block, meta states are fine, the fences above were made by ganymedes01 and not me hence the lack of meta usage
 	// TODO: Fix Bamboo Fence Rendering
-	WOOD_FENCE(ConfigBlocksItems.woodVariants && ConfigBlocksItems.enableNewFences, new BlockModernWoodFence()),
 
 	//MODDED FENCES
-	BOP_WOOD_FENCE(ConfigBlocksItems.enableVanillaFences && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockModernWoodFenceCompat("bop", GameRegistry.findBlock("BiomesOPlenty", "planks"), "sacredoak", "cherry", "dark", "fir", "ethereal", "magic", "mangrove", "palm", "redwood", "willow", "bamboo", "pine", "hellbark", "jacaranda", "mahogany")),
-	WITCHERY_WOOD_FENCE(ConfigBlocksItems.enableVanillaFences && ModsList.WITCHERY.isLoaded(), new BlockModernWoodFenceCompat("witchery", GameRegistry.findBlock("witchery", "witchwood"), "rowan", "alder", "hawthorn")),
 
 	//legacy buttons
-	BUTTON_SPRUCE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("spruce", Blocks.planks, 1, true)),
-	BUTTON_BIRCH(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("birch", Blocks.planks, 2, true)),
-	BUTTON_JUNGLE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("jungle", Blocks.planks, 3, true)),
-	BUTTON_ACACIA(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("acacia", Blocks.planks, 4, true)),
-	BUTTON_DARK_OAK(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("dark_oak", Blocks.planks, 5, true)),
 
 	//new buttons (different ID format)
-	CRIMSON_BUTTON(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_BUTTON(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_BUTTON(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
-	CHERRY_BUTTON(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("cherry", WOOD_PLANKS.get(), 3, true)),
-	BAMBOO_BUTTON(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodButton("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//BOP WOOD BUTTONS
-	BOP_SACREDOAK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
-	BOP_CHERRY_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
-	BOP_DARK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
-	BOP_FIR_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
-	BOP_ETHEREAL_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
-	BOP_MAGIC_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
-	BOP_MANGROVE_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
-	BOP_PALM_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
-	BOP_REDWOOD_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
-	BOP_WILLOW_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
-	BOP_BAMBOO_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
-	BOP_PINE_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
-	BOP_HELLBARK_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
-	BOP_JACARANDA_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
-	BOP_MAHOGANY_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodButton("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
 
 	//WITCHERY WOOD BUTTONS
-	WITCHERY_ROWAN_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
-	WITCHERY_ALDER_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
-	WITCHERY_HAWTHORN_BUTTON(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodButton("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
 
 	//legacy pressure plates
-	PRESSURE_PLATE_SPRUCE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("spruce", Blocks.planks, 1, true)),
-	PRESSURE_PLATE_BIRCH(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("birch", Blocks.planks, 2, true)),
-	PRESSURE_PLATE_JUNGLE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("jungle", Blocks.planks, 3, true)),
-	PRESSURE_PLATE_ACACIA(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("acacia", Blocks.planks, 4, true)),
-	PRESSURE_PLATE_DARK_OAK(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodPressurePlate("dark_oak", Blocks.planks, 5, true)),
 
 	//new pressure plates (different ID format)
-	CRIMSON_PRESSURE_PLATE(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_PRESSURE_PLATE(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_PRESSURE_PLATE(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("mangrove", WOOD_PLANKS.get(), 2, true)),
-	CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("cherry", WOOD_PLANKS.get(), 3, true)),
-	BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewWoodRedstone, new BlockWoodPressurePlate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//BOP WOOD PRESSURE PLATE
-	BOP_SACREDOAK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
-	BOP_CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
-	BOP_DARK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
-	BOP_FIR_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
-	BOP_ETHEREAL_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
-	BOP_MAGIC_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
-	BOP_MANGROVE_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
-	BOP_PALM_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
-	BOP_REDWOOD_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
-	BOP_WILLOW_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
-	BOP_BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
-	BOP_PINE_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
-	BOP_HELLBARK_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
-	BOP_JACARANDA_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
-	BOP_MAHOGANY_PRESSURE_PLATE(ConfigBlocksItems.enableNewWoodRedstone && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodPressurePlate("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
 
 	//WITCHERY PRESSURE PLATE
-	WITCHERY_ROWAN_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
-	WITCHERY_ALDER_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
-	WITCHERY_HAWTHORN_PRESSURE_PLATE(ConfigBlocksItems.enableVanillaWoodRedstone && ModsList.WITCHERY.isLoaded(), new BlockWoodPressurePlate("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
 
 	//legacy fence gates
-	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
-	FENCE_GATE_BIRCH(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("birch", Blocks.planks, 2, true)),
-	FENCE_GATE_JUNGLE(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("jungle", Blocks.planks, 3, true)),
-	FENCE_GATE_ACACIA(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("acacia", Blocks.planks, 4, true)),
-	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableVanillaGates, new BlockWoodFenceGate("dark_oak", Blocks.planks, 5, true)),
 
 	//new fence gates (different ID format)
-	CRIMSON_FENCE_GATE(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_FENCE_GATE(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_FENCE_GATE(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("mangrove", WOOD_PLANKS.get(), 2, true)),
-	CHERRY_FENCE_GATE(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("cherry", WOOD_PLANKS.get(), 3, true)),
-	BAMBOO_FENCE_GATE(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewGates, new BlockWoodFenceGate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//BOP FENCE GATE
-	BOP_SACREDOAK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0, true)),
-	BOP_CHERRY_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1, true)),
-	BOP_DARK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2, true)),
-	BOP_FIR_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3, true)),
-	BOP_ETHEREAL_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4, true)),
-	BOP_MAGIC_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5, true)),
-	BOP_MANGROVE_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6, true)),
-	BOP_PALM_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7, true)),
-	BOP_REDWOOD_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8, true)),
-	BOP_WILLOW_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9, true)),
-	BOP_BAMBOO_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10, true)),
-	BOP_PINE_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11, true)),
-	BOP_HELLBARK_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12, true)),
-	BOP_JACARANDA_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13, true)),
-	BOP_MAHOGANY_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodFenceGate("bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14, true)),
 
 	//WITCHERY FENCE GATE
-	WITCHERY_ROWAN_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0, true)),
-	WITCHERY_ALDER_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1, true)),
-	WITCHERY_HAWTHORN_FENCE_GATE(ConfigBlocksItems.enableVanillaGates && ModsList.WITCHERY.isLoaded(), new BlockWoodFenceGate("witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2, true)),
 
 	//legacy doors
-	DOOR_SPRUCE(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("spruce")),
-	DOOR_BIRCH(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("birch")),
-	DOOR_JUNGLE(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("jungle")),
-	DOOR_ACACIA(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("acacia")),
-	DOOR_DARK_OAK(ConfigBlocksItems.enableVanillaDoors, new BaseDoor("dark_oak")),
 
 	//new doors (different ID format)
-	CRIMSON_DOOR(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("crimson").setBlockSound(ModSounds.soundNetherWood)),
-	WARPED_DOOR(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("warped").setBlockSound(ModSounds.soundNetherWood)),
-	MANGROVE_DOOR(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("mangrove")),
-	CHERRY_DOOR(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("cherry").setBlockSound(ModSounds.soundCherryWood)),
-	BAMBOO_DOOR(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewDoors, new BaseDoor("bamboo").setBlockSound(ModSounds.soundBambooWood)),
 
 	//BOP DOORS
-	BOP_SACREDOAK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_sacredoak")),
-	BOP_CHERRY_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_cherry")),
-	BOP_DARK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_dark")),
-	BOP_FIR_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_fir")),
-	BOP_ETHEREAL_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_ethereal")),
-	BOP_MAGIC_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_magic")),
-	BOP_MANGROVE_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_mangrove")),
-	BOP_PALM_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_palm")),
-	BOP_REDWOOD_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_redwood")),
-	BOP_WILLOW_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_willow")),
-	BOP_BAMBOO_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_bamboo")),
-	BOP_PINE_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_pine")),
-	BOP_HELLBARK_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_hellbark")),
-	BOP_JACARANDA_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_jacaranda")),
-	BOP_MAHOGANY_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseDoor("bop_mahogany")),
 
 	//WITCHERY DOORS
-	WITCHERY_ROWAN_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_rowan")),
-	WITCHERY_ALDER_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_alder")),
-	WITCHERY_HAWTHORN_DOOR(ConfigBlocksItems.enableVanillaDoors && ModsList.WITCHERY.isLoaded(), new BaseDoor("witchery_hawthorn")),
 
 	//legacy trapdoors
-	TRAPDOOR_SPRUCE(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("spruce")),
-	TRAPDOOR_BIRCH(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("birch")),
-	TRAPDOOR_JUNGLE(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("jungle")),
-	TRAPDOOR_ACACIA(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("acacia")),
-	TRAPDOOR_DARK_OAK(ConfigBlocksItems.enableVanillaTrapdoors, new BaseTrapdoor("dark_oak")),
 
 	//new trapdoors (different ID format)
-	CRIMSON_TRAPDOOR(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("crimson").setBlockSound(ModSounds.soundNetherWood)),
-	WARPED_TRAPDOOR(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("warped").setBlockSound(ModSounds.soundNetherWood)),
-	MANGROVE_TRAPDOOR(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("mangrove")),
-	CHERRY_TRAPDOOR(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("cherry").setBlockSound(ModSounds.soundCherryWood)),
-	BAMBOO_TRAPDOOR(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewTrapdoors, new BaseTrapdoor("bamboo").setBlockSound(ModSounds.soundBambooWood)),
 
 	//BOP TRAPDOORS
-	BOP_SACREDOAK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_sacredoak")),
-	BOP_CHERRY_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_cherry")),
-	BOP_DARK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_dark")),
-	BOP_FIR_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_fir")),
-	BOP_ETHEREAL_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_ethereal")),
-	BOP_MAGIC_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_magic")),
-	BOP_MANGROVE_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_mangrove")),
-	BOP_PALM_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_palm")),
-	BOP_REDWOOD_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_redwood")),
-	BOP_WILLOW_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_willow")),
-	BOP_BAMBOO_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_bamboo")),
-	BOP_PINE_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_pine")),
-	BOP_HELLBARK_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_hellbark")),
-	BOP_JACARANDA_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_jacaranda")),
-	BOP_MAHOGANY_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.BIOMES_O_PLENTY.isLoaded(), new BaseTrapdoor("bop_mahogany")),
 
 	//WITCHERY TRAPDOORS
-	WITCHERY_ROWAN_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_rowan")),
-	WITCHERY_ALDER_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_alder")),
-	WITCHERY_HAWTHORN_TRAPDOOR(ConfigBlocksItems.enableVanillaTrapdoors && ModsList.WITCHERY.isLoaded(), new BaseTrapdoor("witchery_hawthorn")),
-
-	//legacy signs
-	SIGN_SPRUCE(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "spruce", Blocks.planks, 1), null),
-	WALL_SIGN_SPRUCE(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "spruce", Blocks.planks, 1), null),
-	SIGN_BIRCH(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "birch", Blocks.planks, 2), null),
-	WALL_SIGN_BIRCH(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "birch", Blocks.planks, 2), null),
-	SIGN_JUNGLE(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "jungle", Blocks.planks, 3), null),
-	WALL_SIGN_JUNGLE(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "jungle", Blocks.planks, 3), null),
-	SIGN_ACACIA(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "acacia", Blocks.planks, 4), null),
-	WALL_SIGN_ACACIA(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "acacia", Blocks.planks, 4), null),
-	SIGN_DARK_OAK(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "dark_oak", Blocks.planks, 5), null),
-	WALL_SIGN_DARK_OAK(ConfigBlocksItems.enableVanillaSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "dark_oak", Blocks.planks, 5), null),
-
-	//new wood signs (instead of a separate ItemBlock we use the standing sign as the ItemBlock
-	CRIMSON_SIGN(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "crimson", WOOD_PLANKS.get(), 0), ItemBlockSign.class),
-	CRIMSON_WALL_SIGN(ConfigExperiments.enableCrimsonBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "crimson", WOOD_PLANKS.get(), 0), null),
-	WARPED_SIGN(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "warped", WOOD_PLANKS.get(), 1), ItemBlockSign.class),
-	WARPED_WALL_SIGN(ConfigExperiments.enableWarpedBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "warped", WOOD_PLANKS.get(), 1), null),
-	MANGROVE_SIGN(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "mangrove", WOOD_PLANKS.get(), 2), ItemBlockSign.class),
-	MANGROVE_WALL_SIGN(ConfigExperiments.enableMangroveBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "mangrove", WOOD_PLANKS.get(), 2), null),
-	CHERRY_SIGN(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "cherry", WOOD_PLANKS.get(), 3), ItemBlockSign.class),
-	CHERRY_WALL_SIGN(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "cherry", WOOD_PLANKS.get(), 3), null),
-	BAMBOO_SIGN(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "bamboo", WOOD_PLANKS.get(), 4), ItemBlockSign.class),
-	BAMBOO_WALL_SIGN(ConfigBlocksItems.enableBambooBlocks && ConfigBlocksItems.enableNewSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "bamboo", WOOD_PLANKS.get(), 4), null),
-
-	//BOP WOOD SIGNS
-	BOP_SACREDOAK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0), ItemBlockSign.class),
-	BOP_SACREDOAK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_sacredoak", GameRegistry.findBlock("BiomesOPlenty", "planks"), 0), null),
-	BOP_CHERRY_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1), ItemBlockSign.class),
-	BOP_CHERRY_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_cherry", GameRegistry.findBlock("BiomesOPlenty", "planks"), 1), null),
-	BOP_DARK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2), ItemBlockSign.class),
-	BOP_DARK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_dark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 2), null),
-	BOP_FIR_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3), ItemBlockSign.class),
-	BOP_FIR_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_fir", GameRegistry.findBlock("BiomesOPlenty", "planks"), 3), null),
-	BOP_ETHEREAL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4), ItemBlockSign.class),
-	BOP_ETHEREAL_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_ethereal", GameRegistry.findBlock("BiomesOPlenty", "planks"), 4), null),
-	BOP_MAGIC_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5), ItemBlockSign.class),
-	BOP_MAGIC_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_magic", GameRegistry.findBlock("BiomesOPlenty", "planks"), 5), null),
-	BOP_MANGROVE_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6), ItemBlockSign.class),
-	BOP_MANGROVE_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_mangrove", GameRegistry.findBlock("BiomesOPlenty", "planks"), 6), null),
-	BOP_PALM_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7), ItemBlockSign.class),
-	BOP_PALM_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_palm", GameRegistry.findBlock("BiomesOPlenty", "planks"), 7), null),
-	BOP_REDWOOD_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8), ItemBlockSign.class),
-	BOP_REDWOOD_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_redwood", GameRegistry.findBlock("BiomesOPlenty", "planks"), 8), null),
-	BOP_WILLOW_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9), ItemBlockSign.class),
-	BOP_WILLOW_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_willow", GameRegistry.findBlock("BiomesOPlenty", "planks"), 9), null),
-	BOP_BAMBOO_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10), ItemBlockSign.class),
-	BOP_BAMBOO_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_bamboo", GameRegistry.findBlock("BiomesOPlenty", "planks"), 10), null),
-	BOP_PINE_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11), ItemBlockSign.class),
-	BOP_PINE_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_pine", GameRegistry.findBlock("BiomesOPlenty", "planks"), 11), null),
-	BOP_HELLBARK_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12), ItemBlockSign.class),
-	BOP_HELLBARK_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_hellbark", GameRegistry.findBlock("BiomesOPlenty", "planks"), 12), null),
-	BOP_JACARANDA_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13), ItemBlockSign.class),
-	BOP_JACARANDA_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_jacaranda", GameRegistry.findBlock("BiomesOPlenty", "planks"), 13), null),
-	BOP_MAHOGANY_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14), ItemBlockSign.class),
-	BOP_MAHOGANY_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.BIOMES_O_PLENTY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "bop_mahogany", GameRegistry.findBlock("BiomesOPlenty", "planks"), 14), null),
-
-	WITCHERY_ROWAN_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0), ItemBlockSign.class),
-	WITCHERY_ROWAN_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_rowan", GameRegistry.findBlock("witchery", "witchwood"), 0), null),
-	WITCHERY_ALDER_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1), ItemBlockSign.class),
-	WITCHERY_ALDER_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_alder", GameRegistry.findBlock("witchery", "witchwood"), 1), null),
-	WITCHERY_HAWTHORN_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, true, "witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2), ItemBlockSign.class),
-	WITCHERY_HAWTHORN_WALL_SIGN(ConfigBlocksItems.enableNewSigns && ModsList.WITCHERY.isLoaded(), new BlockWoodSign(TileEntityWoodSign.class, false, "witchery_hawthorn", GameRegistry.findBlock("witchery", "witchwood"), 2), null),
 
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),
@@ -848,20 +264,14 @@ public enum ModBlocks {
 
 	//Legacy "classic" blocks
 
-	CRYING_OBSIDIAN(ConfigBlocksItems.enableCryingObsidian, new BaseBlock(Material.rock).setNames("crying_obsidian")
-			.setToolClass("pickaxe", 3).setHardness(50.0F).setResistance(2000.0F)),
 	ROSE(ConfigTweaks.enableRoses, new BlockOldRose()),
 	OLD_GRAVEL(ConfigTweaks.enableOldGravel, new BlockOldGravel()),
 
 	//Unfinished stuff
 
-	SCULK(ConfigExperiments.enableSculk, new BlockSculk()),
-	SCULK_CATALYST(ConfigExperiments.enableSculk, new BlockSculkCatalyst()),
 
 	//Creative-only stuff
 
-	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs()),
-	END_GATEWAY(ConfigExperiments.endDimensionProvider || McFlyConfig.modernEnd, new BlockEndGateway()),
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 
@@ -886,18 +296,10 @@ public enum ModBlocks {
 	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER), new BlockDeepslateBluePowerOre()),
 	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C), new BlockDeepslateDragonBlockOre()),
 	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
-	GLOW_LICHEN(ConfigBlocksItems.enableGlowLichen, new BlockGlowLichen(), ItemBlockGlowLichen.class),
-	CAVE_VINE_PLANT(ConfigBlocksItems.enableGlowBerries, new BlockCaveVinesPlant()),
-	CAVE_VINE(ConfigBlocksItems.enableGlowBerries, new BlockCaveVines())
+	// glow lichen and cave vines are McFly's (spec §90.3)
 	;
 
-	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};
-	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK, CRIMSON_FENCE_GATE, WARPED_FENCE_GATE, MANGROVE_FENCE_GATE, CHERRY_FENCE_GATE, BAMBOO_FENCE_GATE};
-	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[]{PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK, CRIMSON_PRESSURE_PLATE, WARPED_PRESSURE_PLATE, MANGROVE_PRESSURE_PLATE, CHERRY_PRESSURE_PLATE, BAMBOO_PRESSURE_PLATE};
-	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK, CRIMSON_BUTTON, WARPED_BUTTON, MANGROVE_BUTTON, CHERRY_BUTTON, BAMBOO_BUTTON};
-	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK, CRIMSON_TRAPDOOR, WARPED_TRAPDOOR, MANGROVE_TRAPDOOR, CHERRY_TRAPDOOR, BAMBOO_TRAPDOOR};
 
-	public static final ModBlocks[] FENCES = new ModBlocks[]{FENCE_SPRUCE, FENCE_BIRCH, FENCE_JUNGLE, FENCE_ACACIA, FENCE_DARK_OAK};
 
 	public static final ModBlocks[] BEDS = new ModBlocks[]{WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED, LIGHT_GRAY_BED, CYAN_BED,
 			PURPLE_BED, BLUE_BED, BROWN_BED, GREEN_BED, BLACK_BED};
@@ -912,7 +314,7 @@ public enum ModBlocks {
 
 	//Immersive Cavegen
 	@Deprecated
-	public static final Block deepslate = DEEPSLATE.get();
+	public static final Block deepslate = io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.get();
 
 	//D-Mod
 	@Deprecated
@@ -924,7 +326,8 @@ public enum ModBlocks {
 	@Deprecated
 	public static final Block sea_lantern = SEA_LANTERN.get();
 	@Deprecated
-	public static final Block red_sandstone = RED_SANDSTONE.get();
+	// WTF Cave Biomes reads it; McFly's red sandstone (spec §89, step D)
+	public static final Block red_sandstone = io.github.asgerjon.mcfly.registry.McFlyBlocks.RED_SANDSTONE.get();
 
 	public static final ModBlocks[] VALUES = values();
 	public static void init() {
@@ -958,7 +361,6 @@ public enum ModBlocks {
 		this(enabled, block,
 				block instanceof BaseSlab ? BaseSlabItemBlock.class
 //						: block instanceof BaseWall ? BaseWallItemBlock.class
-						: block instanceof BaseDoor ? ItemBlockNewDoor.class
 						: block instanceof BaseFlower ? BasePotableItemBlock.class
 						: block instanceof BaseLeaves ? BaseLeavesItemBlock.class
 						: block instanceof ISubBlocksBlock ? BaseItemBlock.class

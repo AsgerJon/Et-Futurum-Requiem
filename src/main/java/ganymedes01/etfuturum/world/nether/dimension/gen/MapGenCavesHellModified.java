@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.nether.dimension.gen;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockNylium;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -138,7 +137,7 @@ public class MapGenCavesHellModified extends MapGenBase {
 									double d12 = ((double) l3 + 0.5 - p_151543_8_) / d7;
 									if (d12 > -0.7 && d13 * d13 + d12 * d12 + d14 * d14 < 1.0) {
 										Block block1 = p_151543_5_[k3];
-										if (block1 == Blocks.netherrack || block1 instanceof BlockNylium || block1 == Blocks.soul_sand || block1 == ModBlocks.SOUL_SOIL.get() || block1 == ModBlocks.BLACKSTONE.get() || block1 == ModBlocks.BASALT.get()) {
+										if (block1 == Blocks.netherrack || block1 == io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get() || block1 == Blocks.soul_sand || block1 == io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get() || block1 == io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.get() || block1 == io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get()) {
 											p_151543_5_[k3] = null;
 										}
 									}

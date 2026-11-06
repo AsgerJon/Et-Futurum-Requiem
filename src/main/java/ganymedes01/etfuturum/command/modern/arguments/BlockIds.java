@@ -244,10 +244,12 @@ public final class BlockIds {
 		Map<Block, Found[]> reverse = new IdentityHashMap<>();
 		for (String line : LegacyIdTable.lines("blocks")) {
 			String[] row = line.split(" ");
-			if (!Block.blockRegistry.containsKey(MINECRAFT + row[0])) {
+			// 1.7.10's names, or a mod's block by its full id (McFly's soul torch: one block for 26.3's two, spec §88.5)
+			String registryName = row[0].indexOf(':') >= 0 ? row[0] : MINECRAFT + row[0];
+			if (!Block.blockRegistry.containsKey(registryName)) {
 				continue;
 			}
-			Block block = (Block) Block.blockRegistry.getObject(MINECRAFT + row[0]);
+			Block block = (Block) Block.blockRegistry.getObject(registryName);
 			String state = row[2];
 			int bracket = state.indexOf('[');
 			String name = bracket < 0 ? state : state.substring(0, bracket);
@@ -262,6 +264,7 @@ public final class BlockIds {
 			add(reverse, type, new State(block, Integer.parseInt(row[1]), values));
 		}
 		addEfr(types, reverse, properties);
+		addUnusedMetas(reverse);
 		Map<String, List<Type>> tagMap = new TreeMap<>();
 		Map<String, List<String>> tagLines = new HashMap<>();
 		for (String line : LegacyIdTable.lines("block_tags")) {
@@ -293,6 +296,11 @@ public final class BlockIds {
 	/** The state, and the first modern state for its block and meta (index 16: the block's first state, for a meta no row has). */
 	private static void add(Map<Block, Found[]> reverse, Type type, State state) {
 		type.add(state);
+		addReverse(reverse, type, state);
+	}
+
+	/** The block and meta read as this type and state, the type not placing it. */
+	private static void addReverse(Map<Block, Found[]> reverse, Type type, State state) {
 		Found[] found = reverse.computeIfAbsent(state.block, block -> new Found[17]);
 		if (found[state.meta & 15] == null) {
 			found[state.meta & 15] = new Found(type, state);
@@ -332,8 +340,10 @@ public final class BlockIds {
 				continue;
 			}
 			String name = id.substring(id.indexOf(':') + 1);
-			addEfrBlock(types, reverse, properties, (modern.contains(name) ? MINECRAFT : EFR_PREFIX) + name, name,
-				itemBlock.field_150939_a, entry.item().getMetadata(entry.meta()));
+			// a leaves item places its kind with the placed bit (1.7.10's leaves item): the kind alone is the base the
+			// leaves' states are laid over (their placed bit is 26.3's persistent)
+			int meta = itemBlock.field_150939_a instanceof net.minecraft.block.BlockLeaves ? entry.meta() & 3 : entry.item().getMetadata(entry.meta());
+			addEfrBlock(types, reverse, properties, (modern.contains(name) ? MINECRAFT : EFR_PREFIX) + name, name, itemBlock.field_150939_a, meta);
 		}
 		Map<String, String> efrNames = LegacyIdTable.pairs("efr");
 		for (Object key : Block.blockRegistry.getKeys()) {
@@ -350,6 +360,13 @@ public final class BlockIds {
 			if (!name.matches("[a-z0-9_]+")) {
 				continue;
 			}
+			if (block instanceof io.github.asgerjon.mcfly.base.McFlyHangingSign hanging && !hanging.ceiling) {
+				// a wall hanging sign shares its ceiling sign's lang name (26.3's too): its id is the wall's (spec 91.9)
+				name = name.replaceFirst("_hanging_sign$", "_wall_hanging_sign");
+			} else if (block instanceof net.minecraft.block.BlockSign && !io.github.asgerjon.mcfly.wood.Signs.standing(block)) {
+				// a wall sign shares its standing sign's lang name (26.3's too): its id is the wall's (spec 91.8)
+				name = name.replaceFirst("_sign$", "_wall_sign");
+			}
 			name = efrNames.getOrDefault(name, name);
 			addEfrBlock(types, reverse, properties, (modern.contains(name) ? MINECRAFT : EFR_PREFIX) + name, name, block, 0);
 		}
@@ -358,6 +375,16 @@ public final class BlockIds {
 	private static void addEfrBlock(Map<String, Type> types, Map<Block, Found[]> reverse, Map<String, Map<String, List<String>>> properties,
 									String id, String name, Block block, int meta) {
 		if (types.containsKey(id)) {
+			// a 26.3 block 1.7.10 already shows another way (smooth stone is the seamless double stone slab 8): ours reads
+			// as it too, the other staying what the id places
+			Type existing = types.get(id);
+			if (existing.properties.isEmpty()) {
+				addReverse(reverse, existing, new State(block, meta, Collections.emptyMap()));
+			} else if (existing.stored.isEmpty() && vanillaShape(block) != null && types.get(MINECRAFT + vanillaShape(block)) != null) {
+				// a 26.3 block a vanilla row shows without its properties (1.7.10's six-sided log, 12 to 15, as oak_wood:
+				// no axis): ours has them, so it places the id, the vanilla row still reading as it (spec §91.3)
+				addPatternStates(types.get(MINECRAFT + vanillaShape(block)), existing, reverse, block, meta);
+			}
 			return;
 		}
 		String shape = vanillaShape(block);
@@ -367,26 +394,69 @@ public final class BlockIds {
 		types.put(id, type);
 		if (pattern == null) {
 			// its own metas' properties where known (§64.3), else its one state
-			EfrBlockStates.Spec spec = EfrBlockStates.of(block);
+			EfrBlockStates.Spec spec = EfrBlockStates.of(block, meta);
 			if (spec == null) {
 				add(reverse, type, new State(block, meta, Collections.emptyMap()));
 				return;
 			}
 			type.ownDefaults = spec.defaults();
 			for (EfrBlockStates.Meta state : spec.metas()) {
-				add(reverse, type, new State(block, meta + state.offset(), state.properties()));
+				add(reverse, type, new State(state.block() != null ? state.block() : block, meta + state.offset(), state.properties()));
 			}
 			return;
 		}
+		addPatternStates(pattern, type, reverse, block, meta);
+	}
+
+	/** The vanilla pattern's states laid over the block's variant meta, into the type. */
+	private static void addPatternStates(Type pattern, Type type, Map<Block, Found[]> reverse, Block block, int meta) {
 		Block patternBlock = pattern.mostCommonBlock();
-		int base = pattern.mostCommonBlockLowestMeta(patternBlock);
+		// a sign's meta is its turn or facing (a wall sign's 2 to 5), no variant under it
+		int base = block instanceof net.minecraft.block.BlockSign ? 0 : pattern.mostCommonBlockLowestMeta(patternBlock);
 		// EFR's double slab is a block of its own, as 1.7.10's are, with the slab's variant as its meta
-		Block doubleSlab = block instanceof BaseSlab slab && slab.getDoubleSlab() != block ? slab.getDoubleSlab() : null;
+		Block doubleSlab = block instanceof BaseSlab slab && slab.getDoubleSlab() != block ? slab.getDoubleSlab()
+			: block instanceof io.github.asgerjon.mcfly.base.McFlySlab ours && ours.doubled() != null && ours.doubled() != block ? ours.doubled() : null;
 		for (State state : pattern.states) {
 			if (state.block == patternBlock) {
 				add(reverse, type, new State(block, meta | (state.meta - base), state.properties));
 			} else if (doubleSlab != null && "double".equals(state.properties.get("type"))) {
 				add(reverse, type, new State(doubleSlab, meta, state.properties));
+			}
+		}
+	}
+
+	/**
+	 * A block of ours whose unused metas show one of its variants (EFR's stone 0 is granite, spec §89 step D): each reads as
+	 * that variant, not as the block's first state.
+	 */
+	private static void addUnusedMetas(Map<Block, Found[]> reverse) {
+		for (Map.Entry<Block, Found[]> entry : reverse.entrySet()) {
+			if (entry.getKey() instanceof io.github.asgerjon.mcfly.base.McFlyVariantSlab slab) {
+				// a variant slab's unused variants read as the one it drops (EFR's mosaic slab at 5, 13 on top: spec §91.4)
+				Found[] found = entry.getValue();
+				for (int meta = 0; meta < 16; meta++) {
+					int as = (meta & 8) | slab.damageDropped(meta);
+					if (found[meta] == null && found[as] != null) {
+						found[meta] = found[as];
+					}
+				}
+				continue;
+			}
+			if (!(entry.getKey() instanceof io.github.asgerjon.mcfly.base.NamedMetas named)) {
+				continue;
+			}
+			Found[] found = entry.getValue();
+			for (int meta = 0; meta < 16; meta++) {
+				if (found[meta] != null) {
+					continue;
+				}
+				String name = ":" + named.nameOf(meta);
+				for (int other = 0; other < 16; other++) {
+					if (found[other] != null && found[other].type().id.endsWith(name)) {
+						found[meta] = found[other];
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -425,6 +495,9 @@ public final class BlockIds {
 		}
 		if (block instanceof BlockLadder) {
 			return "ladder";
+		}
+		if (block instanceof net.minecraft.block.BlockSign && !(block instanceof io.github.asgerjon.mcfly.base.McFlyHangingSign)) {
+			return io.github.asgerjon.mcfly.wood.Signs.standing(block) ? "oak_sign" : "oak_wall_sign";
 		}
 		return null;
 	}

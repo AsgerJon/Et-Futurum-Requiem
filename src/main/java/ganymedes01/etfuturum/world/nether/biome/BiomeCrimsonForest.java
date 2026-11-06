@@ -11,7 +11,7 @@ public class BiomeCrimsonForest extends NetherBiomeBase {
 		super(id, NetherForestDecorator.newCrimsonForestDecorator());
 		this.setColor(0xFA9418);
 		fogSkyColor = 0xAD0808;
-		this.topBlock = ModBlocks.NYLIUM.get();
+		this.topBlock = io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get();
 		this.fillerBlock = Blocks.netherrack;
 
 		spawnableMonsterList.clear();

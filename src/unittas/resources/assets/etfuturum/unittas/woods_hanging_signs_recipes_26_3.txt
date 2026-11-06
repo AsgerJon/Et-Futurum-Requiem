@@ -1,0 +1,13 @@
+# 26.3's recipes for the hanging signs (SPEC-modern-movement.md 91.9, step G; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py).
+acacia_hanging_sign shaped X.X/###/### #=stripped_acacia_log X=iron_chain -> 6 acacia_hanging_sign
+bamboo_hanging_sign shaped X.X/###/### #=stripped_bamboo_block X=iron_chain -> 6 bamboo_hanging_sign
+birch_hanging_sign shaped X.X/###/### #=stripped_birch_log X=iron_chain -> 6 birch_hanging_sign
+cherry_hanging_sign shaped X.X/###/### #=stripped_cherry_log X=iron_chain -> 6 cherry_hanging_sign
+crimson_hanging_sign shaped X.X/###/### #=stripped_crimson_stem X=iron_chain -> 6 crimson_hanging_sign
+dark_oak_hanging_sign shaped X.X/###/### #=stripped_dark_oak_log X=iron_chain -> 6 dark_oak_hanging_sign
+jungle_hanging_sign shaped X.X/###/### #=stripped_jungle_log X=iron_chain -> 6 jungle_hanging_sign
+mangrove_hanging_sign shaped X.X/###/### #=stripped_mangrove_log X=iron_chain -> 6 mangrove_hanging_sign
+oak_hanging_sign shaped X.X/###/### #=stripped_oak_log X=iron_chain -> 6 oak_hanging_sign
+spruce_hanging_sign shaped X.X/###/### #=stripped_spruce_log X=iron_chain -> 6 spruce_hanging_sign
+warped_hanging_sign shaped X.X/###/### #=stripped_warped_stem X=iron_chain -> 6 warped_hanging_sign

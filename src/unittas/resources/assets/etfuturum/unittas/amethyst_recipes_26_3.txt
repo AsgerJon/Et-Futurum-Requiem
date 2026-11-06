@@ -1,0 +1,4 @@
+# 26.3's recipes for amethyst (SPEC-modern-movement.md §90.4, step B; unittas_mcfly-sims/recipes_26_3.py). The spyglass's are
+# its own test's (SpyglassTests).
+amethyst_block shaped ##/## #=amethyst_shard -> 1 amethyst_block
+tinted_glass shaped .S./SGS/.S. G=glass S=amethyst_shard -> 2 tinted_glass

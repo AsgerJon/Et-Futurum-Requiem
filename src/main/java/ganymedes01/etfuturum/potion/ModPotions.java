@@ -31,6 +31,8 @@ public class ModPotions extends Potion {
 	public static Potion slowFalling;
 	/** 26.3's effects the last of its potions need (spec §69.11), on free numbers past the old table. */
 	public static Potion luck, unluck, windCharged, weaving, oozing, infested;
+	/** 26.3's Darkness (spec §90.9, step H4), from a shrieker's response. */
+	public static Potion darkness;
 
 	public static void init() {
 		if (ConfigEntities.enableShulker) {
@@ -54,6 +56,10 @@ public class ModPotions extends Potion {
 				weaving = modern("weaving", true, 0x78695A);
 				oozing = modern("oozing", true, 0x99FFA3);
 				infested = modern("infested", true, 0x8C9B8C);
+			}
+			if (McFlyConfig.enableSculk) {
+				// 26.3's MobEffects.DARKNESS: harmful, 2696993
+				darkness = modern("darkness", true, 2696993);
 			}
 		}
 	}

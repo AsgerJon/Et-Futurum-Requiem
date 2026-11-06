@@ -2,7 +2,7 @@ package io.github.asgerjon.mcfly.mixins.early.lodestone.client;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import ganymedes01.etfuturum.client.LodestoneNeedle;
+import io.github.asgerjon.mcfly.lodestone.client.LodestoneNeedle;
 import net.minecraft.client.renderer.tileentity.RenderItemFrame;
 import net.minecraft.entity.item.EntityItemFrame;
 import org.spongepowered.asm.mixin.Mixin;

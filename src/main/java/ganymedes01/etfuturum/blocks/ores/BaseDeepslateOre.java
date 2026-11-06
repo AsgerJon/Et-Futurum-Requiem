@@ -215,9 +215,9 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 				return drop;
 			}
 		} else if (droppedBlock == Blocks.stone) {
-			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem()); // setItem
+			drop.func_150996_a(io.github.asgerjon.mcfly.registry.McFlyBlocks.DEEPSLATE.getItem()); // setItem
 		} else if (droppedBlock == Blocks.cobblestone) {
-			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
+			drop.func_150996_a(io.github.asgerjon.mcfly.registry.McFlyBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
 		}
 		return drop;
 	}
@@ -242,7 +242,7 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 
 	@Override
 	public void postInitAction() {
-		if (!getBase().getClass().getName().contains("net.minecraft.block") && getBase() != ModBlocks.COPPER_ORE.get()) {
+		if (!getBase().getClass().getName().contains("net.minecraft.block") && getBase() != io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_ORE.get()) {
 			loaded.add(this);
 		}
 	}

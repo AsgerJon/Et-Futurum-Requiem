@@ -14,7 +14,7 @@ public class WorldGenBasaltGlowstone extends WorldGenerator {
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
 		if (!p_76484_1_.isAirBlock(p_76484_3_, p_76484_4_, p_76484_5_)) {
 			return false;
-		} else if (p_76484_1_.getBlock(p_76484_3_, p_76484_4_ + 1, p_76484_5_) != ModBlocks.BASALT.get()) {
+		} else if (p_76484_1_.getBlock(p_76484_3_, p_76484_4_ + 1, p_76484_5_) != io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get()) {
 			return false;
 		} else {
 			p_76484_1_.setBlock(p_76484_3_, p_76484_4_, p_76484_5_, Blocks.glowstone, 0, 2);

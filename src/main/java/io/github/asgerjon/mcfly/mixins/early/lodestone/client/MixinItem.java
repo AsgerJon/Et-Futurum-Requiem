@@ -1,7 +1,7 @@
 package io.github.asgerjon.mcfly.mixins.early.lodestone.client;
 
-import ganymedes01.etfuturum.client.LodestoneNeedle;
-import ganymedes01.etfuturum.items.LodestoneCompass;
+import io.github.asgerjon.mcfly.lodestone.client.LodestoneNeedle;
+import io.github.asgerjon.mcfly.lodestone.LodestoneCompass;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -4,7 +4,6 @@ import io.github.asgerjon.mcfly.config.McFlyConfig;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import cpw.mods.fml.common.eventhandler.Event.Result;
-import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -425,7 +424,7 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 						int k1 = j1;
 
 						if (this.worldObj.isAirBlock(xPos + l, yPos + k1, zPos + i1) && this.worldObj.getBlock(xPos + l, yPos + k1 - 1, zPos + i1) == Blocks.end_stone) {
-							BlockChorusFlower.generatePlant(this.worldObj, xPos + l, yPos + k1, zPos + i1, this.rand, 8);
+							ganymedes01.etfuturum.world.end.modern.EndDecoration.generateChorus(this.worldObj, xPos + l, yPos + k1, zPos + i1, this.rand, 8);
 						}
 					}
 				}

@@ -188,7 +188,7 @@ public final class Spectator {
 	private static void openInventoryOf(EntityPlayer player, Entity target) {
 		boolean sneaking = player.isSneaking();
 		// those that do something else when used open their inventory to a sneaking player
-		if (target instanceof ganymedes01.etfuturum.entities.EntityNewBoatWithChest) {
+		if (target instanceof io.github.asgerjon.mcfly.boat.McFlyChestBoat) {
 			player.setSneaking(true);
 		} else if (target instanceof EntityHorse horse) {
 			if (!horse.isAdultHorse() || !horse.isTame()) {

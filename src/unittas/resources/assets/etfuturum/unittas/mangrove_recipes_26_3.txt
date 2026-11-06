@@ -1,0 +1,4 @@
+# 26.3's recipes for mangrove (SPEC-modern-movement.md §90.6, step E; unittas_mcfly-sims/recipes_26_3.py). The planks are the wood sets'.
+mangrove_wood shaped ##/## #=mangrove_log -> 3 mangrove_wood
+stripped_mangrove_wood shaped ##/## #=stripped_mangrove_log -> 3 stripped_mangrove_wood
+muddy_mangrove_roots shapeless mud mangrove_roots -> 1 muddy_mangrove_roots

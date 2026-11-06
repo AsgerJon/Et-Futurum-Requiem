@@ -186,17 +186,21 @@ public final class ModernEffects {
 	 */
 	private static void trigger(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		if (block instanceof BlockDoor door && block.getMaterial() != Material.iron) {
-			int meta = world.getBlockMetadata(x, y, z);
-			// one toggle a door: from its lower half only
-			if ((meta & 8) == 0) {
-				door.func_150014_a(world, x, y, z, (door.func_150012_g(world, x, y, z) & 4) == 0);
+		if (block instanceof BlockDoor) {
+			// one toggle a door: from its lower half only; 26.3's set type and powered bit decide (spec §91.6)
+			if ((world.getBlockMetadata(x, y, z) & 8) == 0) {
+				io.github.asgerjon.mcfly.wood.Doors.burst(block, world, x, y, z);
 			}
-		} else if (block instanceof BlockTrapDoor trapdoor && block.getMaterial() != Material.iron) {
-			trapdoor.func_150120_a(world, x, y, z, (world.getBlockMetadata(x, y, z) & 4) == 0);
+		} else if (block instanceof BlockTrapDoor) {
+			io.github.asgerjon.mcfly.wood.Trapdoors.burst(block, world, x, y, z);
+		} else if (block instanceof io.github.asgerjon.mcfly.base.McFlyFenceGate gate) {
+			// ours: unless powered, with its wood type's sound and game event (spec §91.5)
+			gate.burst(world, x, y, z);
 		} else if (block instanceof BlockFenceGate) {
-			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) ^ 4, 2);
-			world.playAuxSFX(1003, x, y, z, 0);
+			int meta = world.getBlockMetadata(x, y, z) ^ 4;
+			world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, io.github.asgerjon.mcfly.McFly.MC_ASSETS + ":block.fence_gate." + ((meta & 4) != 0 ? "open" : "close"), 1.0F,
+				world.rand.nextFloat() * 0.1F + 0.9F);
 		} else if (block instanceof BlockLever || block instanceof BlockButton) {
 			// neither reads the player
 			block.onBlockActivated(world, x, y, z, null, 0, 0.0F, 0.0F, 0.0F);

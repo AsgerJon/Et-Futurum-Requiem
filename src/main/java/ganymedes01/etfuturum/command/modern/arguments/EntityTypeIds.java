@@ -1,9 +1,6 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
 import io.github.asgerjon.mcfly.McFly;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
-import ganymedes01.etfuturum.items.ItemNewBoat;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -162,7 +159,12 @@ public final class EntityTypeIds {
 			String path = id.substring(colon + 1);
 			boolean chest = path.endsWith("_chest_boat") || path.endsWith("_chest_raft");
 			String wood = path.substring(0, path.length() - (chest ? "_chest_boat".length() : "_boat".length()));
-			return new Spawn(chest ? EFR_CHEST_BOAT : EFR_BOAT, variant, entity -> ((EntityNewBoat) entity).setBoatType(domain, wood));
+			return new Spawn(chest ? EFR_CHEST_BOAT : EFR_BOAT, variant, entity -> {
+				io.github.asgerjon.mcfly.boat.BoatTypes.Type type = io.github.asgerjon.mcfly.boat.BoatTypes.of(domain, wood);
+				if (type != null) {
+					((io.github.asgerjon.mcfly.boat.McFlyBoat) entity).setType(type);
+				}
+			});
 		}
 		String name = nameById.get(id);
 		return name == null ? null : new Spawn(name, variant, nothing);
@@ -224,8 +226,8 @@ public final class EntityTypeIds {
 				// by the skin: taming gives one, and /summon cat gives one to a wild ocelot
 				return ((EntityOcelot) entity).getTameSkin() != 0 ? "minecraft:cat" : "minecraft:ocelot";
 			default:
-				if (entity instanceof EntityNewBoat boat && (name.equals(EFR_BOAT) || name.equals(EFR_CHEST_BOAT))) {
-					return boatId(boat.getResourceLocation().getResourceDomain(), boat.getBoatType(), boat instanceof EntityNewBoatWithChest, boat.isRaft());
+				if (entity instanceof io.github.asgerjon.mcfly.boat.McFlyBoat boat && (name.equals(EFR_BOAT) || name.equals(EFR_CHEST_BOAT))) {
+					return boatId(boat.type().domain, boat.type().wood, boat.isChest(), boat.isRaft());
 				}
 				return byName.get(name);
 		}
@@ -265,12 +267,11 @@ public final class EntityTypeIds {
 			all.add("minecraft:" + horse);
 		}
 		if (EntityList.stringToClassMapping.containsKey(EFR_BOAT)) {
-			for (Map.Entry<String, ItemNewBoat.BoatInfo> boat : ItemNewBoat.BOAT_INFO.entrySet()) {
-				String key = boat.getKey();
-				boolean chest = key.endsWith("_chest");
-				String wood = chest ? key.substring(0, key.length() - "_chest".length()) : key;
-				int colon = wood.indexOf(':');
-				all.add(boatId(wood.substring(0, colon), wood.substring(colon + 1), chest, boat.getValue().isRaft()));
+			for (io.github.asgerjon.mcfly.boat.BoatTypes.Type type : io.github.asgerjon.mcfly.boat.BoatTypes.all()) {
+				if (type.isEnabled()) {
+					all.add(boatId(type.domain, type.wood, false, type.raft));
+					all.add(boatId(type.domain, type.wood, true, type.raft));
+				}
 			}
 		}
 		Map<String, String> reverse = new HashMap<>();

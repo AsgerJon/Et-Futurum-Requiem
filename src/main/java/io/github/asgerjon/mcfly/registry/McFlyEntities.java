@@ -57,8 +57,18 @@ public enum McFlyEntities {
 	// lingering potions thrown and tipped arrows shot (spec §82): EFR's names and ids
 	THROWN_LINGERING_POTION(io.github.asgerjon.mcfly.potion.ThrownLingeringPotion.class, "lingering_potion", 6, 64, 10, true, () -> McFlyItems.LINGERING_POTION.isEnabled()),
 	SHOT_TIPPED_ARROW(io.github.asgerjon.mcfly.potion.TippedArrow.class, "tipped_arrow", 2, 64, 20, true, () -> McFlyItems.TIPPED_ARROW.isEnabled()),
+	// a firework rocket boosting a glider (spec §85), under EFR's id
+	// EFR's old placed end crystal, read back as 26.3's crystal (spec §85)
+	OLD_PLACED_CRYSTAL(io.github.asgerjon.mcfly.end.PlacedCrystal.class, "end_crystal", 9, 256, Integer.MAX_VALUE, false, () -> true),
+	BOOSTING_ROCKET(io.github.asgerjon.mcfly.elytra.BoostingRocket.class, "boosting_firework_rocket", 20, 64, 1, true, () -> io.github.asgerjon.mcfly.config.McFlyConfig.enableElytra),
 	AREA_EFFECT_CLOUD(EntityAreaEffectCloud.class, "area_effect_cloud", 28, 160, 10, false, ModernEnd::isActive),
-	DRAGON_FIREBALL(EntityDragonFireball.class, "dragon_fireball", 29, 64, 10, true, ModernEnd::isActive);
+	DRAGON_FIREBALL(EntityDragonFireball.class, "dragon_fireball", 29, 64, 10, true, ModernEnd::isActive),
+	// a falling stalactite (spec §90.7), on the id EFR set aside for its unfinished one
+	// the boats (spec 91.12, step J): EFR's names and ids, 26.3's 10 chunks and 3 ticks; no motion sent (a client steers)
+	NEW_BOAT(io.github.asgerjon.mcfly.boat.McFlyBoat.class, "new_boat", 13, 160, 3, false, () -> io.github.asgerjon.mcfly.config.McFlyConfig.enableNewBoats),
+	CHEST_BOAT(io.github.asgerjon.mcfly.boat.McFlyChestBoat.class, "chest_boat", 19, 160, 3, false, () -> io.github.asgerjon.mcfly.config.McFlyConfig.enableNewBoats),
+	NEW_BOAT_SEAT(io.github.asgerjon.mcfly.boat.BoatSeat.class, "new_boat_seat", 14, 160, 3, false, () -> io.github.asgerjon.mcfly.config.McFlyConfig.enableNewBoats),
+	FALLING_DRIPSTONE(io.github.asgerjon.mcfly.caves.DripstoneBlocks.Falling.class, "falling_dripstone", 18, 160, 20, true, () -> io.github.asgerjon.mcfly.config.McFlyConfig.enableDripstone);
 
 	public static final McFlyEntities[] VALUES = values();
 

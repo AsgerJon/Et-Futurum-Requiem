@@ -1,0 +1,107 @@
+# 26.3's copper, lightning rod and raw ore recipes (its data/minecraft/recipe/*.json, the Copper Age and stonecutting
+# aside), one a line: name, kind, pattern rows ('.' empty) and keys or ingredients, -> count result [experience]
+chiseled_copper shaped #/# #=cut_copper_slab -> 1 chiseled_copper
+copper_block shaped ###/###/### #=copper_ingot -> 1 copper_block
+copper_bulb shaped .C./CBC/.R. B=blaze_rod C=copper_block R=redstone -> 4 copper_bulb
+copper_door shaped ##/##/## #=copper_ingot -> 3 copper_door
+copper_grate shaped .M./M.M/.M. M=copper_block -> 4 copper_grate
+copper_ingot shapeless copper_block -> 9 copper_ingot
+copper_ingot_from_smelting_copper_ore smelting copper_ore -> 1 copper_ingot 0.7
+copper_ingot_from_smelting_deepslate_copper_ore smelting deepslate_copper_ore -> 1 copper_ingot 0.7
+copper_ingot_from_smelting_raw_copper smelting raw_copper -> 1 copper_ingot 0.7
+copper_ingot_from_waxed_copper_block shapeless waxed_copper_block -> 9 copper_ingot
+copper_trapdoor shaped ##/## #=copper_ingot -> 1 copper_trapdoor
+cut_copper shaped ##/## #=copper_block -> 4 cut_copper
+cut_copper_slab shaped ### #=cut_copper -> 6 cut_copper_slab
+cut_copper_stairs shaped #../##./### #=cut_copper -> 4 cut_copper_stairs
+exposed_chiseled_copper shaped #/# #=exposed_cut_copper_slab -> 1 exposed_chiseled_copper
+exposed_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=exposed_copper R=redstone -> 4 exposed_copper_bulb
+exposed_copper_grate shaped .M./M.M/.M. M=exposed_copper -> 4 exposed_copper_grate
+exposed_cut_copper shaped ##/## #=exposed_copper -> 4 exposed_cut_copper
+exposed_cut_copper_slab shaped ### #=exposed_cut_copper -> 6 exposed_cut_copper_slab
+exposed_cut_copper_stairs shaped #../##./### #=exposed_cut_copper -> 4 exposed_cut_copper_stairs
+gold_ingot_from_smelting_raw_gold smelting raw_gold -> 1 gold_ingot 1.0
+iron_ingot_from_smelting_raw_iron smelting raw_iron -> 1 iron_ingot 0.7
+lightning_rod shaped #/#/# #=copper_ingot -> 1 lightning_rod
+oxidized_chiseled_copper shaped #/# #=oxidized_cut_copper_slab -> 1 oxidized_chiseled_copper
+oxidized_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=oxidized_copper R=redstone -> 4 oxidized_copper_bulb
+oxidized_copper_grate shaped .M./M.M/.M. M=oxidized_copper -> 4 oxidized_copper_grate
+oxidized_cut_copper shaped ##/## #=oxidized_copper -> 4 oxidized_cut_copper
+oxidized_cut_copper_slab shaped ### #=oxidized_cut_copper -> 6 oxidized_cut_copper_slab
+oxidized_cut_copper_stairs shaped #../##./### #=oxidized_cut_copper -> 4 oxidized_cut_copper_stairs
+raw_copper shapeless raw_copper_block -> 9 raw_copper
+raw_copper_block shaped ###/###/### #=raw_copper -> 1 raw_copper_block
+raw_gold shapeless raw_gold_block -> 9 raw_gold
+raw_gold_block shaped ###/###/### #=raw_gold -> 1 raw_gold_block
+raw_iron shapeless raw_iron_block -> 9 raw_iron
+raw_iron_block shaped ###/###/### #=raw_iron -> 1 raw_iron_block
+waxed_chiseled_copper shaped .M./.M. M=waxed_cut_copper_slab -> 1 waxed_chiseled_copper
+waxed_chiseled_copper_from_honeycomb shapeless chiseled_copper honeycomb -> 1 waxed_chiseled_copper
+waxed_copper_block_from_honeycomb shapeless copper_block honeycomb -> 1 waxed_copper_block
+waxed_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=waxed_copper_block R=redstone -> 4 waxed_copper_bulb
+waxed_copper_bulb_from_honeycomb shapeless copper_bulb honeycomb -> 1 waxed_copper_bulb
+waxed_copper_door_from_honeycomb shapeless copper_door honeycomb -> 1 waxed_copper_door
+waxed_copper_grate shaped .M./M.M/.M. M=waxed_copper_block -> 4 waxed_copper_grate
+waxed_copper_grate_from_honeycomb shapeless copper_grate honeycomb -> 1 waxed_copper_grate
+waxed_copper_trapdoor_from_honeycomb shapeless copper_trapdoor honeycomb -> 1 waxed_copper_trapdoor
+waxed_cut_copper shaped ##/## #=waxed_copper_block -> 4 waxed_cut_copper
+waxed_cut_copper_from_honeycomb shapeless cut_copper honeycomb -> 1 waxed_cut_copper
+waxed_cut_copper_slab shaped ### #=waxed_cut_copper -> 6 waxed_cut_copper_slab
+waxed_cut_copper_slab_from_honeycomb shapeless cut_copper_slab honeycomb -> 1 waxed_cut_copper_slab
+waxed_cut_copper_stairs shaped #../##./### #=waxed_cut_copper -> 4 waxed_cut_copper_stairs
+waxed_cut_copper_stairs_from_honeycomb shapeless cut_copper_stairs honeycomb -> 1 waxed_cut_copper_stairs
+waxed_exposed_chiseled_copper shaped .M./.M. M=waxed_exposed_cut_copper_slab -> 1 waxed_exposed_chiseled_copper
+waxed_exposed_chiseled_copper_from_honeycomb shapeless exposed_chiseled_copper honeycomb -> 1 waxed_exposed_chiseled_copper
+waxed_exposed_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=waxed_exposed_copper R=redstone -> 4 waxed_exposed_copper_bulb
+waxed_exposed_copper_bulb_from_honeycomb shapeless exposed_copper_bulb honeycomb -> 1 waxed_exposed_copper_bulb
+waxed_exposed_copper_door_from_honeycomb shapeless exposed_copper_door honeycomb -> 1 waxed_exposed_copper_door
+waxed_exposed_copper_from_honeycomb shapeless exposed_copper honeycomb -> 1 waxed_exposed_copper
+waxed_exposed_copper_grate shaped .M./M.M/.M. M=waxed_exposed_copper -> 4 waxed_exposed_copper_grate
+waxed_exposed_copper_grate_from_honeycomb shapeless exposed_copper_grate honeycomb -> 1 waxed_exposed_copper_grate
+waxed_exposed_copper_trapdoor_from_honeycomb shapeless exposed_copper_trapdoor honeycomb -> 1 waxed_exposed_copper_trapdoor
+waxed_exposed_cut_copper shaped ##/## #=waxed_exposed_copper -> 4 waxed_exposed_cut_copper
+waxed_exposed_cut_copper_from_honeycomb shapeless exposed_cut_copper honeycomb -> 1 waxed_exposed_cut_copper
+waxed_exposed_cut_copper_slab shaped ### #=waxed_exposed_cut_copper -> 6 waxed_exposed_cut_copper_slab
+waxed_exposed_cut_copper_slab_from_honeycomb shapeless exposed_cut_copper_slab honeycomb -> 1 waxed_exposed_cut_copper_slab
+waxed_exposed_cut_copper_stairs shaped #../##./### #=waxed_exposed_cut_copper -> 4 waxed_exposed_cut_copper_stairs
+waxed_exposed_cut_copper_stairs_from_honeycomb shapeless exposed_cut_copper_stairs honeycomb -> 1 waxed_exposed_cut_copper_stairs
+waxed_exposed_lightning_rod_from_honeycomb shapeless exposed_lightning_rod honeycomb -> 1 waxed_exposed_lightning_rod
+waxed_lightning_rod_from_honeycomb shapeless lightning_rod honeycomb -> 1 waxed_lightning_rod
+waxed_oxidized_chiseled_copper shaped .M./.M. M=waxed_oxidized_cut_copper_slab -> 1 waxed_oxidized_chiseled_copper
+waxed_oxidized_chiseled_copper_from_honeycomb shapeless oxidized_chiseled_copper honeycomb -> 1 waxed_oxidized_chiseled_copper
+waxed_oxidized_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=waxed_oxidized_copper R=redstone -> 4 waxed_oxidized_copper_bulb
+waxed_oxidized_copper_bulb_from_honeycomb shapeless oxidized_copper_bulb honeycomb -> 1 waxed_oxidized_copper_bulb
+waxed_oxidized_copper_door_from_honeycomb shapeless oxidized_copper_door honeycomb -> 1 waxed_oxidized_copper_door
+waxed_oxidized_copper_from_honeycomb shapeless oxidized_copper honeycomb -> 1 waxed_oxidized_copper
+waxed_oxidized_copper_grate shaped .M./M.M/.M. M=waxed_oxidized_copper -> 4 waxed_oxidized_copper_grate
+waxed_oxidized_copper_grate_from_honeycomb shapeless oxidized_copper_grate honeycomb -> 1 waxed_oxidized_copper_grate
+waxed_oxidized_copper_trapdoor_from_honeycomb shapeless oxidized_copper_trapdoor honeycomb -> 1 waxed_oxidized_copper_trapdoor
+waxed_oxidized_cut_copper shaped ##/## #=waxed_oxidized_copper -> 4 waxed_oxidized_cut_copper
+waxed_oxidized_cut_copper_from_honeycomb shapeless oxidized_cut_copper honeycomb -> 1 waxed_oxidized_cut_copper
+waxed_oxidized_cut_copper_slab shaped ### #=waxed_oxidized_cut_copper -> 6 waxed_oxidized_cut_copper_slab
+waxed_oxidized_cut_copper_slab_from_honeycomb shapeless oxidized_cut_copper_slab honeycomb -> 1 waxed_oxidized_cut_copper_slab
+waxed_oxidized_cut_copper_stairs shaped #../##./### #=waxed_oxidized_cut_copper -> 4 waxed_oxidized_cut_copper_stairs
+waxed_oxidized_cut_copper_stairs_from_honeycomb shapeless oxidized_cut_copper_stairs honeycomb -> 1 waxed_oxidized_cut_copper_stairs
+waxed_oxidized_lightning_rod_from_honeycomb shapeless oxidized_lightning_rod honeycomb -> 1 waxed_oxidized_lightning_rod
+waxed_weathered_chiseled_copper shaped .M./.M. M=waxed_weathered_cut_copper_slab -> 1 waxed_weathered_chiseled_copper
+waxed_weathered_chiseled_copper_from_honeycomb shapeless weathered_chiseled_copper honeycomb -> 1 waxed_weathered_chiseled_copper
+waxed_weathered_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=waxed_weathered_copper R=redstone -> 4 waxed_weathered_copper_bulb
+waxed_weathered_copper_bulb_from_honeycomb shapeless weathered_copper_bulb honeycomb -> 1 waxed_weathered_copper_bulb
+waxed_weathered_copper_door_from_honeycomb shapeless weathered_copper_door honeycomb -> 1 waxed_weathered_copper_door
+waxed_weathered_copper_from_honeycomb shapeless weathered_copper honeycomb -> 1 waxed_weathered_copper
+waxed_weathered_copper_grate shaped .M./M.M/.M. M=waxed_weathered_copper -> 4 waxed_weathered_copper_grate
+waxed_weathered_copper_grate_from_honeycomb shapeless weathered_copper_grate honeycomb -> 1 waxed_weathered_copper_grate
+waxed_weathered_copper_trapdoor_from_honeycomb shapeless weathered_copper_trapdoor honeycomb -> 1 waxed_weathered_copper_trapdoor
+waxed_weathered_cut_copper shaped ##/## #=waxed_weathered_copper -> 4 waxed_weathered_cut_copper
+waxed_weathered_cut_copper_from_honeycomb shapeless weathered_cut_copper honeycomb -> 1 waxed_weathered_cut_copper
+waxed_weathered_cut_copper_slab shaped ### #=waxed_weathered_cut_copper -> 6 waxed_weathered_cut_copper_slab
+waxed_weathered_cut_copper_slab_from_honeycomb shapeless weathered_cut_copper_slab honeycomb -> 1 waxed_weathered_cut_copper_slab
+waxed_weathered_cut_copper_stairs shaped #../##./### #=waxed_weathered_cut_copper -> 4 waxed_weathered_cut_copper_stairs
+waxed_weathered_cut_copper_stairs_from_honeycomb shapeless weathered_cut_copper_stairs honeycomb -> 1 waxed_weathered_cut_copper_stairs
+waxed_weathered_lightning_rod_from_honeycomb shapeless weathered_lightning_rod honeycomb -> 1 waxed_weathered_lightning_rod
+weathered_chiseled_copper shaped #/# #=weathered_cut_copper_slab -> 1 weathered_chiseled_copper
+weathered_copper_bulb shaped .C./CBC/.R. B=blaze_rod C=weathered_copper R=redstone -> 4 weathered_copper_bulb
+weathered_copper_grate shaped .M./M.M/.M. M=weathered_copper -> 4 weathered_copper_grate
+weathered_cut_copper shaped ##/## #=weathered_copper -> 4 weathered_cut_copper
+weathered_cut_copper_slab shaped ### #=weathered_cut_copper -> 6 weathered_cut_copper_slab
+weathered_cut_copper_stairs shaped #../##./### #=weathered_cut_copper -> 4 weathered_cut_copper_stairs

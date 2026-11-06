@@ -1,0 +1,19 @@
+# 26.3's recipes for deepslate's set (SPEC-modern-movement.md §89, step C; its data/minecraft/recipe/*.json, stonecutting aside;
+# unittas_mcfly-sims/recipes_26_3.py).
+chiseled_deepslate shaped #/# #=cobbled_deepslate_slab -> 1 chiseled_deepslate
+cobbled_deepslate_slab shaped ### #=cobbled_deepslate -> 6 cobbled_deepslate_slab
+cobbled_deepslate_stairs shaped #../##./### #=cobbled_deepslate -> 4 cobbled_deepslate_stairs
+cobbled_deepslate_wall shaped ###/### #=cobbled_deepslate -> 6 cobbled_deepslate_wall
+cracked_deepslate_bricks smelting deepslate_bricks -> 1 cracked_deepslate_bricks 0.1
+cracked_deepslate_tiles smelting deepslate_tiles -> 1 cracked_deepslate_tiles 0.1
+deepslate_brick_slab shaped ### #=deepslate_bricks -> 6 deepslate_brick_slab
+deepslate_brick_stairs shaped #../##./### #=deepslate_bricks -> 4 deepslate_brick_stairs
+deepslate_brick_wall shaped ###/### #=deepslate_bricks -> 6 deepslate_brick_wall
+deepslate_bricks shaped ##/## #=polished_deepslate -> 4 deepslate_bricks
+deepslate_tile_slab shaped ### #=deepslate_tiles -> 6 deepslate_tile_slab
+deepslate_tile_stairs shaped #../##./### #=deepslate_tiles -> 4 deepslate_tile_stairs
+deepslate_tile_wall shaped ###/### #=deepslate_tiles -> 6 deepslate_tile_wall
+deepslate_tiles shaped ##/## #=deepslate_bricks -> 4 deepslate_tiles
+polished_deepslate_slab shaped ### #=polished_deepslate -> 6 polished_deepslate_slab
+polished_deepslate_stairs shaped #../##./### #=polished_deepslate -> 4 polished_deepslate_stairs
+polished_deepslate_wall shaped ###/### #=polished_deepslate -> 6 polished_deepslate_wall

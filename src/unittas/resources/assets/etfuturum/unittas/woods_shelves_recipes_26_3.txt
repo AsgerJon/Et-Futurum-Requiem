@@ -1,0 +1,13 @@
+# 26.3's recipes for the shelves (SPEC-modern-movement.md 91.10, step H; its data/minecraft/recipe/*.json;
+# unittas_mcfly-sims/recipes_26_3.py).
+acacia_shelf shaped ###/.../### #=stripped_acacia_log -> 6 acacia_shelf
+bamboo_shelf shaped ###/.../### #=stripped_bamboo_block -> 6 bamboo_shelf
+birch_shelf shaped ###/.../### #=stripped_birch_log -> 6 birch_shelf
+cherry_shelf shaped ###/.../### #=stripped_cherry_log -> 6 cherry_shelf
+crimson_shelf shaped ###/.../### #=stripped_crimson_stem -> 6 crimson_shelf
+dark_oak_shelf shaped ###/.../### #=stripped_dark_oak_log -> 6 dark_oak_shelf
+jungle_shelf shaped ###/.../### #=stripped_jungle_log -> 6 jungle_shelf
+mangrove_shelf shaped ###/.../### #=stripped_mangrove_log -> 6 mangrove_shelf
+oak_shelf shaped ###/.../### #=stripped_oak_log -> 6 oak_shelf
+spruce_shelf shaped ###/.../### #=stripped_spruce_log -> 6 spruce_shelf
+warped_shelf shaped ###/.../### #=stripped_warped_stem -> 6 warped_shelf

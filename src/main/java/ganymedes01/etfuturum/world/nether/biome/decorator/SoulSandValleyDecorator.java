@@ -18,13 +18,13 @@ public class SoulSandValleyDecorator extends NetherBiomeDecorator {
 	private final WorldGenerator pillarGenerator;
 
 	public SoulSandValleyDecorator() {
-		crimsonGrassGenerator = new WorldGenFlowers(ModBlocks.NETHER_ROOTS.get());
+		crimsonGrassGenerator = new WorldGenFlowers(io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_ROOTS.get());
 		pillarGenerator = new WorldGenBasaltPillars();
 	}
 
 	@Override
 	public void populate(World world, Random rand, int chunkX, int chunkZ) {
-		if (ModBlocks.NETHER_ROOTS.isEnabled() && rand.nextInt(3) == 0) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.NETHER_ROOTS.isEnabled() && rand.nextInt(3) == 0) {
 			int x = chunkX + rand.nextInt(16) + 8;
 			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;
@@ -49,7 +49,7 @@ public class SoulSandValleyDecorator extends NetherBiomeDecorator {
 			}
 		}
 
-		if (ModBlocks.BASALT.isEnabled() && rand.nextInt(6) == 0) {
+		if (io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.isEnabled() && rand.nextInt(6) == 0) {
 			int x = chunkX + rand.nextInt(16) + 8;
 			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;

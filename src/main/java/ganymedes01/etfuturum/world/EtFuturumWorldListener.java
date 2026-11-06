@@ -96,7 +96,6 @@ public class EtFuturumWorldListener implements IWorldAccess {
 		if (!world.blockExists(x, y, z) /*|| !world.getChunkFromBlockCoords(x, z).isChunkLoaded*/)
 			return;
 
-		handleBasaltFromLava(x, y, z);
 		for (ForgeDirection dir : Utils.FORGE_DIRECTIONS) {
 			handleBubbleColumnCreation(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 		}
@@ -129,27 +128,6 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 	}
 
-	private void handleBasaltFromLava(int x, int y, int z) { //Don't support Netherlicious blocks, this can be handled on their end
-		if (ModBlocks.BASALT.isEnabled()) {
-			if (world.getBlock(x, y, z).getMaterial() == Material.lava) {
-				Block soulsand = ModBlocks.SOUL_SOIL.isEnabled() ? ModBlocks.SOUL_SOIL.get() : Blocks.soul_sand;
-				if (world.getBlock(x, y - 1, z) == soulsand) {
-					Block ice = ModBlocks.BLUE_ICE.isEnabled() ? ModBlocks.BLUE_ICE.get() : Blocks.packed_ice;
-					for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
-						if (facing == EnumFacing.DOWN) continue;
-						if (world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ()) == ice) {
-							world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-							for (int l = 0; l < 8; ++l) {
-								world.spawnParticle("largesmoke", (double) x + Math.random(), (double) y + 1.2D, (double) z + Math.random(), 0.0D, 0.0D, 0.0D);
-							}
-							world.setBlock(x, y, z, ModBlocks.BASALT.get());
-							return;
-						}
-					}
-				}
-			}
-		}
-	}
 
 	/**
 	 * This is only needed to create the initial bubble column above the magma or soul sand or custom column above another block.

@@ -786,14 +786,14 @@ public class StructureMesaMineshaftPieces {
 		}
 
 		protected int getPlankMeta() {
-			if (ConfigBlocksItems.enableVanillaFences) {
+			if (io.github.asgerjon.mcfly.config.McFlyConfig.enableVanillaFences) {
 				return 5;
 			}
 			return 0;
 		}
 
 		protected Block getFence() {
-			return ModBlocks.FENCE_DARK_OAK.isEnabled() ? ModBlocks.FENCE_DARK_OAK.get() : Blocks.fence;
+			return io.github.asgerjon.mcfly.registry.McFlyBlocks.FENCE_DARK_OAK.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.FENCE_DARK_OAK.get() : Blocks.fence;
 		}
 
 		protected int getFenceMeta() {

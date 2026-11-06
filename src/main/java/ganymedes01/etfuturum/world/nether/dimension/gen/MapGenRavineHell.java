@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.nether.dimension.gen;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockNylium;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -177,7 +176,7 @@ public class MapGenRavineHell extends MapGenRavine {
 	protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
 		Block block = data[index];
 
-		if (block == Blocks.netherrack || block instanceof BlockNylium || block == Blocks.soul_sand || block == ModBlocks.SOUL_SOIL.get() || block == ModBlocks.BLACKSTONE.get() || block == ModBlocks.BASALT.get()) {
+		if (block == Blocks.netherrack || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.NYLIUM.get() || block == Blocks.soul_sand || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_SOIL.get() || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.BLACKSTONE.get() || block == io.github.asgerjon.mcfly.registry.McFlyBlocks.BASALT.get()) {
 //			if (y < 10)
 //			{
 //				data[index] = Blocks.flowing_lava;
