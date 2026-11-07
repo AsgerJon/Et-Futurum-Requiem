@@ -1,0 +1,4 @@
+# 26.3's barrel recipe (SPEC-modern-movement.md 92.4, step B; its data/minecraft/recipe/barrel.json;
+# unittas_mcfly-sims/recipes_26_3.py, ^barrel$). #planks and #wooden_slabs without pale oak's and poplar's, which the fork
+# doesn't have (91: not here).
+barrel shaped PSP/P.P/PSP P=oak_planks|spruce_planks|birch_planks|jungle_planks|acacia_planks|dark_oak_planks|crimson_planks|warped_planks|mangrove_planks|bamboo_planks|cherry_planks S=oak_slab|spruce_slab|birch_slab|jungle_slab|acacia_slab|dark_oak_slab|crimson_slab|warped_slab|mangrove_slab|bamboo_slab|cherry_slab -> 1 barrel

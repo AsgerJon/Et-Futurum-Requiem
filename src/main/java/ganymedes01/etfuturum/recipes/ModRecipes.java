@@ -18,7 +18,6 @@ import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -64,15 +63,8 @@ public class ModRecipes {
 	public static final String[] ore_dyes = new String[]{"dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"};
 	public static final String[] dye_names = new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 	public static final String[] woodTypes = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
-	public static final String[] modernWoodTypes = new String[]{"crimson", "warped", "mangrove", "cherry"};
-	private static final boolean[] modernWoodTypesEnabled = new boolean[5];
 
 	public static void init() {
-		modernWoodTypesEnabled[0] = ConfigExperiments.enableCrimsonBlocks;
-		modernWoodTypesEnabled[1] = ConfigExperiments.enableWarpedBlocks;
-		modernWoodTypesEnabled[2] = ConfigExperiments.enableMangroveBlocks;
-		modernWoodTypesEnabled[3] = io.github.asgerjon.mcfly.config.McFlyConfig.enableCherryBlocks;
-		modernWoodTypesEnabled[4] = io.github.asgerjon.mcfly.config.McFlyConfig.enableBambooBlocks;
 		registerOreDictionary();
 	}
 
@@ -176,10 +168,6 @@ public class ModRecipes {
 			registerOre("treeSapling", io.github.asgerjon.mcfly.registry.McFlyBlocks.SAPLING.newItemStack(1, 1));
 		}
 
-		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
-			if (modernWoodTypesEnabled[i]) {
-			}
-		}
 
 
 		registerOre("blockSlime", ModBlocks.SLIME.newItemStack());
@@ -419,39 +407,13 @@ public class ModRecipes {
 
 
 		if (!ModsList.GTNH.isLoaded()) {
-			addShapedRecipe(ModBlocks.BARREL.newItemStack(), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
-			addShapedRecipe(ModBlocks.IRON_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotIron", 's', ModBlocks.BARREL.get());
-			addShapedRecipe(ModBlocks.GOLD_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotGold", 's', ModBlocks.IRON_BARREL.get());
-			addShapedRecipe(ModBlocks.DIAMOND_BARREL.newItemStack(), "ggg", "xsx", "ggg", 'x', "gemDiamond", 's', ModBlocks.GOLD_BARREL.get(), 'g', "blockGlassColorless");
-			addShapedRecipe(ModBlocks.COPPER_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotCopper", 's', ModBlocks.BARREL.get());
-			addShapedRecipe(ModBlocks.SILVER_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotSilver", 's', ModBlocks.COPPER_BARREL.get());
-			addShapedRecipe(ModBlocks.STEEL_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotSteel", 's', ModBlocks.COPPER_BARREL.get());
-			addShapedRecipe(ModBlocks.OBSIDIAN_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', Blocks.obsidian, 's', ModBlocks.DIAMOND_BARREL.get());
-			addShapedRecipe(ModBlocks.DARKSTEEL_BARREL.newItemStack(), "xxx", "xsx", "xxx", 'x', "ingotDarkSteel", 's', ModBlocks.STEEL_BARREL.get());
-			addShapedRecipe(ModBlocks.NETHERITE_BARREL.newItemStack(), "xxx", "nsn", "xxx", 'x', Blocks.obsidian, 's', ModBlocks.OBSIDIAN_BARREL.get(), 'n', io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.get());
-
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', "slabWood");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', "slabWood");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 2), "XXX", "XXX", "XYX", 'X', "ingotGold", 'Y', "ingotIron");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 3), "XGG", "GYG", "GGX", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 4), "XXX", "XXX", "XYX", 'X', "ingotGold", 'Y', "ingotSteel");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 5), "XXX", "XXX", "XYX", 'X', Blocks.obsidian, 'Y', "gemDiamond");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 6), "XXX", "XXX", "XYX", 'X', io.github.asgerjon.mcfly.registry.McFlyItems.NETHERITE_INGOT.get(), 'Y', Blocks.obsidian);
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 7), "XXX", "XXX", "XYX", 'X', "ingotDarkSteel", 'Y', Blocks.obsidian);		
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 8), "XGX", "XYX", "GGG", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 9), "XXX", "XXX", "XYX", 'X', "ingotSilver", 'Y', "ingotCopper");
-			addShapedRecipe(ModItems.BARREL_UPGRADE.newItemStack(1, 10), "XGX", "GGG", "XYX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
-
 			addShapedRecipe(ModBlocks.BLUE_ICE.newItemStack(), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
 		}
 
 		if (!ModsList.GTNH.isLoaded() && ModItems.COOPERS_MALLET.isEnabled()) {
-			addShapedRecipe(ModItems.COOPERS_MALLET.newItemStack(), "cbr", " s ", " s ", 'c', Blocks.chest, 'b', "blockCopper", 'r', ModBlocks.BARREL.get(), 's', "stickWood");
+			addShapedRecipe(ModItems.COOPERS_MALLET.newItemStack(), "cbr", " s ", " s ", 'c', Blocks.chest, 'b', "blockCopper", 'r', io.github.asgerjon.mcfly.registry.McFlyBlocks.BARREL.get(), 's', "stickWood");
 		}
 
-		addShapedRecipe(ModBlocks.SMOKER.newItemStack(), " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");
-
-		addShapedRecipe(ModBlocks.BLAST_FURNACE.newItemStack(), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_STONE.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.SMOOTH_STONE.get() : Blocks.stone);
 
 		if (!ModsList.GTNH.isLoaded()) {
 			// smooth stone is McFly's (spec §89, step D): the circuit plates of BluePower and Project Red come of it, not stone

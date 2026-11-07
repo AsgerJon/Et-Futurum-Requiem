@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.command.modern.arguments;
 
 import com.github.bsideup.jabel.Desugar;
-import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockLoom;
@@ -122,7 +121,7 @@ final class EfrBlockStates {
 		if (block instanceof io.github.asgerjon.mcfly.redstone.ObserverBlock) {
 			return sixWays("powered", "south");
 		}
-		if (block instanceof BlockBarrel) {
+		if (block instanceof io.github.asgerjon.mcfly.workstation.BarrelBlock) {
 			return sixWays("open", "north");
 		}
 		if (block instanceof io.github.asgerjon.mcfly.end.EndRodBlock || block instanceof io.github.asgerjon.mcfly.caves.AmethystBlocks.Cluster) {

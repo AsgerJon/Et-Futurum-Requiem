@@ -7,7 +7,6 @@ public class RenderIDs {
 	public static final int SLIME_BLOCK = RenderingRegistry.getNextAvailableRenderId();
 	public static final int DOOR = RenderingRegistry.getNextAvailableRenderId();
 
-	public static final int BARREL = RenderingRegistry.getNextAvailableRenderId();
 	public static final int TRAPDOOR = RenderingRegistry.getNextAvailableRenderId();
 	public static final int GLAZED_TERRACOTTA = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LAVA_CAULDRON = RenderingRegistry.getNextAvailableRenderId();

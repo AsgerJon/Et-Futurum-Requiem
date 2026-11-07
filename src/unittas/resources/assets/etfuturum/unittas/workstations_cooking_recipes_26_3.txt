@@ -1,0 +1,40 @@
+# 26.3's smoking and blasting recipes, and the smoker's and blast furnace's own (SPEC-modern-movement.md 92.3, step A; its
+# data/minecraft/recipe/*.json; unittas_mcfly-sims/recipes_26_3.py, kind:smoking|blasting and ^(smoker|blast_furnace)$).
+# The smoker's #logs without pale oak's and poplar's, which the fork doesn't have (91: not here).
+# The fork lacks 26.3's copper gear and nugget, the spears and the nautilus armours: those members are left out, and
+# copper_nugget_from_blasting with them (their own items later).
+baked_potato_from_smoking smoking potato -> 1 baked_potato 0.35
+coal_from_blasting_coal_ore blasting coal_ore -> 1 coal 0.1
+coal_from_blasting_deepslate_coal_ore blasting deepslate_coal_ore -> 1 coal 0.1
+cooked_beef_from_smoking smoking beef -> 1 cooked_beef 0.35
+cooked_chicken_from_smoking smoking chicken -> 1 cooked_chicken 0.35
+cooked_cod_from_smoking smoking cod -> 1 cooked_cod 0.35
+cooked_mutton_from_smoking smoking mutton -> 1 cooked_mutton 0.35
+cooked_porkchop_from_smoking smoking porkchop -> 1 cooked_porkchop 0.35
+cooked_rabbit_from_smoking smoking rabbit -> 1 cooked_rabbit 0.35
+cooked_salmon_from_smoking smoking salmon -> 1 cooked_salmon 0.35
+copper_ingot_from_blasting_copper_ore blasting copper_ore -> 1 copper_ingot 0.7
+copper_ingot_from_blasting_deepslate_copper_ore blasting deepslate_copper_ore -> 1 copper_ingot 0.7
+copper_ingot_from_blasting_raw_copper blasting raw_copper -> 1 copper_ingot 0.7
+diamond_from_blasting_deepslate_diamond_ore blasting deepslate_diamond_ore -> 1 diamond 1.0
+diamond_from_blasting_diamond_ore blasting diamond_ore -> 1 diamond 1.0
+dried_kelp_from_smoking smoking kelp -> 1 dried_kelp 0.1
+emerald_from_blasting_deepslate_emerald_ore blasting deepslate_emerald_ore -> 1 emerald 1.0
+emerald_from_blasting_emerald_ore blasting emerald_ore -> 1 emerald 1.0
+gold_ingot_from_blasting_deepslate_gold_ore blasting deepslate_gold_ore -> 1 gold_ingot 1.0
+gold_ingot_from_blasting_gold_ore blasting gold_ore -> 1 gold_ingot 1.0
+gold_ingot_from_blasting_nether_gold_ore blasting nether_gold_ore -> 1 gold_ingot 1.0
+gold_ingot_from_blasting_raw_gold blasting raw_gold -> 1 gold_ingot 1.0
+gold_nugget_from_blasting blasting golden_pickaxe|golden_shovel|golden_axe|golden_hoe|golden_sword|golden_helmet|golden_chestplate|golden_leggings|golden_boots|golden_horse_armor -> 1 gold_nugget 0.1
+iron_ingot_from_blasting_deepslate_iron_ore blasting deepslate_iron_ore -> 1 iron_ingot 0.7
+iron_ingot_from_blasting_iron_ore blasting iron_ore -> 1 iron_ingot 0.7
+iron_ingot_from_blasting_raw_iron blasting raw_iron -> 1 iron_ingot 0.7
+iron_nugget_from_blasting blasting iron_pickaxe|iron_shovel|iron_axe|iron_hoe|iron_sword|iron_helmet|iron_chestplate|iron_leggings|iron_boots|iron_horse_armor|chainmail_helmet|chainmail_chestplate|chainmail_leggings|chainmail_boots -> 1 iron_nugget 0.1
+lapis_lazuli_from_blasting_deepslate_lapis_ore blasting deepslate_lapis_ore -> 1 lapis_lazuli 0.2
+lapis_lazuli_from_blasting_lapis_ore blasting lapis_ore -> 1 lapis_lazuli 0.2
+netherite_scrap_from_blasting blasting ancient_debris -> 1 netherite_scrap 2.0
+quartz_from_blasting blasting nether_quartz_ore -> 1 quartz 0.2
+redstone_from_blasting_deepslate_redstone_ore blasting deepslate_redstone_ore -> 1 redstone 0.7
+redstone_from_blasting_redstone_ore blasting redstone_ore -> 1 redstone 0.7
+blast_furnace shaped III/IXI/### #=smooth_stone I=iron_ingot X=furnace -> 1 blast_furnace
+smoker shaped .#./#X#/.#. #=dark_oak_log|dark_oak_wood|stripped_dark_oak_log|stripped_dark_oak_wood|oak_log|oak_wood|stripped_oak_log|stripped_oak_wood|acacia_log|acacia_wood|stripped_acacia_log|stripped_acacia_wood|birch_log|birch_wood|stripped_birch_log|stripped_birch_wood|jungle_log|jungle_wood|stripped_jungle_log|stripped_jungle_wood|spruce_log|spruce_wood|stripped_spruce_log|stripped_spruce_wood|mangrove_log|mangrove_wood|stripped_mangrove_log|stripped_mangrove_wood|cherry_log|cherry_wood|stripped_cherry_log|stripped_cherry_wood|crimson_stem|stripped_crimson_stem|crimson_hyphae|stripped_crimson_hyphae|warped_stem|stripped_warped_stem|warped_hyphae|stripped_warped_hyphae X=furnace -> 1 smoker

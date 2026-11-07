@@ -9,8 +9,6 @@ import java.util.List;
 public class ConfigModCompat extends ConfigBase {
 
 	public static boolean baublesMending;
-	public static boolean barrelIronChest;
-
 	public static boolean moddedRawOres;
 	public static List<String> moddedRawOresBlacklist;
 	public static boolean moddedDeepslateOres;
@@ -41,7 +39,6 @@ public class ConfigModCompat extends ConfigBase {
 	//TODO: Move Iron Chest checks here
 	@Override
 	protected void syncConfigOptions() {
-		barrelIronChest = getBoolean("barrelIronChest", catMisc, true, "If Iron Chests is installed, allow Iron Barrels to be crafted having all the same tiers as Iron Chests except for crystal. This option does nothing if Iron Chests is not installed.");
 		baublesMending = getBoolean("baublesMending", catMisc, true, "If Baubles (or Baubles Expanded) is installed, allows the Mending enchantment to repair items that are worn in bauble slots when experience is collected.\nThis option does nothing if Baubles (or BE) is not installed or if the Mending enchantment is disabled.");
 		soulFireColor = (short) getInt("soulFireColor", catRPLE, 0x49A, 0x000, 0xFFF, """
 						The color of soul fire. Needs to be a separate option because it's a mixin for fire and not a meta state.

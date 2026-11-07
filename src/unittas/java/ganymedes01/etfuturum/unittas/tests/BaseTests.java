@@ -245,7 +245,7 @@ public class BaseTests extends TasTestCase {
 		// picked, shears on a growing plant (§90.3), the sculk sensor's 3 and its clicking's 2, amethyst's resonance (§90.9, H2), sculk's 3, the catalyst's 3 and its bloom, the vein's 3, the spread and the charge (H3), the shrieker's 3, its shriek and the warden's 4 replies (H4); cherry's and bamboo's wood, 3 each (§91.3), nether wood's 3 (§91.4), iron's 3 (§91.6), the stone set's and bamboo's plate's clicks 6 (§91.7); the signs' waxed refusal (91.8);
 		// the four hanging sign types' 12 and their waxed refusal (91.9); the shelf's 3 and 6 (91.10); bamboo's 3 and the
 		// shoot's 2 (it steps as the stalk, 91.11)
-		assertEqual("316 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
+		assertEqual("320 events, none silent []", events.size() + " events, none silent " + silent, "McFly's sound events");
 	}
 
 	/** The blocks this fork added to EFR's list or rebuilt in it (13, as of 2026-11-04; §79 B6), by their entry names. */

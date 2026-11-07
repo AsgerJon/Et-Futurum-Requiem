@@ -19,7 +19,6 @@ import ganymedes01.etfuturum.client.gui.options.CreativeTabOperator;
 import ganymedes01.etfuturum.client.gui.options.ModernOptionsScreens;
 import ganymedes01.etfuturum.client.options.OptionsTxt;
 
-import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBubbleColumnRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockKelpRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
@@ -195,7 +194,6 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity.class, new io.github.asgerjon.mcfly.shulkerbox.client.ShulkerBoxRenderer());
 
 		RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(13, RenderIDs.SLIME_BLOCK));
-		RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer(RenderIDs.BARREL));
 		RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer(RenderIDs.GLAZED_TERRACOTTA));
 		RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer(RenderIDs.LAVA_CAULDRON));
 		RenderingRegistry.registerBlockHandler(new ganymedes01.etfuturum.client.renderer.block.BlockPowderSnowRenderer(McFlyRenderIds.POWDER_SNOW));

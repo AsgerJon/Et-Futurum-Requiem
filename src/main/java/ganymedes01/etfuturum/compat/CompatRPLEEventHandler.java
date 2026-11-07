@@ -30,8 +30,6 @@ public class CompatRPLEEventHandler {
 		colorize(registry, io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_LANTERN.get(), 0x49A);
 		colorize(registry, io.github.asgerjon.mcfly.registry.McFlyBlocks.SOUL_TORCH.get(), 0x49A);
 		colorize(registry, io.github.asgerjon.mcfly.registry.McFlyBlocks.SHROOMLIGHT.get(), 0xFC8);
-		colorize(registry, ModBlocks.LIT_BLAST_FURNACE.get(), 0xDCA);
-		colorize(registry, ModBlocks.LIT_SMOKER.get(), 0xDCA);
 
 		registerAmethystColor(registry, 0, 0x101);
 		registerAmethystColor(registry, 1, 0x212);

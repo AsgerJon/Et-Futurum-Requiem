@@ -69,6 +69,12 @@ public final class McFlySounds {
 		// the boats' paddles (spec 91.12; EFR listed them as players')
 		EVENTS.put("entity.boat.paddle_land", "neutral");
 		EVENTS.put("entity.boat.paddle_water", "neutral");
+		// the smoker's and blast furnace's (spec 92.3; EFR's list had them)
+		EVENTS.put("block.smoker.smoke", "block");
+		EVENTS.put("block.blastfurnace.fire_crackle", "block");
+		// the barrel's (spec 92.4)
+		EVENTS.put("block.barrel.open", "block");
+		EVENTS.put("block.barrel.close", "block");
 		// the shelves' (spec 91.10)
 		for (String event : new String[]{"activate", "deactivate", "place_item", "take_item", "single_swap", "multi_swap"}) {
 			EVENTS.put("block.shelf." + event, "block");

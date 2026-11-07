@@ -50,10 +50,10 @@ public class EfrBlockStateTests extends TasTestCase {
 	}
 
 	public void testBarrel() {
-		need(ModBlocks.BARREL);
-		assertEqual(2, meta("minecraft:barrel", ModBlocks.BARREL.get()), "the barrel's default (north)");
-		assertEqual(8, meta("minecraft:barrel[facing=down,open=true]", ModBlocks.BARREL.get()), "down, open");
-		assertFound(ModBlocks.BARREL.get(), 9, "facing", "up", "open", "true");
+		need(McFlyBlocks.BARREL);
+		assertEqual(2, meta("minecraft:barrel", McFlyBlocks.BARREL.get()), "the barrel's default (north)");
+		assertEqual(8, meta("minecraft:barrel[facing=down,open=true]", McFlyBlocks.BARREL.get()), "down, open");
+		assertFound(McFlyBlocks.BARREL.get(), 9, "facing", "up", "open", "true");
 	}
 
 	public void testWorkstations() {

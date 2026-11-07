@@ -195,6 +195,12 @@ public final class McFlyConfig {
 	public static boolean enableQuartzBricks;
 	public static boolean enableNetherite;
 	public static boolean enableSmithingTable;
+	// the workstations (spec §92), EFR's options
+	public static boolean enableSmoker;
+	public static boolean enableBlastFurnace;
+	public static boolean enableAutoAddSmoker;
+	public static boolean enableAutoAddBlastFurnace;
+	public static boolean enableBarrel;
 	public static boolean enableChain;
 	public static boolean enableLantern;
 	public static boolean enableSoulLighting;
@@ -341,6 +347,11 @@ public final class McFlyConfig {
 		FROM_EFR.put("enableQuartzBricks", new String[] {"blocksitems", "misc blocks"});
 		FROM_EFR.put("enableNetherite", new String[] {"blocksitems", "natural blocks"});
 		FROM_EFR.put("enableSmithingTable", new String[] {"blocksitems", "function blocks"});
+		FROM_EFR.put("enableSmoker", new String[] {"blocksitems", "function blocks"});
+		FROM_EFR.put("enableBlastFurnace", new String[] {"blocksitems", "function blocks"});
+		FROM_EFR.put("enableAutoAddSmoker", new String[] {"functions", "settings"});
+		FROM_EFR.put("enableAutoAddBlastFurnace", new String[] {"functions", "settings"});
+		FROM_EFR.put("enableBarrel", new String[] {"blocksitems", "function blocks"});
 		FROM_EFR.put("enableChain", new String[] {"blocksitems", "misc blocks"});
 		FROM_EFR.put("enableLantern", new String[] {"blocksitems", "misc blocks"});
 		FROM_EFR.put("enableSoulLighting", new String[] {"blocksitems", "natural blocks"});
@@ -806,6 +817,11 @@ public final class McFlyConfig {
 		enableLantern = c.getBoolean("enableLantern", BLOCKS, true, "Lanterns as 26.3's: standing or hanging by where you look, held by what supports the middle of a face (fences, walls, chains too).");
 		enableSoulLighting = c.getBoolean("enableSoulLighting", BLOCKS, true, "The soul torch and soul lantern as 26.3's: light 10, soul fire flames.");
 		enableSmithingTable = c.getBoolean("enableSmithingTable", BLOCKS, true, "The smithing table as 26.3's: the netherite upgrade (template, diamond gear, ingot), keeping the gear's damage, enchantments and name.");
+		enableSmoker = c.getBoolean("enableSmoker", BLOCKS, true, "The smoker as 26.3's: food cooked in 100 ticks, fuel lasting half as long, 26.3's smoking recipes, experience kept until taken, hoppers by face.");
+		enableBlastFurnace = c.getBoolean("enableBlastFurnace", BLOCKS, true, "The blast furnace as 26.3's: ores, raw metals and metal gear in 100 ticks, fuel lasting half as long, 26.3's blasting recipes.");
+		enableAutoAddSmoker = c.getBoolean("enableAutoAddSmoker", BLOCKS, true, "The smoker also cooks the furnace's foods that 26.3's list doesn't name (other mods'), as EFR did.");
+		enableAutoAddBlastFurnace = c.getBoolean("enableAutoAddBlastFurnace", BLOCKS, true, "The blast furnace also takes the furnace's ores and metals that 26.3's list doesn't name (other mods', by ore names: ore, raw, cluster, crushed to ingot, nugget), as EFR did.");
+		enableBarrel = c.getBoolean("enableBarrel", BLOCKS, true, "The barrel as 26.3's: 27 slots, placed facing where you look, open while anyone looks in (its sounds at the lid), its name kept when broken.");
 		enableNetherite = c.getBoolean("enableNetherite", BLOCKS, true, "Netherite as 26.3's: ancient debris smelted to scrap, the ingot, the block, the tools and armour (fire resistant: lava and fire don't burn them, fire doesn't wear the armour).");
 		enableSpectatorMode = c.getBoolean("enableSpectatorMode", PLAYER, true, "Spectator mode (/gamemode spectator, sp or 3): flying through blocks unseen, touching nothing, looking into containers without changing them, following an entity by attacking it.");
 		enableShulkerBoxes = c.getBoolean("enableShulkerBoxes", BLOCKS, true, "Shulker boxes as 26.3's: 27 slots that keep their contents when broken, dyed in the grid, washed in a cauldron, placed by dispensers, broken by pistons.");

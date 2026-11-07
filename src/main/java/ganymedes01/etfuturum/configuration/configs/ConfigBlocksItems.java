@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraftforge.common.config.Property;
 
@@ -42,11 +41,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCryingObsidian;
 	public static boolean enableBrewingStands;
 	public static boolean enableColourfulBeacons;
-	public static boolean enableBarrel;
 	public static boolean enableCoopersMallet;
 	public static boolean enableLantern;
-	public static boolean enableSmoker;
-	public static boolean enableBlastFurnace;
 	public static boolean enableBarrier;
 	public static boolean enableLightBlock;
 	public static boolean enableNetherGold;
@@ -57,7 +53,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableSweetBerryBushes;
 	public static boolean enableLavaCauldrons;
 	public static boolean enableNewNetherBricks;
-	public static boolean enableNetherwartBlock;
 	public static boolean enableMagmaBlock;
 	public static boolean enableNetherite;
 	public static boolean enableBoneBlock;
@@ -97,10 +92,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableBubbleColumns;
 
 	public static boolean enableChain;
-	public static boolean enableBlackstone;
-	public static boolean enableBasalt;
-	public static boolean enableSoulSoil;
-	public static boolean enableSoulLighting;
 
 	// Wilds Update
 
@@ -112,7 +103,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
 
-	public static boolean woodVariants;
 
 	public static final String catBlockNatural = "natural blocks";
 	public static final String catBlockFunc = "function blocks";
@@ -148,7 +138,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableGrassPath = getBoolean("enableGrassPath", catBlockNatural, true, "");
 		enableCryingObsidian = getBoolean("enableCryingObsidian", catBlockNatural, true, "");
 		enableNewNetherBricks = getBoolean("enableRedNetherBricks", catBlockMisc, true, "Note: Also enables cracked and chiseled nether bricks as they use this ID too");
-		enableNetherwartBlock = getBoolean("enableNetherwartBlock", catBlockNatural, true, "");
 		enableNetherite = getBoolean("enableNetherite", catBlockNatural, true, "");
 		enableMagmaBlock = getBoolean("enableMagmaBlock", catBlockNatural, true, "");
 		enableBoneBlock = getBoolean("enableBoneBlock", catBlockNatural, true, "");
@@ -161,34 +150,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslate = getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 //		enableMoss = getBoolean("enableMoss", catBlockNatural, true, "Enables moss blocks and carpets");
-//		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");
-//		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed.");
-		enableBlackstone = getBoolean("enableBlackstone", catBlockMisc, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
-		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
-		enableSoulLighting = getBoolean("enableSoulLighting", catBlockNatural, true, "Soul torches and soul lanterns.");
-		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
-		if (ConfigExperiments.enableCrimsonBlocks) {
-			enableNetherwartBlock = true;
-		}
-
-		boolean masterNetherToggle = getBoolean("masterNetherToggle", catBlockNatural, true,
-				"NOTE: Currently the content below is referring to some things which are behind an experimental toggle." +
-						"\nAdditionally the new nether is NOT compatible with Netherlicious yet. The comment below refers to the plans for when the features below are complete." +
-						"\n" +
-						"Set this to false to easily turn off all Nether blocks. This also turns off all Nether biomes because they require the blocks to generate.\n" +
-						"My biomes have compat with Netherlicious (read world.cfg for more info) but if you don't want any compat or EFR Nether stuff at all turn this off.\n" +
-						"This disables the following toggles: enableCrimsonBlocks, enableWarpedBlocks, enableBlackstone, enableSoulSoil, enableSoulLighting and enableBasalt.\n" +
-						"Amethyst geodes use smooth basalt so go to world.cfg to change the outer block to something else or they won't generate.\n" +
-						"This also turns off Nether wart blocks even though they are older, because Netherlicious also has those.");
-
-		if (!masterNetherToggle) {
-			ConfigExperiments.enableCrimsonBlocks = ConfigExperiments.enableWarpedBlocks = enableNetherwartBlock = enableBlackstone = enableSoulSoil = enableSoulLighting = enableBasalt = false;
-		}
-
-//		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
-
-		// Check if we enable wood variants at all. Used by blocks where all the wood is 1 ID
-		woodVariants = ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks || ConfigExperiments.enableMangroveBlocks || io.github.asgerjon.mcfly.config.McFlyConfig.enableCherryBlocks || io.github.asgerjon.mcfly.config.McFlyConfig.enableBambooBlocks;
 
 //		enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 
@@ -196,10 +157,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSponge = getBoolean("enableSponge", catBlockFunc, true, "");
 		enableBubbleColumns = getBoolean("enableBubbleColumns", catBlockFunc, true, "Bubble columns generated by soul sand (upward) and magma blocks (downward) underwater.");
 		enableSlimeBlock = getBoolean("enableSlimeBlock", catBlockFunc, true, "Just bouncy, does not pull blocks.");
-		enableBarrel = getBoolean("enableBarrel", catBlockFunc, true, "");
 		enableCoopersMallet = getBoolean("enableCoopersMallet", catBlockFunc, true, "Adds a mallet that converts a chest into a barrel in place, and back, keeping the inventory. Requires enableBarrel.");
-		enableSmoker = getBoolean("enableSmoker", catBlockFunc, true, "Will attempt to seek and auto-add recipes to itself. Look at ConfigFunctions.cfg \"autoAddSmoker\" for more info.\nCompatible with CraftTweaker. In the same way that you'd use furnace.addRecipe or furnace.remove, you can use \"mods.etfuturum.smoker\" instead of \"furnace\".");
-		enableBlastFurnace = getBoolean("enableBlastFurnace", catBlockFunc, true, "Will attempt to seek and auto-add recipes to itself. Look at ConfigFunctions.cfg \"autoAddBlastFurance\" for more info.\nCompatible with CraftTweaker. In the same way that you'd use furnace.addRecipe or furnace.remove, you can use \"mods.etfuturum.blastFurnace\" instead of \"furnace\".");
 		enableLavaCauldrons = getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
 		enablePotionCauldron = getBoolean("enablePotionCauldron", catBlockFunc, true, "A port of potion cauldrons from Bedrock Edition. Used to make tipped arrows and store potions.");
 		//Note the above option has an extra check in preInit to ensure Iron Chests is loaded. We can't do this here because Loader doesn't even exist yet since we initialize these configs while Mixins and ASM are being applied.
@@ -305,8 +263,5 @@ public class ConfigBlocksItems extends ConfigBase {
 
 	@Override
 	protected void initValues() {
-		if (!ModsList.IRON_CHEST.isLoaded()) {
-			ConfigModCompat.barrelIronChest = false;
-		}
 	}
 }

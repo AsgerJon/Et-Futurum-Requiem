@@ -203,7 +203,7 @@ public class EtFuturum {
 		public Item getTabIconItem() {
 			return io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_BLOCK.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.COPPER_BLOCK.getItem()
 					: io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.CHERRY_LOG.getItem()
-					: ModBlocks.SMOKER.isEnabled() ? ModBlocks.SMOKER.getItem()
+					: ModBlocks.COMPOSTER.isEnabled() ? ModBlocks.COMPOSTER.getItem()
 					: io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.isEnabled() ? io.github.asgerjon.mcfly.registry.McFlyBlocks.CHORUS_FLOWER.getItem()
 					: Item.getItemFromBlock(Blocks.ender_chest);
 		}
@@ -1038,8 +1038,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.note_block.iron_xylophone", "record");
 		config.addSoundEvent(ver, "block.note_block.xylophone", "record");
 
-		config.addSoundEvent(ver, "block.barrel.open", "block");
-		config.addSoundEvent(ver, "block.barrel.close", "block");
 		config.addSoundEvent(ver, "block.chorus_flower.grow", "block");
 		config.addSoundEvent(ver, "block.chorus_flower.death", "block");
 		config.addSoundEvent(ver, "block.end_portal.spawn", "ambient");
@@ -1049,8 +1047,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.sweet_berry_bush.pick_berries", "player");
 		config.addSoundEvent(ver, "block.brewing_stand.brew", "block");
 		config.addSoundEvent(ver, "block.furnace.fire_crackle", "block");
-		config.addSoundEvent(ver, "block.blastfurnace.fire_crackle", "block");
-		config.addSoundEvent(ver, "block.smoker.smoke", "block");
 		config.addSoundEvent(ver, "block.chest.close", "block");
 		config.addSoundEvent(ver, "block.ender_chest.open", "block");
 		config.addSoundEvent(ver, "block.ender_chest.close", "block");

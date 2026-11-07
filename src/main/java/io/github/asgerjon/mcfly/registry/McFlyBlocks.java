@@ -597,6 +597,13 @@ public enum McFlyBlocks {
 	SCULK_SHRIEKER(McFlyConfig.enableSculk, new io.github.asgerjon.mcfly.sculk.SculkShriekerBlock()),
 	// the smithing table (spec §88.4, step C2)
 	SMITHING_TABLE(McFlyConfig.enableSmithingTable, new io.github.asgerjon.mcfly.smithing.SmithingTableBlock()),
+	// the smoker and blast furnace (spec 92.3), EFR's ids; lit is a block of its own, with no item
+	SMOKER(McFlyConfig.enableSmoker, new io.github.asgerjon.mcfly.workstation.CookerBlock(io.github.asgerjon.mcfly.workstation.CookerBlock.Kind.SMOKER, false)),
+	LIT_SMOKER(McFlyConfig.enableSmoker, new io.github.asgerjon.mcfly.workstation.CookerBlock(io.github.asgerjon.mcfly.workstation.CookerBlock.Kind.SMOKER, true), false),
+	BLAST_FURNACE(McFlyConfig.enableBlastFurnace, new io.github.asgerjon.mcfly.workstation.CookerBlock(io.github.asgerjon.mcfly.workstation.CookerBlock.Kind.BLAST_FURNACE, false)),
+	LIT_BLAST_FURNACE(McFlyConfig.enableBlastFurnace, new io.github.asgerjon.mcfly.workstation.CookerBlock(io.github.asgerjon.mcfly.workstation.CookerBlock.Kind.BLAST_FURNACE, true), false),
+	// the barrel (spec 92.4), EFR's id
+	BARREL(McFlyConfig.enableBarrel, new io.github.asgerjon.mcfly.workstation.BarrelBlock()),
 	// the observer (spec §86), under EFR's id
 	OBSERVER(McFlyConfig.enableObservers, new io.github.asgerjon.mcfly.redstone.ObserverBlock()),
 	// the end gateway (spec §76.10, §84): its item kept (old saves' registries list it), in no tab
@@ -650,6 +657,17 @@ public enum McFlyBlocks {
 		GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.wood.Trapdoors.Tile.class, io.github.asgerjon.mcfly.McFly.name("trapdoor"));
 		if (BANNER.enabled) {
 			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.banner.BannerBlockEntity.class, io.github.asgerjon.mcfly.McFly.name("banner"));
+		}
+		// the smoker's and blast furnace's (spec 92.3), EFR's ids
+		if (SMOKER.enabled) {
+			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.workstation.CookerTile.Smoker.class, io.github.asgerjon.mcfly.McFly.name("smoker"));
+		}
+		if (BLAST_FURNACE.enabled) {
+			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.workstation.CookerTile.BlastFurnace.class, io.github.asgerjon.mcfly.McFly.name("blast_furnace"));
+		}
+		// the barrel's (spec 92.4), EFR's id
+		if (BARREL.enabled) {
+			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.workstation.BarrelTile.class, io.github.asgerjon.mcfly.McFly.name("barrel"));
 		}
 		if (SHULKER_BOX.enabled) {
 			GameRegistry.registerTileEntity(io.github.asgerjon.mcfly.shulkerbox.ShulkerBoxBlockEntity.class, io.github.asgerjon.mcfly.McFly.name("shulker_box"));

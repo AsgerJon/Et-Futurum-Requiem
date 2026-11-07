@@ -167,7 +167,7 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(ModBlocks.DAYLIGHT_DETECTOR.newItemStack(), new AspectList(new ItemStack(Blocks.daylight_detector)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.ENCHANTMENT_TABLE.newItemStack(), new AspectList(new ItemStack(Blocks.enchanting_table)));ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.ANVIL.get()), new AspectList(new ItemStack(Blocks.anvil)));
 		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.IRON_TRAPDOOR.newItemStack(), new AspectList().add(Aspect.METAL, 12).add(Aspect.MECHANISM, 2).add(Aspect.MOTION, 1));
-		ThaumcraftApi.registerObjectTag(ModBlocks.BARREL.newItemStack(), new AspectList(new ItemStack(Blocks.chest)));
+		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.BARREL.newItemStack(), new AspectList(new ItemStack(Blocks.chest)));
 		ThaumcraftApi.registerObjectTag(ModBlocks.COMPOSTER.newItemStack(), new AspectList().add(Aspect.TREE, 5).add(Aspect.EXCHANGE, 2));
 		ThaumcraftApi.registerObjectTag(io.github.asgerjon.mcfly.registry.McFlyBlocks.SMITHING_TABLE.newItemStack(), new AspectList().add(Aspect.CRAFT, 4).add(Aspect.METAL, 2).add(Aspect.TREE, 4));
 		ThaumcraftApi.registerObjectTag(McFlyBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CLOTH, 6).add(Aspect.CRAFT, 4).add(Aspect.SENSES, 2));

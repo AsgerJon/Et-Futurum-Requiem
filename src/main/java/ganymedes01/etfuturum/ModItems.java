@@ -16,7 +16,6 @@ import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.items.DebugTestItem;
 import ganymedes01.etfuturum.items.ItemArmorStand;
 import ganymedes01.etfuturum.items.ItemCoopersMallet;
-import ganymedes01.etfuturum.items.ItemBarrelUpgrade;
 import ganymedes01.etfuturum.items.ItemBeetrootSeeds;
 import ganymedes01.etfuturum.items.ItemBeetrootSoup;
 import ganymedes01.etfuturum.items.ItemEtFuturumRecord;
@@ -61,8 +60,7 @@ public enum ModItems {
 	LAVA_CHICKEN_RECORD(ConfigBlocksItems.enableLavaChicken, new ItemEtFuturumRecord("lava_chicken")),
 	FIVE_RECORD(ConfigBlocksItems.enable5, new ItemEtFuturumRecord("5")),
 	DISC_FRAGMENT_5(ConfigBlocksItems.enable5, new BaseItem("disc_fragment_5", true)),
-	BARREL_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.barrelIronChest, new ItemBarrelUpgrade()),
-	COOPERS_MALLET(ConfigBlocksItems.enableBarrel && ConfigBlocksItems.enableCoopersMallet, new ItemCoopersMallet()),
+	COOPERS_MALLET(io.github.asgerjon.mcfly.config.McFlyConfig.enableBarrel && ConfigBlocksItems.enableCoopersMallet, new ItemCoopersMallet()),
 	HONEYCOMB(ConfigBlocksItems.enableHoney, new BaseItem("honeycomb")),
 	HONEY_BOTTLE(ConfigBlocksItems.enableHoney, new ItemHoneyBottle()),
 

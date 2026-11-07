@@ -2,8 +2,6 @@ package io.github.asgerjon.mcfly.smithing;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.lib.GUIIDs;
 import io.github.asgerjon.mcfly.base.McFlyBlock;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -31,7 +29,7 @@ public class SmithingTableBlock extends McFlyBlock {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			player.openGui(EtFuturum.instance, GUIIDs.SMITHING_TABLE, world, x, y, z);
+			io.github.asgerjon.mcfly.base.McFlyGuis.open(player, io.github.asgerjon.mcfly.base.McFlyGuis.SMITHING_TABLE, world, x, y, z);
 		}
 		return true;
 	}

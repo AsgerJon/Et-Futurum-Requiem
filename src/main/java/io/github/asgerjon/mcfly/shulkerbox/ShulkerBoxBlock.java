@@ -2,8 +2,6 @@ package io.github.asgerjon.mcfly.shulkerbox;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.lib.GUIIDs;
 import io.github.asgerjon.mcfly.McFly;
 import io.github.asgerjon.mcfly.registry.McFlyTab;
 import net.minecraft.block.Block;
@@ -112,7 +110,7 @@ public class ShulkerBoxBlock extends BlockContainer {
 		}
 		ShulkerBoxBlockEntity box = box(world, x, y, z);
 		if (box != null && canOpen(world, x, y, z, box)) {
-			player.openGui(EtFuturum.instance, GUIIDs.SHULKER_BOX, world, x, y, z);
+			io.github.asgerjon.mcfly.base.McFlyGuis.open(player, io.github.asgerjon.mcfly.base.McFlyGuis.SHULKER_BOX, world, x, y, z);
 		}
 		return true;
 	}

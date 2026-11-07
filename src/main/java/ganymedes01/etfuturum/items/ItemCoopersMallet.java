@@ -3,15 +3,13 @@ package ganymedes01.etfuturum.items;
 import com.github.bsideup.jabel.Desugar;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.BlockBarrel;
+import io.github.asgerjon.mcfly.workstation.BarrelBlock;
+import io.github.asgerjon.mcfly.workstation.BarrelTile;
 import ganymedes01.etfuturum.compat.CompatBackhand;
 import ganymedes01.etfuturum.compat.CompatIronChest;
 import ganymedes01.etfuturum.compat.ModsList;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -89,9 +87,9 @@ public class ItemCoopersMallet extends BaseItem {
 		return false;
 	}
 
-	/** Barrel metadata packs the facing into the low bits, the rest is the open state. */
+	/** Barrel metadata packs the facing into the low bits, the rest is the open state (McFly's barrel, spec 92.4). */
 	public static int barrelFacing(int meta) {
-		return BlockPistonBase.getPistonOrientation(meta);
+		return BarrelBlock.facing(meta);
 	}
 
 	/** The container already in the world. */
@@ -110,8 +108,9 @@ public class ItemCoopersMallet extends BaseItem {
 		int meta = world.getBlockMetadata(x, y, z);
 		ItemStack drop = new ItemStack(block, 1, block.damageDropped(meta));
 
-		if (te instanceof TileEntityBarrel barrel) {
-			return barrel.numPlayersUsing != 0 ? null : new Existing(barrel, barrelFacing(meta), drop);
+		if (te instanceof BarrelTile barrel) {
+			// open while anyone looks in (26.3's openers, in its meta)
+			return BarrelBlock.open(meta) ? null : new Existing(barrel, barrelFacing(meta), drop);
 		}
 
 		if (te instanceof TileEntityChest chest && block == Blocks.chest) {
@@ -132,8 +131,8 @@ public class ItemCoopersMallet extends BaseItem {
 			return new Replacement(block, 0, new TileEntityChest());
 		}
 
-		if (block instanceof BlockBarrel barrel) {
-			return new Replacement(block, facing, new TileEntityBarrel(barrel.getType()));
+		if (block instanceof BarrelBlock) {
+			return new Replacement(block, facing, new BarrelTile());
 		}
 
 		if (ironChestEnabled()) {
@@ -264,15 +263,16 @@ public class ItemCoopersMallet extends BaseItem {
 
 	/** Iron chests have no custom name, so it is dropped there. */
 	private static void setName(TileEntity tile, String name) {
-		if (tile instanceof TileEntityBarrel barrel) {
+		if (tile instanceof BarrelTile barrel) {
 			barrel.setCustomName(name);
 		} else if (tile instanceof TileEntityChest chest) {
 			chest.func_145976_a(name);
 		}
 	}
 
+	/** Iron Chests' chests (its barrels went with EFR's barrel, spec 92.4). */
 	private static boolean ironChestEnabled() {
-		return ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.barrelIronChest;
+		return ModsList.IRON_CHEST.isLoaded();
 	}
 
 	private static boolean hasAdjacentChest(World world, int x, int y, int z) {

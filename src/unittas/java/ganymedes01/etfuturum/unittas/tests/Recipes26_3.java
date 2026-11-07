@@ -94,7 +94,18 @@ final class Recipes26_3 {
 	private static String tryOne(String name, String kind, String[] parts, int arrow, ItemStack want, int alternative, World world) {
 		ItemStack got;
 		try {
-			if ("smelting".equals(kind)) {
+			if ("smoking".equals(kind) || "blasting".equals(kind)) {
+				// McFly's tables (spec 92.3), by name: their kind's result and experience for one ingredient
+				Object[] cooked = cooked(kind, stack(pick(parts[2], alternative), 1));
+				if (cooked == null) {
+					return name + ": no McFly cooking tables";
+				}
+				got = (ItemStack) cooked[0];
+				float experience = (Float) cooked[1];
+				if (got != null && Math.abs(experience - Float.parseFloat(parts[arrow + 3])) > 0.01F) {
+					return name + ": experience " + experience;
+				}
+			} else if ("smelting".equals(kind)) {
 				got = FurnaceRecipes.smelting().getSmeltingResult(stack(pick(parts[2], alternative), 1));
 				float experience = FurnaceRecipes.smelting().func_151398_b(want);
 				if (got != null && Math.abs(experience - Float.parseFloat(parts[arrow + 3])) > 0.01F) {
@@ -139,6 +150,21 @@ final class Recipes26_3 {
 			return name + with + ": " + got.stackSize + " " + nameOf(got);
 		}
 		return null;
+	}
+
+	/**
+	 * McFly's smoking or blasting result and experience for one ingredient (`workstation.CookingRecipes.result` and
+	 * `experience`, by reflection so this compiles without them); null when McFly has no such tables.
+	 */
+	static Object[] cooked(String kind, ItemStack input) {
+		try {
+			Class<?> tables = Class.forName("io.github.asgerjon.mcfly.workstation.CookingRecipes");
+			Object result = tables.getMethod("result", String.class, ItemStack.class).invoke(null, kind, input);
+			Object experience = tables.getMethod("experience", String.class, ItemStack.class).invoke(null, kind, input);
+			return new Object[]{result, experience};
+		} catch (ReflectiveOperationException e) {
+			return null;
+		}
 	}
 
 	/** An ingredient's alternative: the last one when it has fewer. */

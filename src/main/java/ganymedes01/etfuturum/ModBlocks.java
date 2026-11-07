@@ -11,12 +11,10 @@ import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.BaseStairs;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.blocks.BaseWall;
-import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBarrier;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
-import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockBone;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
@@ -47,7 +45,6 @@ import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
 import ganymedes01.etfuturum.blocks.BlockSeaLantern;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSlime;
-import ganymedes01.etfuturum.blocks.BlockSmoker;
 import ganymedes01.etfuturum.blocks.BlockSponge;
 import ganymedes01.etfuturum.blocks.BlockStonecutter;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
@@ -57,7 +54,6 @@ import ganymedes01.etfuturum.blocks.itemblocks.BaseLeavesItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BasePotableItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSlabItemBlock;
 import ganymedes01.etfuturum.blocks.itemblocks.BaseSubtypesPotableItemBlock;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBarrel;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDyedBed;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockDeepslateAdamantiumOre;
@@ -85,7 +81,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -155,10 +150,6 @@ public enum ModBlocks {
 
 
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
-	SMOKER(ConfigBlocksItems.enableSmoker, new BlockSmoker(false)),
-	LIT_SMOKER(ConfigBlocksItems.enableSmoker, new BlockSmoker(true), null),
-	BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(false)),
-	LIT_BLAST_FURNACE(ConfigBlocksItems.enableBlastFurnace, new BlockBlastFurnace(true), null),
 	COMPOSTER(ConfigBlocksItems.enableComposter, new BlockComposter()),
 	STONECUTTER(ConfigBlocksItems.enableStonecutter, new BlockStonecutter(), ItemBlockDecorationWorkbench.class),
 	FLETCHING_TABLE(ConfigBlocksItems.enableFletchingTable, new BlockFletchingTable(), ItemBlockDecorationWorkbench.class),
@@ -179,18 +170,7 @@ public enum ModBlocks {
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
 	BUBBLE_COLUMN(ConfigBlocksItems.enableBubbleColumns, new BlockBubbleColumn(new Block[]{Blocks.soul_sand}, new Block[]{MAGMA.get()}), null),
 
-	// barrels + iron barrels
-	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel(TileEntityBarrel.BarrelType.VANILLA), ItemBlockBarrel.class),
-	IRON_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.IRON), ItemBlockBarrel.class),
-	GOLD_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.GOLD), ItemBlockBarrel.class),
-	DIAMOND_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DIAMOND), ItemBlockBarrel.class),
-	COPPER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.COPPER), ItemBlockBarrel.class),
-	SILVER_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.SILVER), ItemBlockBarrel.class),
-	STEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.STEEL), ItemBlockBarrel.class),
-	OBSIDIAN_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.OBSIDIAN), ItemBlockBarrel.class),
-	DARKSTEEL_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.DARKSTEEL), ItemBlockBarrel.class),
-	NETHERITE_BARREL(ModsList.IRON_CHEST.isLoaded() && ConfigBlocksItems.enableBarrel && ConfigModCompat.barrelIronChest, new BlockBarrel(TileEntityBarrel.BarrelType.NETHERITE), ItemBlockBarrel.class),
-
+	// the barrel is McFly's (spec 92.4); Iron Chests' metal barrels are gone
 
 	PINK_PETALS(io.github.asgerjon.mcfly.config.McFlyConfig.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
 	//new wood logs

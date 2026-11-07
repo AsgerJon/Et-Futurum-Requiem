@@ -10,20 +10,6 @@ public class IMCSenderGTNH {
 
 	public static void IMCSender() {
 
-		if (ModBlocks.SMOKER.isEnabled()) {
-			sendHandler("ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler", "etfuturum:smoker");
-			sendCatalyst("etfuturum.smoker", "etfuturum:smoker");
-
-			sendCatalyst("fuel", "etfuturum:smoker");
-		}
-
-		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
-			sendHandler("ganymedes01.etfuturum.compat.nei.BlastFurnaceRecipeHandler", "etfuturum:blast_furnace");
-			sendCatalyst("etfuturum.blastfurnace", "etfuturum:blast_furnace");
-
-			sendCatalyst("fuel", "etfuturum:blast_furnace");
-		}
-
 		if (McFlyBlocks.BANNER.isEnabled()) {
 		}
 

@@ -106,6 +106,8 @@ public final class McFly {
 		io.github.asgerjon.mcfly.wood.Bamboo.register();
 		// the boats (spec 91.12): their recipes, ore names, dispensers, vanilla's boat as oak's
 		io.github.asgerjon.mcfly.boat.BoatTypes.register();
+		// the workstations (spec §92): their crafting
+		io.github.asgerjon.mcfly.workstation.Workstations.register();
 		// the End's blocks' recipes (spec §84)
 		if (McFlyConfig.enableChorusBlocks) {
 			io.github.asgerjon.mcfly.end.EndBlocks.registerRecipes();
